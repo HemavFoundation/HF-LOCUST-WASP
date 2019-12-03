@@ -8,9 +8,11 @@ router.get("/gpsPosition", (req, res) => {
   //   res.send(results);
   // });
 
-  PythonShell.run('./telemetry.py',null,function(err){
+  PythonShell.run('./telemetry.py',null,function(err,results){
     if (err) throw err;
-    console.log('finished');
+    var telemetry = results;
+
+    res.send(telemetry);
   });
 
 

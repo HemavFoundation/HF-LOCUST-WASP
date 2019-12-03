@@ -8,9 +8,9 @@ router.get("/", (req, res) => {
   //   res.send(results);
   // });
 
-  PythonShell.run('./missionTest.py',null,function(err){
+  PythonShell.run('./missionTest.py',null,function(err, results){
     if (err) throw err;
-    console.log('finished');
+    console.log(results);
   });
 
 
