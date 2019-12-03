@@ -7,13 +7,14 @@ from pymavlink import mavutil
 
 
 #Set up option parsing to get connection string
-import argparse  
-parser = argparse.ArgumentParser(description='Demonstrates basic mission operations.')
-parser.add_argument('--connect', 
-                   help="vehicle connection target string. If not specified, SITL automatically started and used.")
-args = parser.parse_args()
+# import argparse  
+# parser = argparse.ArgumentParser(description='Demonstrates basic mission operations.')
+# parser.add_argument('--connect', 
+#                    help="vehicle connection target string. If not specified, SITL automatically started and used.")
+# args = parser.parse_args()
 
-connection_string = args.connect
+connection_string = "/dev/ttyAMA0"
+baud_rate = 921600
 sitl = None
 
 
