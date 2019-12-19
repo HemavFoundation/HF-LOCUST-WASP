@@ -27,5 +27,13 @@ app.listen(app.get('port'), () => {
 });
 
 app.get('/*', (req, res) => {
-    res.sendFile(path.join(___dirname));
+    res.sendFile(path.join(___dirname + '/public'));
+});
+
+app.get('/planner', (req, res) => {
+    res.sendFile(path.join(___dirname + '/public/flightPlanner.html'));
+});
+
+app.get('/results', (req, res) => {
+    res.sendFile(path.join(___dirname + '/public/flightResults.html'));
 });
