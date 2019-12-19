@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
 const morgan = require('morgan');
+const path = require('path');
+
+const ___dirname = path.resolve();
 
 // settings
 app.set('port', process.env.PORT || 9000);
@@ -14,10 +17,15 @@ app.use(express.urlencoded({extended: false}));
 // routes
 app.use("/api/startFlight", require("./routes/startFlight"));
 app.use("/api/endFlight", require("./routes/endFlight"));
+app.use(express.static(___dirname + '/public'));
 
 //app.use("/api/ruta", require("./routes/ejemplo"));
 
 // starting the server
 app.listen(app.get('port'), () => {
     console.log(`Server on port ${app.get('port')}`);
+});
+
+app.get('/*', (req, res) => {
+    res.sendFile(path.join(___dirname));
 });
