@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const path = require('path');
+const cors = require('cors');
 
 const ___dirname = path.resolve();
 
@@ -13,6 +14,7 @@ app.set('json spaces',2);
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
+app.use(cors());
 
 // routes
 app.use("/api/connect", require("./routes/connect"));
