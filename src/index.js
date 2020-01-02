@@ -15,8 +15,11 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
 // routes
-app.use("/api/startFlight", require("./routes/startFlight"));
-app.use("/api/endFlight", require("./routes/endFlight"));
+app.use("/api/connect", require("./routes/connect"));
+app.use("/api/cargar", require("./routes/cargar.js"));
+app.use("/api/start", require("./routes/start"));
+app.use("/api/results", require("./routes/results"));
+
 app.use(express.static(___dirname + '/public'));
 
 //app.use("/api/ruta", require("./routes/ejemplo"));
