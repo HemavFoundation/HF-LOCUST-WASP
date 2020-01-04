@@ -12,10 +12,12 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
 // routes
-app.use("/api/startFlight", require("./routes/startFlight"));
-app.use("/api/endFlight", require("./routes/endFlight"));
+app.use("/api/connect", require("./routes/connect"));
+app.use("/api/load", require("./routes/load"));
+
 app.use("/api/telemetry", require("./routes/telemetry"));
 app.use("/api/startMission", require("./routes/startMission"));
+
 
 //app.use("/api/ruta", require("./routes/ejemplo"));
 
