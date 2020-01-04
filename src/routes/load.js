@@ -20,7 +20,7 @@ router.post("/:distance", (req, res) => {
   var options = {
     mode: "text",
     //pythonOptions: ["-u"], // get print results in real-time
-    scriptPath: "./",
+    scriptPath: "./scripts",
     args: [distance]
   };
 

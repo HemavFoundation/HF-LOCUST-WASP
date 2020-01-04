@@ -14,9 +14,7 @@ app.use(express.urlencoded({extended: false}));
 // routes
 app.use("/api/connect", require("./routes/connect"));
 app.use("/api/load", require("./routes/load"));
-
-app.use("/api/telemetry", require("./routes/telemetry"));
-app.use("/api/startMission", require("./routes/startMission"));
+app.use("/api/start", require("./routes/start"));
 
 
 //app.use("/api/ruta", require("./routes/ejemplo"));
