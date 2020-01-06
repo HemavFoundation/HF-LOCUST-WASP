@@ -43,6 +43,7 @@ def pointRadialDistance(lat1, lon1, bearing, distance):
    
 def flight(lat1, lon1, bearing, distance, spaceDistance, widthRectangle):
 
+    number = 10
     finalPoint = pointRadialDistance(lat1, lon1, bearing, (distance + 0.5))
 
     # we're going to calculate the mission, we need some space for the takeoff of the drone and this space will be 500 meters and the width of the rectangle in this case will be 500m
@@ -51,25 +52,83 @@ def flight(lat1, lon1, bearing, distance, spaceDistance, widthRectangle):
     h = (widthRectangle/2)/math.sin(deg2rad(fase))
     print(h)
     firstLocation = pointRadialDistance(lat1,lon1,(bearing + fase),h)
+
+    #takeoff
+    cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_TAKEOFF, 0, 0, 0, 0, 0, 0, 0, 0, number))
+    number += 1
+    
+    #first point
+    cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, firstLocation.lat, firstLocation.lon, number))
+    number += 1
+
+
     print(finalPoint.lat, finalPoint.lon)
     print(firstLocation.lat, firstLocation.lon)
+
+    #second point
     locationLoop = pointRadialDistance(firstLocation.lat, firstLocation.lon, bearing - 90, widthRectangle)
+    cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, locationLoop.lat, locationLoop.lon, number))
+    number += 1
+
+
     print(locationLoop.lat, locationLoop.lon)
 
     for x in range(10):
         locationLoop = pointRadialDistance(locationLoop.lat,locationLoop.lon, bearing, distance/20)
+        cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, locationLoop.lat, locationLoop.lon, number))
+        number += 1
         print (locationLoop.lat,locationLoop.lon)
+
         locationLoop = pointRadialDistance(locationLoop.lat,locationLoop.lon, bearing + 90, widthRectangle)
+        cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, locationLoop.lat, locationLoop.lon, number))
+        number += 1
         print (locationLoop.lat,locationLoop.lon)
+
         locationLoop = pointRadialDistance(locationLoop.lat,locationLoop.lon, bearing, distance/20)
+        cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, locationLoop.lat, locationLoop.lon, number))
+        number += 1
         print (locationLoop.lat,locationLoop.lon)
+
         locationLoop = pointRadialDistance(locationLoop.lat,locationLoop.lon, bearing - 90, widthRectangle)
+        cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, locationLoop.lat, locationLoop.lon, number))
+        number += 1
         print (locationLoop.lat,locationLoop.lon)
     
+    cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, lat1, lon1, number))
+    number += 1
 
-        
+
+connection_string = None
+sitl = None
+
+
+#Start SITL if no connection string specified
+if not connection_string:
+    import dronekit_sitl
+    sitl = dronekit_sitl.start_default()
+    connection_string = sitl.connection_string()
+
+
+# Connect to the Vehicle. 
+#   Set `wait_ready=True` to ensure default attributes are populated before `connect()` returns.
+#print("\nConnecting to vehicle on: %s" % connection_string)
+vehicle = connect(connection_string, wait_ready=True)
+
+# Get some vehicle attributes (state)
+cmds = vehicle.commands
+cmds.download()
+cmds.wait_ready()
     
  
-flight(18.023358,-15.944138,197,10,0.5,0.5)
+flight(vehicle.location.global_frame.lat,vehicle.location.global_frame.lon,vehicle.heading,5,0.5,0.5)
+
+print(" Upload new commands to vehicle")
+cmds.upload()
+
+# Close vehicle object before exiting script
+vehicle.close()
+
+# Shut down simulator
+sitl.stop()
 
 

@@ -24,9 +24,16 @@ router.post("/:distance", (req, res) => {
     args: [distance]
   };
 
-  PythonShell.run("load.py", options, function(err, results) {
-    if (err) throw err;
+  PythonShell.run("rectangleMission.py", options, function(err, results) {
+    if (err) {
+      res
+        .status(400)
+        .send({ message: "ERROR: Fallo el script rectangleMission.py" });
+    }
     console.log(results);
+    res
+      .status(200)
+      .send({ message: "Misión cargada correctamente!" });
   });
 });
 
