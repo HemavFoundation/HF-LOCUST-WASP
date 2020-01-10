@@ -13,6 +13,32 @@ epsilon = 0.000001 # threshold for floating-point equality
 def deg2rad(angle):
     return angle*pi/180
 
+def download_mission():
+    """
+    Downloads the current mission and returns it in a list.
+    It is used in save_mission() to get the file information to save.
+    """
+    missionlist=[]
+    cmds = vehicle.commands
+    cmds.download()
+    cmds.wait_ready()
+    for cmd in cmds:
+        missionlist.append(cmd)
+    return missionlist
+
+
+def save_mission(aFileName):
+    """
+    Save a mission in the Waypoint file format (http://qgroundcontrol.org/mavlink/waypoint_protocol#waypoint_file_format).
+    """
+    missionlist = download_mission()
+    output='QGC WPL 110\n'
+    for cmd in missionlist:
+        commandline="%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n" % (cmd.seq,cmd.current,cmd.frame,cmd.command,cmd.param1,cmd.param2,cmd.param3,cmd.param4,cmd.x,cmd.y,cmd.z,cmd.autocontinue)
+        output+=commandline
+    with open(aFileName, 'w') as file_:
+        file_.write(output)
+
 
 def rad2deg(angle):
     return angle*180/pi
@@ -70,10 +96,11 @@ def flight(lat1, lon1, bearing, distance, spaceDistance, widthRectangle):
     cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, locationLoop.lat, locationLoop.lon, number))
     number += 1
 
-
+    division = (distance / 0.250) / 2 #
+    print(division)
     print(locationLoop.lat, locationLoop.lon)
 
-    for x in range(10):
+    for x in range(int(division)):
         locationLoop = pointRadialDistance(locationLoop.lat,locationLoop.lon, bearing, distance/20)
         cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, locationLoop.lat, locationLoop.lon, number))
         number += 1
@@ -96,6 +123,8 @@ def flight(lat1, lon1, bearing, distance, spaceDistance, widthRectangle):
     
     cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, lat1, lon1, number))
     number += 1
+    
+    
 
 
 connection_string = None
@@ -116,14 +145,18 @@ vehicle = connect(connection_string, wait_ready=True)
 
 # Get some vehicle attributes (state)
 cmds = vehicle.commands
+
 cmds.download()
 cmds.wait_ready()
+
+cmds.clear()
     
  
-flight(vehicle.location.global_frame.lat,vehicle.location.global_frame.lon,vehicle.heading,5,0.5,0.5)
+flight(41.2755578,1.987257,269,5,0.5,0.5)
 
 print(" Upload new commands to vehicle")
 cmds.upload()
+save_mission('./hola')
 
 # Close vehicle object before exiting script
 vehicle.close()

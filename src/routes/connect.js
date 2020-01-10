@@ -17,7 +17,7 @@ router.get("/", (req, res) => {
     //if (err) throw err;
     if (err) {
       res.status(400).send({ message: "ERROR: Fallo el script connect.py" });
-    }
+    }else{
     location = new LocationDrone(
       results[3],
       results[4],
@@ -26,6 +26,7 @@ router.get("/", (req, res) => {
     );
 
     res.status(200).send(location);
+    }
   });
 
 });

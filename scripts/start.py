@@ -16,7 +16,7 @@ def armDrone():
         
     print("Arming motors")
     # Copter should arm in GUIDED mode
-    vehicle.mode = VehicleMode("GUIDED")
+    vehicle.mode = VehicleMode("AUTO")
     vehicle.armed = True
 
     while not vehicle.armed:      
