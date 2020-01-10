@@ -5,7 +5,10 @@ from dronekit import connect, VehicleMode, LocationGlobalRelative, LocationGloba
 import time
 import math
 from pymavlink import mavutil
+import sys
 
+
+distance = int(sys.argv[1]) / 1000
 rEarth = 6371.01 # Earth's average radius in km
 epsilon = 0.000001 # threshold for floating-point equality
 
@@ -152,7 +155,7 @@ cmds.wait_ready()
 cmds.clear()
     
  
-flight(41.2755578,1.987257,269,5,0.5,0.5)
+flight(vehicle.location.global_frame.lat,vehicle.location.global_frame.lon,vehicle.heading,distance,0.5,0.5)
 
 print(" Upload new commands to vehicle")
 cmds.upload()
