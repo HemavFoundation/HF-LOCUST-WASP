@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <script src="/jquery.js"></script>
+  <link rel="stylesheet" href="/style.css">
+  <title>Fight Planner</title>
+</head>
+
+<body id="planner">
+
+  <h1>Flight Planner</h1>
+
+  <button id="connectbut" >Connect</button>
+  <img id="photoconnection" src="" height="50" width=50>
+
+  <br>
+  Distance (meters): <input id="distancetext" type="number" value="">
+  <button disabled id="uploadbut" onclick="SetDistance();">Load</button>
+  <img id="photoupload" src="" height="50" width=50><br>
+  Maximum distance: 10000 m
+
+  <br>
+  <button disabled id="startbut" onclick="GetStatusDrone();">START </button>
+  <img id="photostart" src="" height="50" width=50>
+
+  <br>
+  <button onclick="OpenResults();" id="getresultsbut">Get results</button>
+
+  <script>
+    console.log("HEY  I'm the flight planner")
+
+      $(document).ready(function () {
+        $("#connectbut").click(function () {
+        console.log("dfghjk");
+        
+          $.ajax({
+            type: 'GET',
+			crossDomain: true,
+            url: 'http://localhost:9000/api/connect',
+            dataType: 'json',
+            success: function (data) {
+              console.log("fgfhjk")
+            }
+          })
+        });
+      });
+
+     
+
+      //var xhttp=new XMLHttpRequest();
+      //xhttp.open('GET', 'http://192.168.0.10:9000/api/connect', true);
+      //xhttp.open('GET','localhost:9000/api/start',true);
+      //xhttp.send();
+      //var numconnection = xhttp.Status();
+      //var numconnection = xhttp.getAllResponseHeaders(); //serviria XMLHttpRequest.status?
+
+      //numconnection=200;
+      //UpdatePhotoConnection(numconnection);
+    
+
+    function UpdatePhotoConnection_OK() {
+      document.getElementById("uploadbut").disabled = false;
+      document.getElementById('photoconnection').src = "connection.jpg";
+    }
+
+    function UpdatePhotoConnection_ERROR() {
+      document.getElementById("uploadbut").disabled = false;
+      document.getElementById('photoconnection').src = "noconnection.jpg";
+    }
+
+    function UpdatePhotoConnection(numconnection) {
+      console.log("hola 1");
+
+      var pic;
+      if (numconnection == 200) {
+        pic = "connection.jpg";
+        document.getElementById("uploadbut").disabled = false;
+      }
+      else {
+        pic = "noconnection.jpg";
+      }
+      document.getElementById('photoconnection').src = pic;
+    }
+
+    function SetDistance() {
+      console.log("yes 2");
+
+      var x = document.getElementById("distancetext").value;
+      if (x != "") {
+        xnum = parseFloat(x);
+        if (xnum > 10000) // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        {
+          alert("Maximum distance: 10000 m")
+        }
+        else {
+          var xhttp = new XMLHttpRequest();
+          xhttp.open('POST', 'http://192.168.0.10:9000/api/load/:distance', true);
+          xhttp.send(x);
+          var numupload = xhttp.getAllResponseHeaders(); //serviria XMLHttpRequest.status?
+
+          //numupload=200;
+          UpdatePhotoDistance(numupload);
+        }
+      }
+    }
+
+    function UpdatePhotoDistance(numupload) {
+      console.log("hola 2");
+
+      var pic;
+      if (numupload == 200) {
+        pic = "uploaded.jpg"
+        document.getElementById("startbut").disabled = false;
+      }
+      else {
+        pic = "nouploaded.jpg"
+      }
+      document.getElementById('photoupload').src = pic;
+    }
+
+    function GetStatusDrone() {
+      console.log("yes3");
+
+      var xhttp = new XMLHttpRequest();
+      xhttp.open('GET', 'http://192.168.0.10:9000/api/start', true);
+      xhttp.send();
+      var numstatusdrone = xhttp.getAllResponseHeaders(); //serviria XMLHttpRequest.status?
+
+      //numstatusdrone=200;
+      UpdatePhotoStart(numstatusdrone);
+    }
+
+    function UpdatePhotoStart(numstatusdrone) {
+      console.log("hola 3");
+
+      var pic;
+      if (numstatusdrone == 200) {
+        pic = "statusdrone.jpg"
+      }
+      else {
+        pic = "nostatusdrone.jpg"
+      }
+      document.getElementById('photostart').src = pic;
+    }
+
+    function OpenResults() {
+      console.log("hola 4");
+      //este boton siempre estara habilitado para que el usuario pueda acceder al historial
+      //de vuelos que ha hecho. 
+      //aqui se debe abrir la ventana emergente de joan y carlos para visualizar los resultados
+      window.open("http://www.google.com");
+    }
+  </script>
+
+</body>
+
+</html>

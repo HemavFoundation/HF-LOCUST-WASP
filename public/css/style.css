@@ -1,0 +1,33 @@
+h1 {
+  font-family: calibri;
+  color: rgb(107, 107, 107);
+}
+
+h3 {
+  font-family: calibri;
+  color: black;
+}
+
+button {
+  font-family: calibri;
+  color: black;
+  box-sizing: content-box;
+}
+
+table {
+  font-family: calibri;
+  color: rgb(0, 0, 0);
+  border: 1.5px solid rgb(160, 160, 160);
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1.5px solid rgb(160, 160, 160);
+  text-align: left;
+  padding: 5px;
+}
+
+tr:nth-child(even) {
+  background-color: lightblue;
+}

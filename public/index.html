@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>homeTemplate</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script>
+$(document).ready(function () {
+    $("button").click(function () {
+      $("#tabla").html(""); //primero vacio la tabla existente
+		  $("#tablacompleta").show()
+      $.ajax({
+        type: 'GET', 
+        url: 'http://localhost:9000/api/telemetry/gpsPosition',
+        dataType: 'text',
+        success: function (data) {
+          console.log("OKKKKKKKK");														
+					$("#tabla").append("<tr><td>" + data + "</td></tr>");
+			}
+		})	
+	});
+});	
+  
+  </script>
+
+</head>
+
+<body>
+  <div class="jumbotron">
+    <h1 class="display-4">Hemav Foundation: Locust</h1>
+    <p class="lead">Prueba boton GPS</p>
+  </div>
+  <button type="button" class="btn">Get GPS</button>
+
+  <div class="row">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8">
+      <h2>Drone info</h2>
+    <!-- <p>Devuelvo los repositorios del usuario solicitado:</p>             -->
+    <table id="tablacompleta" class="table table-striped">
+      <thead>
+        <tr>
+          <th>GPS position</th>
+        </tr>
+      </thead>
+      <tbody id="tabla">     
+      </tbody>
+    </table>	
+    </div>
+    <div class="col-lg-2"></div>
+  </div>
+
+</body>
+
+</html>
