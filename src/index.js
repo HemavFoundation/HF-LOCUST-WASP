@@ -37,7 +37,23 @@ app.get('/planner', (req, res) => {
     res.sendFile(path.join(___dirname + '/public/planner/flightPlanner.html'));
 });
 
-app.get('/results', (req, res) => {
+app.get('/history', (req, res) => {
+    res.sendFile(path.join(___dirname + '/public/results/History.html'));
+});
+
+app.get('/waiting.jpeg', (req, res) => {
+    res.sendFile(path.join(___dirname + '/public/planner/waiting.jpeg'));
+});
+    
+app.get('/tick.jpg', (req, res) => {
+    res.sendFile(path.join(___dirname + '/public/planner/jpg.jpeg'));
+});
+    
+app.get('/cross.jpg', (req, res) => {
+    res.sendFile(path.join(___dirname + '/public/planner/cross.jpg'));
+});
+
+app.get('/flightResults', (req, res) => {
     res.sendFile(path.join(___dirname + '/public/results/flightResults.html'));
 });
 
@@ -51,6 +67,10 @@ app.get('/planner.js', (req, res) => {
 
 app.get('/results.js', (req, res) => {
     res.sendFile(path.join(___dirname + '/public/js/results.js'));
+});
+
+app.get('/GetResults.js', (req, res) => {
+    res.sendFile(path.join(___dirname + '/public/results/GetResults.js'));
 });
 
 app.get('/style.css', (req, res) => {

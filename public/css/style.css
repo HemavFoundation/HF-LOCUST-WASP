@@ -1,20 +1,24 @@
-h1 {
+h1 
+{
   font-family: calibri;
   color: rgb(107, 107, 107);
 }
 
-h3 {
+h3 
+{
   font-family: calibri;
   color: black;
 }
 
-button {
+button 
+{
   font-family: calibri;
   color: black;
   box-sizing: content-box;
 }
 
-table {
+table 
+{
   font-family: calibri;
   color: rgb(0, 0, 0);
   border: 1.5px solid rgb(160, 160, 160);
@@ -22,12 +26,14 @@ table {
   width: 100%;
 }
 
-td, th {
+td, th 
+{
   border: 1.5px solid rgb(160, 160, 160);
   text-align: left;
   padding: 5px;
 }
 
-tr:nth-child(even) {
+tr:nth-child(even) 
+{
   background-color: lightblue;
 }
