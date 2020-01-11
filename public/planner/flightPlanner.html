@@ -4,8 +4,8 @@
 
 <head>
   <meta charset="utf-8">
-  <script src="../js/jquery.js"></script>
-  <link rel="stylesheet" href="../css/style.css">
+  <script src="/jquery.js"></script>
+  <link rel="stylesheet" href="style.css">
   <title>Fight Planner</title>
 </head>
 
@@ -37,18 +37,18 @@
 
         $("#connectbut").click(function ()        // click CONNECT
         {
-          document.getElementById('photoconnection').src = "waiting.jpeg";
+          document.getElementById('photoconnection').src = "./waiting.jpeg";
           $.ajax({
             type: 'GET',
-            url: 'http://192.168.0.10:9000/api/connect',
+            url: 'http://192.168.1.85:9000/api/connect',
             //url: 'http://localhost:9000/api/start/error', // prueba
             dataType: 'json',
             success: function(data,textStatus, xhr){
-              document.getElementById('photoconnection').src = "tick.jpg";
+              document.getElementById('photoconnection').src = "./tick.jpg";
               document.getElementById("uploadbut").disabled = false;
             },
             error: function(data,textStatus,xhr){
-              document.getElementById('photoconnection').src = "cross.jpg";
+              document.getElementById('photoconnection').src = "./cross.jpg";
             },
           })
         });
@@ -107,7 +107,7 @@
 
         $("#getresultsbut").click(function()      // click GET RESULTS
         {
-          window.open("../results/History.html"); 
+          window.open("./history"); 
         })
 
     });
