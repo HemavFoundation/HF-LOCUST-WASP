@@ -19,7 +19,7 @@
   <br>
   Distance (meters): <input id="distancetext" type="number" value="">
   <button disabled id="uploadbut">Load</button>
-  <img id="photoupload" src="" height="50" width=50><br>
+  <img id="photoupload" src="" height="50" width=50><br> 
   Maximum distance: 10000 m   
 
   <br>
@@ -40,8 +40,8 @@
           document.getElementById('photoconnection').src = "waiting.jpeg";
           $.ajax({
             type: 'GET',
-            //url: '192.168.0.10:9000/api/connect',
-            url: 'http://localhost:9000/api/start/error',
+            url: 'http://192.168.0.10:9000/api/connect',
+            //url: 'http://localhost:9000/api/start/error', // prueba
             dataType: 'json',
             success: function(data,textStatus, xhr){
               document.getElementById('photoconnection').src = "tick.jpg";
@@ -107,7 +107,7 @@
 
         $("#getresultsbut").click(function()      // click GET RESULTS
         {
-          window.open("http://www.google.com"); // LINK RESULTS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          window.open("../results/History.html"); 
         })
 
     });
