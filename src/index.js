@@ -46,7 +46,7 @@ app.get('/waiting.jpeg', (req, res) => {
 });
     
 app.get('/tick.jpg', (req, res) => {
-    res.sendFile(path.join(___dirname + '/public/planner/jpg.jpeg'));
+    res.sendFile(path.join(___dirname + '/public/planner/tick.jpg'));
 });
     
 app.get('/cross.jpg', (req, res) => {
