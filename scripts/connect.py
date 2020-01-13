@@ -16,7 +16,7 @@ import time
 
 
 
-connection_string = "ttyS0"
+connection_string = "/dev/ttyS0"
 sitl = None
 
 
