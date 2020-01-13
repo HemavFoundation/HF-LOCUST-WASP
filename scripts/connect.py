@@ -16,7 +16,7 @@ import time
 
 
 
-connection_string = None
+connection_string = "ttyS0"
 sitl = None
 
 
@@ -30,7 +30,7 @@ if not connection_string:
 # Connect to the Vehicle. 
 #   Set `wait_ready=True` to ensure default attributes are populated before `connect()` returns.
 #print("\nConnecting to vehicle on: %s" % connection_string)
-vehicle = connect(connection_string, wait_ready=True)
+vehicle = connect(connection_string, baud=921600, wait_ready=True)
 
 # Get some vehicle attributes (state)
 cmds = vehicle.commands

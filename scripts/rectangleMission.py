@@ -83,7 +83,7 @@ def flight(lat1, lon1, bearing, distance, spaceDistance, widthRectangle):
     firstLocation = pointRadialDistance(lat1,lon1,(bearing + fase),h)
 
     #takeoff
-    cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_TAKEOFF, 0, 0, 0, 0, 0, 0, 0, 0, number))
+    cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_TAKEOFF, 0, 0, 0, 0, 0, 0, 0, 0, 120))
     number += 1
     
     #first point
