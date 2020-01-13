@@ -1,12 +1,11 @@
-function ThisResult(i,data){
-    console.log(i,data);
-    //const xhttp = new XMLHttpRequest();
-    //xhttp.open('GET','results.json',true);
-    //xhttp.send();
-    //xhttp.responseType = "text";
-    console.log(xhttp);
+function ThisResult(i){
+    console.log(i);
+    const xhttp = new XMLHttpRequest();
+    xhttp.open('GET','results.json',true);
+    xhttp.send();
+    xhttp.responseType = "text";
+
     xhttp.onreadystatechange = function(){
-        console.log(this);
         if (this.readyState == 4 && this.status == 200){
             console.log('Yes');
             let data = JSON.parse(this.responseText);
@@ -19,7 +18,5 @@ function ThisResult(i,data){
                 "</tr>"
             }
         }
-        else
-            console.log("else");
     }
 }

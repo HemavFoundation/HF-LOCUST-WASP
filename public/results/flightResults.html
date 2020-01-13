@@ -1,18 +1,19 @@
 <html>
-    <link href="/style.css" rel="stylesheet" type="text/css">
+    <link href="../css/style.css" rel="stylesheet" type="text/css">
 <body>
-    <script src="/GetResults.js"></script>
-    
-    <h1></h1>
+    <script src="../js/jquery.js"></script>
+
+    <h1>Flight Results</h1>
     <table>
         <tr>
+            <th>ID</th>
             <th>NDVI</th>
             <th>Latitude</th>
             <th>Longitude</th>
             <th>Image</th>
         </tr>
-        <tbody id = "FlightResults"></tbody>
+        <tbody id="FlightResults"></tbody>
     </table>
-    <button onclick="window.location='/history'" target="_new">History</button>
+    <button onclick="window.location='History.html'" target="_new">History</button>
 </body>
 </html>
