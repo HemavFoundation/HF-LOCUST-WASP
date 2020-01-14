@@ -7,8 +7,9 @@ router.get("/", (req, res) => {
     //if (err) throw err;
     if (err) {
       res.status(400).send({ message: "ERROR: Fallo el script start.py" });
-    }
+    }else{
     res.status(200).send({ message: "Iniciado el vuelo, nos vemos a la vuelta" });
+    }
   });
 
 });

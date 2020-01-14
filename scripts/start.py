@@ -3,7 +3,6 @@ from dronekit import connect, VehicleMode, LocationGlobalRelative, LocationGloba
 import time
 
 #Set up option parsing to get connection string
-import argparse
 
 def armDrone():
 
@@ -26,12 +25,8 @@ def armDrone():
     print("Done!")
 
 
-parser = argparse.ArgumentParser(description='Print out vehicle state information. Connects to SITL on local PC by default.')
-parser.add_argument('--connect', 
-                   help="vehicle connection target string. If not specified, SITL automatically started and used.")
-args = parser.parse_args()
 
-connection_string = args.connect
+connection_string = None
 sitl = None
 
 #Start SITL if no connection string specified
