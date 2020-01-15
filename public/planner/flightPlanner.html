@@ -16,11 +16,34 @@
   <button id="connectbut" >Connect</button>
   <img id="photoconnection" src="" height="50" width=50>
 
-  <br>
-  Distance (meters): <input id="distancetext" type="number" value="">
-  <button disabled id="uploadbut">Load</button>
-  <img id="photoupload" src="" height="50" width=50><br> 
-  Maximum distance: 10000 m   
+  <br><br>
+  <div class="tab">
+    <button class="tablinks">Fly path</button>
+    <button class="tablinks">Other parameters</button>
+  </div>
+  <div id="flypathtab" class="tabcontent">
+    <p>
+      Rectangle width: <input id="rectwidthtext" type="number" value=""> meters
+      <br>
+      Distance: <input id="distancetext" type="number" value=""> meters
+      <br>
+      Maximum distance: <input id="maxdistancetext" type="number" value=""> meters
+      <br>
+      <button disabled id="uploadbut">Load</button>
+      <img id="photoupload" src="" height="50" width=50>
+    </p>
+  </div>
+  <div id="parameterstab" class="tabcontent">
+    <p>
+      x = <input id="xtext" type="number" value="500"> meters
+      <br>
+      L = <input id="Ltext" type="number" value="120"> meters
+      <br>
+      h = <input id="htext" type="number" value="120"> meters
+      <br>
+      <button id="savebutton">Save parameters</button>
+    </p>
+  </div>
 
   <br>
   <button disabled id="startbut">START </button>
