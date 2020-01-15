@@ -13,7 +13,14 @@ class LocationDrone {
 }
 
 router.get("/", (req, res) => {
-  PythonShell.run("./scripts/connect.py", null, function(err, results) {
+let options = {
+  mode: 'text',
+  pythonPath: '/usr/bin/python3',
+  pythonOptions: ['-u'], // get print results in real-time
+  scriptPath: './scripts'
+};
+
+  PythonShell.run("connect.py", options, function(err, results) {
     //if (err) throw err;
     if (err) {
       res.status(400).send({ message: "ERROR: Fallo el script connect.py" });

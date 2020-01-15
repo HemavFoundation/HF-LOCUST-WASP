@@ -25,7 +25,7 @@ distance = sys.argv[1]
 #                    help="vehicle connection target string. If not specified, SITL automatically started and used.")
 # args = parser.parse_args()
 
-connection_string = None
+connection_string = "/dev/ttyS0"
 sitl = None
 
 
@@ -39,7 +39,7 @@ if not connection_string:
 # Connect to the Vehicle. 
 #   Set `wait_ready=True` to ensure default attributes are populated before `connect()` returns.
 #print("\nConnecting to vehicle on: %s" % connection_string)
-vehicle = connect(connection_string, wait_ready=True)
+vehicle = connect(connection_string,baud= 921600, wait_ready=True)
 
 # Get some vehicle attributes (state)
 cmds = vehicle.commands
@@ -74,4 +74,4 @@ print(distance)
 vehicle.close()
 
 # Shut down simulator
-sitl.stop()
+

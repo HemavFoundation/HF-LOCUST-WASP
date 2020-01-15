@@ -16,7 +16,7 @@ import time
 
 
 
-connection_string = None
+connection_string = "/dev/ttyS0"
 sitl = None
 
 
@@ -57,4 +57,4 @@ print(vehicle.location.global_frame.alt)
 vehicle.close()
 
 # Shut down simulator
-sitl.stop()
+
