@@ -18,8 +18,8 @@
 
   <br><br>
   <div class="tab">
-    <button class="tablinks">Fly path</button>
-    <button class="tablinks">Other parameters</button>
+    <button class="tablinks" onclick="openFlyPath(event, 'flypathtab')">Fly path</button>
+    <button class="tablinks" onclick="openFlyPath(event, 'parameterstab')">Other parameters</button>
   </div>
   <div id="flypathtab" class="tabcontent">
     <p>
@@ -33,6 +33,7 @@
       <img id="photoupload" src="" height="50" width=50>
     </p>
   </div>
+
   <div id="parameterstab" class="tabcontent">
     <p>
       x = <input id="xtext" type="number" value="500"> meters
@@ -45,6 +46,22 @@
     </p>
   </div>
 
+  <script>
+    function openFlyPath (evt, flyPath){
+      var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(flyPath).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+    
+  </script>
   <br>
   <button disabled id="startbut">START </button>
   <img id="photostart" src="" height="50" width=50>
