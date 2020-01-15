@@ -34,7 +34,7 @@
     </p>
   </div>
 
-  <div id="parameterstab" class="tabcontent">
+  <div id="parameterstab" class="tabcontent" style="display:none" >
     <p>
       x = <input id="xtext" type="number" value="500"> meters
       <br>
@@ -60,8 +60,8 @@
   document.getElementById(flyPath).style.display = "block";
   evt.currentTarget.className += " active";
 }
-    
   </script>
+  
   <br>
   <button disabled id="startbut">START </button>
   <img id="photostart" src="" height="50" width=50>
@@ -96,7 +96,9 @@
         $("#uploadbut").click(function ()         // click LOAD
         {
           document.getElementById('photoupload').src = "waiting.jpeg";
+          document.getElementById("maxdistancetext").readonly=true; //con esto hacemos que el textbox de max distance sea solo leible, no editable
           var x = document.getElementById("distancetext").value;
+
           if (x != "") 
           {
             xnum = parseFloat(x);
