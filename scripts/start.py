@@ -237,8 +237,7 @@ def create_parser():
 
     return opts, args
 
-def main():
-
+def main(vehicle):
     hour = str(pd.datetime.now().hour)
     minute = str(pd.datetime.now().minute)
     timestamp = hour + '/' + minute
@@ -246,7 +245,7 @@ def main():
     global num
     num = 1
     camera_interface = CameraInterface()
-    autopilot_interface = AutopilotInterface()
+    autopilot_interface = AutopilotInterface(vehicle)
     newpath = create_directory()
     
     while True:
@@ -284,8 +283,6 @@ def armDrone():
 
     print("Done!")
     
-    os.system("/image_processing/main.py 1")
-    
 
 
 connection_string = "/dev/ttyS0"
@@ -315,7 +312,7 @@ cmds = vehicle.commands
 #cmds.download()
 #cmds.wait_ready()
 armDrone()
-main()
+main(vehicle)
 
 
 # Close vehicle object before exiting script
