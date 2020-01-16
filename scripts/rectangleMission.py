@@ -8,7 +8,7 @@ from pymavlink import mavutil
 import sys
 
 #sys.argv[1]
-distance = int(5000) / 1000
+distance = int(sys.argv[1]) / 1000
 rEarth = 6371.01 # Earth's average radius in km
 epsilon = 0.000001 # threshold for floating-point equality
 

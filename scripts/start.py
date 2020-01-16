@@ -1,6 +1,7 @@
 from __future__ import print_function
 from dronekit import connect, VehicleMode, LocationGlobalRelative, LocationGlobal, Command
 import time
+from image_processing.main import main
 
 #Set up option parsing to get connection string
 
@@ -23,6 +24,7 @@ def armDrone():
         time.sleep(1)
 
     print("Done!")
+    main()
 
 
 
