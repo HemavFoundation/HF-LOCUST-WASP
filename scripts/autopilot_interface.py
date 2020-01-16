@@ -2,6 +2,7 @@ from dronekit import *
 
 
 
+
 class AutopilotInterface():
 
     def __init__(self):
@@ -9,8 +10,9 @@ class AutopilotInterface():
 
         device = '/dev/ttyS0'
         #vehicle = connect(device, wait_ready=True, baud=57600)
-        vehicle = connect(device, baud=921600, wait_ready=True)
+        vehicle = connect(device, baud=921600, wait_ready=False)
         self.vehicle = vehicle
+       
 
     # def connect_to_vehicle(self):
     #     # with mini USB: '/dev/ttyACM0'

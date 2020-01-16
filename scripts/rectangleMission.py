@@ -1,14 +1,18 @@
 from __future__ import print_function
 from math import asin,cos,pi,sin
 
-from dronekit import connect, VehicleMode, LocationGlobalRelative, LocationGlobal, Command
+#from dronekit import connect, VehicleMode, LocationGlobalRelative, LocationGlobal, Command
+from dronekit import *
 import time
 import math
 from pymavlink import mavutil
 import sys
 
 #sys.argv[1]
-distance = int(sys.argv[1]) / 1000
+
+print(sys.argv[1])
+caca = sys.argv[1]
+distance = int(caca) / 1000
 rEarth = 6371.01 # Earth's average radius in km
 epsilon = 0.000001 # threshold for floating-point equality
 
@@ -136,13 +140,15 @@ if not connection_string:
 # Connect to the Vehicle. 
 #   Set `wait_ready=True` to ensure default attributes are populated before `connect()` returns.
 #print("\nConnecting to vehicle on: %s" % connection_string)
-vehicle = connect(connection_string,baud= 921600, wait_ready=True)
+vehicle = None
+while vehicle is None:
+    vehicle = connect(connection_string, baud=921600, wait_ready=True)
 
 # Get some vehicle attributes (state)
 cmds = vehicle.commands
 
-cmds.download()
-cmds.wait_ready()
+#cmds.download()
+#cmds.wait_ready()
 
 cmds.clear()
     

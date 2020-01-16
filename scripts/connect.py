@@ -11,7 +11,8 @@ and how to observe vehicle attribute (state) changes.
 Full documentation is provided at http://python.dronekit.io/examples/vehicle_state.html
 """
 from __future__ import print_function
-from dronekit import connect, VehicleMode, LocationGlobalRelative, LocationGlobal, Command
+#from dronekit import connect, VehicleMode, LocationGlobalRelative, LocationGlobal, Command
+from dronekit import *
 import time
 
 
@@ -30,12 +31,18 @@ if not connection_string:
 # Connect to the Vehicle. 
 #   Set `wait_ready=True` to ensure default attributes are populated before `connect()` returns.
 #print("\nConnecting to vehicle on: %s" % connection_string)
-vehicle = connect(connection_string, baud=921600, wait_ready=True)
+
+vehicle = None
+
+while vehicle is None:
+    vehicle = connect(connection_string, baud=921600, wait_ready=True)
+
+
 
 # Get some vehicle attributes (state)
 cmds = vehicle.commands
-cmds.download()
-cmds.wait_ready()
+#cmds.download()
+#cmds.wait_ready()
 
 # heading = vehicle.heading
 

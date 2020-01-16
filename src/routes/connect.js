@@ -24,6 +24,7 @@ let options = {
     //if (err) throw err;
     if (err) {
       res.status(400).send({ message: "ERROR: Fallo el script connect.py" });
+	console.log(err);
     }else{
     location = new LocationDrone(
       results[3],

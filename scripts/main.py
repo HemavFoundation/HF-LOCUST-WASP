@@ -13,8 +13,8 @@ For this reason, we need:
 """
 
 import argparse
-from interfaces.autopilot_interface import AutopilotInterface
-from interfaces.camera_interface import CameraInterface
+from autopilot_interface import AutopilotInterface
+from camera_interface import CameraInterface
 import numpy as np
 import os
 import json

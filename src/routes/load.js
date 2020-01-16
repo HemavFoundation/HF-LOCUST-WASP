@@ -30,6 +30,7 @@ router.post("/:distance", (req, res) => {
       res
         .status(400)
         .send({ message: "ERROR: Fallo el script rectangleMission.py" });
+	console.log(err);
     }else{
     console.log(results);
     res

@@ -5,7 +5,7 @@ const router = Router();
 router.get("/", (req, res) => {
 let options = {
   mode: 'text',
-  pythonPath: '/usr/bin/python3',
+  pythonPath: '/usr/bin/python3.7',
   pythonOptions: ['-u'], // get print results in real-time
   scriptPath: './scripts'
  };
@@ -14,6 +14,7 @@ let options = {
     //if (err) throw err;
     if (err) {
       res.status(400).send({ message: "ERROR: Fallo el script start.py" });
+	console.log(err);
     }else{
     res.status(200).send({ message: "Iniciado el vuelo, nos vemos a la vuelta" });
     }
