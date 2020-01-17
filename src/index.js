@@ -26,7 +26,7 @@ app.listen(app.get('port'), () => {
 });
 
 app.get('/*', (req, res) => {
-    res.sendFile(path.join(___dirname + '/public'));
+    res.sendFile(path.join(___dirname + '/public/planner/flightPlanner.html'));
 });
 
 app.get('/planner', (req, res) => {
