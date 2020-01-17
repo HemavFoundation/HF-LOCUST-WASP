@@ -19,7 +19,6 @@ app.use("/api/startFlight", require("./routes/startFlight"));
 app.use("/api/endFlight", require("./routes/endFlight"));
 app.use(express.static(___dirname + '/public'));
 
-//app.use("/api/ruta", require("./routes/ejemplo"));
 
 // starting the server
 app.listen(app.get('port'), () => {
