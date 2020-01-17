@@ -4,8 +4,8 @@
 
 <head>
   <meta charset="utf-8">
-  <script src="/jquery.js"></script>
-  <link rel="stylesheet" href="style.css">
+  <script src="../js/jquery.js"></script>
+  <link rel="stylesheet" href="../css/style.css">
   <title>Fight Planner</title>
 </head>
 
@@ -13,27 +13,27 @@
 
   <h1>Flight Planner</h1>
 
-  <button id="connectbut" >Connect</button>
+  <br><br>
+  <button id="connectbut">Connect</button>
   <img id="photoconnection" src="" height="50" width=50>
 
-  <br><br>
+  <br><br><br>
   <div class="tab">
-    <button class="tablinks" onclick="openFlyPath(event, 'flypathtab')">Fly path</button>
-    <button class="tablinks" onclick="openFlyPath(event, 'parameterstab')">Other parameters</button>
+    <button class="tablinks" onclick="openTab(event, 'flypathtab')">Fly path</button>
+    <button class="tablinks" onclick="openTab(event, 'parameterstab')">Other parameters</button>
   </div>
   <div id="flypathtab" class="tabcontent">
     <p>
-      Rectangle width: <input id="rectwidthtext" type="number" value=""> meters
-      <br>
+      Rectangle width: <input id="rectwidthtext" type="number" value="500"> meters
+      <br><br>
       Distance: <input id="distancetext" type="number" value=""> meters
       <br>
-      Maximum distance: <input id="maxdistancetext" type="number" value=""> meters
+      Maximum distance: <label id="maxdistancetext" type="number"></label> meters
       <br>
       <button disabled id="uploadbut">Load</button>
       <img id="photoupload" src="" height="50" width=50>
     </p>
   </div>
-
   <div id="parameterstab" class="tabcontent" style="display:none" >
     <p>
       x = <input id="xtext" type="number" value="500"> meters
@@ -46,31 +46,44 @@
     </p>
   </div>
 
-  <script>
-    function openFlyPath (evt, flyPath){
-      var i, tabcontent, tablinks;
-  tabcontent = document.getElementsByClassName("tabcontent");
-  for (i = 0; i < tabcontent.length; i++) {
-    tabcontent[i].style.display = "none";
-  }
-  tablinks = document.getElementsByClassName("tablinks");
-  for (i = 0; i < tablinks.length; i++) {
-    tablinks[i].className = tablinks[i].className.replace(" active", "");
-  }
-  document.getElementById(flyPath).style.display = "block";
-  evt.currentTarget.className += " active";
-}
-  </script>
-  
-  <br>
+  <br><br><br>
   <button disabled id="startbut">START </button>
   <img id="photostart" src="" height="50" width=50>
 
-  <br>
+  <br><br><br>
   <button id="getresultsbut">Get results</button>
 
   <script>
-    console.log("HEY  I'm the flight planner")
+    openTab(event,'flypathtab');
+
+    function openTab(evt, id)
+    {
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) 
+      {
+        tabcontent[i].style.display = "none";
+      }
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) 
+      {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+      document.getElementById(id).style.display = "block";
+    }
+
+    function computeMaxDistance(x,L,d)
+    {
+      n=0;
+      conntinueloop=0;
+      while(continueloop==0)
+      {
+        var computing=60000-x-((L+d)*n);
+        if(computing)
+      }
+
+      document.getElementById("maxdistancetext").innerHTML='12345';
+    }
 
       $(document).ready(function () 
       {
@@ -81,7 +94,6 @@
           $.ajax({
             type: 'GET',
             url: 'http://192.168.1.85:9000/api/connect',
-            //url: 'http://localhost:9000/api/start/error', // prueba
             dataType: 'json',
             success: function(data,textStatus, xhr){
               document.getElementById('photoconnection').src = "./tick.jpg";
@@ -149,7 +161,7 @@
 
         $("#getresultsbut").click(function()      // click GET RESULTS
         {
-          window.open("./history"); 
+          window.open("../results/History.html"); 
         })
 
     });
