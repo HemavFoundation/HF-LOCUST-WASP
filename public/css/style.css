@@ -1,3 +1,504 @@
+body {
+	font-size: 14px;
+	font-family: Verdana, Arial, Sans-Serif;
+	color: #ededed;
+	text-align: center;
+	background-color: #8a1a2d;
+	background-image:url("../images/backgroundWeb.png");
+	background-repeat:no-repeat;
+	background-size:cover;
+	}
+
+#page {
+	text-align: left;
+	color: #ededed;
+	}
+
+#inline {
+	overflow-y: hidden;
+	}
+
+#header {
+	background-image:url("../images/FundationHemavLogo.png");
+	background-repeat:no-repeat;
+	background-size:cover;
+	margin-top: 79px; 
+	height: 234px; 
+	width: 782px;
+	}
+
+#logoFao {
+	background-image:url("../images/faoLogo.png");
+	background-repeat:no-repeat;
+	background-size:cover;
+	margin: 20px; 
+	height: 100px; 
+	width: 100px;
+	float: left;
+	border-radius: 25px;
+	}
+
+#logoLocustFao {
+	background-image:url("../images/faoLocustLogo.png");
+	background-repeat:no-repeat;
+	background-size:cover;
+	margin: 20px; 
+	height: 100px; 
+	width: 114px;
+	float: left;
+	border-radius: 25px;
+}
+
+#logoFundationSabadell {
+	background-image:url("../images/FundationSabadellLogo.png");
+	background-repeat:no-repeat;
+	background-size:cover;
+	margin: 20px; 
+	height: 100px; 
+	width: 150px;
+	float: left;
+	border-radius: 25px;
+	}
+
+#logoUpc {
+	background-image:url("../images/UPCLogo.png");
+	background-repeat:no-repeat;
+	background-size:cover;
+	margin: 20px; 
+	height: 100px; 
+	width: 150px;
+	float: left;
+	border-radius: 25px;
+	}
+
+#logoUpcYellow {
+	background-image:url("../images/UPCYellowLogo.png");
+	background-repeat:no-repeat;
+	background-size:cover;
+	margin: 20px; 
+	height: 100px; 
+	width: 115px;
+	float: left;
+	border-radius: 25px;
+	}
+
+
+#headerimg 	{ 
+	margin: 7px 9px 0; 
+	height: 400px; 
+	width: 800px; 
+	} 
+
+#content {
+	font-size: 1.2em;
+	}
+
+.widecolumn .entry p {
+	font-size: 1.05em;
+	}
+
+.narrowcolumn .entry, .widecolumn .entry {
+	line-height: 1.4em;
+	}
+
+.widecolumn {
+	line-height: 1.6em;
+	}
+
+.narrowcolumn .postmetadata {
+	text-align: center;
+	}
+
+.alt {
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	}
+
+#footer {
+	background-color: #8a1a2d; 
+	border: none;
+	
+	clear: both;
+	}
+
+small {
+	font-family: Arial, Helvetica, Sans-Serif;
+	font-size: 0.9em;
+	line-height: 1.5em;
+	}
+
+h1, h2, h3 {
+	font-family: Arial, Sans-Serif ;
+	font-weight: bold;
+	}
+
+h1 {
+	font-size: 26px;
+	text-align: center;
+	}
+
+#headerimg .description {
+	font-size: 1.2em;
+	text-align: left;
+	padding: 0 0 0 28px;
+	}
+
+h2 {
+	font-size: 1.6em;
+	}
+
+h2.pagetitle {
+	font-size: 1.6em;
+	}
+
+#sidebar h2 {
+	font-family: Verdana, Sans-Serif;
+	font-size: 1.2em;
+	}
+
+h3 {
+	font-size: 1.3em;
+	}
+
+h1, h1 a, h1 a:hover, h1 a:visited, #headerimg .description {
+	text-decoration: none;
+	color: #ededed;
+	}
+
+h2, h2 a, h2 a:visited, h3, h3 a, h3 a:visited {
+	color: #ededed;
+	}
+
+h2, h2 a, h2 a:hover, h2 a:visited, h3, h3 a, h3 a:hover, h3 a:visited, #sidebar h2, #wp-calendar caption, cite {
+	text-decoration: none;
+	}
+
+
+.commentlist li, #commentform input, #commentform textarea {
+	font: 0.9em Verdana, Arial, Sans-Serif;
+	}
+
+.commentlist li {
+	font-weight: bold;
+	}
+
+.commentlist cite, .commentlist cite a {
+	font-weight: bold;
+	font-style: normal;
+	font-size: 1.1em;
+	}
+
+.commentlist p {
+	font-weight: normal;
+	line-height: 1.5em;
+	text-transform: none;
+	}
+
+#commentform p {
+	font-family: Verdana, Arial, Sans-Serif;
+	}
+
+.commentmetadata {
+	font-weight: normal;
+	}
+
+#sidebar {
+	font: 1em Verdana, Arial, Sans-Serif;
+	}
+ul
+{
+	list-style:none;
+	margin: 0;
+	padding: 5px 0 5px 10px;
+}
+li
+{
+	padding: 0;
+	font-size: 11px;
+	color:#CCC;
+}
+ol
+{
+	padding: 0;
+	font-size: 11px;
+	color:#CCC;
+}
+
+small, #sidebar ul ul li, #sidebar ul ol li, .nocomments, .postmetadata, blockquote, strike {
+	color: #b7b7b7;
+	}
+
+code {
+	font: 1.1em Courier, Fixed;
+	}
+
+acronym, abbr, span.caps
+{
+	font-size: 0.9em;
+	letter-spacing: .07em;
+	}
+
+a, h2 a:hover, h3 a:hover {
+	color: #CCC;
+	text-decoration: none;
+	}
+
+a:hover {
+	color: #FFF;
+	text-decoration: underline;
+	}
+
+
+body {
+	margin: 0;
+	padding: 0; 
+	}
+
+#page {
+	margin: 0 auto;
+	padding: 0;
+	width: 782px;
+	}
+
+
+#headerimg {
+	margin: 0;
+	height: 234px;
+	width: 100%;
+	}
+
+.narrowcolumn {
+	float: left;
+	padding: 0 0 20px 30px;
+	margin: 0 30px 0 0;
+	width: 505px;
+	}
+
+.widecolumn {
+	padding: 0 0 20px 0;
+	margin: 5px 0 0 28px;
+	width: 726px;
+	}
+
+.post {
+	margin: 0;
+	text-align: justify;
+	}
+
+.post hr {
+	display: block;
+	}
+
+.widecolumn .post {
+	margin: 0;
+	}
+
+.narrowcolumn .postmetadata {
+	padding-top: 5px;
+	}
+
+.widecolumn .postmetadata {
+	margin: 30px 0;
+	}
+
+.widecolumn .smallattachment {
+	text-align: center;
+	float: left;
+	width: 128px;
+	margin: 5px 5px 5px 0px;
+}
+
+.widecolumn .attachment {
+	text-align: center;
+	margin: 5px 0px;
+}
+
+.postmetadata {
+	clear: left;
+}
+
+
+
+#footer p {
+	margin: 0;
+	padding: 17px 0 10px 0;
+	text-align: center;
+	}
+/* End Structure */
+
+
+
+/*	Begin Headers */
+h1 {
+	margin: 0;
+	padding: 179px 0 0 28px;
+	text-align: left;
+	}
+
+h2 {
+	margin: 30px 0 0 0;
+	}
+
+h2.pagetitle {
+	margin-top: 30px;
+	text-align: left;
+}
+
+#sidebar h2 {
+	margin: 5px 0 0;
+	padding: 0;
+	width: 192px;
+	}
+
+h3 {
+	padding: 0;
+	margin: 30px 0 0;
+	}
+
+h3.comments {
+	padding: 0;
+	margin: 40px auto 20px ;
+	}
+
+#searchform {
+	margin: 10px auto;
+	padding: 5px 3px; 
+	text-align: center;
+	}
+
+#searchform #s {
+	width: 72px;
+	padding: 2px;
+	}
+	
+#sidebar
+{
+	text-align: left;
+	position: absolute;
+	right: 20px;
+	top: 157px;
+	border-radius: 25px;
+	background-color:#0a2d40;
+}
+
+.entry form { 
+	text-align:center;
+	}
+
+select {
+	width: 130px;
+	}
+
+#commentform input {
+	width: 170px;
+	padding: 2px;
+	margin: 5px 5px 1px 0;
+	}
+
+#commentform textarea {
+	width: 100%;
+	padding: 2px;
+	}
+
+#commentform #submit {
+	margin: 0;
+	float: right;
+	}
+
+.alt {
+	margin: 0;
+	padding: 5px;
+	background-color:#333;
+	}
+
+.commentlist {
+	padding: 0;
+	text-align: justify;
+	}
+
+.commentlist li {
+	margin: 15px 0 3px;
+	padding: 5px 10px 3px;
+	list-style: none;
+	}
+
+.commentlist p {
+	margin: 10px 5px 10px 0;
+	}
+
+#commentform p {
+	margin: 5px 0;
+	}
+
+.nocomments {
+	text-align: center;
+	margin: 0;
+	padding: 0;
+	}
+
+.commentmetadata {
+	margin: 0;
+	display: block;
+	}
+
+
+#sidebar form {
+	margin: 0;
+	}
+
+/* Begin Various Tags and Classes */
+acronym, abbr, span.caps {
+	cursor: help;
+	}
+
+acronym, abbr {
+	border-bottom: 1px dashed #999;
+	}
+
+blockquote {
+	margin: 15px 30px 0 10px;
+	padding-left: 20px;
+	border-left: 5px solid #ddd;
+	}
+
+blockquote cite {
+	margin: 5px 0 0;
+	display: block;
+	}
+
+.center {
+	text-align: center;
+	}
+
+hr {
+	display: none;
+	}
+
+a img {
+	border: none;
+	}
+
+
+.design_copyright
+{
+	display:none;
+	text-align:center;
+}
+.outsourcing
+{
+	font-style: normal;
+}
+.web_design
+{
+	font-style: normal;
+}
+.website_designer
+{
+	font-style: normal;
+}
+
+
+
 h1 
 {
   font-family: calibri;
@@ -71,3 +572,4 @@ tr:nth-child(even)
   border: 1px solid #ccc;
   border-top: none;
 }
+
