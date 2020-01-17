@@ -573,3 +573,19 @@ tr:nth-child(even)
   border-top: none;
 }
 
+.square_btn{
+    display: inline-block;
+    padding: 0.5em 1em;
+    background: #8a1a2d;
+    color: #FFF;
+	height: 30px;
+	width: 100px;
+	border-radius: 10%;
+	font-size: 20px;
+}
+.square_btn:active {/*on Click*/
+    -ms-transform: translateY(4px);
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);/*Move down*/
+    border-bottom: none;/*disappears*/
+}

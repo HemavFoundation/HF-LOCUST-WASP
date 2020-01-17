@@ -6,20 +6,21 @@
   <meta charset="utf-8">
   <script src="../js/jquery.js"></script>
   <link rel="stylesheet" href="../css/style.css">
-  <title>Fight Planner</title>
+  <title>Flight Planner</title>
 </head>
 
-<body id="planner">
-  <div class="jumbotron">
-    <h1 class="display-4">Hemav Foundation: Locust</h1>
-    <p class="lead">Prueba boton GPS</p>
+
+<body id="page">
+  <div id="header">
+    <div id="headerimg">
+    </div>
   </div>
 
-  <h1>Flight Planner</h1>
+  <h2><a>Flight Planner</a></h2>
 
   <br><br>
-  <button id="connectbut">Connect</button>
-  <img id="photoconnection" src="" height="50" width=50>
+  <button class="square_btn" id="connectbut">Connect</button>
+  <img id="photoconnection" src="../images/button.png" height="50" width=50>
 
   <br><br><br>
   <div class="tab">
@@ -49,11 +50,11 @@
   </div>
 
   <br><br><br>
-  <button disabled id="startbut">START </button>
-  <img id="photostart" src="" height="50" width=50>
+  <button disabled class="square_btn" id="startbut">Start </button>
+  <img id="photostart" src="../images/button.png" height="50" width=50>
 
   <br><br><br>
-  <button id="getresultsbut">Get results</button>
+  <button  class="square_btn"id="getresultsbut">Get results</button>
 
   <script>
     openTab(event,'flypathtab');
@@ -99,17 +100,17 @@
 
         $("#connectbut").click(function ()        // click CONNECT
         {
-          document.getElementById('photoconnection').src = "./waiting.jpeg";
+          document.getElementById('photoconnection').src = "../images/waiting.png";
           $.ajax({
             type: 'GET',
             url: 'http://192.168.1.85:9000/api/connect',
             dataType: 'json',
             success: function(data,textStatus, xhr){
-              document.getElementById('photoconnection').src = "./tick.jpg";
+              document.getElementById('photoconnection').src = "../images/tick.png";
               document.getElementById("uploadbut").disabled = false;
             },
             error: function(data,textStatus,xhr){
-              document.getElementById('photoconnection').src = "./cross.jpg";
+              document.getElementById('photoconnection').src = "../images/cross.png";
             },
           })
         });
