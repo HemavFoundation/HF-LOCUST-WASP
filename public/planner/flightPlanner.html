@@ -33,7 +33,7 @@
       <br><br>
       Distance (P): <input id="distancetext" type="number" value=""> meters
       <br><br>
-      Maximum distance: <label id="maxdistancetext" type="number"></label> meters
+      Maximum distance (Pmax): <label id="maxdistancetext" type="number"></label> meters
       <br>
       <button disabled id="uploadbut">Load</button>
       <img id="photoupload" src="" height="50" width=50>
@@ -118,19 +118,23 @@
         $("#uploadbut").click(function ()         // click LOAD
         {
           document.getElementById('photoupload').src = "waiting.jpeg";
-          var x = document.getElementById("distancetext").value;
+          var p = document.getElementById("distancetext").value;
 
-          if (x != "") 
+          if (p != "") 
           {
-            var xnum = parseFloat(x);
-            var xmax=parseFloat(document.getElementById("maxdistancetext").value);
-            if (xnum < xmax) 
+            var pnum = parseFloat(p);
+            var pmax=parseFloat(document.getElementById("maxdistancetext").value);
+            var x=parseFloat(document.getElementById("xtext").value);
+            var l=parseFloat(document.getElementById("Ltext").value);
+            var h=parseFloat(document.getElementById("htext").value);
+            var d=parseFloat(document.getElementById("rectwidthtext").value);
+            if (pnum < pmax) 
             {
               $.ajax
               ({
                 type:'POST',
                 url: 'http://192.168.0.10:9000/api/load/:distance',
-                data: xnum, 
+                data: { data1:pnum,data2:pmax,data3:x,data4:l,data5:h,data6:d},
                 dataType: 'json',
                 success: function(data,textStatus, xhr)
                 {
