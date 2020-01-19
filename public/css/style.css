@@ -38,6 +38,30 @@ body {
 	border-radius: 25px;
 	}
 
+
+#logoClcPro {
+	background-image:url("../images/clcproLogo.png");
+	background-repeat:no-repeat;
+	background-size:cover;
+	margin: 20px; 
+	height: 100px; 
+	width: 100px;
+	float: left;
+	border-radius: 25px;
+	}
+
+
+#logoCrcLogo {
+	background-image:url("../images/crcLogo.png");
+	background-repeat:no-repeat;
+	background-size:cover;
+	margin: 20px; 
+	height: 100px; 
+	width: 100px;
+	float: left;
+	border-radius: 25px;
+	}
+
 #logoLocustFao {
 	background-image:url("../images/faoLocustLogo.png");
 	background-repeat:no-repeat;
@@ -543,20 +567,44 @@ tr:nth-child(even)
 {
   font-family: calibri;
   overflow: hidden;
-  border: 1.5px solid rgb(160, 160, 160);
+  border: 5px solid #8a1a2d;
 }
+
+table{
+  font-family: calibri;
+  overflow: hidden;
+  border: 3px solid #8a1a2d;
+}
+
+th, td {
+	height: 30px;
+	vertical-align: bottom;
+	border: 2px solid #8a1a2d;
+	padding: 15px;
+	text-align: left;
+	font-size: 20px;
+
+  color: white;
+  }
+
+
 
 .tab button 
 {
   font-family: calibri;
   background-color: inherit;
   float: left;
-  border: 1px solid #ddd;
+  border: 1px solid #8a1a2d;
   outline: none;
   cursor: pointer;
   padding: 14px 16px;
   transition: 0.3s;
-  font-size: 17px;
+  font-size: 30px;
+  color: #082d40;
+}
+
+.photoupload{
+	margin: 100px;
 }
 
 .tab button.active 
@@ -569,7 +617,7 @@ tr:nth-child(even)
   font-family: calibri;
   display: none;
   padding: 6px 12px;
-  border: 1px solid #ccc;
+  border: 5px solid #8a1a2d;
   border-top: none;
 }
 
@@ -582,6 +630,17 @@ tr:nth-child(even)
 	width: 100px;
 	border-radius: 10%;
 	font-size: 20px;
+}
+
+.square_btn_small{
+    display: inline-block;
+    padding: 0.5em 1em;
+    background: #8a1a2d;
+    color: #FFF;
+	height: 15px;
+	width: 50px;
+	border-radius: 10%;
+	font-size: 15px;
 }
 .square_btn:active {/*on Click*/
     -ms-transform: translateY(4px);

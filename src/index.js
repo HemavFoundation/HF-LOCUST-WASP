@@ -33,10 +33,6 @@ app.get('/planner', (req, res) => {
     res.sendFile(path.join(___dirname + '/public/planner/flightPlanner.html'));
 });
 
-app.get('/results', (req, res) => {
-    res.sendFile(path.join(___dirname + '/public/results/flightResults.html'));
-});
-
 app.get('/jquery.js', (req, res) => {
     res.sendFile(path.join(___dirname + '/public/js/jquery.js'));
 });

@@ -1,20 +1,38 @@
-<html>
-	<link href="../css/style.css" rel="stylesheet" type="text/css">
-<body>
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <script src="../js/jquery.js"></script>
+  <link rel="stylesheet" href="../css/style.css">
+  <title>Flight Planner</title>
+</head>
+
+
+<body id="page">
+	<div id="header">
+	  <div id="headerimg">
+	  </div>
+	</div>
+	
 	<script src="../js/jquery.js"></script>
 	<script src="GetResults.js"></script>
 	<script src="ThisResult.js"></script>
 
-	<h1>History</h1>
-	<table id="tableID">
+	<h2><a>History</a></h2>
+	<br><br>
+	<table class="simpleTable" id="tableID">
 		<tr>
 			<th>Hour</th>
 			<th>View Results</th>
 		</tr>
 		<tbody id = "History"></tbody>
 	</table>
-
-	<h1>Flight Results</h1>
+	
+	<br><br><br>
+	<h2><a>Flight Results</a></h2>
+	<br><br>
     <table id="flight"> 
         <tr>
             <th>ID</th>
@@ -24,7 +42,8 @@
             <th>Image</th>
         </tr>
         <tbody id="FlightResults"></tbody>
-    </table>
-    <button onclick="window.location='History.html'" target="_new">Clear</button>
+	</table>
+	<br><br>
+    <button class="square_btn_small" onclick="window.location='History.html'" target="_new">Clear</button>
 </body>
 </html>
