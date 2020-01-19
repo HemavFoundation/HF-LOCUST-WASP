@@ -35,19 +35,19 @@
       <br><br>
       Maximum distance (Pmax): <label id="maxdistancetext" type="number"></label> meters
       <br>
-      <button class="square_btn_small" disabled >Load</button>
+      <button class="square_btn_small" disabled>Load</button>
 
       <img id="photoupload" src="../images/button.png" height="50" width=50 style="margin:10px 0px -10px 10px">
     </h2>
   </div>
-  <div id="parameterstab" class="tabcontent" style="display:none" >
-    <p>
+  <div id="parameterstab" class="tabcontent" style="display:none">
+    <h2>
       x = <input id="xtext" type="number" value="500" onchange="computeMaxDistance()"> meters
       <br><br>
       L = <input id="Ltext" type="number" value="120" onchange="computeMaxDistance()"> meters
       <br><br>
       h = <input id="htext" type="number" value="120" onchange="computeMaxDistance()"> meters
-    </p>
+    </h2>
   </div>
 
   <br><br><br>
@@ -55,127 +55,114 @@
   <img id="photostart" src="../images/button.png" height="50" width=50 style="margin:10px 0px -10px 10px">
 
   <br><br><br>
-  <button  class="square_btn"id="getresultsbut">Get results</button>
+  <button class="square_btn" id="getresultsbut">
+    <a href="../results/History.html">Get results!</a>
+    
+  </button>
 
   <script>
-    openTab(event,'flypathtab');
+    openTab(event, 'flypathtab');
     computeMaxDistance();
-    
-    function openTab(evt, id)
-    {
+
+    function openTab(evt, id) {
       var i, tabcontent, tablinks;
       tabcontent = document.getElementsByClassName("tabcontent");
-      for (i = 0; i < tabcontent.length; i++) 
-      {
+      for (i = 0; i < tabcontent.length; i++) {
         tabcontent[i].style.display = "none";
       }
       tablinks = document.getElementsByClassName("tablinks");
-      for (i = 0; i < tablinks.length; i++) 
-      {
+      for (i = 0; i < tablinks.length; i++) {
         tablinks[i].className = tablinks[i].className.replace(" active", "");
       }
       document.getElementById(id).style.display = "block";
     }
 
-     function computeMaxDistance()
-    {
-      var x=document.getElementById("xtext").value;
-      var l=document.getElementById("Ltext").value;
-      var d=document.getElementById("rectwidthtext").value;
-      var nmax= Math.floor((60000-parseInt(x))/(2*parseInt(l)+parseInt(d)));
-      var pmax=nmax*l;
-      if (pmax<=0) 
-      {
-        document.getElementById("maxdistancetext").innerHTML="0";
+    function computeMaxDistance() {
+      var x = document.getElementById("xtext").value;
+      var l = document.getElementById("Ltext").value;
+      var d = document.getElementById("rectwidthtext").value;
+      var nmax = Math.floor((60000 - parseInt(x)) / (2 * parseInt(l) + parseInt(d)));
+      var pmax = nmax * l;
+      if (pmax <= 0) {
+        document.getElementById("maxdistancetext").innerHTML = "0";
       }
-      else 
-      {document.getElementById("maxdistancetext").innerHTML=pmax;
-      console.log(nmax);}
-      
-    } 
+      else {
+        document.getElementById("maxdistancetext").innerHTML = pmax;
+        console.log(nmax);
+      }
 
-    
+    }
 
-      $(document).ready(function () 
+
+
+    $(document).ready(function () {
+
+      $("#connectbut").click(function ()        // click CONNECT
       {
+        document.getElementById('photoconnection').src = "../images/waiting.png";
+        $.ajax({
+          type: 'GET',
+          url: 'http://192.168.1.85:9000/api/connect',
+          dataType: 'json',
+          success: function (data, textStatus, xhr) {
+            document.getElementById('photoconnection').src = "../images/tick.png";
+            document.getElementById("uploadbut").disabled = false;
+          },
+          error: function (data, textStatus, xhr) {
+            document.getElementById('photoconnection').src = "../images/cross.png";
+          },
+        })
+      });
 
-        $("#connectbut").click(function ()        // click CONNECT
-        {
-          document.getElementById('photoconnection').src = "../images/waiting.png";
-          $.ajax({
-            type: 'GET',
-            url: 'http://192.168.1.85:9000/api/connect',
-            dataType: 'json',
-            success: function(data,textStatus, xhr){
-              document.getElementById('photoconnection').src = "../images/tick.png";
-              document.getElementById("uploadbut").disabled = false;
-            },
-            error: function(data,textStatus,xhr){
-              document.getElementById('photoconnection').src = "../images/cross.png";
-            },
-          })
-        });
+      $("#uploadbut").click(function ()         // click LOAD
+      {
+        document.getElementById('photoupload').src = "waiting.jpeg";
+        var p = document.getElementById("distancetext").value;
 
-        $("#uploadbut").click(function ()         // click LOAD
-        {
-          document.getElementById('photoupload').src = "waiting.jpeg";
-          var p = document.getElementById("distancetext").value;
-
-          if (p != "") 
-          {
-            var pnum = parseFloat(p);
-            var pmax=parseFloat(document.getElementById("maxdistancetext").value);
-            var x=parseFloat(document.getElementById("xtext").value);
-            var l=parseFloat(document.getElementById("Ltext").value);
-            var h=parseFloat(document.getElementById("htext").value);
-            var d=parseFloat(document.getElementById("rectwidthtext").value);
-            if (pnum < pmax) 
-            {
-              $.ajax
+        if (p != "") {
+          var pnum = parseFloat(p);
+          var pmax = parseFloat(document.getElementById("maxdistancetext").value);
+          var x = parseFloat(document.getElementById("xtext").value);
+          var l = parseFloat(document.getElementById("Ltext").value);
+          var h = parseFloat(document.getElementById("htext").value);
+          var d = parseFloat(document.getElementById("rectwidthtext").value);
+          if (pnum < pmax) {
+            $.ajax
               ({
-                type:'POST',
+                type: 'POST',
                 url: 'http://192.168.0.10:9000/api/load/:distance',
-                data: { data1:pnum,data2:pmax,data3:x,data4:l,data5:h,data6:d},
+                data: { data1: pnum, data2: pmax, data3: x, data4: l, data5: h, data6: d },
                 dataType: 'json',
-                success: function(data,textStatus, xhr)
-                {
+                success: function (data, textStatus, xhr) {
                   document.getElementById('photoupload').src = "tick.jpg";
                   document.getElementById("startbut").disabled = false;
                 },
-                error: function(data,textStatus,xhr)
-                {
+                error: function (data, textStatus, xhr) {
                   document.getElementById('photoupload').src = "cross.jpg";
                 },
               })
-            }
           }
-        });
+        }
+      });
 
-        $("#startbut").click(function ()          // click START
-        {
-          document.getElementById('photoupload').src = "waiting.jpeg";
-          $.ajax
+      $("#startbut").click(function ()          // click START
+      {
+        document.getElementById('photoupload').src = "waiting.jpeg";
+        $.ajax
           ({
             type: 'GET',
             url: 'http://192.168.0.10:9000/api/start',
             dataType: 'json',
-            success: function(data,textStatus, xhr)
-            {
+            success: function (data, textStatus, xhr) {
               document.getElementById('photostart').src = "tick.jpg";
             },
-            error: function(data,textStatus,xhr)
-            {
+            error: function (data, textStatus, xhr) {
               document.getElementById('photostart').src = "cross.jpg";
             },
           })
-        });
-
-        $("#getresultsbut").click(function()      // click GET RESULTS
-        {
-          window.open("../results/History.html"); 
-        })
-
+      });
     });
   </script>
 </body>
+
 </html>
