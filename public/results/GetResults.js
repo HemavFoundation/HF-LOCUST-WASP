@@ -3,7 +3,7 @@ GetResults();
 function GetResults(){
     clearTimeout;
     const xhttp = new XMLHttpRequest();
-    xhttp.open('GET','results.json',true);
+    xhttp.open('GET','/results.json',true);
     xhttp.send();
     xhttp.responseType = "text";
     xhttp.onreadystatechange = function(){
@@ -32,7 +32,7 @@ function OpenFR(i){
 function ThisResult(i){
     console.log(i);
     const xhttp = new XMLHttpRequest();
-    xhttp.open('GET','results.json',true);
+    xhttp.open('GET','/results.json',true);
     xhttp.send();
     xhttp.responseType = "text";
 
