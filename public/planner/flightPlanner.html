@@ -35,7 +35,7 @@
       <br><br>
       Maximum distance (Pmax): <label id="maxdistancetext" type="number"></label> meters
       <br>
-      <button class="square_btn_small" disabled>Load</button>
+      <button class="square_btn_small" id="uploadbut" disabled>Load</button>
 
       <img id="photoupload" src="../images/button.png" height="50" width=50 style="margin:10px 0px -10px 10px">
     </h2>
@@ -57,7 +57,7 @@
   <br><br><br>
   <button class="square_btn" id="getresultsbut">
     <a href="../results/History.html">Get results!</a>
-    
+
   </button>
 
   <script>
@@ -102,7 +102,7 @@
         document.getElementById('photoconnection').src = "../images/waiting.png";
         $.ajax({
           type: 'GET',
-          url: 'http://192.168.1.85:9000/api/connect',
+          url: 'http://192.168.0.10:9000/api/connect',
           dataType: 'json',
           success: function (data, textStatus, xhr) {
             document.getElementById('photoconnection').src = "../images/tick.png";
@@ -116,7 +116,7 @@
 
       $("#uploadbut").click(function ()         // click LOAD
       {
-        document.getElementById('photoupload').src = "waiting.jpeg";
+        document.getElementById('photoupload').src = "../images/waiting.png";
         var p = document.getElementById("distancetext").value;
 
         if (p != "") {
@@ -147,17 +147,17 @@
 
       $("#startbut").click(function ()          // click START
       {
-        document.getElementById('photoupload').src = "waiting.jpeg";
+        document.getElementById('photoupload').src = "../images/waiting.png";
         $.ajax
           ({
             type: 'GET',
             url: 'http://192.168.0.10:9000/api/start',
             dataType: 'json',
             success: function (data, textStatus, xhr) {
-              document.getElementById('photostart').src = "tick.jpg";
+              document.getElementById('photostart').src = "../images/tick.png";
             },
             error: function (data, textStatus, xhr) {
-              document.getElementById('photostart').src = "cross.jpg";
+              document.getElementById('photostart').src = "../images/cross.png";
             },
           })
       });
