@@ -9,13 +9,12 @@ function GetResults(){
     xhttp.onreadystatechange = function(){
         if (this.readyState == 4 && this.status == 200){
             let data = JSON.parse(this.responseText);
-            console.log(data);
             var i = 0;
 
             let Results = document.querySelector("#tableID");
             for (let item of data.flights){
                 "<tr>"
-                Results.innerHTML+="<td>"+item.id+"</td>"+"<td><button class=square_btn_small id="+i+" onclick='OpenFR(this.id)' button>GO</td>";
+                Results.innerHTML+="<td>"+item.id+"</td>"+"<td><button class=square_btn_small id="+i+" onclick='OpenFR(this.id) || deleteRows()' button>GO</td>";
                 "</tr>"
                 i++;
             }  
@@ -25,12 +24,15 @@ function GetResults(){
     }
 }
 function OpenFR(i){
-    console.log('id is:',i);
     ThisResult(i);  
 }
 
+function deleteRows() {
+    let table = document.querySelector("#flight");
+    
+}
+
 function ThisResult(i){
-    console.log(i);
     const xhttp = new XMLHttpRequest();
     xhttp.open('GET','/results.json',true);
     xhttp.send();
