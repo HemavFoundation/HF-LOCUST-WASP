@@ -679,3 +679,16 @@ body.HIGH_CONTRAST {
 body.HIGH_CONTRAST * {
 	color: #ffffff;
 }
+
+/*******CARD STYLE********/
+ 
+.card{
+	border: 1px solid #082d40;
+	border-radius: 2%;
+	padding: 2%;
+	background-color: #ff00002b;
+}
+
+body.HIGH_CONTRAST .card{
+	background-color: transparent;
+}
