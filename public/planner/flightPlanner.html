@@ -17,50 +17,52 @@
     </div>
   </div>
 
-  <h2><a>Flight Planner</a></h2>
+  <div class="card">
+    <h2><a>Flight Planner</a></h2>
 
-  <br><br>
-  <button class="square_btn" id="connectbut">Connect</button>
-  <img id="photoconnection" src="../images/button.png" height="50" width=50 style="margin:10px 0px -10px 10px">
+    <br><br>
+    <button class="square_btn" id="connectbut">Connect</button>
+    <img id="photoconnection" src="../images/button.png" height="50" width=50 style="margin:10px 0px -10px 10px">
 
-  <br><br><br>
-  <div class="tab">
-    <button class="tablinks" onclick="openTab(event, 'flypathtab')">Fly path</button>
-    <button class="tablinks" onclick="openTab(event, 'parameterstab')">Other parameters</button>
+    <br><br><br>
+    <div class="tab">
+      <button class="tablinks" onclick="openTab(event, 'flypathtab')">Fly path</button>
+      <button class="tablinks" onclick="openTab(event, 'parameterstab')">Other parameters</button>
+    </div>
+    <div id="flypathtab" class="tabcontent">
+      <h2>
+        Rectangle width (d): <input id="rectwidthtext" type="number" value="500" onchange="computeMaxDistance()"> meters
+        <br><br>
+        Distance (P): <input id="distancetext" type="number" value=""> meters
+        <br><br>
+        Maximum distance (Pmax): <label id="maxdistancetext" type="number"></label> meters
+        <br>
+        <button class="square_btn_small" id="uploadbut" disabled>Load</button>
+
+        <img id="photoupload" src="../images/button.png" height="50" width=50 style="margin:10px 0px -10px 10px">
+      </h2>
+    </div>
+    <div id="parameterstab" class="tabcontent" style="display:none">
+      <h2>
+        x = <input id="xtext" type="number" value="500" onchange="computeMaxDistance()"> meters
+        <br><br>
+        L = <input id="Ltext" type="number" value="120" onchange="computeMaxDistance()"> meters
+        <br><br>
+        h = <input id="htext" type="number" value="120" onchange="computeMaxDistance()"> meters
+      </h2>
+    </div>
+
+    <br><br><br>
+    <button disabled class="square_btn" id="startbut">Start </button>
+    <img id="photostart" src="../images/button.png" height="50" width=50 style="margin:10px 0px -10px 10px">
+
+    <br><br><br>
+    <button class="square_btn" id="getresultsbut">
+      <a href="../results/History.html">Get results!</a>
+
+    </button>
+
   </div>
-  <div id="flypathtab" class="tabcontent">
-    <h2>
-      Rectangle width (d): <input id="rectwidthtext" type="number" value="500" onchange="computeMaxDistance()"> meters
-      <br><br>
-      Distance (P): <input id="distancetext" type="number" value=""> meters
-      <br><br>
-      Maximum distance (Pmax): <label id="maxdistancetext" type="number"></label> meters
-      <br>
-      <button class="square_btn_small" id="uploadbut" disabled>Load</button>
-
-      <img id="photoupload" src="../images/button.png" height="50" width=50 style="margin:10px 0px -10px 10px">
-    </h2>
-  </div>
-  <div id="parameterstab" class="tabcontent" style="display:none">
-    <h2>
-      x = <input id="xtext" type="number" value="500" onchange="computeMaxDistance()"> meters
-      <br><br>
-      L = <input id="Ltext" type="number" value="120" onchange="computeMaxDistance()"> meters
-      <br><br>
-      h = <input id="htext" type="number" value="120" onchange="computeMaxDistance()"> meters
-    </h2>
-  </div>
-
-  <br><br><br>
-  <button disabled class="square_btn" id="startbut">Start </button>
-  <img id="photostart" src="../images/button.png" height="50" width=50 style="margin:10px 0px -10px 10px">
-
-  <br><br><br>
-  <button class="square_btn" id="getresultsbut">
-    <a href="../results/History.html">Get results!</a>
-
-  </button>
-
   <script>
     var theme = 'DEFAULT'
     openTab(event, 'flypathtab');
