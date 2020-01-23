@@ -15,7 +15,7 @@ widthRectangle = int(sys.argv[2]) / 1000
 spaceDistance = int(sys.argv[3]) / 1000
 spaceBtwLines = int(sys.argv[4]) / 1000
 height = int(sys.argv[5])
-spaceDistance = int(sys.argv[3]) / 1000
+
 rEarth = 6371.01 # Earth's average radius in km
 epsilon = 0.000001 # threshold for floating-point equality
 
@@ -130,7 +130,7 @@ def flight(lat1, lon1, bearing, distance, spaceDistance, widthRectangle, spaceBt
     
 
 
-connection_string = None
+connection_string = "/dev/ttyS0"
 sitl = None
 
 

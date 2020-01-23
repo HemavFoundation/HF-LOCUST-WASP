@@ -314,6 +314,9 @@ cmds = vehicle.commands
 armDrone()
 main(vehicle)
 
+#timeout test
+time.sleep(86000)
+
 
 # Close vehicle object before exiting script
 vehicle.close()
