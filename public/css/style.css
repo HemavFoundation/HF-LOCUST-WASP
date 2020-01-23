@@ -648,3 +648,34 @@ th, td {
     transform: translateY(4px);/*Move down*/
     border-bottom: none;/*disappears*/
 }
+
+#theme_switcher {
+	position: fixed;
+	right: 20px;
+	top: 20px;
+	border: none;
+	font-size: 20px;
+	color: silver;
+	padding: 16px 22px;
+	text-align: center;
+	background-color: rgba(0, 0, 0, 0.4);
+	font-weight: 600;
+	border-radius: 6px;
+	outline: none;
+	transition: all .3s ease;
+	cursor: pointer;
+}
+
+#theme_switcher:hover {
+	background-color: rgba(0, 0, 0, 0.65);
+}
+
+body.HIGH_CONTRAST {
+	background-image: none;
+	background-color: #000000;
+	
+}
+
+body.HIGH_CONTRAST * {
+	color: #ffffff;
+}
