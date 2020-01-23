@@ -1,66 +1,60 @@
-<!doctype html>
-<html lang="en">
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
 <head>
-  <title>homeTemplate</title>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-  <!-- Optional JavaScript -->
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-  <script>
-$(document).ready(function () {
-    $("button").click(function () {
-      $("#tabla").html(""); //primero vacio la tabla existente
-		  $("#tablacompleta").show()
-      $.ajax({
-        type: 'GET', 
-        url: 'http://localhost:9000/api/telemetry/gpsPosition',
-        dataType: 'text',
-        success: function (data) {
-          console.log("OKKKKKKKK");														
-					$("#tabla").append("<tr><td>" + data + "</td></tr>");
-			}
-		})	
-	});
-});	
-  
-  </script>
-
+<title>LOCUST</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="../css/style.css" type="text/css" />
 </head>
-
 <body>
-  <div class="jumbotron">
-    <h1 class="display-4">Hemav Foundation: Locust</h1>
-    <p class="lead">Prueba boton GPS</p>
-  </div>
-  <button type="button" class="btn">Get GPS</button>
-
-  <div class="row">
-    <div class="col-lg-2"></div>
-    <div class="col-lg-8">
-      <h2>Drone info</h2>
-    <!-- <p>Devuelvo los repositorios del usuario solicitado:</p>             -->
-    <table id="tablacompleta" class="table table-striped">
-      <thead>
-        <tr>
-          <th>GPS position</th>
-        </tr>
-      </thead>
-      <tbody id="tabla">     
-      </tbody>
-    </table>	
+<div id="page">
+  <div id="header">
+    <div id="headerimg">
     </div>
-    <div class="col-lg-2"></div>
   </div>
+  <hr />
+  <div id="content" class="narrowcolumn">
+    <div class="post" id="post-1">
+      <h2><a>Locust Projet</a></h2>
+      <div class="entry">
+        <p>The desert locust plagues are one of the most dangerous and destructives in the world, especially because of the damage caused to the food and agriculture resources.</p>
+        <p>This project is aimed to design, develop and implement drone and AI technology to strengthen the current Desert Locust early warning system and preventive control strategy with focusing firstly on the detection of risk areas and inspection of pre-swarm locust occurrences.</p>
+        <br>
+        <br>
+        <br>
+        <h2><a>Collaborators</a></h2>
+        <div id="inline">
+          <div id="logoClcPro"></div>
+          <div id="logoCrcLogo"></div>
+          <div id="logoFao"></div>
+          <div id="logoLocustFao"></div>
+          <div id="logoFundationSabadell"></div>
+          <div id="logoUpc"></div>
+          <div id="logoUpcYellow"></div>
+        </div>
+      </div>
+    </div>
 
-</body>
+  </div>
+</div>
+<div id="sidebar">
+  <ul>
+    <li class="pagenav">
+      <h2>Planner</h2>
+      <ul>
+        <li class="page_item"><a href="planner">Plan a mission!</a></li>
+      </ul>
+    </li>
+    <li>  
+      <h2>Results</h2>
+      <ul>
+        <li><a href="results/History.html">Get missions results!</a></li>
+      </ul>
+    </li>
+    <li></li>
+  </ul>
+</div>
 
+<div id="footer">
+  <p>App created by Hemav Fundation Team</p>
+</div>
 </html>
