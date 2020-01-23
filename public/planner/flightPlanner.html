@@ -97,7 +97,7 @@
 
     $(document).ready(function () {
 
-      $("#connectbut").click(function ()        // click CONNECT
+      $("#connectbut").click(function ()     
       {
         document.getElementById('photoconnection').src = "../images/waiting.png";
         $.ajax({
@@ -114,7 +114,7 @@
         })
       });
 
-      $("#uploadbut").click(function ()         // click LOAD
+      $("#uploadbut").click(function ()       
       {
         var p = document.getElementById("distancetext").value;
         document.getElementById('photoupload').src = "../images/waiting.png";
@@ -146,9 +146,9 @@
 
       });
 
-      $("#startbut").click(function ()          // click START
+      $("#startbut").click(function () 
       {
-        document.getElementById('photoupload').src = "../images/waiting.png";
+        document.getElementById('photostart').src = "../images/waiting.png";
         $.ajax
           ({
             type: 'GET',
