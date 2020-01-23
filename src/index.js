@@ -28,10 +28,6 @@ app.listen(app.get('port'), () => {
     console.log(`Server on port ${app.get('port')}`);
 });
 
-app.get('/*', (req, res) => {
-    res.sendFile(path.join(___dirname + '/'));
-});
-
 app.use(express.static('public'));
 
 app.use(express.static('public/photos'));
