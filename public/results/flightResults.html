@@ -1,7 +1,11 @@
 <html>
+<head>
     <link href="/style.css" rel="stylesheet" type="text/css">
+    <script src="../js/jquery.js"></script>
+</head>
 <body>
     <script src="/GetResults.js"></script>
+    <button id="theme_switcher">Dark theme</button>
     
     <h1></h1>
     <table>
@@ -14,5 +18,33 @@
         <tbody id = "FlightResults"></tbody>
     </table>
     <button onclick="window.location='/history'" target="_new">History</button>
+    <button id="theme_switcher">Dark theme</button>
 </body>
+
+<script>
+    $(document).ready(function () {
+        var theme = 'DEFAULT'
+        $('#theme_switcher').on('click', themeSwitcher);
+        function themeSwitcher() {<button id="theme_switcher">Dark theme</button>
+            var isDefaultTheme = theme === 'DEFAULT';
+            if(isDefaultTheme){
+            theme = 'HIGH_CONTRAST';
+
+            $('body').addClass('HIGH_CONTRAST');
+            $('#header').css('background-image', 'none');
+            $('#theme_switcher').text('Light theme')
+            return;
+            }
+            if(!isDefaultTheme){
+            theme = 'DEFAULT';
+
+            $('body').removeClass('HIGH_CONTRAST');
+            $('#header').css('background-image', 'url("../images/FundationHemavLogo.png")');
+            $('#theme_switcher').text('Dark theme')
+
+            return;
+            }
+        }
+    })
+</script>
 </html>

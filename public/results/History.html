@@ -20,6 +20,7 @@
 	<script src="GetResults.js"></script>
 	<script src="ThisResult.js"></script>
 
+	<button id="theme_switcher">Dark theme</button>
 	<h2><a>History</a></h2>
 	<br><br>
 	<table class="simpleTable" id="tableID">
@@ -44,6 +45,32 @@
         <tbody id="FlightResults"></tbody>
 	</table>
 	<br><br>
-    <button class="square_btn_small" onclick="window.location='History.html'" target="_new">Clear</button>
+		<button class="square_btn_small" onclick="window.location='History.html'" target="_new">Clear</button>
+		<script>
+		$(document).ready(function () {
+        var theme = 'DEFAULT'
+        $('#theme_switcher').on('click', themeSwitcher);
+        function themeSwitcher() {
+            var isDefaultTheme = theme === 'DEFAULT';
+            if(isDefaultTheme){
+            theme = 'HIGH_CONTRAST';
+
+            $('body').addClass('HIGH_CONTRAST');
+            $('#header').css('background-image', 'none');
+            $('#theme_switcher').text('Light theme')
+            return;
+            }
+            if(!isDefaultTheme){
+            theme = 'DEFAULT';
+
+            $('body').removeClass('HIGH_CONTRAST');
+            $('#header').css('background-image', 'url("../images/FundationHemavLogo.png")');
+            $('#theme_switcher').text('Dark theme')
+
+            return;
+            }
+        }
+    })
+		</script>
 </body>
 </html>
