@@ -22,7 +22,6 @@ app.use("/api/load", require("./routes/load"));
 app.use("/api/start", require("./routes/start"));
 
 
-//app.use("/api/ruta", require("./routes/ejemplo"));
 
 // starting the server
 app.listen(app.get('port'), () => {

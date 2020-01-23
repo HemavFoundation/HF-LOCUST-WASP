@@ -102,7 +102,7 @@
         document.getElementById('photoconnection').src = "../images/waiting.png";
         $.ajax({
           type: 'GET',
-          url: 'http://localhost:9000/api/connect',
+          url: 'http://192.168.0.10:9000/api/connect',
           dataType: 'json',
           success: function (data, textStatus, xhr) {
             document.getElementById('photoconnection').src = "../images/tick.png";
