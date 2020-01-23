@@ -10,9 +10,12 @@ import sys
 
 #sys.argv[1]
 
-print(sys.argv[1])
-caca = sys.argv[1]
-distance = int(caca) / 1000
+distance = int(sys.argv[1]) / 1000
+widthRectangle = int(sys.argv[2]) / 1000
+spaceDistance = int(sys.argv[3]) / 1000
+spaceBtwLines = int(sys.argv[4]) / 1000
+height = int(sys.argv[5])
+spaceDistance = int(sys.argv[3]) / 1000
 rEarth = 6371.01 # Earth's average radius in km
 epsilon = 0.000001 # threshold for floating-point equality
 
@@ -74,7 +77,7 @@ def pointRadialDistance(lat1, lon1, bearing, distance):
     return LocationGlobal(lat, lon,0)
 
    
-def flight(lat1, lon1, bearing, distance, spaceDistance, widthRectangle):
+def flight(lat1, lon1, bearing, distance, spaceDistance, widthRectangle, spaceBtwLines, height):
 
     finalPoint = pointRadialDistance(lat1, lon1, bearing, (distance + 0.5))
 
@@ -86,10 +89,11 @@ def flight(lat1, lon1, bearing, distance, spaceDistance, widthRectangle):
     firstLocation = pointRadialDistance(lat1,lon1,(bearing + fase),h)
 
     #takeoff
-    cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_TAKEOFF, 0, 0, 10, 0, 0, 0, 0, 0, 120))
-    cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_DO_CHANGE_SPEED, 0, 0, 0, 17, 0, 0, 0, 0, 120))
+    cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_DO_SET_HOME, 0, 0, 1, 0, 0, 0, 0, 0, height))
+    cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_TAKEOFF, 0, 0, 0, 0, 0, 0, 0, 0, height))
+    cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_DO_CHANGE_SPEED, 0, 0, 0, 17, 0, 0, 0, 0, height))
     #first point
-    cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, firstLocation.lat, firstLocation.lon, 120))
+    cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, firstLocation.lat, firstLocation.lon, height))
 
 
     print(finalPoint.lat, finalPoint.lon)
@@ -97,36 +101,36 @@ def flight(lat1, lon1, bearing, distance, spaceDistance, widthRectangle):
 
     #second point
     locationLoop = pointRadialDistance(firstLocation.lat, firstLocation.lon, bearing - 90, widthRectangle)
-    cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, locationLoop.lat, locationLoop.lon, 120))
+    cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, locationLoop.lat, locationLoop.lon, height))
 
-    division = (distance / 0.250) / 2 #
+    division = (distance / spaceBtwLines) / 2 #
     print(division)
     print(locationLoop.lat, locationLoop.lon)
 
     for x in range(int(division)):
-        locationLoop = pointRadialDistance(locationLoop.lat,locationLoop.lon, bearing, 0.120)
-        cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, locationLoop.lat, locationLoop.lon, 120))
+        locationLoop = pointRadialDistance(locationLoop.lat,locationLoop.lon, bearing, spaceBtwLines)
+        cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, locationLoop.lat, locationLoop.lon, height))
         print (locationLoop.lat,locationLoop.lon)
 
         locationLoop = pointRadialDistance(locationLoop.lat,locationLoop.lon, bearing + 90, widthRectangle)
-        cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, locationLoop.lat, locationLoop.lon, 120))
+        cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, locationLoop.lat, locationLoop.lon, height))
         print (locationLoop.lat,locationLoop.lon)
 
-        locationLoop = pointRadialDistance(locationLoop.lat,locationLoop.lon, bearing, 0.120)
-        cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, locationLoop.lat, locationLoop.lon, 120))
+        locationLoop = pointRadialDistance(locationLoop.lat,locationLoop.lon, bearing, spaceBtwLines)
+        cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, locationLoop.lat, locationLoop.lon, height))
         print (locationLoop.lat,locationLoop.lon)
 
         locationLoop = pointRadialDistance(locationLoop.lat,locationLoop.lon, bearing - 90, widthRectangle)
-        cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, locationLoop.lat, locationLoop.lon, 120))
+        cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, locationLoop.lat, locationLoop.lon, height))
         print (locationLoop.lat,locationLoop.lon)
 
-    cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_DO_LAND_START, 0, 0, 0, 0, 0, 0, lat1, lon1, 120))
+    cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_DO_LAND_START, 0, 0, 0, 0, 0, 0, lat1, lon1, height))
     cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_LOITER_TO_ALT, 0, 0, 0, 0, 0, 0, lat1, lon1, 30))
-    cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_LAND, 0, 0, 0, 0, 0, 0, lat1, lon1, 0))
+    cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_LAND, 0, 0, 0, 0, 0, 0, lat1, lon1, 30))
     
 
 
-connection_string = "/dev/ttyS0"
+connection_string = None
 sitl = None
 
 
@@ -147,13 +151,13 @@ while vehicle is None:
 # Get some vehicle attributes (state)
 cmds = vehicle.commands
 
-#cmds.download()
-#cmds.wait_ready()
+cmds.download()
+cmds.wait_ready()
 
 cmds.clear()
     
  
-flight(vehicle.location.global_frame.lat,vehicle.location.global_frame.lon,vehicle.heading,distance,0.5,0.5)
+flight(vehicle.location.global_frame.lat,vehicle.location.global_frame.lon,vehicle.heading,distance,spaceDistance,widthRectangle,spaceBtwLines,height)
 
 print(" Upload new commands to vehicle")
 cmds.upload()

@@ -30,7 +30,16 @@ app.listen(app.get('port'), () => {
 });
 
 app.get('/*', (req, res) => {
-    res.sendFile(path.join(___dirname + '/public'));
+    res.sendFile(path.join(___dirname + '/'));
+});
+
+app.use(express.static('public'));
+
+app.use(express.static('public/photos'));
+
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(___dirname + '/public/index.html'));
 });
 
 app.get('/planner', (req, res) => {
@@ -41,38 +50,9 @@ app.get('/history', (req, res) => {
     res.sendFile(path.join(___dirname + '/public/results/History.html'));
 });
 
-app.get('/waiting.jpeg', (req, res) => {
-    res.sendFile(path.join(___dirname + '/public/planner/waiting.jpeg'));
-});
-    
-app.get('/tick.jpg', (req, res) => {
-    res.sendFile(path.join(___dirname + '/public/planner/tick.jpg'));
-});
-    
-app.get('/cross.jpg', (req, res) => {
-    res.sendFile(path.join(___dirname + '/public/planner/cross.jpg'));
+app.get('/results.json', (req, res) => {
+    res.sendFile(path.join(___dirname + '/public/results/results.json'));
 });
 
-app.get('/flightResults', (req, res) => {
-    res.sendFile(path.join(___dirname + '/public/results/flightResults.html'));
-});
 
-app.get('/jquery.js', (req, res) => {
-    res.sendFile(path.join(___dirname + '/public/js/jquery.js'));
-});
 
-app.get('/planner.js', (req, res) => {
-    res.sendFile(path.join(___dirname + '/public/js/planner.js'));
-});
-
-app.get('/results.js', (req, res) => {
-    res.sendFile(path.join(___dirname + '/public/js/results.js'));
-});
-
-app.get('/GetResults.js', (req, res) => {
-    res.sendFile(path.join(___dirname + '/public/results/GetResults.js'));
-});
-
-app.get('/style.css', (req, res) => {
-    res.sendFile(path.join(___dirname + '/public/css/style.css'));
-});

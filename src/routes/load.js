@@ -14,15 +14,20 @@ class LocationDrone {
 var location;
 var options;
 
-router.post("/:distance", (req, res) => {
-  const { distance } = req.params;
+router.post("/:distance/:w/:x/:L/:h", (req, res) => {
+  const distance = req.params.distance;
+  const width = req.params.w;
+  const spaceDistance  = req.params.x;
+  const  spaceBtwLines  = req.params.L;
+  const  height = req.params.h;
+
 
   var options = {
     mode: "text",
-    pythonPath: '/usr/bin/python3',
+    //pythonPath: '/usr/bin/python3',
     pythonOptions: ["-u"], // get print results in real-time
     scriptPath: "./scripts",
-    args: [distance]
+    args: [distance, width, spaceDistance, spaceBtwLines, height]
   };
 
   PythonShell.run("rectangleMission.py", options, function(err, results) {

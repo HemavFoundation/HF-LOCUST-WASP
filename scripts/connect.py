@@ -17,7 +17,7 @@ import time
 
 
 
-connection_string = "/dev/ttyS0"
+connection_string = None
 sitl = None
 
 
@@ -35,7 +35,7 @@ if not connection_string:
 vehicle = None
 
 while vehicle is None:
-    vehicle = connect(connection_string, baud=921600, wait_ready=True)
+    vehicle = connect(connection_string, baud=921600, wait_ready=False)
 
 
 
