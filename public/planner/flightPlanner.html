@@ -102,8 +102,7 @@
     $(document).ready(function () {
       $('#theme_switcher').on('click', themeSwitcher);
 
-      $("#connectbut").click(function ()     
-      {
+      $("#connectbut").click(function () {
         document.getElementById('photoconnection').src = "../images/waiting.png";
         $.ajax({
           type: 'GET',
@@ -119,8 +118,7 @@
         })
       });
 
-      $("#uploadbut").click(function ()       
-      {
+      $("#uploadbut").click(function () {
         document.getElementById('photoupload').src = "../images/waiting.png";
         var p = document.getElementById("distancetext").value;
 
@@ -132,28 +130,27 @@
           var l = parseFloat(document.getElementById("Ltext").value);
           var h = parseFloat(document.getElementById("htext").value);
           var d = parseFloat(document.getElementById("rectwidthtext").value);
-  
+
           if (pnum < pmax) {
             $.ajax
               ({
                 type: 'POST',
-                url: 'http://192.168.0.10:9000/api/load/:distance',
+                url: 'http://192.168.0.10:9000/api/load/' + pnum + '/' + x + '/' + d + '/' + l + '/' + h,
                 data: { data1: pnum, data2: pmax, data3: x, data4: l, data5: h, data6: d },
                 dataType: 'json',
                 success: function (data, textStatus, xhr) {
-                  document.getElementById('photoupload').src = "tick.jpg";
+                  document.getElementById('photoupload').src = "../images/tick.png";
                   document.getElementById("startbut").disabled = false;
                 },
                 error: function (data, textStatus, xhr) {
-                  document.getElementById('photoupload').src = "cross.jpg";
+                  document.getElementById('photoupload').src = "../images/cross.png";
                 },
               })
           }
         }
       });
 
-      $("#startbut").click(function () 
-      {
+      $("#startbut").click(function () {
         document.getElementById('photostart').src = "../images/waiting.png";
         $.ajax
           ({
@@ -172,7 +169,7 @@
 
     function themeSwitcher() {
       var isDefaultTheme = theme === 'DEFAULT';
-      if(isDefaultTheme){
+      if (isDefaultTheme) {
         theme = 'HIGH_CONTRAST';
 
         $('body').addClass('HIGH_CONTRAST');
@@ -180,7 +177,7 @@
         $('#theme_switcher').text('Light theme')
         return;
       }
-      if(!isDefaultTheme){
+      if (!isDefaultTheme) {
         theme = 'DEFAULT';
 
         $('body').removeClass('HIGH_CONTRAST');
