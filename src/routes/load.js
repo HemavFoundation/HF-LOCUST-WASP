@@ -24,7 +24,7 @@ router.post("/:distance/:w/:x/:L/:h", (req, res) => {
 
   var options = {
     mode: "text",
-    //pythonPath: '/usr/bin/python3',
+    pythonPath: '/usr/bin/python3',
     pythonOptions: ["-u"], // get print results in real-time
     scriptPath: "./scripts",
     args: [distance, width, spaceDistance, spaceBtwLines, height]

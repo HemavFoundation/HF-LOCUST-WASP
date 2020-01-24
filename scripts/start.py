@@ -194,7 +194,7 @@ def main_loop(num, newpath, camera_interface, autopilot_interface):
         ndvi_new = contrast_stretch(ndvi).astype(np.uint8)
         cv2.imwrite(name_ndvi, ndvi_new)
         
-        output_file = open('results.json', 'a')   # condition must be 'a' to do not rewrite the json file on each flight
+        output_file = open('/home/pi/Desktop/HF-LOCUST-WASP/results.json', 'a')   # condition must be 'a' to do not rewrite the json file on each flight
 
 
         data_drone = autopilot_interface.set_data_drone()
@@ -248,7 +248,7 @@ def main(vehicle):
     autopilot_interface = AutopilotInterface(vehicle)
     newpath = create_directory()
     
-    while True:
+    while vehicle.armed is True:
         
         altitude = autopilot_interface.get_altitude()
         print(altitude)
@@ -301,15 +301,13 @@ if not connection_string:
 # Connect to the Vehicle. 
 #   Set `wait_ready=True` to ensure default attributes are populated before `connect()` returns.
 #print("\nConnecting to vehicle on: %s" % connection_string)
-vehicle = None
-        
-while vehicle is None:
-    vehicle = connect(connection_string, baud=921600, wait_ready=True)
+
+vehicle = connect(connection_string, baud=921600, wait_ready=True)
     
   
 # Get some vehicle attributes (state)
 cmds = vehicle.commands
-#cmds.download()
+cmds.download()
 #cmds.wait_ready()
 armDrone()
 main(vehicle)

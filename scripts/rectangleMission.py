@@ -144,20 +144,20 @@ if not connection_string:
 # Connect to the Vehicle. 
 #   Set `wait_ready=True` to ensure default attributes are populated before `connect()` returns.
 #print("\nConnecting to vehicle on: %s" % connection_string)
-vehicle = None
-while vehicle is None:
-    vehicle = connect(connection_string, baud=921600, wait_ready=True)
+
+vehicle = connect(connection_string, baud=921600, wait_ready=True)
+
 
 # Get some vehicle attributes (state)
 cmds = vehicle.commands
 
 cmds.download()
-cmds.wait_ready()
+#cmds.wait_ready()
 
 cmds.clear()
     
  
-flight(vehicle.location.global_frame.lat,vehicle.location.global_frame.lon,vehicle.heading,distance,spaceDistance,widthRectangle,spaceBtwLines,height)
+flight(vehicle.location.global_frame.lat, vehicle.location.global_frame.lon, vehicle.heading, distance, spaceDistance, widthRectangle, spaceBtwLines, height)
 
 print(" Upload new commands to vehicle")
 cmds.upload()
