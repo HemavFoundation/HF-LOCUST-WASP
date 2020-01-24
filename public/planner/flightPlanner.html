@@ -35,7 +35,7 @@
         <br><br>
         Distance (P): <input id="distancetext" type="number" value=""> meters
         <br><br>
-        Maximum distance (Pmax): <label id="maxdistancetext" type="number"></label> meters
+        Maximum distance (Pmax): <label id="maxdistancetext" type="number" value=></label> meters
         <br>
         <button class="square_btn_small" id="uploadbut" disabled>Load</button>
 
@@ -126,11 +126,13 @@
 
         if (p != "") {
           var pnum = parseFloat(p);
-          var pmax = parseFloat(document.getElementById("maxdistancetext").value);
+          var maxdistancetext = $('#maxdistancetext');
+          var pmax = parseFloat(maxdistancetext.text());
           var x = parseFloat(document.getElementById("xtext").value);
           var l = parseFloat(document.getElementById("Ltext").value);
           var h = parseFloat(document.getElementById("htext").value);
           var d = parseFloat(document.getElementById("rectwidthtext").value);
+  
           if (pnum < pmax) {
             $.ajax
               ({
