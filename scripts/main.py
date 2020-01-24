@@ -80,7 +80,7 @@ def initialize_json(timestamp):
         "results": []
     }
 
-    data["flights"].append(flight)
+    data["flights"].append(dict(flight))
 
     print('Json initialized')
 
@@ -178,7 +178,7 @@ def main_loop(num, newpath, camera_interface, autopilot_interface):
 
     percent = round(((values_ndvi / total_values) * 100), 2)
 
-    if percent >= 0:
+    if percent >= 10:
  
         # We normalize the ndvi matrix between 0 and 255 values to have a good drawing
         ndvi_new = contrast_stretch(ndvi).astype(np.uint8)
@@ -198,7 +198,7 @@ def main_loop(num, newpath, camera_interface, autopilot_interface):
         ndvi_new = contrast_stretch(ndvi).astype(np.uint8)
         cv2.imwrite(name_ndvi, ndvi_new)
         
-        output_file = open('results.json', 'a')   # condition must be 'a' to do not rewrite the json file on each flight
+        output_file = open('/home/pi/Desktop/HF-LOCUST-WASP/results.json', 'w')   # condition must be 'a' to do not rewrite the json file on each flight
 
 
         data_drone = autopilot_interface.set_data_drone()
@@ -211,6 +211,36 @@ def main_loop(num, newpath, camera_interface, autopilot_interface):
         
         print('@@@ image processed @@@')
         
+    else:
+        
+        ndvi_new = contrast_stretch(ndvi).astype(np.uint8)
+
+
+        path = os.getcwd()
+        image_path = '/home/pi/Desktop/locust_vegetation_finder_images'
+        
+        
+        name = newpath + '/' + 'raw_images'+'/' + str(num) + '.jpeg'
+        name_ndvi = newpath + '/' + 'ndvi_images'+'/'+ str(num) + '.jpeg'
+
+        #name = path + '/' + 'ndvi_results' + '/' + 'image' + 'ndvi' + str(percent) + '.jpeg'
+
+        cv2.imwrite(name, img)
+        
+        ndvi_new = contrast_stretch(ndvi).astype(np.uint8)
+        cv2.imwrite(name_ndvi, ndvi_new)
+        
+        output_file = open('/home/pi/Desktop/HF-LOCUST-WASP/results.json', 'w')   # condition must be 'a' to do not rewrite the json file on each flight
+
+
+        data_drone = autopilot_interface.set_data_drone()
+
+        image_settings = camera_interface.camera_settings()
+        
+        print('@@@ image processed @@@')
+        
+            
+            
     
     return
 
@@ -253,7 +283,7 @@ def main():
     autopilot_interface = AutopilotInterface()
     newpath = create_directory()
     
-    while True:
+    while vehicle.armed is True:
         
         altitude = autopilot_interface.get_altitude()
         print(altitude)

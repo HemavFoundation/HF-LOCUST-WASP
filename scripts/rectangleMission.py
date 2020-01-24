@@ -90,6 +90,7 @@ def flight(lat1, lon1, bearing, distance, spaceDistance, widthRectangle, spaceBt
 
     #takeoff
     cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_DO_SET_HOME, 0, 0, 1, 0, 0, 0, 0, 0, height))
+    cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_DO_SET_HOME, 0, 0, 1, 0, 0, 0, 0, 0, height))
     cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_TAKEOFF, 0, 0, 10, 0, 0, 0, 0, 0, height))
     cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_DO_CHANGE_SPEED, 0, 0, 0, 17, 0, 0, 0, 0, height))
     #first point
@@ -128,6 +129,7 @@ def flight(lat1, lon1, bearing, distance, spaceDistance, widthRectangle, spaceBt
     cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_LOITER_TO_ALT, 0, 0, 0, 0, 0, 0, lat1, lon1, 30))
     cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_LAND, 0, 0, 0, 0, 0, 0, lat1, lon1, 30))
     
+    cmds.upload()
 
 
 connection_string = "/dev/ttyS0"
@@ -144,24 +146,20 @@ if not connection_string:
 # Connect to the Vehicle. 
 #   Set `wait_ready=True` to ensure default attributes are populated before `connect()` returns.
 #print("\nConnecting to vehicle on: %s" % connection_string)
-vehicle = None
-while vehicle is None:
-    vehicle = connect(connection_string, baud=921600, wait_ready=True)
+
+vehicle = connect(connection_string, baud=921600, wait_ready=True)
+
 
 # Get some vehicle attributes (state)
+global cmds
+
 cmds = vehicle.commands
 
-cmds.download()
-cmds.wait_ready()
-
-cmds.clear()
-    
- 
-flight(vehicle.location.global_frame.lat,vehicle.location.global_frame.lon,vehicle.heading,distance,spaceDistance,widthRectangle,spaceBtwLines,height)
+flight(vehicle.location.global_frame.lat, vehicle.location.global_frame.lon, vehicle.heading, distance, spaceDistance, widthRectangle, spaceBtwLines, height)
 
 print(" Upload new commands to vehicle")
-cmds.upload()
-save_mission('./hola.waypoints')
+
+#save_mission('./hola.waypoints')
 
 # Close vehicle object before exiting script
 vehicle.close()

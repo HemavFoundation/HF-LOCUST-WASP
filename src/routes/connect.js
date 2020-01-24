@@ -15,7 +15,7 @@ class LocationDrone {
 router.get("/", (req, res) => {
 let options = {
   mode: 'text',
-  //pythonPath: '/usr/bin/python3',
+  pythonPath: '/usr/bin/python3',
   pythonOptions: ['-u'], // get print results in real-time
   scriptPath: './scripts'
 };
