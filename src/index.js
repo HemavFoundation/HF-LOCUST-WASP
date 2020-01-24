@@ -22,13 +22,11 @@ app.use("/api/load", require("./routes/load"));
 app.use("/api/start", require("./routes/start"));
 
 
-//app.use("/api/ruta", require("./routes/ejemplo"));
 
 // starting the server
 app.listen(app.get('port'), () => {
     console.log(`Server on port ${app.get('port')}`);
 });
-
 
 app.use(express.static('public'));
 

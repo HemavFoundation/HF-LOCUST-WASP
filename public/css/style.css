@@ -3,10 +3,10 @@ body {
 	font-family: Verdana, Arial, Sans-Serif;
 	color: #ededed;
 	text-align: center;
-	background-color: white;
+	background-color: black;
 	background-image:url("../images/backgroundWeb.png");
 	background-repeat:no-repeat;
-	background-size:cover;
+	background-size:inherit;
 	}
 
 #page {
@@ -22,7 +22,7 @@ body {
 	background-image:url("../images/FundationHemavLogo.png");
 	background-repeat:no-repeat;
 	background-size:cover;
-	margin-top: 79px; 
+	margin-top: 232px; 
 	height: 234px; 
 	width: 782px;
 	}
@@ -400,7 +400,7 @@ h3.comments {
 	text-align: left;
 	position: absolute;
 	right: 20px;
-	top: 157px;
+	top: 232px;
 	border-radius: 25px;
 	background-color:#0a2d40;
 }
@@ -647,4 +647,48 @@ th, td {
     -webkit-transform: translateY(4px);
     transform: translateY(4px);/*Move down*/
     border-bottom: none;/*disappears*/
+}
+
+#theme_switcher {
+	position: fixed;
+	right: 20px;
+	top: 20px;
+	border: none;
+	font-size: 20px;
+	color: silver;
+	padding: 16px 22px;
+	text-align: center;
+	background-color: rgba(0, 0, 0, 0.4);
+	font-weight: 600;
+	border-radius: 6px;
+	outline: none;
+	transition: all .3s ease;
+	cursor: pointer;
+}
+
+#theme_switcher:hover {
+	background-color: rgba(0, 0, 0, 0.65);
+}
+
+body.HIGH_CONTRAST {
+	background-image: none;
+	background-color: #000000;
+	
+}
+
+body.HIGH_CONTRAST * {
+	color: #ffffff;
+}
+
+/*******CARD STYLE********/
+ 
+.card{
+	border: 1px solid #082d40;
+	border-radius: 2%;
+	padding: 2%;
+	background-color: #ff00002b;
+}
+
+body.HIGH_CONTRAST .card{
+	background-color: transparent;
 }
