@@ -310,10 +310,6 @@ cmds = vehicle.commands
 cmds.download()
 #cmds.wait_ready()
 armDrone()
-main(vehicle)
-
-#timeout test
-time.sleep(86000)
 
 
 # Close vehicle object before exiting script

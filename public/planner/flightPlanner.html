@@ -155,10 +155,27 @@
         $.ajax
           ({
             type: 'GET',
-            url: 'http://192.168.0.10:9000/api/start',
+            url: 'http://192.168.0.10:9000/api/start/part1',
             dataType: 'json',
             success: function (data, textStatus, xhr) {
               document.getElementById('photostart').src = "../images/tick.png";
+              $.ajax
+                ({
+                  type: 'GET',
+                  url: 'http://192.168.0.10:9000/api/start/part2',
+                  dataType: 'json',
+                  success: function (data, textStatus, xhr) {
+                    console.log("OK");
+                  },
+                  error: function (data, textStatus, xhr) {
+                    if (xhr.status == 400) {
+                      document.getElementById('photostart').src = "../images/cross.png";
+                      console.log("Han fallado las fotos");
+                    }
+                    console.log("Tiempo de espera agotado");
+                  },
+                })
+
             },
             error: function (data, textStatus, xhr) {
               document.getElementById('photostart').src = "../images/cross.png";
