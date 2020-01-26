@@ -29,7 +29,7 @@ function OpenFR(i){
 
 function deleteRows() {
     let table = document.querySelector("#flight");
-    
+
 }
 
 function ThisResult(i){
@@ -45,7 +45,7 @@ function ThisResult(i){
             
             for (let item of data.flights[i].results){
                 "<tr>"
-                Result.innerHTML+="<td>"+item.id+"</td>"+"<td>"+item.NDVI+"</td>"+"<td>"+item.Latitude+"</td>"+"<td>"+item.Longitude+"</td>"+"<td>"+item.photo+"</td>";
+                Result.innerHTML+="<td>"+item.id+"</td>"+"<td>"+item.NDVI+"</td>"+"<td>"+item.Latitude+"</td>"+"<td>"+item.Longitude+"</td>"+"<td>"+"<a href=" + item.photo  + ">Show photo!</a>"+"</td>";
                 "</tr>"
             }
         }
