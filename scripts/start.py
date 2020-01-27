@@ -170,8 +170,11 @@ def main(vehicle):
             camera_interface.test_settings(num)
             num += 1
 
-    if num > 1:
+    try:
         edit_json(flight, output_file)
+    except:
+        print("No flight")
+
 
 #if __name__ == '__main__':
     #main()
