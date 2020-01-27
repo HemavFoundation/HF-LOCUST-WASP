@@ -22,7 +22,7 @@ body {
 	background-image:url("../images/FundationHemavLogo.png");
 	background-repeat:no-repeat;
 	background-size:cover;
-	margin-top: 232px; 
+	margin-top: 80px; 
 	height: 234px; 
 	width: 782px;
 	}
@@ -600,7 +600,7 @@ th, td {
   padding: 14px 16px;
   transition: 0.3s;
   font-size: 30px;
-  color: #082d40;
+  color: white;
 }
 
 .photoupload{
