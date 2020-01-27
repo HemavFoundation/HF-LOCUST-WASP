@@ -632,6 +632,17 @@ th, td {
 	font-size: 20px;
 }
 
+.square_btn_center{
+    display: inline-block;
+    padding: 0.5em 1em;
+    background: #8a1a2d;
+    color: #FFF;
+	height: 30px;
+	width: 150px;
+	border-radius: 10%;
+	font-size: 20px;
+}
+
 .square_btn_small{
     display: inline-block;
     padding: 0.5em 1em;
