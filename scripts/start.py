@@ -9,9 +9,7 @@ from main import *
 #from image_processing.interfaces.autopilot_interface import AutopilotInterface
 #from image_processing.interfaces.interfaces.camera_interface import CameraInterface
 #Set up option parsing to get connection string
-
 import argparse
-
 import numpy as np
 import json
 import pandas as pd
@@ -116,19 +114,17 @@ def main_loop(num, newpath, camera_interface, autopilot_interface):
     ndvi = ((nir - red) / (nir + red)).astype(float)
 
     #Once we have the ndvi matrix, we want to know how many values are following the ndvi condition
-    values_ndvi = np.count_nonzero(ndvi > 0.2)
+    values_ndvi = np.count_nonzero(ndvi > 0.14)
 
     # we multiply the number of rows by the number of columns to obtain the total number of values
     total_values = ndvi.shape[0] * ndvi.shape[1]
 
     percent = round(((values_ndvi / total_values) * 100), 2)
 
-    if percent >= 0:
+    if percent >= 5:
 
-        path = os.getcwd()
-        
         name = newpath + '/' + 'raw_images'+'/' + str(num) + '.jpeg'
-        name_ndvi = newpath + '/' + 'ndvi_images'+'/'+ str(num) + '.jpeg'
+        name_ndvi = newpath + '/' + 'ndvi_images' + '/' + str(num) + '.jpeg'
 
         # name = path + '/' + 'ndvi_results' + '/' + 'image' + 'ndvi' + str(percent) + '.jpeg'
 
@@ -141,11 +137,22 @@ def main_loop(num, newpath, camera_interface, autopilot_interface):
 
         image_settings = camera_interface.camera_settings()
 
-        flight = write_json(timestamp, num, percent, data_drone, image_settings, path)
+        flight = write_json(timestamp, num, percent, data_drone, image_settings, name)
 
-
-        
         print('@@@ image processed @@@')
+
+    else:
+
+        name = newpath + '/' + 'raw_images' + '/' + str(num) + '.jpeg'
+        name_ndvi = newpath + '/' + 'ndvi_images' + '/' + str(num) + '.jpeg'
+
+        # name = path + '/' + 'ndvi_results' + '/' + 'image' + 'ndvi' + str(percent) + '.jpeg'
+
+        cv2.imwrite(name, img)
+
+        ndvi_new = contrast_stretch(ndvi).astype(np.uint8)
+
+        cv2.imwrite(name_ndvi, ndvi_new)
 
     return flight
 
@@ -162,16 +169,19 @@ def main(vehicle):
     while vehicle.armed is True:
         
         altitude = autopilot_interface.get_altitude()
-        print(altitude)
+        print('@@@@@@altitude @@@@', altitude)
         
-        if altitude >= -50:
+        if altitude >= 50:
             
             flight = main_loop(num, newpath, camera_interface, autopilot_interface)
             camera_interface.test_settings(num)
             num += 1
 
-    if num > 1:
+    try:
         edit_json(flight, output_file)
+    except:
+        print("No flight")
+
 
 #if __name__ == '__main__':
     #main()
@@ -182,8 +192,6 @@ def armDrone():
     print("Basic pre-arm checks")
     # Don't let the user try to arm until autopilot is ready
 
-
-        
     print("Arming motors")
     # Copter should arm in GUIDED mode
     # vehicle.mode = VehicleMode("AUTO")
