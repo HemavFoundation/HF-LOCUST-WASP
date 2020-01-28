@@ -23,13 +23,9 @@
 	<button id="theme_switcher">Dark theme</button>
 	<h2><a>History</a></h2>
 	<br><br>
-	<table class="simpleTable" id="tableID">
-		<tr>
-			<th>Hour</th>
-			<th>View Results</th>
-		</tr>
-		<tbody id = "History"></tbody>
-	</table>
+  <input type="button" value="Generate Table" onclick="GenerateTable()" />
+  <hr />
+  <div id="dvTable"></div>
 	
 	<br><br><br>
 	<h2><a>Flight Results</a></h2>
@@ -71,6 +67,51 @@
             }
         }
     })
-		</script>
+    </script>
+    
+    <script type="text/javascript">
+      function GenerateTableFlight() {
+        clearTimeout;
+        const xhttp = new XMLHttpRequest();
+        xhttp.open('GET', '/results.json', true);
+        xhttp.send();
+        xhttp.responseType = "text";
+        xhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+            let data = JSON.parse(this.responseText);
+            var flights = new Array();
+            flights.push(["Hour", "View Result"]);
+            for (let item of data.flights) {
+              flights.push([item.id, "<button class=square_btn_small id=" + item.id + " onclick='OpenFR(this.id)>GO</button>"]);
+            }
+  
+            //Create a HTML Table element.
+            var table = document.createElement("TABLE");
+            table.border = "1";
+  
+            //Get the count of columns.
+            var columnCount = flights[0].length;
+  
+            //Add the data rows.
+            for (var i = 1; i < flights.length; i++) {
+              row = table.insertRow(-1);
+              for (var j = 0; j < columnCount; j++) {
+                var cell = row.insertCell(-1);
+                cell.innerHTML = flights[i][j];
+              }
+            }
+  
+            var dvTable = document.getElementById("dvTable");
+            dvTable.innerHTML = "";
+            dvTable.appendChild(table);
+  
+          } else {
+            console.log('error, readyState is:', this.readyState, 'status fetch is:', this.status)
+          }
+        }
+      }
+
+
+    </script>
 </body>
 </html>
