@@ -21,9 +21,8 @@ class CameraInterface:
         customGains = (self.redAWB, self.blueAWB)
         self.camera.awb_mode = 'off'
         self.camera.awb_gains = customGains
-        
 
-        self.camera.drc_strength = 'off'   #dynamic range of the camera
+        self.camera.drc_strength = 'high'   #dynamic range of the camera
         # self.camera.resolution = (3280, 2464)
         # self.camera.resolution = (1640, 922)
 
