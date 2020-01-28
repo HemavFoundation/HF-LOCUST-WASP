@@ -121,12 +121,10 @@ def main_loop(num, newpath, camera_interface, autopilot_interface):
 
     percent = round(((values_ndvi / total_values) * 100), 2)
 
-    if percent >= 10:
+    if percent >= 5:
 
-        path = os.getcwd()
-        
         name = newpath + '/' + 'raw_images'+'/' + str(num) + '.jpeg'
-        name_ndvi = newpath + '/' + 'ndvi_images'+'/'+ str(num) + '.jpeg'
+        name_ndvi = newpath + '/' + 'ndvi_images' + '/' + str(num) + '.jpeg'
 
         # name = path + '/' + 'ndvi_results' + '/' + 'image' + 'ndvi' + str(percent) + '.jpeg'
 
@@ -139,12 +137,11 @@ def main_loop(num, newpath, camera_interface, autopilot_interface):
 
         image_settings = camera_interface.camera_settings()
 
-        flight = write_json(timestamp, num, percent, data_drone, image_settings, path)
+        flight = write_json(timestamp, num, percent, data_drone, image_settings, name)
 
         print('@@@ image processed @@@')
 
     else:
-        path = os.getcwd()
 
         name = newpath + '/' + 'raw_images' + '/' + str(num) + '.jpeg'
         name_ndvi = newpath + '/' + 'ndvi_images' + '/' + str(num) + '.jpeg'
@@ -155,11 +152,7 @@ def main_loop(num, newpath, camera_interface, autopilot_interface):
 
         ndvi_new = contrast_stretch(ndvi).astype(np.uint8)
 
-        image_settings = camera_interface.camera_settings()
-        data_drone = autopilot_interface.set_data_drone()
-        cv2.putText(ndvi_new, (image_settings, data_drone), (10, 10), FONT_HERSHEY_SIMPLEX, (255, 255, 255))
         cv2.imwrite(name_ndvi, ndvi_new)
-
 
     return flight
 
