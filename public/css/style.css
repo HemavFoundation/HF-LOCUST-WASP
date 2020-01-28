@@ -175,10 +175,6 @@ h2.pagetitle {
 	font-size: 1.6em;
 	}
 
-#sidebar h2 {
-	font-family: Verdana, Sans-Serif;
-	font-size: 1.2em;
-	}
 
 h3 {
 	font-size: 1.3em;
@@ -191,10 +187,6 @@ h1, h1 a, h1 a:hover, h1 a:visited, #headerimg .description {
 
 h2, h2 a, h2 a:visited, h3, h3 a, h3 a:visited {
 	color: #ededed;
-	}
-
-h2, h2 a, h2 a:hover, h2 a:visited, h3, h3 a, h3 a:hover, h3 a:visited, #sidebar h2, #wp-calendar caption, cite {
-	text-decoration: none;
 	}
 
 
@@ -226,9 +218,7 @@ h2, h2 a, h2 a:hover, h2 a:visited, h3, h3 a, h3 a:hover, h3 a:visited, #sidebar
 	font-weight: normal;
 	}
 
-#sidebar {
-	font: 1em Verdana, Arial, Sans-Serif;
-	}
+
 ul
 {
 	list-style:none;
@@ -368,11 +358,6 @@ h2.pagetitle {
 	text-align: left;
 }
 
-#sidebar h2 {
-	margin: 5px 0 0;
-	padding: 0;
-	width: 192px;
-	}
 
 h3 {
 	padding: 0;
@@ -394,16 +379,7 @@ h3.comments {
 	width: 72px;
 	padding: 2px;
 	}
-	
-#sidebar
-{
-	text-align: left;
-	position: absolute;
-	right: 20px;
-	top: 232px;
-	border-radius: 25px;
-	background-color:#0a2d40;
-}
+
 
 .entry form { 
 	text-align:center;
@@ -466,9 +442,6 @@ select {
 	}
 
 
-#sidebar form {
-	margin: 0;
-	}
 
 /* Begin Various Tags and Classes */
 acronym, abbr, span.caps {
@@ -558,10 +531,6 @@ td, th
   padding: 5px;
 }
 
-tr:nth-child(even) 
-{
-  background-color: lightblue;
-}
 
 .tab 
 {
@@ -628,6 +597,17 @@ th, td {
     color: #FFF;
 	height: 30px;
 	width: 100px;
+	border-radius: 10%;
+	font-size: 20px;
+}
+
+.square_btn_center{
+    display: inline-block;
+    padding: 0.5em 1em;
+    background: #8a1a2d;
+    color: #FFF;
+	height: 30px;
+	width: 150px;
 	border-radius: 10%;
 	font-size: 20px;
 }

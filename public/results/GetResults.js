@@ -14,7 +14,7 @@ function GetResults(){
             let Results = document.querySelector("#tableID");
             for (let item of data.flights){
                 "<tr>"
-                Results.innerHTML+="<td>"+item.id+"</td>"+"<td><button class=square_btn_small id="+i+" onclick='OpenFR(this.id) || deleteRows()' button>GO</td>";
+                Results.innerHTML+="<td>"+item.id+"</td>"+"<td><button class=square_btn_small id="+i+" onclick='OpenFR(this.id)' button>GO</td>";
                 "</tr>"
                 i++;
             }  
@@ -22,14 +22,6 @@ function GetResults(){
             console.log('error, readyState is:', this.readyState, 'status fetch is:', this.status)
         }
     }
-}
-function OpenFR(i){
-    ThisResult(i);  
-}
-
-function deleteRows() {
-    let table = document.querySelector("#flight");
-
 }
 
 function ThisResult(i){
