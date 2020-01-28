@@ -531,10 +531,6 @@ td, th
   padding: 5px;
 }
 
-tr:nth-child(even) 
-{
-  background-color: lightblue;
-}
 
 .tab 
 {

@@ -23,7 +23,6 @@
 	<button id="theme_switcher">Dark theme</button>
 	<h2><a>History</a></h2>
 	<br><br>
-  <input type="button" value="Generate Table" onclick="GenerateTable()" />
   <hr />
   <div id="dvTable"></div>
 	
@@ -62,8 +61,7 @@
     </script>
     
     <script type="text/javascript">
-      function GenerateTable() {
-        clearTimeout;
+      clearTimeout;
         const xhttp = new XMLHttpRequest();
         xhttp.open('GET', '/results.json', true);
         xhttp.send();
@@ -101,8 +99,6 @@
             console.log('error, readyState is:', this.readyState, 'status fetch is:', this.status)
           }
         }
-      }
-
       function GenerateTableResults(id) {
         clearTimeout;
         const xhttp = new XMLHttpRequest();
