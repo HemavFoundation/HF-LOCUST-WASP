@@ -49,5 +49,9 @@ app.get('/results.json', (req, res) => {
     res.sendFile(path.join(___dirname + '/public/results/results.json'));
 });
 
+app.get('/jquery.js', (req, res) => {
+    res.sendFile(path.join(___dirname + '/public/js/jquery.js'));
+});
+
 
 
