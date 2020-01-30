@@ -19,10 +19,12 @@ body {
 	}
 
 #header {
-	background-image:url("../images/header.jpg");
+	background-image:url("../images/FundationHemavLogo.png");
 	background-repeat:no-repeat;
 	background-size:cover;
-	height: 100px; 
+	margin-top: 80px; 
+	height: 234px; 
+	width: 782px;
 	}
 
 #logoFao {
@@ -593,11 +595,33 @@ th, td {
     padding: 0.5em 1em;
     background: #8a1a2d;
     color: #FFF;
-
+	height: 30px;
+	width: 100px;
 	border-radius: 10%;
 	font-size: 20px;
 }
 
+.square_btn_center{
+    display: inline-block;
+    padding: 0.5em 1em;
+    background: #8a1a2d;
+    color: #FFF;
+	height: 30px;
+	width: 150px;
+	border-radius: 10%;
+	font-size: 20px;
+}
+
+.square_btn_small{
+    display: inline-block;
+    padding: 0.5em 1em;
+    background: #8a1a2d;
+    color: #FFF;
+	height: 15px;
+	width: 50px;
+	border-radius: 10%;
+	font-size: 15px;
+}
 .square_btn:active {/*on Click*/
     -ms-transform: translateY(4px);
     -webkit-transform: translateY(4px);

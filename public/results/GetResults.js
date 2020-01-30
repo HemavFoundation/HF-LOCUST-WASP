@@ -14,7 +14,7 @@ function GetResults(){
             let Results = document.querySelector("#tableID");
             for (let item of data.flights){
                 "<tr>"
-                Results.innerHTML+="<td>"+item.id+"</td>"+"<td><button class=square_btn id="+i+" onclick='OpenFR(this.id)' button>GO</td>";
+                Results.innerHTML+="<td>"+item.id+"</td>"+"<td><button class=square_btn_small id="+i+" onclick='OpenFR(this.id)' button>GO</td>";
                 "</tr>"
                 i++;
             }  

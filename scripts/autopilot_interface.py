@@ -33,7 +33,11 @@ class AutopilotInterface():
         return data_drone
 
     def get_altitude(self):
-        return self.vehicle.location.global_frame.alt
+        try:
+            print(self.vehicle.location.global_relative_frame.alt)
+        except:
+            print("not able to get latitude")
+        return self.vehicle.location.global_relative_frame.alt
 
     # # #
 

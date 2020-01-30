@@ -16,14 +16,15 @@ import pandas as pd
 import cv2
 
 
-def edit_json(newFlight, output_file):
-
-    with output_file as f:
+def edit_json(newFlight):
+    
+    with open('/home/pi/Desktop/HF-LOCUST-WASP/results.json', 'r+') as f:
         data = []
         try:
             data = json.load(f)
         except:
             print("Empty json")
+            
         data.append(newFlight)
         f.seek(0)
         json.dump(data, f)
@@ -34,16 +35,14 @@ def edit_json(newFlight, output_file):
 
 
 def write_json(timestamp, num, percentage, data_drone, image_settings, path):
-    results = []
-
     coordinates = (data_drone[0], data_drone[1])
     results.append(
         {
                 "image_id": num,
                 "percentage": percentage,
                 "coordinates": coordinates,
-                "image path": path,
-                "camera settings": image_settings,
+                "image_path": path,
+                "camera_settings": image_settings,
             }
     )
 
@@ -58,7 +57,7 @@ def create_directory():  # tested and working
 
     # path = os.getcwd()  # this returns actual directory as a string (should be modify to a raspberry directory)
     
-    path = '/home/pi/Desktop/locust_vegetation_finder_images'
+    path = '/home/pi/Desktop/HF-LOCUST-WASP/public/results/photos'
     # we need to convert numbers to string to be able to create the new path
     year = str(pd.datetime.now().year)
     month = str(pd.datetime.now().month)
@@ -94,12 +93,9 @@ def contrast_stretch(im):
 
     return out
 
-def main_loop(num, newpath, camera_interface, autopilot_interface):
-    
-    print('@@@@ entered main loop @@@')
+def main_loop(vehicle, num, newpath, camera_interface, autopilot_interface):
     
     img = camera_interface.capture_frame()
-    print('@@@@ obtained image from camera @@@')
 
    # Once we have a gray colorspace mask, we want to add the orginal image to it
     b = np.array(img[:, :, 0]).astype(float) + 0.00000000001
@@ -115,17 +111,18 @@ def main_loop(num, newpath, camera_interface, autopilot_interface):
 
     #Once we have the ndvi matrix, we want to know how many values are following the ndvi condition
     values_ndvi = np.count_nonzero(ndvi > 0.14)
-
+    ndvi[ndvi<0.14] = 0
+    
     # we multiply the number of rows by the number of columns to obtain the total number of values
     total_values = ndvi.shape[0] * ndvi.shape[1]
 
     percent = round(((values_ndvi / total_values) * 100), 2)
 
-    if percent >= 5:
-
+    if percent >= -10:
+        
         name = newpath + '/' + 'raw_images'+'/' + str(num) + '.jpeg'
         name_ndvi = newpath + '/' + 'ndvi_images' + '/' + str(num) + '.jpeg'
-
+    
         # name = path + '/' + 'ndvi_results' + '/' + 'image' + 'ndvi' + str(percent) + '.jpeg'
 
         cv2.imwrite(name, img)
@@ -136,11 +133,13 @@ def main_loop(num, newpath, camera_interface, autopilot_interface):
         data_drone = autopilot_interface.set_data_drone()
 
         image_settings = camera_interface.camera_settings()
-
-        flight = write_json(timestamp, num, percent, data_drone, image_settings, name)
+        
+        path_json = '/results/photos/' + str(timestamp) + '/' + 'raw_images'+'/' + str(num) + '.jpeg'
+        flight_info = write_json(timestamp, num, percent, data_drone, image_settings, path_json)
 
         print('@@@ image processed @@@')
-
+        return flight_info
+    
     else:
 
         name = newpath + '/' + 'raw_images' + '/' + str(num) + '.jpeg'
@@ -153,12 +152,9 @@ def main_loop(num, newpath, camera_interface, autopilot_interface):
         ndvi_new = contrast_stretch(ndvi).astype(np.uint8)
 
         cv2.imwrite(name_ndvi, ndvi_new)
-
-    return flight
+        return None
 
 def main(vehicle):
-
-    output_file = open('/home/pi/Desktop/HF-LOCUST-WASP/results.json', 'r+')  # condition must be 'a' to do not rewrite the json file on each flight
 
     global num
     num = 1
@@ -169,20 +165,22 @@ def main(vehicle):
     while vehicle.armed is True:
         
         altitude = autopilot_interface.get_altitude()
-        print('@@@@@@altitude @@@@', altitude)
         
-        if altitude >= 50:
+        if altitude >= -50:
             
-            flight = main_loop(num, newpath, camera_interface, autopilot_interface)
+            flight_data = main_loop(vehicle, num, newpath, camera_interface, autopilot_interface)
             camera_interface.test_settings(num)
             num += 1
-
-    try:
-        edit_json(flight, output_file)
-    except:
-        print("No flight")
-
-
+    
+    if (flight_data != None):
+        try:
+            edit_json(flight_data)
+        except:
+            print("No flight")
+    
+    else:
+        print('Flight data is empty')
+                    
 #if __name__ == '__main__':
     #main()
 
@@ -225,7 +223,8 @@ if not connection_string:
 #print("\nConnecting to vehicle on: %s" % connection_string)
 
 vehicle = connect(connection_string, baud=921600, wait_ready=True)
-    
+  
+results = []
   
 # Get some vehicle attributes (state)
 cmds = vehicle.commands
