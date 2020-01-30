@@ -1,1 +1,97 @@
-[{"id": "2020_1_30-1_48", "results": [{"image_id": 1, "percentage": 0.0, "coordinates": [19.3382238, -14.53896], "image_path": "/home/pi/Desktop/HF-LOCUST-WASP/images/2020_1_30-1_48/raw_images/1.jpeg", "camera_settings": [1.5, 1.9, "auto", 50]}, {"image_id": 2, "percentage": 0.0, "coordinates": [19.338224, -14.5389584], "image_path": "/home/pi/Desktop/HF-LOCUST-WASP/images/2020_1_30-1_48/raw_images/2.jpeg", "camera_settings": [1, 1, "auto", 30]}, {"image_id": 3, "percentage": 0.0, "coordinates": [19.3382254, -14.5389593], "image_path": "/home/pi/Desktop/HF-LOCUST-WASP/images/2020_1_30-1_48/raw_images/3.jpeg", "camera_settings": [1, 1, "auto", 30]}, {"image_id": 4, "percentage": 0.0, "coordinates": [19.3382249, -14.5389602], "image_path": "/home/pi/Desktop/HF-LOCUST-WASP/images/2020_1_30-1_48/raw_images/4.jpeg", "camera_settings": [1, 1, "auto", 30]}, {"image_id": 5, "percentage": 0.0, "coordinates": [19.3382249, -14.53896], "image_path": "/home/pi/Desktop/HF-LOCUST-WASP/images/2020_1_30-1_48/raw_images/5.jpeg", "camera_settings": [1, 1, "auto", 30]}, {"image_id": 6, "percentage": 0.0, "coordinates": [19.3382263, -14.5389616], "image_path": "/home/pi/Desktop/HF-LOCUST-WASP/images/2020_1_30-1_48/raw_images/6.jpeg", "camera_settings": [1, 1, "auto", 30]}, {"image_id": 7, "percentage": 0.0, "coordinates": [19.3382285, -14.5389619], "image_path": "/home/pi/Desktop/HF-LOCUST-WASP/images/2020_1_30-1_48/raw_images/7.jpeg", "camera_settings": [1, 1, "auto", 30]}, {"image_id": 8, "percentage": 0.0, "coordinates": [19.3382291, -14.5389632], "image_path": "photos/22222/8.jpeg", "camera_settings": [1, 1, "auto", 30]}]}, {"id": "2020_1_30-2_22", "results": [{"image_id": 1, "percentage": 0.0, "coordinates": [19.3382326, -14.5389705], "image_path": "/home/pi/Desktop/HF-LOCUST-WASP/public/results/photos/2020_1_30-2_22/raw_images/1.jpeg", "camera_settings": [1.5, 1.9, "auto", 50]}, {"image_id": 2, "percentage": 0.0, "coordinates": [19.3382329, -14.5389711], "image_path": "/home/pi/Desktop/HF-LOCUST-WASP/public/results/photos/2020_1_30-2_22/raw_images/2.jpeg", "camera_settings": [1, 1, "auto", 30]}, {"image_id": 3, "percentage": 0.0, "coordinates": [19.3382334, -14.538973], "image_path": "/home/pi/Desktop/HF-LOCUST-WASP/public/results/photos/2020_1_30-2_22/raw_images/3.jpeg", "camera_settings": [1, 1, "auto", 30]}, {"image_id": 4, "percentage": 0.0, "coordinates": [19.3382336, -14.5389757], "image_path": "/home/pi/Desktop/HF-LOCUST-WASP/public/results/photos/2020_1_30-2_22/raw_images/4.jpeg", "camera_settings": [1, 1, "auto", 30]}, {"image_id": 5, "percentage": 0.0, "coordinates": [19.3382339, -14.5389761], "image_path": "/home/pi/Desktop/HF-LOCUST-WASP/public/results/photos/2020_1_30-2_22/raw_images/5.jpeg", "camera_settings": [1, 1, "auto", 30]}, {"image_id": 6, "percentage": 0.0, "coordinates": [19.3382335, -14.5389783], "image_path": "/home/pi/Desktop/HF-LOCUST-WASP/public/results/photos/2020_1_30-2_22/raw_images/6.jpeg", "camera_settings": [1, 1, "auto", 30]}]}, {"id": "2020_1_30-2_39", "results": [{"image_id": 1, "percentage": 0.0, "coordinates": [19.3382345, -14.5389421], "image_path": "/results/photos/raw_images/1.jpeg", "camera_settings": [1.5, 1.9, "auto", 50]}, {"image_id": 2, "percentage": 0.0, "coordinates": [19.3382344, -14.5389419], "image_path": "/results/photos/raw_images/2.jpeg", "camera_settings": [1, 1, "auto", 30]}, {"image_id": 3, "percentage": 0.0, "coordinates": [19.3382337, -14.5389423], "image_path": "/results/photos/raw_images/3.jpeg", "camera_settings": [1, 1, "auto", 30]}, {"image_id": 4, "percentage": 0.0, "coordinates": [19.338234, -14.5389432], "image_path": "/results/photos/raw_images/4.jpeg", "camera_settings": [1, 1, "auto", 30]}, {"image_id": 5, "percentage": 0.0, "coordinates": [19.3382347, -14.5389435], "image_path": "/results/photos/raw_images/5.jpeg", "camera_settings": [1, 1, "auto", 30]}, {"image_id": 6, "percentage": 0.0, "coordinates": [19.3382343, -14.5389456], "image_path": "/results/photos/raw_images/6.jpeg", "camera_settings": [1, 1, "auto", 30]}, {"image_id": 7, "percentage": 0.0, "coordinates": [19.3382325, -14.5389476], "image_path": "/results/photos/raw_images/7.jpeg", "camera_settings": [1, 1, "auto", 30]}]}, {"id": "2020_1_30-2_46", "results": [{"image_id": 1, "percentage": 0.0, "coordinates": [19.3382326, -14.5389759], "image_path": "/results/photos/1.jpeg", "camera_settings": [1.5, 1.9, "auto", 50]}, {"image_id": 2, "percentage": 0.0, "coordinates": [19.3382314, -14.5389763], "image_path": "/results/photos/2.jpeg", "camera_settings": [1, 1, "auto", 30]}, {"image_id": 3, "percentage": 0.0, "coordinates": [19.3382312, -14.5389711], "image_path": "/results/photos/3.jpeg", "camera_settings": [1, 1, "auto", 30]}, {"image_id": 4, "percentage": 0.0, "coordinates": [19.3382319, -14.5389715], "image_path": "/results/photos/4.jpeg", "camera_settings": [1, 1, "auto", 30]}, {"image_id": 5, "percentage": 0.0, "coordinates": [19.3382317, -14.538972], "image_path": "/results/photos/5.jpeg", "camera_settings": [1, 1, "auto", 30]}]}, {"id": "2020_1_30-2_57", "results": [{"image_id": 1, "percentage": 0.0, "coordinates": [19.3382312, -14.5389621], "image_path": "/results/photos/2020_1_30-2_57/raw_images/1.jpeg", "camera_settings": [1.5, 1.9, "auto", 50]}, {"image_id": 2, "percentage": 0.0, "coordinates": [19.3382307, -14.538962], "image_path": "/results/photos/2020_1_30-2_57/raw_images/2.jpeg", "camera_settings": [1, 1, "auto", 30]}, {"image_id": 3, "percentage": 0.0, "coordinates": [19.3382305, -14.5389596], "image_path": "/results/photos/2020_1_30-2_57/raw_images/3.jpeg", "camera_settings": [1, 1, "auto", 30]}, {"image_id": 4, "percentage": 0.0, "coordinates": [19.3382312, -14.5389577], "image_path": "/results/photos/2020_1_30-2_57/raw_images/4.jpeg", "camera_settings": [1, 1, "auto", 30]}, {"image_id": 5, "percentage": 0.0, "coordinates": [19.3382314, -14.5389597], "image_path": "/results/photos/2020_1_30-2_57/raw_images/5.jpeg", "camera_settings": [1, 1, "auto", 30]}, {"image_id": 6, "percentage": 0.0, "coordinates": [19.3382321, -14.5389593], "image_path": "/results/photos/2020_1_30-2_57/raw_images/6.jpeg", "camera_settings": [1, 1, "auto", 30]}]}]
+[
+    {
+      "id": "2020_1_30-11-57",
+      "results": [
+        {
+          "image_id": 1,
+          "percentage": 0,
+          "coordinates": [
+            19.3382312,
+            -14.5389621
+          ],
+          "image_path": "/results/photos/2020_1_30-11-57/raw_images/1.jpeg",
+          "camera_settings": [
+            1.5,
+            1.9,
+            "auto",
+            50
+          ]
+        },
+        {
+          "image_id": 2,
+          "percentage": 0,
+          "coordinates": [
+            19.3382307,
+            -14.538962
+          ],
+          "image_path": "/results/photos/2020_1_30-11-57/raw_images/2.jpeg",
+          "camera_settings": [
+            1,
+            1,
+            "auto",
+            30
+          ]
+        },
+        {
+          "image_id": 3,
+          "percentage": 0,
+          "coordinates": [
+            19.3382305,
+            -14.5389596
+          ],
+          "image_path": "/results/photos/2020_1_30-11-57/raw_images/3.jpeg",
+          "camera_settings": [
+            1,
+            1,
+            "auto",
+            30
+          ]
+        },
+        {
+          "image_id": 4,
+          "percentage": 0,
+          "coordinates": [
+            19.3382312,
+            -14.5389577
+          ],
+          "image_path": "/results/photos/2020_1_30-11-57/raw_images/4.jpeg",
+          "camera_settings": [
+            1,
+            1,
+            "auto",
+            30
+          ]
+        },
+        {
+          "image_id": 5,
+          "percentage": 0,
+          "coordinates": [
+            19.3382314,
+            -14.5389597
+          ],
+          "image_path": "/results/photos/2020_1_30-11-57/raw_images/5.jpeg",
+          "camera_settings": [
+            1,
+            1,
+            "auto",
+            30
+          ]
+        },
+        {
+          "image_id": 6,
+          "percentage": 0,
+          "coordinates": [
+            19.3382321,
+            -14.5389593
+          ],
+          "image_path": "/results/photos/2020_1_30-11-57/raw_images/6.jpeg",
+          "camera_settings": [
+            1,
+            1,
+            "auto",
+            30
+          ]
+        }
+      ]
+    }
+  ]
