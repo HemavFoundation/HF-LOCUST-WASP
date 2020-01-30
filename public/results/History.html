@@ -57,7 +57,7 @@
   </div>
 
   <br><br>
-  <button class="square_btn_small" onclick="window.location='History.html'" target="_new">Clear</button>
+  <button class="square_btn" onclick="window.location='History.html'" target="_new">Clear</button>
   <script>
     $(document).ready(function () {
       var theme = 'DEFAULT'
@@ -72,11 +72,11 @@
 
       $.ajax({
         type: 'GET',
-        url: 'http://192.168.0.10:9000/results.json',
+        url: 'http://localhost:9000/results.json',
         dataType: 'json',
         success: function (data) {
           $.each(data, function (index, datos) {
-            $("#historyTable").append("<tr><td>" + datos.id + "</td><td><button id='" + index + "' type='button' class='square_btn_small' onclick='fillResultsTable(" + index + ")'>GO!</button></td></tr>");
+            $("#historyTable").append("<tr><td>" + datos.id + "</td><td><button id='" + index + "' type='button' class='square_btn' onclick='fillResultsTable(" + index + ")'>GO!</button></td></tr>");
           });
         }
       })
@@ -88,7 +88,7 @@
 
       $.ajax({
         type: 'GET',
-        url: 'http://192.168.0.10:9000/results.json',
+        url: 'http://localhost:9000/results.json',
         dataType: 'json',
         success: function (data) {
           $.each(data[passId].results, function (index, datos) {
