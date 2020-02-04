@@ -8,8 +8,6 @@ import math
 from pymavlink import mavutil
 import sys
 
-#sys.argv[1]
-
 distance = int(sys.argv[1]) / 1000
 widthRectangle = int(sys.argv[2]) / 1000
 spaceDistance = int(sys.argv[3]) / 1000
