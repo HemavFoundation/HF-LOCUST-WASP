@@ -99,8 +99,13 @@ def main_loop(vehicle, num, newpath, camera_interface, autopilot_interface):
 
    # Once we have a gray colorspace mask, we want to add the orginal image to it
     b = np.array(img[:, :, 0]).astype(float) + 0.00000000001
-    g = np.array(img[:, :, 1]).astype(float)
     r = np.array(img[:, :, 2]).astype(float) + 0.00000000001
+
+    # define range of red color in BGR
+    lower_limit = np.array([9, 9, 9])
+    upper_limit = np.array([255, 255, 255])
+
+    shadows = cv2.inRange(img, lower_limit, upper_limit)
 
     nir = r
     red = b
@@ -109,16 +114,18 @@ def main_loop(vehicle, num, newpath, camera_interface, autopilot_interface):
 
     ndvi = ((nir - red) / (nir + red)).astype(float)
 
-    #Once we have the ndvi matrix, we want to know how many values are following the ndvi condition
-    values_ndvi = np.count_nonzero(ndvi > 0.14)
-    ndvi[ndvi<0.14] = 0
-    
-    # we multiply the number of rows by the number of columns to obtain the total number of values
-    total_values = ndvi.shape[0] * ndvi.shape[1]
+    ndvi_contrasted = contrast_stretch(ndvi).astype(np.uint8)
+
+    ndvi_new = cv2.bitwise_or(ndvi_contrasted, ndvi_contrasted, mask=shadows)
+
+    values_ndvi = np.count_nonzero(ndvi_new >= 163)
+    ndvi_new[ndvi_new < 163] = 0
+
+    total_values = ndvi_new.shape[0] * ndvi_new.shape[1]
 
     percent = round(((values_ndvi / total_values) * 100), 2)
 
-    if percent >= -10:
+    if percent >= 3:
         
         name = newpath + '/' + 'raw_images'+'/' + str(num) + '.jpeg'
         name_ndvi = newpath + '/' + 'ndvi_images' + '/' + str(num) + '.jpeg'
@@ -126,9 +133,15 @@ def main_loop(vehicle, num, newpath, camera_interface, autopilot_interface):
         # name = path + '/' + 'ndvi_results' + '/' + 'image' + 'ndvi' + str(percent) + '.jpeg'
 
         cv2.imwrite(name, img)
-        
-        ndvi_new = contrast_stretch(ndvi).astype(np.uint8)
-        cv2.imwrite(name_ndvi, ndvi_new)
+
+        mask_vegetation = cv2.inRange(ndvi_new, 163, 255)
+        res = cv2.bitwise_and(img, img, mask=cv2.bitwise_not(mask_vegetation))
+
+        ndvi_final = cv2.cvtColor(ndvi_new, cv2.COLOR_GRAY2BGR)
+        ndvi_result = cv2.bitwise_and(ndvi_final, ndvi_final, mask=mask_vegetation)
+        fusion = res + ndvi_result
+
+        cv2.imwrite(name_ndvi, fusion)
 
         data_drone = autopilot_interface.set_data_drone()
 
@@ -143,15 +156,11 @@ def main_loop(vehicle, num, newpath, camera_interface, autopilot_interface):
     else:
 
         name = newpath + '/' + 'raw_images' + '/' + str(num) + '.jpeg'
-        name_ndvi = newpath + '/' + 'ndvi_images' + '/' + str(num) + '.jpeg'
+
 
         # name = path + '/' + 'ndvi_results' + '/' + 'image' + 'ndvi' + str(percent) + '.jpeg'
 
         cv2.imwrite(name, img)
-
-        ndvi_new = contrast_stretch(ndvi).astype(np.uint8)
-
-        cv2.imwrite(name_ndvi, ndvi_new)
         return None
 
 def main(vehicle):
