@@ -30,7 +30,7 @@ class CameraInterface:
 
     def test_settings(self, num):
 
-        if num >= 500:
+        if num >= 0:
             self.redAWB = 0.9
             self.blueAWB = 2.2
             self.camera.brightness = 30

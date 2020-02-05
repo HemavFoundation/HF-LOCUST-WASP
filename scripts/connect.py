@@ -33,4 +33,7 @@ print(vehicle.location.global_frame.alt)
 vehicle.close()
 
 # Shut down simulator
+if sitl is not None:
+    sitl.stop()
+
 

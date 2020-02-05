@@ -236,6 +236,9 @@ main(vehicle)
 vehicle.close()
 
 # Shut down simulator
+if sitl is not None:
+    sitl.stop()
+
 
 
 
