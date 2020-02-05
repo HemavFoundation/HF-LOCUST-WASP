@@ -2,6 +2,7 @@ const { Router } = require("express");
 var { PythonShell } = require("python-shell");
 const router = Router();
 
+var localhost = true;
 
 var location;
 var options;
@@ -9,6 +10,8 @@ var options;
 var lonFlight;
 var latFlight;
 var headingFlight;
+
+var localhost = true;
 
 class LocationDrone {
   constructor(heading, lon, lat, alt) {
@@ -20,12 +23,22 @@ class LocationDrone {
 }
 
 router.get("/directionOfFlight", (req, res) => {
-  let options = {
-    mode: "text",
-    pythonPath: "/usr/bin/python3",
-    pythonOptions: ["-u"], // get print results in real-time
-    scriptPath: "./scripts"
-  };
+  let options;
+
+  if (localhost != true) {
+    options = {
+      mode: "text",
+      pythonPath: "/usr/bin/python3",
+      pythonOptions: ["-u"], // get print results in real-time
+      scriptPath: "./scripts"
+    };
+  } else {
+    options = {
+      mode: "text",
+      pythonOptions: ["-u"], // get print results in real-time
+      scriptPath: "./scripts"
+    };
+  }
 
   PythonShell.run("directionOfFlight.py", options, function(err, results) {
     //if (err) throw err;
@@ -51,20 +64,49 @@ router.get("/directionOfFlight", (req, res) => {
   });
 });
 
-router.post("rectangleMission/:distance/:w/:x/:L/:h", (req, res) => {
+router.post("/rectangleMission/:distance/:w/:x/:L/:h", (req, res) => {
   const distance = req.params.distance;
   const width = req.params.w;
   const spaceDistance = req.params.x;
   const spaceBtwLines = req.params.L;
   const height = req.params.h;
 
-  var options = {
-    mode: "text",
-    pythonPath: "/usr/bin/python3",
-    pythonOptions: ["-u"], // get print results in real-time
-    scriptPath: "./scripts",
-    args: [distance, width, spaceDistance, spaceBtwLines, height, latFlight, lonFlight, headingFlight ]
-  };
+  let options;
+
+  if (localhost != true) {
+    options = {
+      mode: "text",
+      pythonPath: "/usr/bin/python3",
+      pythonOptions: ["-u"], // get print results in real-time
+      scriptPath: "./scripts",
+      args: [
+        distance,
+        width,
+        spaceDistance,
+        spaceBtwLines,
+        height,
+        latFlight,
+        lonFlight,
+        headingFlight
+      ]
+    };
+  } else {
+    options = {
+      mode: "text",
+      pythonOptions: ["-u"], // get print results in real-time
+      scriptPath: "./scripts",
+      args: [
+        distance,
+        width,
+        spaceDistance,
+        spaceBtwLines,
+        height,
+        latFlight,
+        lonFlight,
+        headingFlight
+      ]
+    };
+  }
 
   PythonShell.run("rectangleMission.py", options, function(err, results) {
     if (err) {
