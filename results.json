@@ -1,0 +1,97 @@
+[
+    {
+      "id": "2020_1_30-11-57",
+      "results": [
+        {
+          "image_id": 1,
+          "percentage": 8.5,
+          "coordinates": [
+            19.3382312,
+            -14.5389621
+          ],
+          "image_path": "/results/photos/2020_1_30-11-57/raw_images/1.jpeg",
+          "camera_settings": [
+            1.5,
+            1.9,
+            "auto",
+            50
+          ]
+        },
+        {
+          "image_id": 2,
+          "percentage": 7.1,
+          "coordinates": [
+            19.3382307,
+            -14.538962
+          ],
+          "image_path": "/results/photos/2020_1_30-11-57/raw_images/2.jpeg",
+          "camera_settings": [
+            1,
+            1,
+            "auto",
+            30
+          ]
+        },
+        {
+          "image_id": 3,
+          "percentage": 6.2,
+          "coordinates": [
+            19.3382305,
+            -14.5389596
+          ],
+          "image_path": "/results/photos/2020_1_30-11-57/raw_images/3.jpeg",
+          "camera_settings": [
+            1,
+            1,
+            "auto",
+            30
+          ]
+        },
+        {
+          "image_id": 4,
+          "percentage": 6.6,
+          "coordinates": [
+            19.3382312,
+            -14.5389577
+          ],
+          "image_path": "/results/photos/2020_1_30-11-57/raw_images/4.jpeg",
+          "camera_settings": [
+            1,
+            1,
+            "auto",
+            30
+          ]
+        },
+        {
+          "image_id": 5,
+          "percentage": 1.1,
+          "coordinates": [
+            19.3382314,
+            -14.5389597
+          ],
+          "image_path": "/results/photos/2020_1_30-11-57/raw_images/5.jpeg",
+          "camera_settings": [
+            1,
+            1,
+            "auto",
+            30
+          ]
+        },
+        {
+          "image_id": 6,
+          "percentage": 0.5,
+          "coordinates": [
+            19.3382321,
+            -14.5389593
+          ],
+          "image_path": "/results/photos/2020_1_30-11-57/raw_images/6.jpeg",
+          "camera_settings": [
+            1,
+            1,
+            "auto",
+            30
+          ]
+        }
+      ]
+    }
+  ]

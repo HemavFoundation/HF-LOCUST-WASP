@@ -4,141 +4,126 @@
 
 <head>
   <meta charset="utf-8">
-  <script src="../js/jquery.js"></script>
   <link rel="stylesheet" href="../css/style.css">
   <title>Flight Planner</title>
 </head>
 
 
 <body id="page">
-	<div id="header">
-	  <div id="headerimg">
-	  </div>
-	</div>
-	
-	<script src="../js/jquery.js"></script>
-	<script src="GetResults.js"></script>
-	<script src="ThisResult.js"></script>
+  <div id="header">
+    <div id="headerimg">
+    </div>
+  </div>
 
-	<button id="theme_switcher">Dark theme</button>
-	<h2><a>History</a></h2>
-	<br><br>
+  <script src="/jquery.js"></script>
+  <!-- <script src="GetResults.js"></script>
+  <script src="ThisResult.js"></script> -->
+  <button id="theme_switcher">Dark theme</button>
+  <h2><a>History</a></h2>
+  <br><br>
   <hr />
-  <div id="dvTable"></div>
-	
-	<br><br><br>
-	<h2><a>Flight Results</a></h2>
-	<br><br>
-  <div id="resultsTable"></div>
+  <div id="dvTable">
+    <table id="tablacompleta" class="table table-striped">
+      <thead>
+        <tr>
+          <th>Hour</th>
+          <th>Flight Info</th>
+        </tr>
+      </thead>
+      <tbody id="historyTable">
+      </tbody>
+    </table>
+  </div>
 
-	<br><br>
-		<button class="square_btn_small" onclick="window.location='History.html'" target="_new">Clear</button>
-		<script>
-		$(document).ready(function () {
-        var theme = 'DEFAULT'
-        $('#theme_switcher').on('click', themeSwitcher);
-        function themeSwitcher() {
-            var isDefaultTheme = theme === 'DEFAULT';
-            if(isDefaultTheme){
-            theme = 'HIGH_CONTRAST';
+  <br><br><br>
+  <h2><a>Flight Results</a></h2>
+  <br><br>
+  <div id="rsTable">
+    <table id="completeTableResults" class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>% green vegetation</th>
+          <th>Longitude</th>
+          <th>Latitude</th>
+          <th>Image</th>
 
-            $('body').addClass('HIGH_CONTRAST');
-            $('#header').css('background-image', 'none');
-            $('#theme_switcher').text('Light theme')
-            return;
-            }
-            if(!isDefaultTheme){
-            theme = 'DEFAULT';
+        </tr>
+      </thead>
+      <tbody id="resultsTable">
+      </tbody>
+    </table>
 
-            $('body').removeClass('HIGH_CONTRAST');
-            $('#header').css('background-image', 'url("../images/FundationHemavLogo.png")');
-            $('#theme_switcher').text('Dark theme')
+  </div>
 
-            return;
-            }
-        }
+  <br><br>
+  <button class="square_btn" onclick="window.location='History.html'" target="_new">Clear</button>
+  <script>
+    $(document).ready(function () {
+      var theme = 'DEFAULT'
+      fillHistoryTable();
+      $('#theme_switcher').on('click', themeSwitcher);
+
     })
-    </script>
-    
-    <script type="text/javascript">
-      clearTimeout;
-        const xhttp = new XMLHttpRequest();
-        xhttp.open('GET', '/results.json', true);
-        xhttp.send();
-        xhttp.responseType = "text";
-        xhttp.onreadystatechange = function () {
-          if (this.readyState == 4 && this.status == 200) {
-            let data = JSON.parse(this.responseText);
-            var flights = new Array();
-            flights.push(["Hour", "View Result"]);
-            for (i=0; i<data.length; i++) {
-              flights.push([data[i].id, "<button class=square_btn_small id=" + i + " onclick='GenerateTableResults(this.id)' >GO</button>"]);
-            }
-  
-            //Create a HTML Table element.
-            var table = document.createElement("TABLE");
-            table.border = "1";
-  
-            //Get the count of columns.
-            var columnCount = flights[0].length;
-  
-            //Add the data rows.
-            for (var i = 1; i < flights.length; i++) {
-              row = table.insertRow(-1);
-              for (var j = 0; j < columnCount; j++) {
-                var cell = row.insertCell(-1);
-                cell.innerHTML = flights[i][j];
-              }
-            }
-  
-            var dvTable = document.getElementById("dvTable");
-            dvTable.innerHTML = "";
-            dvTable.appendChild(table);
-  
-          } else {
-            console.log('error, readyState is:', this.readyState, 'status fetch is:', this.status)
-          }
-        }
-      function GenerateTableResults(id) {
-        clearTimeout;
-        const xhttp = new XMLHttpRequest();
-        xhttp.open('GET', '/results.json', true);
-        xhttp.send();
-        xhttp.responseType = "text";
-        xhttp.onreadystatechange = function () {
-          if (this.readyState == 4 && this.status == 200) {
-            let data = JSON.parse(this.responseText);
-            var flights = new Array();
-            flights.push(["ID", "NDVI", "LATITUDE", "LONGITUDE", "IMAGE"]);
 
-            for (let item of data[id].results) {
-              flights.push([item.id, item.NDVI, item.Latitude, item.Longitude, "<a href=" + item.photo  + ">Show photo!</a>"]);
-            }
-  
-            //Create a HTML Table element.
-            var table = document.createElement("TABLE");
-            
-            //Get the count of columns.
-            var columnCount = flights[0].length;
-  
-            //Add the data rows.
-            for (var i = 1; i < flights.length; i++) {
-              row = table.insertRow(-1);
-              for (var j = 0; j < columnCount; j++) {
-                var cell = row.insertCell(-1);
-                cell.innerHTML = flights[i][j];
-              }
-            }
-  
-            var dvTable = document.getElementById("resultsTable");
-            dvTable.innerHTML = "";
-            dvTable.appendChild(table);
-  
-          } else {
-            console.log('error, readyState is:', this.readyState, 'status fetch is:', this.status)
-          }
+
+    function fillHistoryTable() {
+      $("#historyTable").html(""); //primero vacio la tabla existente
+
+      $.ajax({
+        type: 'GET',
+        url: 'http://localhost:9000/results.json',
+        dataType: 'json',
+        success: function (data) {
+          $.each(data, function (index, datos) {
+            $("#historyTable").append("<tr><td>" + datos.id + "</td><td><button id='" + index + "' type='button' class='square_btn' onclick='fillResultsTable(" + index + ")'>GO!</button></td></tr>");
+          });
         }
+      })
+
+    }
+
+    function fillResultsTable(passId) {
+      $("#resultsTable").html(""); //primero vacio la tabla existente
+
+      $.ajax({
+        type: 'GET',
+        url: 'http://localhost:9000/results.json',
+        dataType: 'json',
+        success: function (data) {
+          $.each(data[passId].results, function (index, datos) {
+            console.log(datos);
+            $("#resultsTable").append("<tr><td>"+ datos.image_id +"</td><td>"+ datos.percentage +"</td><td>" + datos.coordinates[0] + "</td><td>" + datos.coordinates[1] + "</td><td><a href=" + datos.image_path + ">Show image</a></td></tr>");
+          });
+        }
+      })
+
+
+    }
+
+    function themeSwitcher() {
+      var isDefaultTheme = theme === 'DEFAULT';
+      if (isDefaultTheme) {
+        theme = 'HIGH_CONTRAST';
+
+        $('body').addClass('HIGH_CONTRAST');
+        $('#header').css('background-image', 'none');
+        $('#theme_switcher').text('Light theme')
+        return;
       }
-    </script>
+      if (!isDefaultTheme) {
+        theme = 'DEFAULT';
+
+        $('body').removeClass('HIGH_CONTRAST');
+        $('#header').css('background-image', 'url("../images/FundationHemavLogo.png")');
+        $('#theme_switcher').text('Dark theme')
+
+        return;
+      }
+    }
+
+  </script>
+  
 </body>
+
 </html>
