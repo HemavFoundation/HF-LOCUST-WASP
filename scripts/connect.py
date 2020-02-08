@@ -4,9 +4,10 @@
 from __future__ import print_function
 #from dronekit import connect, VehicleMode, LocationGlobalRelative, LocationGlobal, Command
 from dronekit import *
+from commonFunctions import *
 import time
 
-connection_string = None
+connection_string = connectionString
 sitl = None
 
 #Start SITL if no connection string specified

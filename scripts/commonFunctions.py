@@ -1,3 +1,9 @@
+
+global connectionString
+
+connectionString = None
+
+
 def deg2rad(angle):
     return angle*pi/180
 
@@ -56,5 +62,8 @@ def pointRadialDistance(lat1, lon1, bearing, distance):
     lat = rad2deg(rlat)
     lon = rad2deg(rlon)
     return LocationGlobal(lat, lon,0)
+
+
+
 
 

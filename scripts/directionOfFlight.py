@@ -13,11 +13,12 @@ Full documentation is provided at http://python.dronekit.io/examples/vehicle_sta
 from __future__ import print_function
 #from dronekit import connect, VehicleMode, LocationGlobalRelative, LocationGlobal, Command
 from dronekit import *
+from commonFunctions import connectionString
 import time
 
 
 
-connection_string = "/dev/ttyS0"
+connection_string = connectionString
 sitl = None
 
 

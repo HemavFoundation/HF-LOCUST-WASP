@@ -21,7 +21,7 @@ lonFlight = float(sys.argv[7])
 headingFlight = int(sys.argv[8])
 
 
-connection_string = None
+connection_string = connectionString
 sitl = None
 
 
