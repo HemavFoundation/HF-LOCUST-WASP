@@ -6,7 +6,7 @@ from __future__ import print_function
 from dronekit import *
 import time
 
-connection_string = "/dev/ttyS0"
+connection_string = None
 sitl = None
 
 #Start SITL if no connection string specified
