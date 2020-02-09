@@ -23,14 +23,14 @@ class LocationDrone {
 router.get("/directionOfFlight", (req, res) => {
   let options;
 
-  if (environment === "drone") {
+  if (environment == "drone") {
     options = {
       mode: "text",
       pythonPath: "/usr/bin/python3",
       pythonOptions: ["-u"], // get print results in real-time
       scriptPath: "./scripts"
     };
-  } else if (environment === "win") {
+  } else if (environment == "win") {
     options = {
       mode: "text",
       pythonOptions: ["-u"], // get print results in real-time

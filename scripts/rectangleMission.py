@@ -11,10 +11,10 @@ from flights import *
 import sys
 
 
-distance = int(sys.argv[1]) / 1000
-widthRectangle = int(sys.argv[2]) / 1000
-spaceDistance = int(sys.argv[3]) / 1000
-spaceBtwLines = int(sys.argv[4]) / 1000
+distance = float(sys.argv[1]) / 1000
+widthRectangle = float(sys.argv[2]) / 1000
+spaceDistance = float(sys.argv[3]) / 1000
+spaceBtwLines = float(sys.argv[4]) / 1000
 height = int(sys.argv[5])
 latFlight = float(sys.argv[6])
 lonFlight = float(sys.argv[7])
@@ -52,11 +52,11 @@ lonWind = vehicle.location.global_frame.lon
 headingWind = vehicle.heading
 
 
-rectangleMission(latWind, lonWind, headingWind, distance, spaceDistance, widthRectangle, spaceBtwLines, height, latFlight, lonFlight, headingFlight)
+cmds = rectangleMission(latWind, lonWind, headingWind, distance, spaceDistance, widthRectangle, spaceBtwLines, height, latFlight, lonFlight, headingFlight, cmds)
 
 print(" Upload new commands to vehicle")
 
-save_mission('./hola.waypoints')
+save_mission('./hola.waypoints', cmds)
 
 # Close vehicle object before exiting script
 vehicle.close()

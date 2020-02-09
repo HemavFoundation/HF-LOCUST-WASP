@@ -1,3 +1,5 @@
+from math import asin,cos,pi,sin
+from dronekit import *
 
 global connectionString
 
@@ -7,13 +9,12 @@ connectionString = "local" # 'local' for testing in localhost // 'drone' for tes
 def deg2rad(angle):
     return angle*pi/180
 
-def download_mission():
+def download_mission(cmds):
     """
     Downloads the current mission and returns it in a list.
     It is used in save_mission() to get the file information to save.
     """
     missionlist=[]
-    cmds = vehicle.commands
     cmds.download()
     cmds.wait_ready()
     for cmd in cmds:
@@ -21,11 +22,11 @@ def download_mission():
     return missionlist
 
 
-def save_mission(aFileName):
+def save_mission(aFileName, cmds):
     """
     Save a mission in the Waypoint file format (http://qgroundcontrol.org/mavlink/waypoint_protocol#waypoint_file_format).
     """
-    missionlist = download_mission()
+    missionlist = download_mission(cmds)
     output='QGC WPL 110\n'
     for cmd in missionlist:
         commandline="%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n" % (cmd.seq,cmd.current,cmd.frame,cmd.command,cmd.param1,cmd.param2,cmd.param3,cmd.param4,cmd.x,cmd.y,cmd.z,cmd.autocontinue)
