@@ -7,6 +7,7 @@ import time
 import math
 from pymavlink import mavutil
 from commonFunctions import *
+from config import *
 from flights import *
 import sys
 

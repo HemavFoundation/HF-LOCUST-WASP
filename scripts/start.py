@@ -6,6 +6,7 @@ from autopilot_interface import AutopilotInterface
 from camera_interface import CameraInterface  
 from main import *
 from commonFunctions import *
+from config import *
 
 #Set up option parsing to get connection string
 import argparse

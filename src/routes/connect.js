@@ -33,7 +33,6 @@ router.get("/", (req, res) => {
       scriptPath: "./scripts"
     };
   } else {
-    console.log("i'm here");
     options = {
       mode: "text",
       pythonPath: "/usr/local/bin/python",

@@ -4,6 +4,7 @@
 from __future__ import print_function
 from dronekit import *
 from commonFunctions import *
+from config import *
 import time
 
 if(connectionString != "local"):

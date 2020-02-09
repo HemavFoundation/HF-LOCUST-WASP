@@ -1,4 +1,5 @@
 from commonFunctions import *
+from config import *
 from math import asin,cos,pi,sin
 
 def landing(latWind, lonWind, headingWind, cmds):

@@ -1,19 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-"""
-© Copyright 2015-2016, 3D Robotics.
-vehicle_state.py: 
-
-Demonstrates how to get and set vehicle state and parameter information, 
-and how to observe vehicle attribute (state) changes.
-
-Full documentation is provided at http://python.dronekit.io/examples/vehicle_state.html
-"""
 from __future__ import print_function
 #from dronekit import connect, VehicleMode, LocationGlobalRelative, LocationGlobal, Command
 from dronekit import *
-from commonFunctions import connectionString
+from commonFunctions import *
+from config import *
 import time
 
 
