@@ -21,7 +21,10 @@ lonFlight = float(sys.argv[7])
 headingFlight = int(sys.argv[8])
 
 
-connection_string = connectionString
+if(connectionString != "local"):
+    connection_string = "/dev/ttyS0"
+else:
+    connection_string = None
 sitl = None
 
 

@@ -1,7 +1,7 @@
 
 global connectionString
 
-connectionString = None
+connectionString = "local" # 'local' for testing in localhost // 'drone' for testing in the raspi
 
 
 def deg2rad(angle):

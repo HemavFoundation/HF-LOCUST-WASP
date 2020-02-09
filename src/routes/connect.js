@@ -1,8 +1,11 @@
 const { Router } = require("express");
 var { PythonShell } = require("python-shell");
+
 const router = Router();
 
-var localhost = true;
+const Config  = require('./config');
+const environment = Config.environment;
+
 
 class LocationDrone {
   constructor(heading, lon, lat, alt) {
@@ -16,16 +19,23 @@ class LocationDrone {
 router.get("/", (req, res) => {
   let options;
 
-  if (localhost != true) {
+  if (environment === "drone") {
     options = {
       mode: "text",
       pythonPath: "/usr/bin/python3",
       pythonOptions: ["-u"], // get print results in real-time
       scriptPath: "./scripts"
     };
+  } else if (environment === "win") {
+    options = {
+      mode: "text",
+      pythonOptions: ["-u"], // get print results in real-time
+      scriptPath: "./scripts"
+    };
   } else {
     options = {
       mode: "text",
+      pythonPath: "/usr/local/bin/python",
       pythonOptions: ["-u"], // get print results in real-time
       scriptPath: "./scripts"
     };

@@ -18,7 +18,10 @@ import time
 
 
 
-connection_string = connectionString
+if(connectionString != "local"):
+    connection_string = "/dev/ttyS0"
+else:
+    connection_string = None
 sitl = None
 
 

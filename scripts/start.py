@@ -209,7 +209,10 @@ def armDrone():
     
 
 
-connection_string = connectionString
+if(connectionString != "local"):
+    connection_string = "/dev/ttyS0"
+else:
+    connection_string = None
 sitl = None
 
 #Start SITL if no connection string specified
