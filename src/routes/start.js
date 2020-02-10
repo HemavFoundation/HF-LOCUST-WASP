@@ -2,13 +2,27 @@ const { Router } = require("express");
 var { PythonShell } = require("python-shell");
 const router = Router();
 
+var localhost = true;
+
 router.get("/", (req, res) => {
-let options = {
-  mode: 'text',
-  pythonPath: '/usr/bin/python3.7',
-  pythonOptions: ['-u'], // get print results in real-time
-  scriptPath: './scripts'
- };
+
+  let options;
+
+  if (localhost != true) {
+    options = {
+      mode: "text",
+      pythonPath: "/usr/bin/python3",
+      pythonOptions: ["-u"], // get print results in real-time
+      scriptPath: "./scripts"
+    };
+  } else {
+    options = {
+      mode: "text",
+      pythonOptions: ["-u"], // get print results in real-time
+      scriptPath: "./scripts"
+    };
+  }
+
 
   PythonShell.run("start.py", options, function(err, results) {
     //if (err) throw err;

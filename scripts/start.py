@@ -1,13 +1,11 @@
 from __future__ import print_function
-#from dronekit import connect, VehicleMode, LocationGlobalRelative, LocationGlobal, Command
 from dronekit import *
 import time
 import os
 from autopilot_interface import AutopilotInterface
 from camera_interface import CameraInterface  
 from main import *
-#from image_processing.interfaces.autopilot_interface import AutopilotInterface
-#from image_processing.interfaces.interfaces.camera_interface import CameraInterface
+
 #Set up option parsing to get connection string
 import argparse
 import numpy as np
@@ -54,9 +52,7 @@ def write_json(timestamp, num, percentage, data_drone, image_settings, path):
     return flight
 
 def create_directory():  # tested and working
-
-    # path = os.getcwd()  # this returns actual directory as a string (should be modify to a raspberry directory)
-    
+  
     path = '/home/pi/Desktop/HF-LOCUST-WASP/public/results/photos'
     # we need to convert numbers to string to be able to create the new path
     year = str(pd.datetime.now().year)
@@ -190,8 +186,6 @@ def main(vehicle):
     else:
         print('Flight data is empty')
                     
-#if __name__ == '__main__':
-    #main()
 
 
 def armDrone():
@@ -223,10 +217,6 @@ if not connection_string:
     sitl = dronekit_sitl.start_default()
     connection_string = sitl.connection_string()
 
-
-
-
-
 # Connect to the Vehicle. 
 #   Set `wait_ready=True` to ensure default attributes are populated before `connect()` returns.
 #print("\nConnecting to vehicle on: %s" % connection_string)
@@ -238,18 +228,17 @@ results = []
 # Get some vehicle attributes (state)
 cmds = vehicle.commands
 cmds.download()
-#cmds.wait_ready()
+
 armDrone()
 main(vehicle)
-
-#timeout test
-time.sleep(86000)
-
 
 # Close vehicle object before exiting script
 vehicle.close()
 
 # Shut down simulator
+if sitl is not None:
+    sitl.stop()
+
 
 
 
