@@ -88,6 +88,95 @@ def contrast_stretch(im):
     out += in_min
 
     return out
+def getEndpoint(image_coordinates, bearing, d):
+    lat1 = image_coordinates[0]
+    lon1 = image_coordinates[1]
+
+    R = 6371 *1000                   #Radius of the Earth in meters
+
+    brng = math.radians(bearing) #convert degrees to radians
+    lat1 = math.radians(lat1)    #Current lat point converted to radians
+    lon1 = math.radians(lon1)    #Current long point converted to radians
+
+    lat2 = math.asin(math.sin(lat1) * math.cos(d / R) + math.cos(lat1) * math.sin(d / R) * math.cos(brng))
+    lon2 = lon1 + math.atan2(math.sin(brng) * math.sin(d / R) * math.cos(lat1), math.cos(d / R) - math.sin(lat1) * math.sin(lat2))
+
+    lat2 = round(math.degrees(lat2), 6)
+    lon2 = round(math.degrees(lon2), 6)
+
+
+    coordinates2 = [lat2, lon2]
+
+    return coordinates2
+
+def get_coordinates(coordinates, heading, h, pitch, roll):
+
+    # CAMERA PARAMETERS
+
+    # Sensor (mm)
+    sx = 3.674
+    sy = 2.76
+    # Focal length of lens (mm)
+    fl = 3.04
+    # Pixels
+    px = 1920
+    py = 1080
+    pixels_camera = px * py
+
+    # Field of view wide (gra)
+    HFOVcal = 2 * math.atan(sx / (2 * fl))
+    VFOVcal = 2 * math.atan(sy / (2 * fl))
+
+    print('@@@HORIZONTAL', HFOVcal)
+    print('@@@@ Vertical', VFOVcal)
+    # Now we need the airplane attitude data
+    pitch = math.radians(pitch)
+    roll = math.radians(roll)
+
+
+    # FOOTPRINT(m) (by the moment considering no roll)
+
+    drone_bottom = h * math.tan(pitch - 0.5 * VFOVcal)
+    drone_top = h * math.tan(pitch + 0.5 * VFOVcal)
+    drone_center = h * math.tan(pitch)
+
+    d1 = drone_top - drone_center
+    d2 = drone_center - drone_bottom
+
+    fy = drone_top - drone_bottom
+    fx = h * (math.tan(roll + 0.5 * HFOVcal) - math.tan(roll - 0.5 * HFOVcal))
+    footprint = fy * fx
+
+    print('@@@ footprint y', fy)
+    print('@@@@ footprint x', fx)
+
+    # Front left vertex
+    diagonal1 = math.hypot(d1, fx / 2)
+    orientation = heading - math.degrees(math.atan((fx / 2) / d1))
+    fl_coordinates = getEndpoint(coordinates, orientation, diagonal1)
+    print('@@@@ orientation 1', orientation)
+
+    # Front right vertex
+    diagonal = math.hypot(d1, fx / 2)
+    orientation = heading + math.degrees(math.atan((fx / 2) / d1))
+    fr_coordinates = getEndpoint(coordinates, orientation, diagonal)
+    print('@@@@ orientation 2', orientation)
+
+    # Back left vertex
+    diagonal2 = math.hypot(d2, fx / 2)
+    orientation = -heading + math.degrees(math.atan(d2 / (fx / 2)))
+    bl_coordinates = getEndpoint(coordinates, orientation, diagonal2)
+    print('@@@@ orientation 3', orientation)
+
+    # Back right vertex
+    diagonal = math.hypot(d2, fx / 2)
+    orientation = -heading - math.degrees(math.atan(d2 / (fx / 2)))
+    br_coordinates = getEndpoint(coordinates, orientation, diagonal)
+    print('@@@@ orientation 4', orientation)
+
+    vertex_coordinates = [fl_coordinates, fr_coordinates, bl_coordinates, br_coordinates]
+
+    return vertex_coordinates
 
 def main_loop(vehicle, num, newpath, camera_interface, autopilot_interface):
     
@@ -137,12 +226,42 @@ def main_loop(vehicle, num, newpath, camera_interface, autopilot_interface):
         ndvi_result = cv2.bitwise_and(ndvi_final, ndvi_final, mask=mask_vegetation)
         fusion = res + ndvi_result
 
+        tag_images = autopilot_interface.image_coordinates()
+        vertex_coordinates = get_coordinates(tag_images[0], tag_images[1], tag_images[2], tag_images[3], tag_images[4])
+
+        img = fusion
+        font = cv2.FONT_HERSHEY_SIMPLEX
+        # org
+        org = (50, 50)
+        # fontScale
+        fontScale = 0.5
+
+        # Blue color in BGR
+        color = (255, 255, 255)
+
+        # Line thickness of 2 px
+        thickness = 1
+
+        # Using cv2.putText() method
+        cv2.putText(img, str(vertex_coordinates[0]), org, font, fontScale, color, thickness, cv2.LINE_AA)
+        # org
+        org = (img.shape[1] - 230, 50)
+        cv2.putText(img, str(vertex_coordinates[1]), org, font, fontScale, color, thickness, cv2.LINE_AA)
+        # org
+        org = (50, img.shape[0] - 50)
+        cv2.putText(img, str(vertex_coordinates[2]), org, font, fontScale, color, thickness, cv2.LINE_AA)
+        # org
+        org = (img.shape[1] - 230, img.shape[0] - 50)
+        cv2.putText(img, str(vertex_coordinates[3]), org, font, fontScale, color, thickness, cv2.LINE_AA)
+
+        fusion = img
+
         cv2.imwrite(name_ndvi, fusion)
 
         data_drone = autopilot_interface.set_data_drone()
 
         image_settings = camera_interface.camera_settings()
-        
+
         path_json = '/results/photos/' + str(timestamp) + '/' + 'raw_images'+'/' + str(num) + '.jpeg'
         flight_info = write_json(timestamp, num, percent, data_drone, image_settings, path_json)
 

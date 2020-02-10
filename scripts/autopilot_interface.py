@@ -32,6 +32,19 @@ class AutopilotInterface():
 
         return data_drone
 
+    def image_coordinates(self):
+        latitude = self.vehicle.location.global_frame.lat
+        longitude = self.vehicle.location.global_frame.lon
+        heading = self.vehicle.heading
+        pitch = self.vehicle.attitude.pitch
+        altitude = self.vehicle.location.global_frame.alt
+        roll = self.vehicle.attitude.roll
+
+        coordinates = [latitude, longitude]
+        tag_images = [coordinates, heading, altitude, pitch, roll]
+
+        return tag_images
+
     def get_altitude(self):
         try:
             print(self.vehicle.location.global_relative_frame.alt)
