@@ -15,19 +15,35 @@ import cv2
 
 
 def edit_json(newFlight):
-    
-    with open('/home/pi/Desktop/HF-LOCUST-WASP/results.json', 'r+') as f:
-        data = []
-        try:
-            data = json.load(f)
-        except:
-            print("Empty json")
-            
-        data.append(newFlight)
-        f.seek(0)
-        json.dump(data, f)
-        f.truncate()
-        f.close()
+
+    # we try to write an existing json. If not existing, we create a new one
+    try:
+        with open('/home/pi/Desktop/HF-LOCUST-WASP/results.json', 'r+') as f:
+            data = []
+            try:
+                data = json.load(f)
+            except:
+                print("Empty json")
+
+            data.append(newFlight)
+            f.seek(0)
+            json.dump(data, f)
+            f.truncate()
+            f.close()
+
+    except:
+        with open('/home/pi/Desktop/HF-LOCUST-WASP/results.json', 'a') as f:
+            data = []
+            try:
+                data = json.load(f)
+            except:
+                print("Empty json")
+
+            data.append(newFlight)
+            f.seek(0)
+            json.dump(data, f)
+            f.truncate()
+            f.close()
 
     print("done")
 
@@ -52,7 +68,7 @@ def write_json(timestamp, num, percentage, data_drone, image_settings, path):
     return flight
 
 def create_directory():  # tested and working
-  
+
     path = '/home/pi/Desktop/HF-LOCUST-WASP/public/results/photos'
     # we need to convert numbers to string to be able to create the new path
     year = str(pd.datetime.now().year)
@@ -64,13 +80,13 @@ def create_directory():  # tested and working
 
     timestamp = year + "_" + month + "_" + day + "-" + hour + "_" + minute
     newpath = path + "/" + timestamp  # we create the string for the new directory
-    
+
     os.mkdir(newpath)        # creates a directory
     normal_images = newpath + '/' + 'raw_images'
     ndvi_images = newpath + '/' + 'ndvi_images'
     os.mkdir(normal_images)
     os.mkdir(ndvi_images)
-    
+
     return newpath
 
 def contrast_stretch(im):
@@ -179,29 +195,47 @@ def get_coordinates(coordinates, heading, h, pitch, roll):
     return vertex_coordinates
 
 def main_loop(vehicle, num, newpath, camera_interface, autopilot_interface):
-    
+
     img = camera_interface.capture_frame()
 
-   # Once we have a gray colorspace mask, we want to add the orginal image to it
+    # Once we have the original image, we need to take the red and nir channels to operate with them
+
     b = np.array(img[:, :, 0]).astype(float) + 0.00000000001
     r = np.array(img[:, :, 2]).astype(float) + 0.00000000001
 
-    # define range of red color in BGR
+    # we want to delete shadows from the original image, as they are introducing distorsions
     lower_limit = np.array([9, 9, 9])
     upper_limit = np.array([255, 255, 255])
-
     shadows = cv2.inRange(img, lower_limit, upper_limit)
+
+    # using the blue filter, red channel is NIR band and blue channel is visible light
 
     nir = r
     red = b
 
     np.seterr(divide='ignore', invalid='ignore')
 
+    # we compute the ndvi
     ndvi = ((nir - red) / (nir + red)).astype(float)
+
+    # once we have the ndvi in (-1, 1) scale, we convert it to 0-255 scale to operate with opencv
 
     ndvi_contrasted = contrast_stretch(ndvi).astype(np.uint8)
 
+    # we delete the shadows from the ndvi re-scaled image
     ndvi_new = cv2.bitwise_or(ndvi_contrasted, ndvi_contrasted, mask=shadows)
+
+    # we apply some morphological operations to enhance vegetation
+
+    kernel = np.ones((1, 1), np.uint8)
+    erosion = cv2.erode(ndvi_new, kernel, iterations=1)
+
+    kernel = np.ones((2, 2), np.uint8)
+    dilation = cv2.dilate(erosion, kernel, iterations=1)
+
+    ndvi_new = dilation
+
+    # once we have the final image with vegetation, we remove everything that is under 0.14 (163) NDVI value
 
     values_ndvi = np.count_nonzero(ndvi_new >= 163)
     ndvi_new[ndvi_new < 163] = 0
@@ -210,21 +244,28 @@ def main_loop(vehicle, num, newpath, camera_interface, autopilot_interface):
 
     percent = round(((values_ndvi / total_values) * 100), 2)
 
-    if percent >= 3:
-        
+    if percent >= 4:
+
         name = newpath + '/' + 'raw_images'+'/' + str(num) + '.jpeg'
         name_ndvi = newpath + '/' + 'ndvi_images' + '/' + str(num) + '.jpeg'
-    
+
         # name = path + '/' + 'ndvi_results' + '/' + 'image' + 'ndvi' + str(percent) + '.jpeg'
 
+        # we save the raw image
         cv2.imwrite(name, img)
+
+        # to create the final output, we want to add what is vegetation to the raw image
 
         mask_vegetation = cv2.inRange(ndvi_new, 163, 255)
         res = cv2.bitwise_and(img, img, mask=cv2.bitwise_not(mask_vegetation))
 
         ndvi_final = cv2.cvtColor(ndvi_new, cv2.COLOR_GRAY2BGR)
         ndvi_result = cv2.bitwise_and(ndvi_final, ndvi_final, mask=mask_vegetation)
+
+        # fusion is the final output, containing vegetation and original image
         fusion = res + ndvi_result
+
+        # we want to tag each corner of the image with its real geographical coordinates
 
         tag_images = autopilot_interface.image_coordinates()
         vertex_coordinates = get_coordinates(tag_images[0], tag_images[1], tag_images[2], tag_images[3], tag_images[4])
@@ -258,6 +299,8 @@ def main_loop(vehicle, num, newpath, camera_interface, autopilot_interface):
 
         cv2.imwrite(name_ndvi, fusion)
 
+        # once we have saved the final output, we save interesting data on the json file
+
         data_drone = autopilot_interface.set_data_drone()
 
         image_settings = camera_interface.camera_settings()
@@ -267,11 +310,10 @@ def main_loop(vehicle, num, newpath, camera_interface, autopilot_interface):
 
         print('@@@ image processed @@@')
         return flight_info
-    
+
     else:
 
         name = newpath + '/' + 'raw_images' + '/' + str(num) + '.jpeg'
-
 
         # name = path + '/' + 'ndvi_results' + '/' + 'image' + 'ndvi' + str(percent) + '.jpeg'
 
@@ -285,18 +327,19 @@ def main(vehicle):
     camera_interface = CameraInterface()
     autopilot_interface = AutopilotInterface(vehicle)
     newpath = create_directory()
-    
+    flight_data = None
+
     while vehicle.armed is True:
-        
+
         altitude = autopilot_interface.get_altitude()
-        
+
         if altitude >= -50:
-            
+
             flight_data = main_loop(vehicle, num, newpath, camera_interface, autopilot_interface)
             camera_interface.test_settings(num)
             num += 1
-    
-    if (flight_data != None):
+
+    if flight_data is not None:
         try:
             edit_json(flight_data)
         except:
