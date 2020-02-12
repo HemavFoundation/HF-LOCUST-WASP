@@ -1,13 +1,9 @@
 import cv2
 import numpy as np
-from PIL import Image
 import os, os.path
 import pandas as pd
 import json
-from os import listdir
-from os.path import isfile, join
 import time
-
 
 
 ##############################################################
@@ -16,17 +12,17 @@ import time
 
 
 def load_image(directory):
+
     imgs = []
     path = directory
 
-    valid_images = [".tif", ".tiff", ".jpg", ".jpeg", ".png"]
+    valid_images = [".tif", ".tiff"]
+
     for f in sorted(os.listdir(path)):
         ext = os.path.splitext(f)[1]
         if ext.lower() not in valid_images:
             continue
         img = cv2.imread(os.path.join(path, f), 0)
-        final_image = np.array(img)
-        img1 = np.array(cv2.imread(os.path.join(path, f))).astype(np.uint8)
         imgs.append(img)
 
     print(len(imgs))
@@ -146,8 +142,8 @@ def find_matches(kp1, desc1, kp2, desc2):
     matches = sorted(matchess, key=lambda x: x.distance)
 
     # convert first 10 matches from KeyPoint objects to NumPy arrays
-    points1 = np.float32([kp1[m.queryIdx].pt for m in matches[0:15]])
-    points2 = np.float32([kp2[m.trainIdx].pt for m in matches[0:15]])
+    points1 = np.float32([kp1[m.queryIdx].pt for m in matches[0:50]])
+    points2 = np.float32([kp2[m.trainIdx].pt for m in matches[0:50]])
 
     return points1, points2
 
@@ -161,7 +157,7 @@ def find_homography(points1, points2):
     dst_pts = points1.reshape(-1, 1, 2)
 
     # find homography
-    homography, mask = cv2.findHomography(src_pts, dst_pts)
+    homography, mask = cv2.findHomography(src_pts, dst_pts, cv2.RANSAC, 5.0)
 
     return homography
 
@@ -316,7 +312,7 @@ def main_loop(nir, red, path, num):
     kernel = np.ones((2, 2), np.uint8)
     dilation = cv2.dilate(erosion, kernel, iterations=1)
 
-    ndvi_new = dilation
+    #ndvi_new = dilation
 
     ndvi_values = np.count_nonzero(ndvi_new > 163)
     ndvi_new[ndvi_new < 163] = 0
@@ -327,7 +323,7 @@ def main_loop(nir, red, path, num):
     # opening = cv2.morphologyEx(ndvi, cv2.MORPH_OPEN, kernel)
     # ndvi = opening
 
-    if percent > 10:
+    if percent > 5:
         # kernel = np.ones((2, 2), np.uint8)
         # opening = cv2.morphologyEx(ndvi, cv2.MORPH_OPEN, kernel)
         # ndvi = opening
@@ -341,9 +337,10 @@ def main_loop(nir, red, path, num):
 def main():
     #global images
 
-    directory = "/Volumes/BALAGUER/Mauritania/Flights/01_28/Flight_2/0001SET/001"
+    directory = "/Volumes/BALAGUER/goodvegetation"
 
     output_path = "/Users/XavierBalaguer/Desktop/"
+
     new_path = create_directory(output_path)
 
     images = load_image(directory)
@@ -366,9 +363,6 @@ def main():
             i += 1
         except:
             i += 1
-
-
-
 
 if __name__ == '__main__':
     main()
