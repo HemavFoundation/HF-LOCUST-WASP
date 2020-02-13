@@ -5,6 +5,8 @@ import os
 from autopilot_interface import AutopilotInterface
 from camera_interface import CameraInterface  
 from main import *
+from commonFunctions import *
+from config import *
 
 #Set up option parsing to get connection string
 import argparse
@@ -208,7 +210,10 @@ def armDrone():
     
 
 
-connection_string = "/dev/ttyS0"
+if(connectionString != "local"):
+    connection_string = "/dev/ttyS0"
+else:
+    connection_string = None
 sitl = None
 
 #Start SITL if no connection string specified
