@@ -133,7 +133,7 @@ def extract_features(gray):
 def find_matches(kp1, desc1, kp2, desc2):
 
     # create BFMatcher object (for ORB features)
-    bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
+    bf = cv2.BFMatcher(cv2.NORM_HAMMING2, crossCheck=True)
 
     # Match descriptors
     matchess = bf.match(desc1, desc2)
@@ -157,7 +157,7 @@ def find_homography(points1, points2):
     dst_pts = points1.reshape(-1, 1, 2)
 
     # find homography
-    homography, mask = cv2.findHomography(src_pts, dst_pts, cv2.RANSAC, 5.0)
+    homography, mask = cv2.findHomography(src_pts, dst_pts, cv2.RANSAC, 8.0)
 
     return homography
 
@@ -331,7 +331,8 @@ def main_loop(nir, red, path, num):
         name = path + '/' + 'image' + str(num) + '.jpg'
 
         print('@@@@@@ ', name)
-        cv2.imwrite(name, ndvi_new)
+        median = cv2.bilateralFilter(ndvi_new, 10, 75, 75)
+        cv2.imwrite(name, median)
 
 
 def main():

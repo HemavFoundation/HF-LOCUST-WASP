@@ -204,13 +204,15 @@ def main_loop(vehicle, num, newpath, camera_interface, autopilot_interface):
     r = np.array(img[:, :, 2]).astype(float) + 0.00000000001
 
     # we want to delete shadows from the original image, as they are introducing distorsions
-    lower_limit = np.array([9, 9, 9])
+    lower_limit = np.array([3, 3, 3])
     upper_limit = np.array([255, 255, 255])
     shadows = cv2.inRange(img, lower_limit, upper_limit)
 
     # using the blue filter, red channel is NIR band and blue channel is visible light
 
-    nir = r
+    kernel = np.ones((1, 1), np.uint8)
+    dilation = cv2.dilate(r, kernel, iterations=10)
+    nir = dilation
     red = b
 
     np.seterr(divide='ignore', invalid='ignore')
@@ -224,6 +226,9 @@ def main_loop(vehicle, num, newpath, camera_interface, autopilot_interface):
 
     # we delete the shadows from the ndvi re-scaled image
     ndvi_new = cv2.bitwise_or(ndvi_contrasted, ndvi_contrasted, mask=shadows)
+
+    median = cv2.bilateralFilter(ndvi_new, 10, 75, 75)
+    ndvi_new = median
 
     # we apply some morphological operations to enhance vegetation
 
@@ -254,6 +259,8 @@ def main_loop(vehicle, num, newpath, camera_interface, autopilot_interface):
         # we save the raw image
         cv2.imwrite(name, img)
 
+        # median = cv2.bilateralFilter(ndvi_final, 10, 75, 75)
+        # ndvi_final = median
         # to create the final output, we want to add what is vegetation to the raw image
 
         mask_vegetation = cv2.inRange(ndvi_new, 163, 255)

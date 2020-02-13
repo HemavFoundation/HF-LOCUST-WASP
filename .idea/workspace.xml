@@ -4,97 +4,15 @@
     <list default="true" id="d2e113f0-06e1-4566-b077-3c53c4e4d077" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/micasense/micasense_processing.py" beforeDir="false" afterPath="$PROJECT_DIR$/micasense/micasense_processing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/start.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/start.py" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../Locust/tests/ndvitest.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2192">
-              <caret line="137" column="29" selection-start-line="137" selection-start-column="29" selection-end-line="137" selection-end-column="29" />
-              <folding>
-                <element signature="e#0#18#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/scripts/camera_interface.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="640">
-              <caret line="44" selection-start-line="44" selection-end-line="44" />
-              <folding>
-                <element signature="e#1#16#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/scripts/autopilot_interface.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="736">
-              <caret line="46" selection-start-line="46" selection-end-line="46" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/scripts/start.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5328">
-              <caret line="346" column="4" selection-start-line="346" selection-start-column="4" selection-end-line="346" selection-end-column="4" />
-              <folding>
-                <element signature="e#0#37#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/micasense/micasense_processing.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="571">
-              <caret line="149" lean-forward="true" selection-start-line="149" selection-end-line="149" />
-              <folding>
-                <element signature="e#0#10#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../locust_vegetation_finder/main.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
-              <caret line="12" column="3" selection-start-line="12" selection-start-column="3" selection-end-line="12" selection-end-column="3" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/../../Locust/tests/ndvitest.py" />
-        <option value="$PROJECT_DIR$/../locust_vegetation_finder/main.py" />
-        <option value="$PROJECT_DIR$/scripts/autopilot_interface.py" />
-        <option value="$PROJECT_DIR$/scripts/camera_interface.py" />
-        <option value="$PROJECT_DIR$/scripts/start.py" />
-        <option value="$PROJECT_DIR$/micasense/micasense_processing.py" />
-      </list>
-    </option>
   </component>
   <component name="ProjectConfigurationFiles">
     <option name="files">
@@ -108,57 +26,16 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" fullScreen="true">
-    <option name="x" value="-1920" />
-    <option name="y" value="-280" />
-    <option name="width" value="1920" />
-    <option name="height" value="1080" />
-  </component>
-  <component name="ProjectView">
-    <navigator proportions="" version="1">
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="Scope" />
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="HF-LOCUST-WASP" type="b2602c69:ProjectViewProjectNode" />
-              <item name="HF-LOCUST-WASP" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="HF-LOCUST-WASP" type="b2602c69:ProjectViewProjectNode" />
-              <item name="HF-LOCUST-WASP" type="462c0819:PsiDirectoryNode" />
-              <item name="micasense" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="HF-LOCUST-WASP" type="b2602c69:ProjectViewProjectNode" />
-              <item name="HF-LOCUST-WASP" type="462c0819:PsiDirectoryNode" />
-              <item name="scripts" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-    </panes>
+  <component name="ProjectId" id="1XkaaZkTwx6WKPu8BE261XMESAv" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="configurable.group.build" />
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager" selected="Python.micasense_processing">
     <configuration name="micasense_processing" type="PythonConfigurationType" factoryName="Python" temporary="true">
@@ -223,30 +100,23 @@
     </task>
     <servers />
   </component>
-  <component name="ToolWindowManager">
-    <frame x="-1920" y="-280" width="1920" height="1080" extended-state="0" />
-    <editor active="true" />
-    <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.102768905" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32871288" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="7" weight="0.32970297" />
-      <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Python Console" order="10" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="R Graphics" order="3" />
-      <window_info anchor="right" id="R Packages" order="4" />
-    </layout>
+  <component name="WindowStateProjectService">
+    <state width="1878" height="303" key="GridCell.Tab.0.bottom" timestamp="1581595345773">
+      <screen x="-1920" y="-280" width="1920" height="1080" />
+    </state>
+    <state width="1878" height="303" key="GridCell.Tab.0.bottom/0.0.1280.800/-1920.-280.1920.1080@-1920.-280.1920.1080" timestamp="1581595345773" />
+    <state width="1878" height="303" key="GridCell.Tab.0.center" timestamp="1581595345771">
+      <screen x="-1920" y="-280" width="1920" height="1080" />
+    </state>
+    <state width="1878" height="303" key="GridCell.Tab.0.center/0.0.1280.800/-1920.-280.1920.1080@-1920.-280.1920.1080" timestamp="1581595345771" />
+    <state width="1878" height="303" key="GridCell.Tab.0.left" timestamp="1581595345770">
+      <screen x="-1920" y="-280" width="1920" height="1080" />
+    </state>
+    <state width="1878" height="303" key="GridCell.Tab.0.left/0.0.1280.800/-1920.-280.1920.1080@-1920.-280.1920.1080" timestamp="1581595345770" />
+    <state width="1878" height="303" key="GridCell.Tab.0.right" timestamp="1581595345772">
+      <screen x="-1920" y="-280" width="1920" height="1080" />
+    </state>
+    <state width="1878" height="303" key="GridCell.Tab.0.right/0.0.1280.800/-1920.-280.1920.1080@-1920.-280.1920.1080" timestamp="1581595345772" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -258,89 +128,6 @@
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
-  </component>
-  <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/image_processing/raspberry/main.py" />
-    <entry file="file://$PROJECT_DIR$/image_processing/micasense/merge_images.py" />
-    <entry file="file://$PROJECT_DIR$/scripts/results.json" />
-    <entry file="file://$PROJECT_DIR$/../../../MASTER/SYSTEM INTEGRATION/Dronekit_assignment/square_mission.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="27" column="48" selection-start-line="27" selection-start-column="48" selection-end-line="27" selection-end-column="48" />
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../Locust/coding/CODIFINALTFG.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="74">
-          <caret line="20" column="4" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="651">
-          <caret line="86" column="64" selection-start-line="86" selection-start-column="15" selection-end-line="86" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../Locust/tests/ndvitest.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2192">
-          <caret line="137" column="29" selection-start-line="137" selection-start-column="29" selection-end-line="137" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/camera_interface.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="640">
-          <caret line="44" selection-start-line="44" selection-end-line="44" />
-          <folding>
-            <element signature="e#1#16#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/autopilot_interface.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="736">
-          <caret line="46" selection-start-line="46" selection-end-line="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/start.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5328">
-          <caret line="346" column="4" selection-start-line="346" selection-start-column="4" selection-end-line="346" selection-end-column="4" />
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../locust_vegetation_finder/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="12" column="3" selection-start-line="12" selection-start-column="3" selection-end-line="12" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/micasense/micasense_processing.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="571">
-          <caret line="149" lean-forward="true" selection-start-line="149" selection-end-line="149" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
   </component>
   <component name="masterDetails">
     <states>
