@@ -24,17 +24,17 @@
     <div style="display:flex">
       <button class="square_btn" id="droneConnectButton" style="margin-right:20px">Connect</button>
       <img id="droneConnectImg" src="../images/button.png" height="50" width=50 style="margin-right:20px">
-      <h4 id ="droneConnectionH4">Push for drone connection</h4>
-      <h4 id ="droneCoonnectedH4" hidden=true>Drone is connected now!</h4>
+      <h4 id="droneConnectionH4">Push for drone connection</h4>
+      <h4 id="droneCoonnectedH4" hidden=true>Drone is connected now!</h4>
     </div>
 
 
     <br><br>
     <div id=droneDirectionDiv style="display:flex; visibility:hidden;">
       <button class="square_btn" id="directionDroneButton" style="margin-right:20px">Set direction</button>
-      <img id="directionDroneImg"src="../images/button.png" height="50" width=50 style="margin-right:20px">
-      <h4 id ="directionDroneH4">Place the drone facing inspection area</h4>
-      <h4 id ="directionDroneConnectedH4" hidden=true>Drone is oriented now!</h4>
+      <img id="directionDroneImg" src="../images/button.png" height="50" width=50 style="margin-right:20px">
+      <h4 id="directionDroneH4">Place the drone facing inspection area</h4>
+      <h4 id="directionDroneConnectedH4" hidden=true>Drone is oriented now!</h4>
     </div>
 
 
@@ -46,7 +46,8 @@
       </div>
       <div id="flypathtab" class="tabcontent">
         <h2>
-          Rectangle width (d): <input id="rectwidthtext" type="number" value="500" onchange="computeMaxDistance()"> meters
+          Rectangle width (d): <input id="rectwidthtext" type="number" value="500" onchange="computeMaxDistance()">
+          meters
           <br><br>
           Distance (P): <input id="distancetext" type="number" value=""> meters
           <br><br>
@@ -54,7 +55,7 @@
           <br><br>
           **Place the drone pointing towards the wind and push load mission! **
           <button class="square_btn" id="uploadbut">Load Mission</button>
-  
+
           <img id="photoupload" src="../images/button.png" height="50" width=50 style="margin:10px 0px -10px 10px">
         </h2>
       </div>
@@ -62,23 +63,24 @@
         <h2>
           Take off distance = <input id="xtext" type="number" value="500" onchange="computeMaxDistance()"> meters
           <br><br>
-          Space between lines inside the rectangle = <input id="Ltext" type="number" value="120" onchange="computeMaxDistance()"> meters
+          Space between lines inside the rectangle = <input id="Ltext" type="number" value="120"
+            onchange="computeMaxDistance()"> meters
           <br><br>
           Flight height = <input id="htext" type="number" value="120" onchange="computeMaxDistance()"> meters
         </h2>
       </div>
     </div>
-    
+
 
     <br><br>
     <div id=droneStartDiv style="display:flex; visibility:hidden;">
       <button class="square_btn" id="droneStartButton" style="margin-right:20px">Start!</button>
       <img id="photostart" src="../images/button.png" height="50" width=50 style="margin-right:20px">
       <img id="photoplane" src="../images/plane.png" height="50" width=50 style="visibility:hidden; margin-right:20px">
-      <h4 id ="directionDroneH4">Press start and take off the drone!</h4>
+      <h4 id="directionDroneH4">Press start and take off the drone!</h4>
     </div>
 
-  
+
     <br><br><br>
     <button class="square_btn" id="getresultsbut">
       <a href="../results/History.html">Get results!</a>
@@ -122,8 +124,6 @@
 
     }
 
-
-
     $(document).ready(function () {
       $('#theme_switcher').on('click', themeSwitcher);
 
@@ -131,28 +131,40 @@
         document.getElementById('droneConnectImg').src = "../images/waiting.png";
         $.ajax({
           type: 'GET',
-          url: 'http://'+ ipConnection +':9000/api/connect',
+          url: 'http://' + ipConnection + ':9000/api/connect',
           dataType: 'json',
           success: function (data, textStatus, xhr) {
             document.getElementById('droneConnectionH4').hidden = true
             document.getElementById('droneCoonnectedH4').hidden = false
-            document.getElementById('droneConnectImg').src = "../images/tick.png"; 
+            document.getElementById('droneConnectImg').src = "../images/tick.png";
             document.getElementById('droneDirectionDiv').style = "display:flex; visibility:visible"
           },
           error: function (data, textStatus, xhr) {
-            document.getElementById('droneConnectImg').src = "../images/cross.png";          
+            document.getElementById('droneConnectImg').src = "../images/cross.png";
             document.getElementById('droneConnectionH4').hidden = true
           },
         })
       });
 
       $("#directionDroneButton").click(function () {
-        document.getElementById('directionDroneImg').src = "../images/tick.png"
-        document.getElementById('directionDroneH4').hidden = true
-        document.getElementById('directionDroneConnectedH4').hidden = false
-        document.getElementById('droneSettingTabDiv').style = "visibility:visible"
+        document.getElementById('directionDroneImg').src = "../images/waiting.png"
+        $.ajax({
+          type: 'GET',
+          url: 'http://' + ipConnection + ':9000/api/load/directionOfFlight',
+          dataType: 'json',
+          success: function (data, textStatus, xhr) {
+            document.getElementById('directionDroneH4').hidden = true
+            document.getElementById('directionDroneConnectedH4').hidden = false
+            document.getElementById('directionDroneImg').src = "../images/tick.png";
+            document.getElementById('droneSettingTabDiv').style = "display:flex; visibility:visible"
+          },
+          error: function (data, textStatus, xhr) {
+            document.getElementById('directionDroneImg').src = "../images/cross.png";
+            document.getElementById('directionDroneH4').hidden = true
+          },
+        })
       });
-      
+
 
       $("#uploadbut").click(function () {
         document.getElementById('photoupload').src = "../images/waiting.png";
@@ -171,7 +183,7 @@
             $.ajax
               ({
                 type: 'POST',
-                url: 'http://'+ ipConnection +':9000/api/load/rectangleMission' + pnum + '/' + x + '/' + d + '/' + l + '/' + h,
+                url: 'http://' + ipConnection + ':9000/api/load/rectangleMission' + pnum + '/' + x + '/' + d + '/' + l + '/' + h,
                 data: { data1: pnum, data2: pmax, data3: x, data4: l, data5: h, data6: d },
                 dataType: 'json',
                 success: function (data, textStatus, xhr) {
@@ -191,7 +203,7 @@
         $.ajax
           ({
             type: 'GET',
-            url: 'http://'+ ipConnection +':9000/api/start',
+            url: 'http://' + ipConnection + ':9000/api/start',
             dataType: 'json',
             success: function (data, textStatus, xhr) {
               document.getElementById('photostart').src = "../images/tick.png";
