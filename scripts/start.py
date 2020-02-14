@@ -32,10 +32,12 @@ def armDrone():
         time.sleep(1)
 
     print("Done!")
+
+if connectionString != "local":
+    connection_string = "/dev/ttyS0"
+else:
+    connection_string = None
     
-
-
-connection_string = "/dev/ttyS0"
 sitl = None
 
 #Start SITL if no connection string specified
