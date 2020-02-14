@@ -57,7 +57,7 @@ cmds = rectangleMission(latWind, lonWind, headingWind, distance, spaceDistance, 
 
 print(" Upload new commands to vehicle")
 
-save_mission('./hola.waypoints', cmds)
+#save_mission('./hola.waypoints', cmds)
 
 # Close vehicle object before exiting script
 vehicle.close()
