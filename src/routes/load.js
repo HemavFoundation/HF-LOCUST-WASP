@@ -2,16 +2,14 @@ const { Router } = require("express");
 var { PythonShell } = require("python-shell");
 const router = Router();
 
-var localhost = true;
+const Config = require("./config");
+const environment = Config.environment;
 
 var location;
-var options;
 
 var lonFlight;
 var latFlight;
 var headingFlight;
-
-var localhost = true;
 
 class LocationDrone {
   constructor(heading, lon, lat, alt) {
@@ -25,16 +23,23 @@ class LocationDrone {
 router.get("/directionOfFlight", (req, res) => {
   let options;
 
-  if (localhost != true) {
+  if (environment == "drone") {
     options = {
       mode: "text",
       pythonPath: "/usr/bin/python3",
       pythonOptions: ["-u"], // get print results in real-time
       scriptPath: "./scripts"
     };
+  } else if (environment == "win") {
+    options = {
+      mode: "text",
+      pythonOptions: ["-u"], // get print results in real-time
+      scriptPath: "./scripts"
+    };
   } else {
     options = {
       mode: "text",
+      pythonPath: "/usr/local/bin/python",
       pythonOptions: ["-u"], // get print results in real-time
       scriptPath: "./scripts"
     };
@@ -73,7 +78,7 @@ router.post("/rectangleMission/:distance/:w/:x/:L/:h", (req, res) => {
 
   let options;
 
-  if (localhost != true) {
+  if (environment === "drone") {
     options = {
       mode: "text",
       pythonPath: "/usr/bin/python3",
@@ -90,9 +95,26 @@ router.post("/rectangleMission/:distance/:w/:x/:L/:h", (req, res) => {
         headingFlight
       ]
     };
+  } else if (environment === "win") {
+    options = {
+      mode: "text",
+      pythonOptions: ["-u"], // get print results in real-time
+      scriptPath: "./scripts",
+      args: [
+        distance,
+        width,
+        spaceDistance,
+        spaceBtwLines,
+        height,
+        latFlight,
+        lonFlight,
+        headingFlight
+      ]
+    };
   } else {
     options = {
       mode: "text",
+      pythonPath: "/usr/local/bin/python",
       pythonOptions: ["-u"], // get print results in real-time
       scriptPath: "./scripts",
       args: [

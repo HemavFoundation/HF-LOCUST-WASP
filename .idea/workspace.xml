@@ -2,11 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d2e113f0-06e1-4566-b077-3c53c4e4d077" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/scripts/commonFunctions.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/config.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/flights.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/routes/config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/autopilot_interface.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/camera_interface.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hola.waypoints" beforeDir="false" afterPath="$PROJECT_DIR$/hola.waypoints" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/planner/flightPlanner.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/planner/flightPlanner.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/connect.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/connect.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/directionOfFlight.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/directionOfFlight.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/rectangleMission.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/rectangleMission.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/start.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/start.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/connect.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/connect.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/load.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/load.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/start.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/start.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,22 +115,22 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1878" height="303" key="GridCell.Tab.0.bottom" timestamp="1581595345773">
+    <state width="1878" height="69" key="GridCell.Tab.0.bottom" timestamp="1581689759438">
       <screen x="-1920" y="-280" width="1920" height="1080" />
     </state>
-    <state width="1878" height="303" key="GridCell.Tab.0.bottom/0.0.1280.800/-1920.-280.1920.1080@-1920.-280.1920.1080" timestamp="1581595345773" />
-    <state width="1878" height="303" key="GridCell.Tab.0.center" timestamp="1581595345771">
+    <state width="1878" height="69" key="GridCell.Tab.0.bottom/0.0.1280.800/-1920.-280.1920.1080@-1920.-280.1920.1080" timestamp="1581689759438" />
+    <state width="1878" height="69" key="GridCell.Tab.0.center" timestamp="1581689759436">
       <screen x="-1920" y="-280" width="1920" height="1080" />
     </state>
-    <state width="1878" height="303" key="GridCell.Tab.0.center/0.0.1280.800/-1920.-280.1920.1080@-1920.-280.1920.1080" timestamp="1581595345771" />
-    <state width="1878" height="303" key="GridCell.Tab.0.left" timestamp="1581595345770">
+    <state width="1878" height="69" key="GridCell.Tab.0.center/0.0.1280.800/-1920.-280.1920.1080@-1920.-280.1920.1080" timestamp="1581689759436" />
+    <state width="1878" height="69" key="GridCell.Tab.0.left" timestamp="1581689759434">
       <screen x="-1920" y="-280" width="1920" height="1080" />
     </state>
-    <state width="1878" height="303" key="GridCell.Tab.0.left/0.0.1280.800/-1920.-280.1920.1080@-1920.-280.1920.1080" timestamp="1581595345770" />
-    <state width="1878" height="303" key="GridCell.Tab.0.right" timestamp="1581595345772">
+    <state width="1878" height="69" key="GridCell.Tab.0.left/0.0.1280.800/-1920.-280.1920.1080@-1920.-280.1920.1080" timestamp="1581689759434" />
+    <state width="1878" height="69" key="GridCell.Tab.0.right" timestamp="1581689759437">
       <screen x="-1920" y="-280" width="1920" height="1080" />
     </state>
-    <state width="1878" height="303" key="GridCell.Tab.0.right/0.0.1280.800/-1920.-280.1920.1080@-1920.-280.1920.1080" timestamp="1581595345772" />
+    <state width="1878" height="69" key="GridCell.Tab.0.right/0.0.1280.800/-1920.-280.1920.1080@-1920.-280.1920.1080" timestamp="1581689759437" />
   </component>
   <component name="masterDetails">
     <states>
