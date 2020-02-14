@@ -12,7 +12,7 @@ var latFlight;
 var headingFlight;
 
 class LocationDrone {
-  constructor(heading, lon, lat, alt) {
+  constructor(heading, lat, lon, alt) {
     this.heading = heading;
     this.lon = lon;
     this.lat = lat;
@@ -54,10 +54,10 @@ router.get("/directionOfFlight", (req, res) => {
       console.log(err);
     } else {
       location = new LocationDrone(
-        results[3],
-        results[4],
-        results[5],
-        results[6]
+        results[0],
+        results[1],
+        results[2],
+        results[3]
       );
 
       lonFlight = results[5];
