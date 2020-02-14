@@ -60,9 +60,9 @@ router.get("/directionOfFlight", (req, res) => {
         results[3]
       );
 
-      lonFlight = results[5];
-      latFlight = results[4];
-      headingFlight = results[3];
+      lonFlight = results[2];
+      latFlight = results[1];
+      headingFlight = results[0];
 
       res.status(200).send(location);
     }
