@@ -60,6 +60,8 @@ cmds.download()
 
 armDrone()
 global num
+
+
 results = []
 num = 1
 camera_interface = CameraInterface()
@@ -69,7 +71,7 @@ flight_data = None
 
 
 if connectionString != "local":
-    altitudeCondition = 50
+    altitudeCondition = -50   #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 else:
     altitudeCondition = -50
 

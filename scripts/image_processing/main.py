@@ -20,7 +20,9 @@ import json
 import pandas as pd
 import cv2
 import math
+global results
 
+results = []
 
 def edit_json(newFlight):
     # we try to write an existing json. If not existing, we create a new one
@@ -30,7 +32,7 @@ def edit_json(newFlight):
             try:
                 data = json.load(f)
             except:
-                print("Empty json")
+                print("Empty json r+")
 
             data.append(newFlight)
             f.seek(0)
@@ -39,12 +41,12 @@ def edit_json(newFlight):
             f.close()
 
     except:
-        with open('/home/pi/Desktop/HF-LOCUST-WASP/results.json', 'a') as f:
+        with open('/home/pi/Desktop/HF-LOCUST-WASP/results.json', 'w') as f:
             data = []
             try:
                 data = json.load(f)
             except:
-                print("Empty json")
+                print("Empty json x")
 
             data.append(newFlight)
             f.seek(0)
