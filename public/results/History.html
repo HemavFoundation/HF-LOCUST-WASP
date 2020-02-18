@@ -61,22 +61,23 @@
   <script>
     $(document).ready(function () {
       var theme = 'DEFAULT'
-      fillHistoryTable();
+      var ipConnection = '192.168.1.75'
+      fillHistoryTable(ipConnection);
       $('#theme_switcher').on('click', themeSwitcher);
 
     })
 
 
-    function fillHistoryTable() {
+    function fillHistoryTable(ipConnection) {
       $("#historyTable").html(""); //primero vacio la tabla existente
 
       $.ajax({
         type: 'GET',
-        url: 'http://localhost:9000/results.json',
+        url: 'http://'+ ipConnection +':9000/results.json',
         dataType: 'json',
         success: function (data) {
           $.each(data, function (index, datos) {
-            $("#historyTable").append("<tr><td>" + datos.id + "</td><td><button id='" + index + "' type='button' class='square_btn' onclick='fillResultsTable(" + index + ")'>GO!</button></td></tr>");
+            $("#historyTable").append("<tr><td>" + datos.id + "</td><td><button id='" + index + "' type='button' class='square_btn' onclick='fillResultsTable(" + index +")'>GO!</button></td></tr>");
           });
         }
       })
@@ -86,9 +87,11 @@
     function fillResultsTable(passId) {
       $("#resultsTable").html(""); //primero vacio la tabla existente
 
+      var ipConnection = '192.168.1.75'
+
       $.ajax({
         type: 'GET',
-        url: 'http://localhost:9000/results.json',
+        url: 'http://'+ ipConnection +':9000/results.json',
         dataType: 'json',
         success: function (data) {
           $.each(data[passId].results, function (index, datos) {
