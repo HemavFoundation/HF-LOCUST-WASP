@@ -4,9 +4,9 @@ import time
 import os
 from commonFunctions import *
 from config import *
-from scripts.image_processing.autopilot_interface import AutopilotInterface
-from scripts.image_processing.camera_interface import CameraInterface
-from scripts.image_processing import main
+from image_processing.autopilot_interface import AutopilotInterface
+from image_processing.camera_interface import CameraInterface
+from image_processing import main
 #Set up option parsing to get connection string
 import argparse
 import numpy as np
@@ -60,6 +60,8 @@ cmds.download()
 
 armDrone()
 global num
+
+
 results = []
 num = 1
 camera_interface = CameraInterface()
@@ -67,11 +69,17 @@ autopilot_interface = AutopilotInterface(vehicle)
 newpath = main.create_directory()
 flight_data = None
 
+
+if connectionString != "local":
+    altitudeCondition = 50 
+else:
+    altitudeCondition = -50
+
 while vehicle.armed is True:
 
     altitude = autopilot_interface.get_altitude()
-
-    if altitude >= 50:
+    
+    if altitude >= altitudeCondition:
         flight_data = main.main_loop(vehicle, num, newpath, camera_interface, autopilot_interface)
         camera_interface.test_settings(num)
         num += 1
