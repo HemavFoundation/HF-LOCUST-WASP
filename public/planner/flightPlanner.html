@@ -30,8 +30,8 @@
 
 
     <br><br>
-    <div id=droneDirectionDiv style="display:flex; visibility:hidden;">
-      <button class="square_btn" id="directionDroneButton" style="margin-right:20px">Set direction</button>
+    <div id=droneDirectionDiv style="display:flex">
+      <button class="square_btn" id="directionDroneButton" style="margin-right:20px" disabled = "true">Set direction</button>
       <img id="directionDroneImg" src="../images/button.png" height="50" width=50 style="margin-right:20px">
       <h4 id="directionDroneH4">Place the drone facing inspection area</h4>
       <h4 id="directionDroneConnectedH4" hidden=true>Drone is oriented now!</h4>
@@ -39,7 +39,7 @@
 
 
     <br><br>
-    <div id=droneSettingTabDiv style="visibility:hidden">
+    <div id=droneSettingTabDiv >
       <div class="tab">
         <button class="tablinks" onclick="openTab(event, 'flypathtab')">Fly path</button>
         <button class="tablinks" onclick="openTab(event, 'parameterstab')">Other parameters</button>
@@ -54,7 +54,7 @@
           Maximum distance (Pmax): <label id="maxdistancetext" type="number"></label> meters
           <br><br>
           **Place the drone pointing towards the wind and push load mission! **
-          <button class="square_btn" id="uploadbut">Load Mission</button>
+          <button class="square_btn" id="uploadbut" disabled="true">Load Mission</button>
 
           <img id="photoupload" src="../images/button.png" height="50" width=50 style="margin:10px 0px -10px 10px">
         </h2>
@@ -73,8 +73,8 @@
 
 
     <br><br>
-    <div id=droneStartDiv style="display:flex; visibility:hidden;">
-      <button class="square_btn" id="droneStartButton" style="margin-right:20px">Start!</button>
+    <div id=droneStartDiv style="display:flex">
+      <button class="square_btn" id="droneStartButton" style="margin-right:20px" disabled = "true">Start!</button>
       <img id="photostart" src="../images/button.png" height="50" width=50 style="margin-right:20px">
       <img id="photoplane" src="../images/plane.png" height="50" width=50 style="visibility:hidden; margin-right:20px">
       <h4 id="directionDroneH4">Press start and take off the drone!</h4>
@@ -137,7 +137,7 @@
             document.getElementById('droneConnectionH4').hidden = true
             document.getElementById('droneCoonnectedH4').hidden = false
             document.getElementById('droneConnectImg').src = "../images/tick.png";
-            document.getElementById('droneDirectionDiv').style = "display:flex; visibility:visible"
+            document.getElementById('directionDroneButton').disabled = false
           },
           error: function (data, textStatus, xhr) {
             document.getElementById('droneConnectImg').src = "../images/cross.png";
@@ -156,7 +156,8 @@
             document.getElementById('directionDroneH4').hidden = true
             document.getElementById('directionDroneConnectedH4').hidden = false
             document.getElementById('directionDroneImg').src = "../images/tick.png";
-            document.getElementById('droneSettingTabDiv').style = "display:flex; visibility:visible"
+            document.getElementById('uploadbut').disabled = false;
+            
           },
           error: function (data, textStatus, xhr) {
             document.getElementById('directionDroneImg').src = "../images/cross.png";
@@ -188,10 +189,12 @@
                 dataType: 'json',
                 success: function (data, textStatus, xhr) {
                   document.getElementById('photoupload').src = "../images/tick.png";
-                  document.getElementById("droneStartDiv").style = "visibility:visible";
+                  document.getElementById('droneStartButton').disabled = false;
+
                 },
                 error: function (data, textStatus, xhr) {
                   document.getElementById('photoupload').src = "../images/cross.png";
+
                 },
               })
           }
