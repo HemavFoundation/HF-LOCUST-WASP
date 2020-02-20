@@ -323,8 +323,8 @@ def main_loop(vehicle, num, newpath, camera_interface, autopilot_interface):
 
         image_settings = camera_interface.camera_settings()
 
-        path_json = '/results/photos/' + str(timestamp) + '/' + 'raw_images' + '/' + str(num) + '.jpeg'
-        flight_info = write_json(timestamp, num, percent, data_drone, image_settings, path_json)
+        #path_json = '/results/photos/' + str(timestamp) + '/' + 'ndvi_images' + '/' + str(num) + '.jpeg'
+        flight_info = write_json(timestamp, num, percent, data_drone, image_settings, name_ndvi)
 
         print('@@@ image processed @@@')
         return flight_info
