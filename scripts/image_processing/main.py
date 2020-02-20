@@ -12,15 +12,17 @@ For this reason, we need:
 
 """
 
-from scripts.image_processing.autopilot_interface import AutopilotInterface
-from scripts.image_processing.camera_interface import CameraInterface
+from image_processing.autopilot_interface import *
+from image_processing.camera_interface import *
 import numpy as np
 import os
 import json
 import pandas as pd
 import cv2
 import math
+global results
 
+results = []
 
 def edit_json(newFlight):
     # we try to write an existing json. If not existing, we create a new one
@@ -30,7 +32,7 @@ def edit_json(newFlight):
             try:
                 data = json.load(f)
             except:
-                print("Empty json")
+                print("Empty json r+")
 
             data.append(newFlight)
             f.seek(0)
@@ -39,12 +41,12 @@ def edit_json(newFlight):
             f.close()
 
     except:
-        with open('/home/pi/Desktop/HF-LOCUST-WASP/results.json', 'a') as f:
+        with open('/home/pi/Desktop/HF-LOCUST-WASP/results.json', 'w') as f:
             data = []
             try:
                 data = json.load(f)
             except:
-                print("Empty json")
+                print("Empty json x")
 
             data.append(newFlight)
             f.seek(0)
@@ -259,7 +261,7 @@ def main_loop(vehicle, num, newpath, camera_interface, autopilot_interface):
 
     percent = round(((values_ndvi / total_values) * 100), 2)
 
-    if percent >= 4:
+    if percent >= 0:
 
         name = newpath + '/' + 'raw_images' + '/' + str(num) + '.jpeg'
         name_ndvi = newpath + '/' + 'ndvi_images' + '/' + str(num) + '.jpeg'
@@ -338,28 +340,28 @@ def main_loop(vehicle, num, newpath, camera_interface, autopilot_interface):
         return None
 
 
-def main(vehicle):
-    global num
-    num = 1
-    camera_interface = CameraInterface()
-    autopilot_interface = AutopilotInterface(vehicle)
-    newpath = create_directory()
-    flight_data = None
-
-    while vehicle.armed is True:
-
-        altitude = autopilot_interface.get_altitude()
-
-        if altitude >= 50:
-            flight_data = main_loop(vehicle, num, newpath, camera_interface, autopilot_interface)
-            camera_interface.test_settings(num)
-            num += 1
-
-    if flight_data is not None:
-        try:
-            edit_json(flight_data)
-        except:
-            print("No flight")
-
-    else:
-        print('Flight data is empty')
+# def main(vehicle):
+#     global num
+#     num = 1
+#     camera_interface = CameraInterface()
+#     autopilot_interface = AutopilotInterface(vehicle)
+#     newpath = create_directory()
+#     flight_data = None
+# 
+#     while vehicle.armed is True:
+# 
+#         altitude = autopilot_interface.get_altitude()
+# 
+#         if altitude >= 50:
+#             flight_data = main_loop(vehicle, num, newpath, camera_interface, autopilot_interface)
+#             camera_interface.test_settings(num)
+#             num += 1
+# 
+#     if flight_data is not None:
+#         try:
+#             edit_json(flight_data)
+#         except:
+#             print("No flight")
+# 
+#     else:
+#         print('Flight data is empty')
