@@ -338,7 +338,7 @@ def main_loop(nir, red, path, num):
 def main():
     #global images
 
-    directory = "/Volumes/BALAGUER/goodvegetation"
+    directory = "/Volumes/BALAGUER/Mauritania/Flights/01_28/Flight_2/0001SET/001"
 
     output_path = "/Users/XavierBalaguer/Desktop/"
 
