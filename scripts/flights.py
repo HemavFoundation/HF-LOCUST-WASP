@@ -1,6 +1,8 @@
 from commonFunctions import *
 from config import *
 from math import asin,cos,pi,sin
+from math import *
+
 
 def landing(latWind, lonWind, headingWind, cmds):
     landpoint = pointRadialDistance(latWind,lonWind, headingWind, 0.03)
@@ -9,6 +11,7 @@ def landing(latWind, lonWind, headingWind, cmds):
     cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, secondLandingWaypoint.lat, secondLandingWaypoint.lon, 30))
     cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, firstLandingWaypoint.lat, firstLandingWaypoint.lon, 30))
     cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_LAND, 0, 0, 0, 0, 0, 0, landpoint.lat, landpoint.lon, 30))
+
 
 def takeoff(cmds, height):
     cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_DO_SET_HOME, 0, 0, 1, 0, 0, 0, 0, 0, height))
@@ -25,7 +28,8 @@ def rectangleMission(latWind, lonWind, headingWind, distance, spaceDistance, wid
     # we're going to calculate the mission, we need some space for the takeoff of the drone and this space will be 500 meters and the width of the rectangle in this case will be 500m
     fase = rad2deg(math.atan((widthRectangle/2)/spaceDistance))
     print(fase)
-    h = (widthRectangle/2)/math.sin(deg2rad(fase))
+    #h = (widthRectangle/2)/math.sin(deg2rad(fase))
+    h = math.hypot(widthRectangle/2, spaceDistance)
     print(h)
     firstLocation = pointRadialDistance(latFlight,lonFlight,(headingFlight + fase),h)
     firstLandingWaypoint = pointRadialDistance(latWind, lonWind, (headingWind + 180), 0.1)
