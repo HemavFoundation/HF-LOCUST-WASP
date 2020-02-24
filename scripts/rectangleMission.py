@@ -12,9 +12,9 @@ from flights import *
 import sys
 
 
-distance = float(sys.argv[2]) / 1000
-widthRectangle = float(sys.argv[1]) / 1000
-spaceDistance = float(sys.argv[3]) / 1000
+distance = float(sys.argv[1]) / 1000
+widthRectangle = float(sys.argv[3]) / 1000
+spaceDistance = float(sys.argv[2]) / 1000
 spaceBtwLines = float(sys.argv[4]) / 1000
 height = int(sys.argv[5])
 latFlight = float(sys.argv[6])
