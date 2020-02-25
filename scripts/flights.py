@@ -38,14 +38,14 @@ def rectangleMission(latWind, lonWind, headingWind, distance, spaceDistance, wid
     takeoff(cmds, height)
     
     #first point
-    cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, firstLocation.lat, firstLocation.lon, height))
+    cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, finalPoint.lat, finalPoint.lon, height))
 
 
     print(finalPoint.lat, finalPoint.lon)
     print(firstLocation.lat, firstLocation.lon)
 
     #second point
-    locationLoop = pointRadialDistance(firstLocation.lat, firstLocation.lon, headingFlight - 90, widthRectangle)
+    locationLoop = pointRadialDistance(finalPoint.lat, finalPoint.lon, headingFlight + 90, widthRectangle)
     cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, locationLoop.lat, locationLoop.lon, height))
 
     division = (distance / spaceBtwLines) / 2 #
@@ -53,19 +53,19 @@ def rectangleMission(latWind, lonWind, headingWind, distance, spaceDistance, wid
     print(locationLoop.lat, locationLoop.lon)
 
     for x in range(int(division)):
-        locationLoop = pointRadialDistance(locationLoop.lat,locationLoop.lon, headingFlight, spaceBtwLines)
-        cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, locationLoop.lat, locationLoop.lon, height))
-        print (locationLoop.lat,locationLoop.lon)
-
-        locationLoop = pointRadialDistance(locationLoop.lat,locationLoop.lon, headingFlight + 90, widthRectangle)
-        cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, locationLoop.lat, locationLoop.lon, height))
-        print (locationLoop.lat,locationLoop.lon)
-
-        locationLoop = pointRadialDistance(locationLoop.lat,locationLoop.lon, headingFlight, spaceBtwLines)
+        locationLoop = pointRadialDistance(locationLoop.lat,locationLoop.lon, headingFlight + 180, spaceBtwLines)
         cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, locationLoop.lat, locationLoop.lon, height))
         print (locationLoop.lat,locationLoop.lon)
 
         locationLoop = pointRadialDistance(locationLoop.lat,locationLoop.lon, headingFlight - 90, widthRectangle)
+        cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, locationLoop.lat, locationLoop.lon, height))
+        print (locationLoop.lat,locationLoop.lon)
+
+        locationLoop = pointRadialDistance(locationLoop.lat,locationLoop.lon, headingFlight + 180, spaceBtwLines)
+        cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, locationLoop.lat, locationLoop.lon, height))
+        print (locationLoop.lat,locationLoop.lon)
+
+        locationLoop = pointRadialDistance(locationLoop.lat,locationLoop.lon, headingFlight + 90, widthRectangle)
         cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, locationLoop.lat, locationLoop.lon, height))
         print (locationLoop.lat,locationLoop.lon)
 
