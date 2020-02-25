@@ -260,7 +260,7 @@ def main_loop(vehicle, num, newpath, camera_interface, autopilot_interface):
 
     percent = round(((values_ndvi / total_values) * 100), 2)
 
-    if percent >= 0:
+    if percent >= 3:
 
         name = newpath + '/' + 'raw_images' + '/' + str(num) + '.jpeg'
         name_ndvi = newpath + '/' + 'ndvi_images' + '/' + str(num) + '.jpeg'
