@@ -71,7 +71,7 @@ flight_data = None
 
 
 if connectionString != "local":
-    altitudeCondition = 50 
+    altitudeCondition = -50 
 else:
     altitudeCondition = -50
 
@@ -90,7 +90,16 @@ if flight_data is not None:
     except:
         print("No flight")
 else:
-    print('Flight data is empty')
+    try:
+        results[0] = 'No vegetation found'
+        main.edit_json(flight_data)
+        print("No vegetation found")
+        
+    except:
+        
+        print('Flight data is empty')
+    
+    
 
 # Close vehicle object before exiting script
 vehicle.close()

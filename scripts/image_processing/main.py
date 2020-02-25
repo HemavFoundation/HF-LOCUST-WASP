@@ -260,7 +260,7 @@ def main_loop(vehicle, num, newpath, camera_interface, autopilot_interface):
 
     percent = round(((values_ndvi / total_values) * 100), 2)
 
-    if percent >= 5:
+    if percent >= 0:
 
         name = newpath + '/' + 'raw_images' + '/' + str(num) + '.jpeg'
         name_ndvi = newpath + '/' + 'ndvi_images' + '/' + str(num) + '.jpeg'
@@ -323,8 +323,8 @@ def main_loop(vehicle, num, newpath, camera_interface, autopilot_interface):
 
         image_settings = camera_interface.camera_settings()
 
-        #path_json = '/results/photos/' + str(timestamp) + '/' + 'ndvi_images' + '/' + str(num) + '.jpeg'
-        flight_info = write_json(timestamp, num, percent, data_drone, image_settings, name_ndvi)
+        path_json = '/results/photos/' + str(timestamp) + '/' + 'ndvi_images' + '/' + str(num) + '.jpeg'
+        flight_info = write_json(timestamp, num, percent, data_drone, image_settings, path_json)
 
         print('@@@ image processed @@@')
         return flight_info
