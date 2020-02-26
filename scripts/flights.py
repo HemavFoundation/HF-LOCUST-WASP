@@ -22,15 +22,15 @@ def takeoff(cmds, height):
 
 
 def rectangleMission(latWind, lonWind, headingWind, distance, spaceDistance, widthRectangle, spaceBtwLines, height, latFlight, lonFlight, headingFlight, cmds):
-
-    finalPoint = pointRadialDistance(latWind, lonWind, headingWind, (distance + spaceDistance))
-
     # we're going to calculate the mission, we need some space for the takeoff of the drone and this space will be 500 meters and the width of the rectangle in this case will be 500m
-    fase = rad2deg(math.atan((widthRectangle/2)/spaceDistance))
+    fase = rad2deg(math.atan((widthRectangle/2)/(spaceDistance + distance)))
     print(fase)
     #h = (widthRectangle/2)/math.sin(deg2rad(fase))
-    h = math.hypot(widthRectangle/2, spaceDistance)
+    h = math.hypot(widthRectangle/2, spaceDistance + distance)
     print(h)
+    
+    finalPoint = pointRadialDistance(latWind, lonWind, (headingWind - fase), h)
+    
     firstLocation = pointRadialDistance(latFlight,lonFlight,(headingFlight + fase),h)
     firstLandingWaypoint = pointRadialDistance(latWind, lonWind, (headingWind + 180), 0.1)
     secondLandingWaypoint = pointRadialDistance(firstLandingWaypoint.lat, firstLandingWaypoint.lon, (headingWind + 180), 0.1)
