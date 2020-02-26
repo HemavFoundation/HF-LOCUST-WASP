@@ -52,8 +52,10 @@ latWind = vehicle.location.global_frame.lat
 lonWind = vehicle.location.global_frame.lon
 headingWind = vehicle.heading
 
+#rectangleMission can change between reversed or normal depending how you want to make the mission
 
-cmds = rectangleMission(latWind, lonWind, headingWind, distance, spaceDistance, widthRectangle, spaceBtwLines, height, latFlight, lonFlight, headingFlight, cmds)
+#cmds = rectangleMission_reversed(latWind, lonWind, headingWind, distance, spaceDistance, widthRectangle, spaceBtwLines, height, latFlight, lonFlight, headingFlight, cmds)
+cmds = rectangleMission_normal(latWind, lonWind, headingWind, distance, spaceDistance, widthRectangle, spaceBtwLines, height, latFlight, lonFlight, headingFlight, cmds)
 
 print(" Upload new commands to vehicle")
 
