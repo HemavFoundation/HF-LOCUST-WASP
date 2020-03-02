@@ -251,16 +251,17 @@ def main_loop(vehicle, num, newpath, camera_interface, autopilot_interface):
     dilation = cv2.dilate(erosion, kernel, iterations=1)
 
     ndvi_new = dilation
-
+    ndvi_values = np.count_nonzero(ndvi_new > 126)
+    
     # once we have the final image with vegetation, we remove everything that is under 0.14 (163) NDVI value
     ndvi_new[ndvi_new < 163] = 0
     values_ndvi = np.count_nonzero(ndvi_new > 0)
 
     total_values = ndvi_new.shape[0] * ndvi_new.shape[1]
 
-    percent = round(((values_ndvi / total_values) * 100), 2)
+    percent = round(((ndvi_values / total_values) * 100), 2)
 
-    if percent >= 3:
+    if percent >= 1:
 
         name = newpath + '/' + 'raw_images' + '/' + str(num) + '.jpeg'
         name_ndvi = newpath + '/' + 'ndvi_images' + '/' + str(num) + '.jpeg'
