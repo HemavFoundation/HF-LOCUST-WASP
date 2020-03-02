@@ -115,6 +115,7 @@ while vehicle.armed is True:
         timer_beginning = perf_counter()
     else:
         elapsed_time = None
+        timer_beginning = 0
 
     altitude = autopilot_interface.get_altitude()
     
@@ -130,7 +131,7 @@ while vehicle.armed is True:
         elapsed_time = None
 
     if elapsed_time > 30:
-        vehicle.mode = RTL
+        vehicle.mode = VehicleMode("RTL")
 
 if flight_data is not None:
     try:
