@@ -38,17 +38,17 @@
       </div>
       <br><br>
       <div>
-        <h3 style= "border: 3px solid white;padding: 10px 10px; text-align: center; background-color:#8a1a2d";>SELECT YOUR FLIGHT PLAN</h3>
+        <h3 style= "border: 1.5px solid white;padding: 10px 10px; text-align: center; background-color:#8a1a2d";>SELECT YOUR FLIGHT PLAN</h3>
         <br>
       </div>    
       <div id=droneSettingTabDiv style="display: flex"; >
         <br>
-          <div class="tab" >
-            <button class="tablinks" onclick="openTab(event, 'flypathtab')">Rectangle mission</button> 
+          <div class="tab" style=>
+            <a button class="tablinks" onclick="openTab(event, 'flypathtab')">Rectangle mission</button></a>
               <br>
-            <button class="tablinks" onclick="openTab(event, 'parameterstab')">Straight line mission</button>
+            <a button class="tablinks" onclick="openTab(event, 'parameterstab')">Straight line mission</button></a>
             <br>
-            <button class="tablinks" onclick="openTab(event, 'parameterstab')">Zig-Zag mission</button>
+            <a button class="tablinks" onclick="openTab(event, 'flypathtab')">Zig-Zag mission</button></a>
           </div>
           
           <div id="flypathtab" class="tabcontent";>
@@ -108,6 +108,9 @@
 
   </div>
   <script>
+    window.onload=function(){
+      document.getElementsByClassName("tab").style.background='pink';
+    }
     var theme = 'DEFAULT'
     openTab(event, 'flypathtab');
     computeMaxDistance();
@@ -312,7 +315,7 @@
         return;
       }
     }
-
+    
 
 
   </script>

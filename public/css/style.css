@@ -187,7 +187,6 @@ h2, h2 a, h2 a:visited, h3, h3 a, h3 a:visited {
 	color: #ededed;
 	}
 
-
 .commentlist li, #commentform input, #commentform textarea {
 	font: 0.9em Verdana, Arial, Sans-Serif;
 	}
@@ -259,7 +258,6 @@ a:hover {
 	color: #FFF;
 	text-decoration: underline;
 	}
-
 
 body {
 	margin: 0;
@@ -529,7 +527,26 @@ td, th
   padding: 5px;
 }
 
-
+.tab a {
+	text-decoration:none;
+	font-family: calibri;
+	background-color: #8a1a2d;
+	float: left;
+	border: 1px solid white;
+	outline: none;
+	cursor: pointer;
+	padding: 15px 10px 10px 30px;
+	transition: 0.3s;
+	font-size: 20px;
+	color: white;
+	width: fit-content;
+  }
+.tab a:hover {
+	background-color: darksalmon;
+  }
+.tab a:visited {
+	color: darksalmon;
+}
 .tab 
 {
   font-family: calibri;
@@ -558,16 +575,18 @@ th, td {
 .tab button 
 {
   font-family: calibri;
-  background-color: inherit;
+  background-color: #8a1a2d;
   float: left;
-  border: 1px solid #8a1a2d;
+  border: 1px solid white;
   outline: none;
   cursor: pointer;
-  padding: 20px 10px 10px 30px;
+  padding: 15px 10px 10px 30px;
   transition: 0.3s;
-  font-size: 15px;
+  font-size: 20px;
   color: white;
   width: fit-content;
+  display: block;
+  
 }
 
 .photoupload{
@@ -584,7 +603,7 @@ th, td {
   font-family: calibri;
   padding: 5px 10px 10px 100px;
   font-size: 20px;
-  border: 1px solid #8a1a2d;
+  border: 1.5px solid white;
   
   
 
@@ -651,3 +670,4 @@ body.HIGH_CONTRAST .card{
 	background-color: transparent;
 }
 /******* MENU STYLE********/
+
