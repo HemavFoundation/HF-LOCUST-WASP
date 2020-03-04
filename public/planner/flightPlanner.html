@@ -43,11 +43,12 @@
           <div class="tab">
               <button class="tablinks" onclick="openTab(event, 'flypathtab')">Fly path</button>
               <button class="tablinks" onclick="openTab(event, 'parameterstab')">Other parameters</button>
+              
           </div>
           <div id="flypathtab" class="tabcontent">
               <h2>
-                  Rectangle width (d): <input id="rectwidthtext" type="number" value="500" onchange="computeMaxDistance()">
-                  meters
+                   Rectangle width (d): <input id="rectwidthtext" type="number" value="500" onchange="computeMaxDistance()">
+                   meters
                   <br><br>
                   Distance (P): <input id="distancetext" type="number" value=""> meters
                   <br><br>
@@ -179,7 +180,9 @@
         }
         return pmax;
 
-    }
+      }
+
+
 
     $(document).ready(function () {
         $('#theme_switcher').on('click', themeSwitcher);
@@ -259,7 +262,7 @@
       });
 
       $("#droneStartButton").click(function () {
-          
+          startTimer();
           document.getElementById('photostart').src = "../images/waiting.png";
         $.ajax
           ({
@@ -269,7 +272,6 @@
             success: function (data, textStatus, xhr) {
               document.getElementById('photostart').src = "../images/tick.png";
               document.getElementById('photoplane').style = "visibility:visible; margin:10px 0px -10px 10px";
-              startTimer();
               },
             error: function (data, textStatus, xhr) {
                 document.getElementById('photostart').src = "../images/tick.png";
