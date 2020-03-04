@@ -90,7 +90,7 @@
 
           </h2>
       </div>
-      <button class="square_btn" id="timerButton" style="margin-right:20px" onclick="startTimer();">timer!</button>
+      
 
 
 
@@ -156,11 +156,9 @@
       
       function computeFlightTime() {
           
-          var distance = computeMaxDistance();
-          console.log(distance);
-            var velocity = 440;
+            var distance = computeMaxDistance();
+            var velocity = 17;
             var time = Math.round( distance / velocity);
-            console.log(time);
             return time;
 
       }
@@ -185,7 +183,6 @@
 
     $(document).ready(function () {
         $('#theme_switcher').on('click', themeSwitcher);
-        startTimer();
 
       $("#droneConnectButton").click(function () {
         document.getElementById('droneConnectImg').src = "../images/waiting.png";
