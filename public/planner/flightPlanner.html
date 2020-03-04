@@ -17,7 +17,7 @@
     </div>
   </div>
 
-  <div class="card">
+  <div class="card" >
       <h2><a>Flight Planner</a></h2>
 
       <br><br>
@@ -36,16 +36,23 @@
           <h4 id="directionDroneH4">Place the drone facing inspection area</h4>
           <h4 id="directionDroneConnectedH4" hidden=true>Drone is oriented now!</h4>
       </div>
-
-
       <br><br>
-      <div id=droneSettingTabDiv>
-          <div class="tab">
-              <button class="tablinks" onclick="openTab(event, 'flypathtab')">Fly path</button>
-              <button class="tablinks" onclick="openTab(event, 'parameterstab')">Other parameters</button>
+      <div>
+        <h3 style= "border: 3px solid white;padding: 10px 10px; text-align: center; background-color:#8a1a2d";>SELECT YOUR FLIGHT PLAN</h3>
+        <br>
+      </div>    
+      <div id=droneSettingTabDiv style="display: flex"; >
+        <br>
+          <div class="tab" >
+            <button class="tablinks" onclick="openTab(event, 'flypathtab')">Rectangle mission</button> 
+              <br>
+            <button class="tablinks" onclick="openTab(event, 'parameterstab')">Straight line mission</button>
+            <br>
+            <button class="tablinks" onclick="openTab(event, 'parameterstab')">Zig-Zag mission</button>
           </div>
-          <div id="flypathtab" class="tabcontent">
-              <h2>
+          
+          <div id="flypathtab" class="tabcontent";>
+              <p>
                   Rectangle width (d): <input id="rectwidthtext" type="number" value="500" onchange="computeMaxDistance()">
                   meters
                   <br><br>
@@ -57,17 +64,16 @@
                   <button class="square_btn" id="uploadbut" disabled="true">Load Mission</button>
 
                   <img id="photoupload" src="../images/button.png" height="50" width=50 style="margin:10px 0px -10px 10px">
-              </h2>
+              </p>
           </div>
-          <div id="parameterstab" class="tabcontent" style="display:none">
-              <h2>
+          <div id="parameterstab" class="tabcontent" >
+              <p>
                   Take off distance = <input id="xtext" type="number" value="500" onchange="computeMaxDistance()"> meters
                   <br><br>
-                  Space between lines inside the rectangle = <input id="Ltext" type="number" value="120"
-                                                                    onchange="computeMaxDistance()"> meters
+                  Space between lines inside the rectangle = <input id="Ltext" type="number" value="120" onchange="computeMaxDistance()"> meters
                   <br><br>
                   Flight height = <input id="htext" type="number" value="120" onchange="computeMaxDistance()"> meters
-              </h2>
+              </p>
           </div>
       </div>
 

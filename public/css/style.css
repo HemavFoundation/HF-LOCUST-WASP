@@ -503,7 +503,7 @@ h1
 h3 
 {
   font-family: calibri;
-  color: black;
+  color:white;
 }
 
 button 
@@ -534,7 +534,6 @@ td, th
 {
   font-family: calibri;
   overflow: hidden;
-  border: 5px solid #8a1a2d;
 }
 
 table{
@@ -564,10 +563,11 @@ th, td {
   border: 1px solid #8a1a2d;
   outline: none;
   cursor: pointer;
-  padding: 14px 16px;
+  padding: 20px 10px 10px 30px;
   transition: 0.3s;
-  font-size: 30px;
+  font-size: 15px;
   color: white;
+  width: fit-content;
 }
 
 .photoupload{
@@ -582,10 +582,12 @@ th, td {
 .tabcontent 
 {
   font-family: calibri;
-  display: none;
-  padding: 6px 12px;
-  border: 5px solid #8a1a2d;
-  border-top: none;
+  padding: 5px 10px 10px 100px;
+  font-size: 20px;
+  border: 1px solid #8a1a2d;
+  
+  
+
 }
 
 .square_btn{
@@ -648,3 +650,4 @@ body.HIGH_CONTRAST * {
 body.HIGH_CONTRAST .card{
 	background-color: transparent;
 }
+/******* MENU STYLE********/
