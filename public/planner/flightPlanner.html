@@ -91,21 +91,12 @@
       </div>
       <button class="square_btn" id="timerButton" style="margin-right:20px" onclick="startTimer();">timer!</button>
 
-
-
       <br><br><br>
       <button class="square_btn" id="getresultsbut">
           <a href="../results/History.html">Get results!</a>
 
           </button>
       </div>
-
-      <br><br><br>
-      <button class="square_btn" id="getresultsbut">
-          <a href="../results/History.html">Get results!</a>
-
-      </button>
-
   </div>
   <script>
     var theme = 'DEFAULT'
@@ -168,7 +159,7 @@
             var width = document.getElementById("rectwidthtext").value;
             var distance_between_lines = document.getElementById("Ltext").value;
             var time = (parseInt(width) * ((parseInt(distance) / parseInt(distance_between_lines)) + 1) + parseInt(distance) * 2)/ parseInt(velocity);
-            console.log("time ", time);
+
             return time;
 
       }
