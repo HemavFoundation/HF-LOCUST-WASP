@@ -43,23 +43,30 @@
       </div>    
       <div id=droneSettingTabDiv style="display: flex"; >
         <br>
-          <div class="tab" style=>
+          <div class="tab">
             <a button class="tablinks" onclick="openTab(event, 'flypathtab')">Rectangle mission</button></a>
               <br>
-            <a button class="tablinks" onclick="openTab(event, 'parameterstab')">Straight line mission</button></a>
+            <a button class="tablinks"id="Straightlinebutton" onclick="openTab(event, 'flypathtab')">Straight line mission</button></a>
             <br>
             <a button class="tablinks" onclick="openTab(event, 'flypathtab')">Zig-Zag mission</button></a>
           </div>
           
           <div id="flypathtab" class="tabcontent";>
               <p>
-                  Rectangle width (d): <input id="rectwidthtext" type="number" value="500" onchange="computeMaxDistance()">
-                  meters
+                <div id="rectwidthparameter">
+                  Rectangle width (d): <input id="rectwidthtext" type="number" value="500" onchange="computeMaxDistance()">meters
+                </div>
                   <br><br>
+                 <div id="distanceparameter">
                   Distance (P): <input id="distancetext" type="number" value=""> meters
+                </div>
                   <br><br>
+                <div id="maxdistanceparameter">
                   Maximum distance (Pmax): <label id="maxdistancetext" value="500" onchange="computeMaxDistance()" type="number"></label> meters
+                </div> 
                   <br><br>
+                  <a button class="tablinks" onclick="openTab(event, 'parameterstab')">Other parameters</button></a>
+                  <br><br><br>
                   **Place the drone pointing towards the wind and push load mission! **
                   <button class="square_btn" id="uploadbut" disabled="true">Load Mission</button>
 
@@ -188,6 +195,11 @@
         return pmax;
 
     }
+
+    $("#Straightlinebutton").click(function(){
+      $("#rectwidthparameter").hide();
+
+    });
 
     $(document).ready(function () {
         $('#theme_switcher').on('click', themeSwitcher);
