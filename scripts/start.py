@@ -17,47 +17,6 @@ import pandas as pd
 import cv2
 
 
-# Function to implement an RTL in case of low battery level to be able to come back home
-def battery_check(home_coordinates, timer_start, elapsed_time):
-
-    # energy parameters
-    battery_capacity = 5700 # in mAh
-    percentage = vehicle.battery.level
-    battery_high = 25.2   # 4.2 V per each cell (dji maxim is 26.2)
-    battery_low = 21.3   # 3,55V per each battery cell (6 in total): 3.55*6
-    current_consumption = vehicle.battery.current       # current consumption in amperes
-    actual_voltage = vehicle.battery.voltage    # voltage in volts
-
-
-    # kinematic parameters
-    speed = vehicle.groundspeed    # groundspeed in m/s
-    actual_coordinates = (autopilot_interface.get_latitude, autopilot_interface.get_longitude)
-
-    remaining_capacity = battery_capacity * percentage
-    distance = geopy.distance.vincenty(actual_coordinates, home_coordinates).meters
-
-    time_capacity = (remaining_capacity / current_consumption) * 3.6 # estimated capacity remaining in seconds
-    time_to_home = distance * speed  # estimated time in seconds to reach home
-
-    if time_capacity < time_to_home and timer_start is None:
-        timer_start = time()
-
-    if time_capacity < time_to_home and timer_start is not None:
-        timer_actual = time()
-        elapsed_time += (timer_actual - timer_start)
-
-    if time_capacity > time_to_home:
-        timer_start = None
-        elapsed_time = 0
-
-    if elapsed_time > 30:
-        battery_failsafe = True
-    else:
-        battery_failsafe = False
-
-    return battery_failsafe, timer_start, elapsed_time
-
-
 def armDrone():
 
     print("Basic pre-arm checks")
@@ -110,10 +69,6 @@ home_coordinates = (autopilot_interface.get_latitude, autopilot_interface.get_lo
 armDrone()
 global num
 
-# we need to initiate the faislafe parameters:
-elapsed_time = 0
-timer_start = None
-battery_failsafe = False
 
 results = []
 num = 1
@@ -136,11 +91,6 @@ while vehicle.armed is True:
         flight_data = main.main_loop(vehicle, num, newpath, camera_interface, autopilot_interface)
         camera_interface.test_settings(num)
         num += 1
-
-    battery_failsafe, timer_start, elapsed_time = battery_check(home_coordinates, timer_start, elapsed_time)
-
-    if battery_failsafe is True:
-        vehicle.mode = VehicleMode("RTL")
 
 if flight_data is not None:
     try:

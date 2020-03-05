@@ -178,18 +178,14 @@
 
       
       function computeFlightTime() {
-          
-<<<<<<< HEAD
-          var distance = computeMaxDistance();
-          console.log(distance);
-            var velocity = 440;
-            var time = Math.round( distance / velocity);
-            console.log(time);
-=======
-            var distance = computeMaxDistance();
+
+            var distance = document.getElementById("distancetext").value;
             var velocity = 17;
             var time = Math.round( distance / velocity);
->>>>>>> f56305d9192b7f4325496117936c6e7b53c5cb04
+            var width = document.getElementById("rectwidthtext").value;
+            var distance_between_lines = document.getElementById("Ltext").value;
+            var time = (parseInt(width) * ((parseInt(distance) / parseInt(distance_between_lines)) + 1) + parseInt(distance) * 2)/ parseInt(velocity);
+            console.log("time ", time);
             return time;
 
       }
