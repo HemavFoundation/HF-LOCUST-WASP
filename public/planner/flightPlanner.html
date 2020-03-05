@@ -151,18 +151,13 @@
                 }, 1000);
            }}
 
-
-
-
-      
       function computeFlightTime() {
 
-            var distance = document.getElementById("distancetext").value;
+            var distance = parseFloat(document.getElementById("distancetext").value);
             var velocity = 17;
-            var time = Math.round( distance / velocity);
-            var width = document.getElementById("rectwidthtext").value;
-            var distance_between_lines = document.getElementById("Ltext").value;
-            var time = (parseInt(width) * ((parseInt(distance) / parseInt(distance_between_lines)) + 1) + parseInt(distance) * 2)/ parseInt(velocity);
+            var width = parseFloat(document.getElementById("rectwidthtext").value);
+            var distance_between_lines = parseFloat(document.getElementById("Ltext").value);
+            var time = (width * ((distance / distance_between_lines) + 1) + distance * 2)/ velocity;
 
             return time;
 
@@ -183,7 +178,7 @@
         console.log(nmax);
         }
         return pmax;
-      }
+     }
 
     $(document).ready(function () {
         $('#theme_switcher').on('click', themeSwitcher);
