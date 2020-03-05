@@ -44,7 +44,7 @@
       <div id=droneSettingTabDiv style="display: flex"; >
         <br>
           <div class="tab">
-            <a button class="tablinks" onclick="openTab(event, 'flypathtab')">Rectangle mission</button></a>
+            <a button class="tablinks" id="rectanglemissionbutton" onclick="openTab(event, 'flypathtab')">Rectangle mission</button></a>
               <br>
             <a button class="tablinks"id="Straightlinebutton" onclick="openTab(event, 'flypathtab')">Straight line mission</button></a>
             <br>
@@ -53,7 +53,7 @@
           
           <div id="flypathtab" class="tabcontent";>
               <p>
-                <div id="rectwidthparameter">
+                <div id="rectwidthparameter" style=>
                   Rectangle width (d): <input id="rectwidthtext" type="number" value="500" onchange="computeMaxDistance()">meters
                 </div>
                   <br><br>
@@ -71,7 +71,7 @@
                   <button class="square_btn" id="uploadbut" disabled="true">Load Mission</button>
 
                   <img id="photoupload" src="../images/button.png" height="50" width=50 style="margin:10px 0px -10px 10px">
-              </p>
+                </p>
           </div>
           <div id="parameterstab" class="tabcontent" >
               <p>
@@ -201,6 +201,10 @@
 
     });
 
+    $("#rectanglemissionbutton").click(function(){
+      $("#rectwidthparameter").show();
+      
+    });
     $(document).ready(function () {
         $('#theme_switcher').on('click', themeSwitcher);
         startTimer();

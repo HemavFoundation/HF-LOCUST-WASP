@@ -618,10 +618,10 @@ th, td {
   padding: 5px 10px 10px 100px;
   font-size: 20px;
   border: 1.5px solid white;
-  size:
   
-  
-
+}
+.tabcontent div{
+	display: none;
 }
 
 .square_btn{
