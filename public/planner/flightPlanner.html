@@ -44,11 +44,11 @@
       <div id=droneSettingTabDiv style="display: flex"; >
         <br>
           <div class="tab">
-            <a button class="tablinks" onclick="openTab(event, 'flypathtab')">Rectangle mission</button></a>
+            <a button class="tablinks" id="Rectanglebutton" onclick="openTab(event, 'flypathtab')">Rectangle mission</button></a>
               <br>
             <a button class="tablinks"id="Straightlinebutton" onclick="openTab(event, 'flypathtab')">Straight line mission</button></a>
             <br>
-            <a button class="tablinks" onclick="openTab(event, 'flypathtab')">Zig-Zag mission</button></a>
+            <a button class="tablinks" id="Zigzagbutton" onclick="openTab(event, 'flypathtab')">Zig-Zag mission</button></a>
           </div>
           
           <div id="flypathtab" class="tabcontent";>
@@ -194,8 +194,11 @@
 
     }
 
-    $("#Straightlinebutton").click(function(){
-      $("#rectwidthparameter").hide();
+    $("#Rectanglebutton").click(function(){
+        $("#rectwidthparameter").show();
+              $("#distanceparameter").show();
+              $("#maxdistanceparameter").show();
+
 
     });
 
@@ -204,14 +207,11 @@
 
     });
 
-     $("#Straightlinebutton").click(function(){
+     $("#Zigzagbutton").click(function(){
       $("#rectwidthparameter").hide();
 
      });
-           $("#Straightlinebutton").click(function(){
-      $("#rectwidthparameter").hide();
 
-    });
 
 
     $(document).ready(function () {
