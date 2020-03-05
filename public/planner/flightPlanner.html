@@ -43,11 +43,20 @@
           <div class="tab">
               <button class="tablinks" onclick="openTab(event, 'flypathtab')">Fly path</button>
               <button class="tablinks" onclick="openTab(event, 'parameterstab')">Other parameters</button>
+<<<<<<< HEAD
           </div>
           <div id="flypathtab" class="tabcontent">
               <h2>
                   Rectangle width (d): <input id="rectwidthtext" type="number" value="500" onchange="computeMaxDistance()">
                   meters
+=======
+              
+          </div>
+          <div id="flypathtab" class="tabcontent">
+              <h2>
+                   Rectangle width (d): <input id="rectwidthtext" type="number" value="500" onchange="computeMaxDistance()">
+                   meters
+>>>>>>> f56305d9192b7f4325496117936c6e7b53c5cb04
                   <br><br>
                   Distance (P): <input id="distancetext" type="number" value=""> meters
                   <br><br>
@@ -87,6 +96,7 @@
               <label id="counthours" type="number"></label>
               <label id="countmins" type="number"></label>
               <label id="count" type="number"></label>
+<<<<<<< HEAD
 
           </h2>
       </div>
@@ -98,6 +108,19 @@
       <button class="square_btn" id="getresultsbut">
           <a href="../results/History.html">Get results!</a>
 
+=======
+
+          </h2>
+      </div>
+      
+
+
+
+      <br><br><br>
+      <button class="square_btn" id="getresultsbut">
+          <a href="../results/History.html">Get results!</a>
+
+>>>>>>> f56305d9192b7f4325496117936c6e7b53c5cb04
       </button>
 
   </div>
@@ -156,11 +179,17 @@
       
       function computeFlightTime() {
           
+<<<<<<< HEAD
           var distance = computeMaxDistance();
           console.log(distance);
             var velocity = 440;
             var time = Math.round( distance / velocity);
             console.log(time);
+=======
+            var distance = computeMaxDistance();
+            var velocity = 17;
+            var time = Math.round( distance / velocity);
+>>>>>>> f56305d9192b7f4325496117936c6e7b53c5cb04
             return time;
 
       }
@@ -180,12 +209,20 @@
         console.log(nmax);
         }
         return pmax;
+<<<<<<< HEAD
+=======
 
-    }
+      }
+>>>>>>> f56305d9192b7f4325496117936c6e7b53c5cb04
+
+
 
     $(document).ready(function () {
         $('#theme_switcher').on('click', themeSwitcher);
+<<<<<<< HEAD
         startTimer();
+=======
+>>>>>>> f56305d9192b7f4325496117936c6e7b53c5cb04
 
       $("#droneConnectButton").click(function () {
         document.getElementById('droneConnectImg').src = "../images/waiting.png";
@@ -262,7 +299,11 @@
       });
 
       $("#droneStartButton").click(function () {
+<<<<<<< HEAD
           
+=======
+          startTimer();
+>>>>>>> f56305d9192b7f4325496117936c6e7b53c5cb04
           document.getElementById('photostart').src = "../images/waiting.png";
         $.ajax
           ({
@@ -272,7 +313,10 @@
             success: function (data, textStatus, xhr) {
               document.getElementById('photostart').src = "../images/tick.png";
               document.getElementById('photoplane').style = "visibility:visible; margin:10px 0px -10px 10px";
+<<<<<<< HEAD
               startTimer();
+=======
+>>>>>>> f56305d9192b7f4325496117936c6e7b53c5cb04
               },
             error: function (data, textStatus, xhr) {
                 document.getElementById('photostart').src = "../images/tick.png";
