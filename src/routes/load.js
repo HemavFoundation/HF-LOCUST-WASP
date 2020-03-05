@@ -7,6 +7,10 @@ const environment = Config.environment;
 
 var location;
 
+//lat 149.1652299
+//lon -35.363261
+//heading 353
+
 var lonFlight;
 var latFlight;
 var headingFlight;
@@ -60,9 +64,15 @@ router.get("/directionOfFlight", (req, res) => {
         results[3]
       );
 
-      lonFlight = results[2];
-      latFlight = results[1];
-      headingFlight = results[0];
+      if (environment == "win" || environment == "mac") {
+        lonFlight = -35.363261;
+        latFlight = 149.1652299;
+        headingFlight = 353;
+      } else {
+        lonFlight = results[2];
+        latFlight = results[1];
+        headingFlight = results[0];
+      }
 
       res.status(200).send(location);
     }
@@ -100,16 +110,7 @@ router.post("/rectangleMission/:distance/:w/:x/:L/:h", (req, res) => {
       mode: "text",
       pythonOptions: ["-u"], // get print results in real-time
       scriptPath: "./scripts",
-      args: [
-        distance,
-        width,
-        spaceDistance,
-        spaceBtwLines,
-        height,
-        latFlight,
-        lonFlight,
-        headingFlight
-      ]
+      args: [distance,width,spaceDistance,spaceBtwLines,height,latFlight,lonFlight,headingFlight]
     };
   } else {
     options = {
@@ -130,7 +131,7 @@ router.post("/rectangleMission/:distance/:w/:x/:L/:h", (req, res) => {
     };
   }
 
-  PythonShell.run("rectangleMission.py", options, function(err, results) {
+  PythonShell.run("rectangleMission.py", options, function (err, results) {
     if (err) {
       res
         .status(400)
