@@ -48,7 +48,7 @@
               <br>
             <a button class="tablinks"id="Straightlinebutton" onclick="openTab(event, 'flypathtab')">Straight line mission</button></a>
             <br>
-            <a button class="tablinks" id="Zigzagbutton" onclick="openTab(event, 'flypathtab')">Zig-Zag mission</button></a>
+            <a button class="tablinks" id= "Zigzagbutton" onclick="openTab(event, 'flypathtab')">Zig-Zag mission</button></a>
           </div>
           
           <div id="flypathtab" class="tabcontent";>
@@ -115,6 +115,7 @@
 
   </div>
   <script>
+
     var theme = 'DEFAULT'
     openTab(event, 'flypathtab');
     computeMaxDistance();
@@ -194,24 +195,26 @@
 
     }
 
-    $("#Rectanglebutton").click(function(){
-        $("#rectwidthparameter").show();
-              $("#distanceparameter").show();
-              $("#maxdistanceparameter").show();
-
-
-    });
-
     $("#Straightlinebutton").click(function(){
+      $("#distanceparameter").show();
+      $("#maxdistanceparameter").show();
       $("#rectwidthparameter").hide();
 
     });
 
-     $("#Zigzagbutton").click(function(){
-      $("#rectwidthparameter").hide();
+    $("#Rectanglebutton").click(function(){
+      $("#rectwidthparameter").show();
+      $("#distanceparameter").show();
+      $("#maxdistanceparameter").show();
 
-     });
+    });
 
+    $("#Zigzagbutton").click(function(){
+      $("#rectwidthparameter").show();
+      $("#distanceparameter").show();
+      $("#maxdistanceparameter").show();
+
+    });
 
 
     $(document).ready(function () {

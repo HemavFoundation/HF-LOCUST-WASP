@@ -561,6 +561,9 @@ td, th
   .tab a:hover {
 	background-color: darksalmon;
   }
+  .tabcontent a:hover{
+	  background-color: darksalmon;
+  }
 .tab 
 {
   font-family: calibri;
