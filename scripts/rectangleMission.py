@@ -21,6 +21,14 @@ latFlight = float(sys.argv[6])
 lonFlight = float(sys.argv[7])
 headingFlight = int(sys.argv[8])
 
+# distance = float(1000) / 1000
+# widthRectangle = float(100) / 1000
+# spaceDistance = float(200) / 1000
+# spaceBtwLines = float(100) / 1000
+# height = int(120)
+# latFlight = float(0)
+# lonFlight = float(0)
+# headingFlight = int(0)
 
 if connectionString != "local":
     connection_string = "/dev/ttyS0"

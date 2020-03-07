@@ -49,7 +49,7 @@ router.get("/directionOfFlight", (req, res) => {
     };
   }
 
-  PythonShell.run("directionOfFlight.py", options, function(err, results) {
+  PythonShell.run("directionOfFlight.py", options, function (err, results) {
     //if (err) throw err;
     if (err) {
       res
@@ -110,7 +110,16 @@ router.post("/rectangleMission/:distance/:w/:x/:L/:h", (req, res) => {
       mode: "text",
       pythonOptions: ["-u"], // get print results in real-time
       scriptPath: "./scripts",
-      args: [distance,width,spaceDistance,spaceBtwLines,height,latFlight,lonFlight,headingFlight]
+      args: [
+        distance,
+        width,
+        spaceDistance,
+        spaceBtwLines,
+        height,
+        latFlight,
+        lonFlight,
+        headingFlight
+      ]
     };
   } else {
     options = {
