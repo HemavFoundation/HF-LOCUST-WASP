@@ -63,16 +63,9 @@ router.get("/directionOfFlight", (req, res) => {
         results[2],
         results[3]
       );
-
-      if (environment == "win" || environment == "mac") {
-        lonFlight = -35.363261;
-        latFlight = 149.1652299;
-        headingFlight = 353;
-      } else {
         lonFlight = results[2];
         latFlight = results[1];
         headingFlight = results[0];
-      }
 
       res.status(200).send(location);
     }

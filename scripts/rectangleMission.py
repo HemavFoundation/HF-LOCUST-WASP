@@ -17,23 +17,21 @@ widthRectangle = float(sys.argv[3]) / 1000
 spaceDistance = float(sys.argv[2]) / 1000
 spaceBtwLines = float(sys.argv[4]) / 1000
 height = int(sys.argv[5])
-latFlight = float(sys.argv[6])
-lonFlight = float(sys.argv[7])
-headingFlight = int(sys.argv[8])
+
 
 # distance = float(1000) / 1000
 # widthRectangle = float(100) / 1000
 # spaceDistance = float(200) / 1000
 # spaceBtwLines = float(100) / 1000
 # height = int(120)
-# latFlight = float(0)
-# lonFlight = float(0)
-# headingFlight = int(0)
+
 
 if connectionString != "local":
     connection_string = "/dev/ttyS0"
+
 else:
     connection_string = None
+
 sitl = None
 
 
@@ -63,7 +61,18 @@ headingWind = vehicle.heading
 #rectangleMission can change between reversed or normal depending how you want to make the mission
 
 #cmds = rectangleMission_reversed(latWind, lonWind, headingWind, distance, spaceDistance, widthRectangle, spaceBtwLines, height, latFlight, lonFlight, headingFlight, cmds)
-cmds = rectangleMission_normal(latWind, lonWind, headingWind, distance, spaceDistance, widthRectangle, spaceBtwLines, height, latFlight, lonFlight, headingFlight, cmds)
+
+if connectionString != "local":
+    cmds = rectangleMission_normal(latWind, lonWind, headingWind, distance, spaceDistance, widthRectangle, spaceBtwLines, height, latFlight, lonFlight, headingFlight, cmds)
+    #cmds = rectangleMission_reversed(latWind, lonWind, headingWind, distance, spaceDistance, widthRectangle, spaceBtwLines, height, latFlight, lonFlight, headingFlight, cmds)
+
+else:
+    cmds = rectangleMission_normal(latWind, lonWind, headingWind, distance, spaceDistance, widthRectangle, spaceBtwLines, height, float(34.5), float(45.3), int(234), cmds)
+    #cmds = rectangleMission_reversed(latWind, lonWind, headingWind, distance, spaceDistance, widthRectangle, spaceBtwLines, height, latFlight, lonFlight, headingFlight, cmds)
+
+
+#cmds= rectangleMission_normal(float(34.5),float(23.3),int(342),)
+#cmds = rectangleMission_normal(latWind, lonWind, headingWind,int(120),int(120),int(500),int(120),int(120),latFlight,lonFlight,headingWind,cmds)
 
 print(" Upload new commands to vehicle")
 
