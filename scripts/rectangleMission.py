@@ -19,20 +19,17 @@ spaceBtwLines = float(sys.argv[4]) / 1000
 height = int(sys.argv[5])
 
 
-# distance = float(1000) / 1000
-# widthRectangle = float(100) / 1000
-# spaceDistance = float(200) / 1000
-# spaceBtwLines = float(100) / 1000
-# height = int(120)
-
-
 if connectionString != "local":
     connection_string = "/dev/ttyS0"
+    latFlight = int(sys.argv[6])
+    lonFlight = int(sys.argv[7])
+    headingFlight = int(sys.argv[8])
 
 else:
     connection_string = None
-
-sitl = None
+    latFlight = -35.363261
+    lonFlight = 149.165229
+    headingFlight = 353
 
 
 #Start SITL if no connection string specified
@@ -62,21 +59,12 @@ headingWind = vehicle.heading
 
 #cmds = rectangleMission_reversed(latWind, lonWind, headingWind, distance, spaceDistance, widthRectangle, spaceBtwLines, height, latFlight, lonFlight, headingFlight, cmds)
 
-if connectionString != "local":
-    cmds = rectangleMission_normal(latWind, lonWind, headingWind, distance, spaceDistance, widthRectangle, spaceBtwLines, height, latFlight, lonFlight, headingFlight, cmds)
-    #cmds = rectangleMission_reversed(latWind, lonWind, headingWind, distance, spaceDistance, widthRectangle, spaceBtwLines, height, latFlight, lonFlight, headingFlight, cmds)
-
-else:
-    cmds = rectangleMission_normal(latWind, lonWind, headingWind, distance, spaceDistance, widthRectangle, spaceBtwLines, height, float(34.5), float(45.3), int(234), cmds)
-    #cmds = rectangleMission_reversed(latWind, lonWind, headingWind, distance, spaceDistance, widthRectangle, spaceBtwLines, height, latFlight, lonFlight, headingFlight, cmds)
-
-
-#cmds= rectangleMission_normal(float(34.5),float(23.3),int(342),)
-#cmds = rectangleMission_normal(latWind, lonWind, headingWind,int(120),int(120),int(500),int(120),int(120),latFlight,lonFlight,headingWind,cmds)
+cmds = rectangleMission_normal(latWind, lonWind, headingWind, distance, spaceDistance, widthRectangle, spaceBtwLines, height, latFlight, lonFlight, headingFlight, cmds)
 
 print(" Upload new commands to vehicle")
 
-#save_mission('./hola.waypoints', cmds)
+if connectionString == "local":
+    save_mission('./hola.waypoints', cmds)
 
 # Close vehicle object before exiting script
 vehicle.close()
