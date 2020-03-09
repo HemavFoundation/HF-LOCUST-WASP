@@ -18,84 +18,86 @@
   </div>
 
   <div class="card">
-      <h2><a>Flight Planner</a></h2>
+    <h2><a>Flight Planner</a></h2>
 
-      <br><br>
-      <div style="display:flex">
-          <button class="square_btn" id="droneConnectButton" style="margin-right:20px">Connect</button>
-          <img id="droneConnectImg" src="../images/button.png" height="50" width=50 style="margin-right:20px">
-          <h4 id="droneConnectionH4">Push for drone connection</h4>
-          <h4 id="droneCoonnectedH4" hidden=true>Drone is connected now!</h4>
+    <br><br>
+    <div style="display:flex">
+      <button class="square_btn" id="droneConnectButton" style="margin-right:20px">Connect</button>
+      <img id="droneConnectImg" src="../images/button.png" height="50" width=50 style="margin-right:20px">
+      <h4 id="droneConnectionH4">Push for drone connection</h4>
+      <h4 id="droneCoonnectedH4" hidden=true>Drone is connected now!</h4>
+    </div>
+
+
+    <br><br>
+    <div id=droneDirectionDiv style="display:flex">
+      <button class="square_btn" id="directionDroneButton" style="margin-right:20px" disabled="true">Set
+        direction</button>
+      <img id="directionDroneImg" src="../images/button.png" height="50" width=50 style="margin-right:20px">
+      <h4 id="directionDroneH4">Place the drone facing inspection area</h4>
+      <h4 id="directionDroneConnectedH4" hidden=true>Drone is oriented now!</h4>
+    </div>
+
+
+    <br><br>
+    <div id=droneSettingTabDiv>
+      <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'flypathtab')">Fly path</button>
+        <button class="tablinks" onclick="openTab(event, 'parameterstab')">Other parameters</button>
       </div>
+      <div id="flypathtab" class="tabcontent">
+        <h2>
+          Rectangle width (d): <input id="rectwidthtext" type="number" value="500" onchange="computeMaxDistance()">
+          meters
+          <br><br>
+          Distance (P): <input id="distancetext" type="number" value=""> meters
+          <br><br>
+          Maximum distance (Pmax): <label id="maxdistancetext" value="500" onchange="computeMaxDistance()"
+            type="number"></label> meters
+          <br><br>
+          **Place the drone pointing towards the wind and push load mission! **
+          <button class="square_btn" id="uploadbut" disabled="true">Load Mission</button>
 
-
-      <br><br>
-      <div id=droneDirectionDiv style="display:flex">
-          <button class="square_btn" id="directionDroneButton" style="margin-right:20px" disabled="true">Set direction</button>
-          <img id="directionDroneImg" src="../images/button.png" height="50" width=50 style="margin-right:20px">
-          <h4 id="directionDroneH4">Place the drone facing inspection area</h4>
-          <h4 id="directionDroneConnectedH4" hidden=true>Drone is oriented now!</h4>
+          <img id="photoupload" src="../images/button.png" height="50" width=50 style="margin:10px 0px -10px 10px">
+        </h2>
       </div>
-
-
-      <br><br>
-      <div id=droneSettingTabDiv>
-          <div class="tab">
-              <button class="tablinks" onclick="openTab(event, 'flypathtab')">Fly path</button>
-              <button class="tablinks" onclick="openTab(event, 'parameterstab')">Other parameters</button>
-          </div>
-          <div id="flypathtab" class="tabcontent">
-              <h2>
-                   Rectangle width (d): <input id="rectwidthtext" type="number" value="500" onchange="computeMaxDistance()">
-                   meters
-                  <br><br>
-                  Distance (P): <input id="distancetext" type="number" value=""> meters
-                  <br><br>
-                  Maximum distance (Pmax): <label id="maxdistancetext" value="500" onchange="computeMaxDistance()" type="number"></label> meters
-                  <br><br>
-                  **Place the drone pointing towards the wind and push load mission! **
-                  <button class="square_btn" id="uploadbut" disabled="true">Load Mission</button>
-
-                  <img id="photoupload" src="../images/button.png" height="50" width=50 style="margin:10px 0px -10px 10px">
-              </h2>
-          </div>
-          <div id="parameterstab" class="tabcontent" style="display:none">
-              <h2>
-                  Take off distance = <input id="xtext" type="number" value="500" onchange="computeMaxDistance()"> meters
-                  <br><br>
-                  Space between lines inside the rectangle = <input id="Ltext" type="number" value="120"
-                                                                    onchange="computeMaxDistance()"> meters
-                  <br><br>
-                  Flight height = <input id="htext" type="number" value="120" onchange="computeMaxDistance()"> meters
-              </h2>
-          </div>
+      <div id="parameterstab" class="tabcontent" style="display:none">
+        <h2>
+          Take off distance = <input id="xtext" type="number" value="500" onchange="computeMaxDistance()"> meters
+          <br><br>
+          Space between lines inside the rectangle = <input id="Ltext" type="number" value="120"
+            onchange="computeMaxDistance()"> meters
+          <br><br>
+          Flight height = <input id="htext" type="number" value="120" onchange="computeMaxDistance()"> meters
+        </h2>
       </div>
+    </div>
 
 
-      <br><br>
-      <div id=droneStartDiv style="display:flex">
-          <button class="square_btn" id="droneStartButton" style="margin-right:20px" disabled="true">Start!</button>
-          <img id="photostart" src="../images/button.png" height="50" width=50 style="margin-right:20px">
-          <img id="photoplane" src="../images/plane.png" height="50" width=50 style="visibility:hidden; margin-right:20px">
-          <h4 id="directionDroneH4">Press start and take off the drone!</h4>
-      </div>
-      <div id="timerDiv">
-          <h2>
-              <label id="labeltimer"></label>
-              <br><br>
-              <label id="counthours" type="number"></label>
-              <label id="countmins" type="number"></label>
-              <label id="count" type="number"></label>
-          </h2>
-      </div>
-      <button class="square_btn" id="timerButton" style="margin-right:20px" onclick="startTimer();">timer!</button>
+    <br><br>
+    <div id=droneStartDiv style="display:flex">
+      <button class="square_btn" id="droneStartButton" style="margin-right:20px" disabled="true">Start!</button>
+      <img id="photostart" src="../images/button.png" height="50" width=50 style="margin-right:20px">
+      <img id="photoplane" src="../images/plane.png" height="50" width=50 style="visibility:hidden; margin-right:20px">
+      <h4 id="directionDroneH4">Press start and take off the drone!</h4>
+    </div>
+    <div id="timerDiv">
+      <h2>
+        <label id="labeltimer"></label>
+        <br><br>
+        <label id="counthours" type="number"></label>
+        <label id="countmins" type="number"></label>
+        <label id="count" type="number"></label>
+      </h2>
+    </div>
+    <button class="square_btn" id="timerButton" style="margin-right:20px" onclick="startTimer();">timer!</button>
 
-      <br><br><br>
-      <button class="square_btn" id="getresultsbut">
-          <a href="../results/History.html">Get results!</a>
+    <br><br><br>
+    <button class="square_btn" id="getresultsbut">
+      <a href="../results/History.html">Get results!</a>
 
-          </button>
-      </div>
+    </button>
+  </div>
   </div>
   <script>
     var theme = 'DEFAULT'
@@ -114,49 +116,52 @@
       for (i = 0; i < tablinks.length; i++) {
         tablinks[i].className = tablinks[i].className.replace(" active", "");
       }
-        document.getElementById(id).style.display = "block";
+      document.getElementById(id).style.display = "block";
+    }
+
+    var started = false;
+
+    function startTimer() {
+      var counter = computeFlightTime();
+      if (started == false) {
+        started = true;
+        setInterval(function () {
+          counter--;
+          hours = Math.floor(counter / 3600);
+          minutes = Math.floor(counter / 60);
+          seconds = counter % 60;
+          if (counter >= 0) {
+
+            idlabel = document.getElementById("labeltimer");
+            idlabel.innerHTML = "Drone landing scheduled in:";
+            id = document.getElementById("count");
+            id.innerHTML = seconds;
+            idmin = document.getElementById("countmins");
+            idmin.innerHTML = minutes + ":";
+            idhour = document.getElementById("counthours");
+            idhour.innerHTML = hours + ":";
+
+          }
+          if (counter == 0) {
+            idlabel = document.getElementById("labeltimer");
+            idlabel.innerHTML = "Drone has landed succesfully";
+            started = false;
+          }
+        }, 1000);
       }
+    }
 
-      var started = false;
-      function startTimer() {
-          var counter = computeFlightTime();
-          if (started==false) {
-                started = true;
-                setInterval(function () {
-                    counter--;
-                    hours = Math.floor(counter / 3600);
-                    minutes = Math.floor(counter / 60);
-                    seconds = counter % 60;
-                    if (counter >= 0) {
+    function computeFlightTime() {
 
-                        idlabel = document.getElementById("labeltimer");
-                        idlabel.innerHTML = "Drone landing scheduled in:";
-                        id = document.getElementById("count");
-                        id.innerHTML = seconds;
-                        idmin = document.getElementById("countmins");
-                        idmin.innerHTML = minutes + ":";
-                        idhour = document.getElementById("counthours");
-                        idhour.innerHTML = hours + ":";
-                    }
-                    if (counter == 0) {
-                        idlabel = document.getElementById("labeltimer");
-                        idlabel.innerHTML = "Drone has landed succesfully";
-                        started = false;
-                    }
-                }, 1000);
-           }}
+      var distance = parseFloat(document.getElementById("distancetext").value);
+      var velocity = 17;
+      var width = parseFloat(document.getElementById("rectwidthtext").value);
+      var distance_between_lines = parseFloat(document.getElementById("Ltext").value);
+      var time = (width * ((distance / distance_between_lines) + 1) + distance * 2) / velocity;
 
-      function computeFlightTime() {
+      return time;
 
-            var distance = parseFloat(document.getElementById("distancetext").value);
-            var velocity = 17;
-            var width = parseFloat(document.getElementById("rectwidthtext").value);
-            var distance_between_lines = parseFloat(document.getElementById("Ltext").value);
-            var time = (width * ((distance / distance_between_lines) + 1) + distance * 2)/ velocity;
-
-            return time;
-
-      }
+    }
 
 
     function computeMaxDistance() {
@@ -171,14 +176,12 @@
       else {
         document.getElementById("maxdistancetext").innerHTML = pmax;
         console.log(nmax);
-        }
-        return pmax;
-     }
+      }
+      return pmax;
+    }
 
     $(document).ready(function () {
-        $('#theme_switcher').on('click', themeSwitcher);
-        startTimer();
-
+      $('#theme_switcher').on('click', themeSwitcher);
       $("#droneConnectButton").click(function () {
         document.getElementById('droneConnectImg').src = "../images/waiting.png";
         $.ajax({
@@ -209,7 +212,7 @@
             document.getElementById('directionDroneConnectedH4').hidden = false
             document.getElementById('directionDroneImg').src = "../images/tick.png";
             document.getElementById('uploadbut').disabled = false;
-            
+
           },
           error: function (data, textStatus, xhr) {
             document.getElementById('directionDroneImg').src = "../images/cross.png";
@@ -254,8 +257,7 @@
       });
 
       $("#droneStartButton").click(function () {
-          startTimer();
-          document.getElementById('photostart').src = "../images/waiting.png";
+        document.getElementById('photostart').src = "../images/waiting.png";
         $.ajax
           ({
             type: 'GET',
@@ -266,11 +268,11 @@
               document.getElementById('photoplane').style = "visibility:visible; margin:10px 0px -10px 10px";
               startTimer();
 
-              },
+            },
             error: function (data, textStatus, xhr) {
-                document.getElementById('photostart').src = "../images/tick.png";
-                document.getElementById('photoplane').style = "visibility:visible; margin:10px 0px -10px 10px";
-                
+              document.getElementById('photostart').src = "../images/tick.png";
+              document.getElementById('photoplane').style = "visibility:visible; margin:10px 0px -10px 10px";
+              startTimer();
             },
           })
       });
@@ -296,9 +298,6 @@
         return;
       }
     }
-
-
-
   </script>
 </body>
 
