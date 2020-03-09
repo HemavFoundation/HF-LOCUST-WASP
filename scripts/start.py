@@ -7,6 +7,8 @@ from config import *
 from image_processing.autopilot_interface import AutopilotInterface
 from image_processing.camera_interface import CameraInterface
 from image_processing import main
+import geopy.distance
+from time import time
 #Set up option parsing to get connection string
 import argparse
 import numpy as np
@@ -58,14 +60,19 @@ vehicle = connect(connection_string, baud=921600, wait_ready=True)
 cmds = vehicle.commands
 cmds.download()
 
+camera_interface = CameraInterface()
+autopilot_interface = AutopilotInterface(vehicle)
+
+# we get the home coordinates to introduce them in the intelligent RTL function
+home_coordinates = (autopilot_interface.get_latitude, autopilot_interface.get_longitude)
+
 armDrone()
 global num
 
 
 results = []
 num = 1
-camera_interface = CameraInterface()
-autopilot_interface = AutopilotInterface(vehicle)
+
 newpath = main.create_directory()
 flight_data = None
 
@@ -74,6 +81,7 @@ if connectionString != "local":
     altitudeCondition = 50 
 else:
     altitudeCondition = -50
+
 
 while vehicle.armed is True:
 
