@@ -8,7 +8,6 @@ from image_processing.autopilot_interface import AutopilotInterface
 from image_processing.camera_interface import CameraInterface
 from image_processing import main
 import geopy.distance
-from time import time
 #Set up option parsing to get connection string
 import argparse
 import numpy as np
@@ -23,7 +22,7 @@ def battery_check(home_coordinates, timer_start, elapsed_time):
     # energy parameters
     battery_capacity = 5700 # in mAh
     percentage = vehicle.battery.level
-    battery_high = 25.2   # 4.2 V per each cell (dji maxim is 26.2)
+    battery_high = 26.2   # 4.2 V per each cell (dji maxim is 26.2)
     battery_low = 21.3   # 3,55V per each battery cell (6 in total): 3.55*6
     current_consumption = vehicle.battery.current       # current consumption in amperes
     actual_voltage = vehicle.battery.voltage    # voltage in volts
@@ -40,10 +39,10 @@ def battery_check(home_coordinates, timer_start, elapsed_time):
     time_to_home = distance * speed  # estimated time in seconds to reach home
 
     if time_capacity < time_to_home and timer_start is None:
-        timer_start = time()
+        timer_start = time.time()
 
     if time_capacity < time_to_home and timer_start is not None:
-        timer_actual = time()
+        timer_actual = time.time()
         elapsed_time += (timer_actual - timer_start)
 
     if time_capacity > time_to_home:
@@ -94,9 +93,8 @@ if not connection_string:
 #print("\nConnecting to vehicle on: %s" % connection_string)
 
 vehicle = connect(connection_string, baud=921600, wait_ready=True)
-  
 
-  
+
 # Get some vehicle attributes (state)
 cmds = vehicle.commands
 cmds.download()
@@ -156,7 +154,6 @@ else:
     except:
         
         print('Flight data is empty')
-    
     
 
 # Close vehicle object before exiting script
