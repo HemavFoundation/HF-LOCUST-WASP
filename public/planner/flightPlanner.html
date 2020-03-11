@@ -17,73 +17,6 @@
     </div>
   </div>
 
-<<<<<<< HEAD
-  <div class="card" >
-      <h2><a>Flight Planner</a></h2>
-
-      <br><br>
-      <div style="display:flex">
-          <button class="square_btn" id="droneConnectButton" style="margin-right:20px">Connect</button>
-          <img id="droneConnectImg" src="../images/button.png" height="50" width=50 style="margin-right:20px">
-          <h4 id="droneConnectionH4">Push for drone connection</h4>
-          <h4 id="droneCoonnectedH4" hidden=true>Drone is connected now!</h4>
-      </div>
-
-
-      <br><br>
-      <div id=droneDirectionDiv style="display:flex">
-          <button class="square_btn" id="directionDroneButton" style="margin-right:20px" disabled="true">Set direction</button>
-          <img id="directionDroneImg" src="../images/button.png" height="50" width=50 style="margin-right:20px">
-          <h4 id="directionDroneH4">Place the drone facing inspection area</h4>
-          <h4 id="directionDroneConnectedH4" hidden=true>Drone is oriented now!</h4>
-      </div>
-      <br><br>
-      <div>
-        <h3 style= "border: 1.5px solid white;padding: 10px 10px; text-align: center; background-color:#8a1a2d";>SELECT YOUR FLIGHT PLAN</h3>
-        <br>
-      </div>    
-      <div id=droneSettingTabDiv style="display: flex"; >
-        <br>
-          <div class="tab">
-            <a button class="tablinks" id="Rectanglebutton" onclick="openTab(event, 'flypathtab')">Rectangle mission</button></a>
-              <br>
-            <a button class="tablinks"id="Straightlinebutton" onclick="openTab(event, 'flypathtab')">Straight line mission</button></a>
-            <br>
-            <a button class="tablinks" id="Zigzagbutton" onclick="openTab(event, 'flypathtab')">Zig-Zag mission</button></a>
-          </div>
-          
-          <div id="flypathtab" class="tabcontent";>
-              <p>
-                <div id="rectwidthparameter">
-                  Rectangle width (d): <input id="rectwidthtext" type="number" value="500" onchange="computeMaxDistance()">meters
-                </div>
-                  <br><br>
-                 <div id="distanceparameter">
-                  Distance (P): <input id="distancetext" type="number" value=""> meters
-                </div>
-                  <br><br>
-                <div id="maxdistanceparameter">
-                  Maximum distance (Pmax): <label id="maxdistancetext" value="500" onchange="computeMaxDistance()" type="number"></label> meters
-                </div> 
-                  <br><br>
-                  <a button class="tablinks" onclick="openTab(event, 'parameterstab')">Other parameters</button></a>
-                  <br><br><br>
-                  **Place the drone pointing towards the wind and push load mission! **
-                  <button class="square_btn" id="uploadbut" disabled="true">Load Mission</button>
-
-                  <img id="photoupload" src="../images/button.png" height="50" width=50 style="margin:10px 0px -10px 10px">
-              </p>
-          </div>
-          <div id="parameterstab" class="tabcontent" >
-              <p>
-                  Take off distance = <input id="xtext" type="number" value="500" onchange="computeMaxDistance()"> meters
-                  <br><br>
-                  Space between lines inside the rectangle = <input id="Ltext" type="number" value="120" onchange="computeMaxDistance()"> meters
-                  <br><br>
-                  Flight height = <input id="htext" type="number" value="120" onchange="computeMaxDistance()"> meters
-              </p>
-          </div>
-=======
   <div class="card">
     <h2><a>Flight Planner</a></h2>
 
@@ -111,7 +44,6 @@
       <div class="tab">
         <button class="tablinks" onclick="openTab(event, 'flypathtab')">Fly path</button>
         <button class="tablinks" onclick="openTab(event, 'parameterstab')">Other parameters</button>
->>>>>>> dcfd67471204834e73dabb871cebe1a3a39ca840
       </div>
       <div id="flypathtab" class="tabcontent">
         <h2>
@@ -188,47 +120,6 @@
       document.getElementById(id).style.display = "block";
     }
 
-<<<<<<< HEAD
-      var started = false;
-      function startTimer() {
-          var counter = computeFlightTime();
-          if (started==false) {
-                started = true;
-                setInterval(function () {
-                    counter--;
-                    hours = Math.floor(counter / 3600);
-                    minutes = Math.floor(counter / 60);
-                    seconds = counter % 60;
-                    if (counter >= 0) {
-
-                        idlabel = document.getElementById("labeltimer");
-                        idlabel.innerHTML = "Drone landing scheduled in:";
-                        id = document.getElementById("count");
-                        id.innerHTML = seconds;
-                        idmin = document.getElementById("countmins");
-                        idmin.innerHTML = minutes + ":";
-                        idhour = document.getElementById("counthours");
-                        idhour.innerHTML = hours + ":";
-                    }
-                    if (counter == 0) {
-                        idlabel = document.getElementById("labeltimer");
-                        idlabel.innerHTML = "Drone has landed succesfully";
-                        started = false;
-                    }
-                }, 1000);
-           }}
-
-
-
-
-      
-      function computeFlightTime() {
-          
-          var distance = computeMaxDistance();
-            var velocity = 440;
-            var time = Math.round( distance / velocity);
-            return time;
-=======
     var started = false;
 
     function startTimer() {
@@ -250,7 +141,6 @@
             idmin.innerHTML = minutes + ":";
             idhour = document.getElementById("counthours");
             idhour.innerHTML = hours + ":";
->>>>>>> dcfd67471204834e73dabb871cebe1a3a39ca840
 
           }
           if (counter == 0) {
@@ -286,15 +176,9 @@
       }
       else {
         document.getElementById("maxdistancetext").innerHTML = pmax;
-<<<<<<< HEAD
-        }
-        return pmax;
-
-=======
         console.log(nmax);
       }
       return pmax;
->>>>>>> dcfd67471204834e73dabb871cebe1a3a39ca840
     }
 
     $("#Rectanglebutton").click(function(){
@@ -445,12 +329,6 @@
         return;
       }
     }
-<<<<<<< HEAD
-    
-
-
-=======
->>>>>>> dcfd67471204834e73dabb871cebe1a3a39ca840
   </script>
 </body>
 
