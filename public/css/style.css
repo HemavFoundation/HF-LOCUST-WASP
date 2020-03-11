@@ -4,10 +4,11 @@ body {
 	color: #ededed;
 	text-align: center;
 	background-color: black;
-	background-image:url("../images/backgroundWeb.png");
-	background-repeat:no-repeat;
-	background-size:inherit;
-	}
+	background-image: url("../images/backgroundWeb.png");
+	background-repeat: no-repeat;
+	background-size: inherit;
+	background-size: cover;
+}
 
 #page {
 	text-align: left;
@@ -267,8 +268,8 @@ body {
 #page {
 	margin: 0 auto;
 	padding: 0;
-	width: 782px;
-	}
+	width: 760px;
+}
 
 
 #headerimg {
@@ -437,8 +438,6 @@ select {
 	display: block;
 	}
 
-
-
 /* Begin Various Tags and Classes */
 acronym, abbr, span.caps {
 	cursor: help;
@@ -540,10 +539,12 @@ td, th
 	font-size: 20px;
 	color: white;
 	width: fit-content;
-  }
-.tab a:hover {
+	}
+	
+.tab a:hover, .tab a.active {
 	background-color: darksalmon;
-  }
+	}
+
 .tabcontent a {
 	text-decoration:none;
 	font-family: calibri;
@@ -552,7 +553,7 @@ td, th
 	border: 1px solid white;
 	outline: none;
 	cursor: pointer;
-	padding: 10px 10px 10px 10px;
+	padding: 10px;
 	transition: 0.3s;
 	font-size: 15px;
 	color: white;
@@ -561,10 +562,25 @@ td, th
   .tab a:hover {
 	background-color: darksalmon;
   }
+  .tabcontent a:hover{
+	  background-color: darksalmon;
+  }
 .tab 
 {
   font-family: calibri;
   overflow: hidden;
+}
+
+#droneSettingTabDiv .tab {
+	width: 160px;
+	display: inline-block;
+	vertical-align: top;
+}
+
+#droneSettingTabDiv #flypathtab, #droneSettingTabDiv #parameterstab  {
+	display: inline-block;
+	width: 560px;
+	box-sizing: border-box;
 }
 
 table{
@@ -671,7 +687,9 @@ body.HIGH_CONTRAST {
 body.HIGH_CONTRAST * {
 	color: #ffffff;
 }
-
+body.HIGH_CONTRAST input {
+	color: #000;
+}
 /*******CARD STYLE********/
  
 .card{
