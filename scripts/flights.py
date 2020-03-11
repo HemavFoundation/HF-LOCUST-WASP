@@ -1,4 +1,5 @@
 from commonFunctions import *
+from dronekit import *
 from config import *
 from math import asin,cos,pi,sin
 from math import *
@@ -140,3 +141,5 @@ def rectangleMission_normal(latWind, lonWind, headingWind, distance, spaceDistan
     cmds.upload()
 
     return cmds
+
+

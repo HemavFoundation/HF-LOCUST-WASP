@@ -17,16 +17,19 @@ widthRectangle = float(sys.argv[3]) / 1000
 spaceDistance = float(sys.argv[2]) / 1000
 spaceBtwLines = float(sys.argv[4]) / 1000
 height = int(sys.argv[5])
-latFlight = float(sys.argv[6])
-lonFlight = float(sys.argv[7])
-headingFlight = int(sys.argv[8])
 
 
 if connectionString != "local":
     connection_string = "/dev/ttyS0"
+    latFlight = int(sys.argv[6])
+    lonFlight = int(sys.argv[7])
+    headingFlight = int(sys.argv[8])
+
 else:
     connection_string = None
-sitl = None
+    latFlight = -35.363261
+    lonFlight = 149.165229
+    headingFlight = 353
 
 
 #Start SITL if no connection string specified
@@ -55,11 +58,13 @@ headingWind = vehicle.heading
 #rectangleMission can change between reversed or normal depending how you want to make the mission
 
 #cmds = rectangleMission_reversed(latWind, lonWind, headingWind, distance, spaceDistance, widthRectangle, spaceBtwLines, height, latFlight, lonFlight, headingFlight, cmds)
+
 cmds = rectangleMission_normal(latWind, lonWind, headingWind, distance, spaceDistance, widthRectangle, spaceBtwLines, height, latFlight, lonFlight, headingFlight, cmds)
 
 print(" Upload new commands to vehicle")
 
-#save_mission('./hola.waypoints', cmds)
+if connectionString == "local":
+    save_mission('./hola.waypoints', cmds)
 
 # Close vehicle object before exiting script
 vehicle.close()
