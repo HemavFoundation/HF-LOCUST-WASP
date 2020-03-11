@@ -7,6 +7,10 @@ const environment = Config.environment;
 
 var location;
 
+//lat 149.1652299
+//lon -35.363261
+//heading 353
+
 var lonFlight;
 var latFlight;
 var headingFlight;
@@ -45,7 +49,7 @@ router.get("/directionOfFlight", (req, res) => {
     };
   }
 
-  PythonShell.run("directionOfFlight.py", options, function(err, results) {
+  PythonShell.run("directionOfFlight.py", options, function (err, results) {
     //if (err) throw err;
     if (err) {
       res
@@ -59,10 +63,9 @@ router.get("/directionOfFlight", (req, res) => {
         results[2],
         results[3]
       );
-
-      lonFlight = results[2];
-      latFlight = results[1];
-      headingFlight = results[0];
+        lonFlight = results[2];
+        latFlight = results[1];
+        headingFlight = results[0];
 
       res.status(200).send(location);
     }
@@ -130,7 +133,7 @@ router.post("/rectangleMission/:distance/:w/:x/:L/:h", (req, res) => {
     };
   }
 
-  PythonShell.run("rectangleMission.py", options, function(err, results) {
+  PythonShell.run("rectangleMission.py", options, function (err, results) {
     if (err) {
       res
         .status(400)
