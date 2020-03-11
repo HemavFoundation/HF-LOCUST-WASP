@@ -8,6 +8,7 @@ from image_processing.autopilot_interface import AutopilotInterface
 from image_processing.camera_interface import CameraInterface
 from image_processing import main
 import geopy.distance
+from flights import *
 #Set up option parsing to get connection string
 import argparse
 import numpy as np
@@ -138,7 +139,7 @@ while vehicle.armed is True:
     battery_failsafe, timer_start, elapsed_time = battery_check(home_coordinates, timer_start, elapsed_time)
 
     if battery_failsafe is True:
-        vehicle.mode = VehicleMode("RTL")
+        landing(latWind, lonWind, headingWind, cmds)
 
 if flight_data is not None:
     try:
