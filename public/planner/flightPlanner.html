@@ -21,7 +21,7 @@
       <h2><a>Flight Planner</a></h2>
 
       <br><br>
-      <div style="display:flex">
+      <div>
           <button class="square_btn" id="droneConnectButton" style="margin-right:20px">Connect</button>
           <img id="droneConnectImg" src="../images/button.png" height="50" width=50 style="margin-right:20px">
           <h4 id="droneConnectionH4">Push for drone connection</h4>
@@ -30,7 +30,7 @@
 
 
       <br><br>
-      <div id=droneDirectionDiv style="display:flex">
+      <div id=droneDirectionDiv>
           <button class="square_btn" id="directionDroneButton" style="margin-right:20px" disabled="true">Set direction</button>
           <img id="directionDroneImg" src="../images/button.png" height="50" width=50 style="margin-right:20px">
           <h4 id="directionDroneH4">Place the drone facing inspection area</h4>
@@ -41,7 +41,7 @@
         <h3 style= "border: 1.5px solid white;padding: 10px 10px; text-align: center; background-color:#8a1a2d";>SELECT YOUR FLIGHT PLAN</h3>
         <br>
       </div>    
-      <div id=droneSettingTabDiv style="display: flex"; >
+      <div id=droneSettingTabDiv >
         <br>
           <div class="tab">
             <a button class="tablinks" id="Rectanglebutton" onclick="openTab(event, 'flypathtab')">Rectangle mission</button></a>
@@ -86,7 +86,7 @@
 
 
       <br><br>
-      <div id=droneStartDiv style="display:flex">
+      <div id=droneStartDiv>
           <button class="square_btn" id="droneStartButton" style="margin-right:20px" disabled="true">Start!</button>
           <img id="photostart" src="../images/button.png" height="50" width=50 style="margin-right:20px">
           <img id="photoplane" src="../images/plane.png" height="50" width=50 style="visibility:hidden; margin-right:20px">
@@ -117,7 +117,7 @@
   <script>
 
     var theme = 'DEFAULT'
-    openTab(event, 'flypathtab');
+    openTab({target: '#Rectanglebutton'}, 'flypathtab');
     computeMaxDistance();
 
       var ipConnection = '192.168.0.10';
@@ -129,11 +129,28 @@
       for (i = 0; i < tabcontent.length; i++) {
         tabcontent[i].style.display = "none";
       }
-      tablinks = document.getElementsByClassName("tablinks");
+      tablinks = $('.tablinks')
+      console.log()
       for (i = 0; i < tablinks.length; i++) {
         tablinks[i].className = tablinks[i].className.replace(" active", "");
       }
-      document.getElementById(id).style.display = "block";
+
+      $('#' + id).css('display', 'inline-block');
+      $('#droneSettingTabDiv .tablinks').removeClass('active')
+      $(evt.target).addClass('active')
+      }
+
+      function getParametersTabSize() {
+        var $droneSettingsTab = $('#droneSettingTabDiv .tab');
+        var height = $droneSettingsTab.height();
+        return height;
+      }
+
+      getParametersTabSize();
+      setParametersTabMinHeight();
+      function setParametersTabMinHeight() {
+        var $parametersTab = $('#parameterstab');
+        $parametersTab.css('min-height', getParametersTabSize());
       }
 
       var started = false;
