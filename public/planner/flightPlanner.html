@@ -104,8 +104,9 @@
     openTab(event, 'flypathtab');
     computeMaxDistance();
 
-      var ipConnection = '192.168.0.10';
-      var missiontype = 0;
+    // var ipConnection = '192.168.0.10';
+    var ipConnection = 'localhost';
+    var missiontype = 0;
 
     function openTab(evt, id) {
       var i, tabcontent, tablinks;
@@ -181,23 +182,23 @@
       return pmax;
     }
 
-    $("#Rectanglebutton").click(function(){
-        $("#rectwidthparameter").show();
-              $("#distanceparameter").show();
-              $("#maxdistanceparameter").show();
+    $("#Rectanglebutton").click(function () {
+      $("#rectwidthparameter").show();
+      $("#distanceparameter").show();
+      $("#maxdistanceparameter").show();
 
 
     });
 
-    $("#Straightlinebutton").click(function(){
+    $("#Straightlinebutton").click(function () {
       $("#rectwidthparameter").hide();
 
     });
 
-     $("#Zigzagbutton").click(function(){
+    $("#Zigzagbutton").click(function () {
       $("#rectwidthparameter").hide();
 
-     });
+    });
 
 
 
@@ -242,12 +243,12 @@
         })
       });
 
-        if (missiontype != 0) {
-            console.log(missiontype + "missiontype");
-        }
-        else {
-            console.log(missiontype);
-        }
+      if (missiontype != 0) {
+        console.log(missiontype + "missiontype");
+      }
+      else {
+        console.log(missiontype);
+      }
 
 
       $("#uploadbut").click(function () {
@@ -265,8 +266,8 @@
           var h = parseFloat(document.getElementById("htext").value);
           var d = parseFloat(document.getElementById("rectwidthtext").value);
 
-            if (pnum < pmax) {
-              
+          if (pnum < pmax) {
+
             $.ajax
               ({
                 type: 'POST',
