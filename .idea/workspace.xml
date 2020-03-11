@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d2e113f0-06e1-4566-b077-3c53c4e4d077" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/scripts/flights.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/flights.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,6 +119,10 @@
     </state>
     <state width="1878" height="69" key="GridCell.Tab.0.right/0.0.1280.800/-1920.-280.1920.1080@-1920.-280.1920.1080" timestamp="1581689759437" />
     <state width="1238" height="69" key="GridCell.Tab.0.right/0.0.1280.800@0.0.1280.800" timestamp="1582101068652" />
+    <state x="-1281" y="92" key="com.intellij.ide.util.TipDialog" timestamp="1583858050781">
+      <screen x="-1920" y="-280" width="1920" height="1080" />
+    </state>
+    <state x="-1281" y="92" key="com.intellij.ide.util.TipDialog/0.0.1280.800/-1920.-280.1920.1080@-1920.-280.1920.1080" timestamp="1583858050781" />
   </component>
   <component name="masterDetails">
     <states>
