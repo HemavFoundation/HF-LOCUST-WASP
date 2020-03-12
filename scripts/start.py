@@ -78,7 +78,7 @@ flight_data = None
 
 
 if connectionString != "local":
-    altitudeCondition = 50 
+    altitudeCondition = 50
 else:
     altitudeCondition = -50
 
