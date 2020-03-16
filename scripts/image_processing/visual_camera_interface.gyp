@@ -16,6 +16,7 @@ as well as with numpy and cv2 (the same as the other programs contained on that 
 """
 
 import os
+import json
 import pygame
 import pygame.camera
 from pygame.locals import *
@@ -23,9 +24,9 @@ import numpy as np
 import cv2
 
 
-class visualcamera_interface:
+class VisualCameraInterface:
 
-    def __init__(self, num, timestamp, data_drone, path_visualimages):
+    def __init__(self, num_visual, timestamp, data_drone, path_visualimages):
 
         # visual camera settings
         self.port = "/dev/video0"
@@ -34,10 +35,11 @@ class visualcamera_interface:
         self.cam.start()
         
         # variables we need to introduce from the main script
-        self.num = num
+        self.num = num_visual
         self.timestamp = timestamp
         self.data_drone = data_drone
-        self.path_visualimages = path_visualimages
+        self.path = path_visualimages
+
 
     def take_image(self):    #function to take an image with the visual image
 
@@ -47,7 +49,6 @@ class visualcamera_interface:
         return img
 
 
-    def save_image(self):
     def edit_json(self, newvisualimage):
         # we try to write an existing json. If not existing, we create a new one
         try:
@@ -80,23 +81,27 @@ class visualcamera_interface:
 
         print("done")
 
-    def write_json(self, num, timestamp, coordinates):
-        coordinates = (data_drone[0], data_drone[1])
+
+    def write_json(self):
+        coordinates = (self.data_drone[0], self.data_drone[1])
         visualimages.append(
             {
-                "image_id": num,
+                "image_id": self.num,
                 "coordinates": coordinates,
-                "image_path": path,
+                "image_path": self.path,
             }
         )
 
-        flight = {
-            "id": timestamp,
+        locust_images = {
+            "id": self.timestamp,
             "results": visualimages
         }
 
-        return flight
+        return locust_images
 
-     def save_image(self):
+
+    def save_image(self):
+        name = str(self.path_visualimages) + '/' + str(self.num)
+        cv2.imwrite(name, )
 
     

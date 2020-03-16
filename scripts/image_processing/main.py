@@ -79,7 +79,9 @@ def write_json(timestamp, num, percentage, data_drone, image_settings, path):
 
 def create_directory():  # tested and working
 
-    path = '/home/pi/Desktop/HF-LOCUST-WASP/public/results/photos'
+    path_mono = '/home/pi/Desktop/HF-LOCUST-WASP/public/results/monospectral'
+
+    path_visual = '/home/pi/Desktop/HF-LOCUST-WASP/public/results/visual_camera'
     # we need to convert numbers to string to be able to create the new path
     year = str(pd.datetime.now().year)
     month = str(pd.datetime.now().month)
@@ -87,17 +89,21 @@ def create_directory():  # tested and working
     hour = str(pd.datetime.now().hour)
     minute = str(pd.datetime.now().minute)
     global timestamp
-
     timestamp = year + "_" + month + "_" + day + "-" + hour + "_" + minute
-    newpath = path + "/" + timestamp  # we create the string for the new directory
 
-    os.mkdir(newpath)  # creates a directory
+    newpath_mono = path_mono + "/" + timestamp  # we create the string for the new directory
+    newpath_visual = path_visual + "/" + timestamp 
+
+    os.mkdir(newpath_mono)  # creates a directory
+    os.mkdir(newpath_visual)
+
     normal_images = newpath + '/' + 'raw_images'
     ndvi_images = newpath + '/' + 'ndvi_images'
+    
     os.mkdir(normal_images)
     os.mkdir(ndvi_images)
 
-    return newpath
+    return newpath_mono, newpath_visual
 
 
 def contrast_stretch(im):

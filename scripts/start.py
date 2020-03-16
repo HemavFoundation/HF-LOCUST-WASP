@@ -6,11 +6,11 @@ from commonFunctions import *
 from config import *
 from image_processing.autopilot_interface import AutopilotInterface
 from image_processing.camera_interface import CameraInterface
+from image_processing.visual_camera_interface import VisualCameraInterface
 from image_processing import main
 import geopy.distance
 from time import time
-#Set up option parsing to get connection string
-import argparse
+
 import numpy as np
 import json
 import pandas as pd
@@ -62,18 +62,19 @@ cmds.download()
 
 camera_interface = CameraInterface()
 autopilot_interface = AutopilotInterface(vehicle)
+visualcamera_interface = VisualCameraInterface(num_visual, timestamp, data_drone, path_visualimages)
 
 # we get the home coordinates to introduce them in the intelligent RTL function
 home_coordinates = (autopilot_interface.get_latitude, autopilot_interface.get_longitude)
 
 armDrone()
 global num
-
+global num_visual
 
 results = []
 num = 1
 
-newpath = main.create_directory()
+newpath_mono, newpath_visual = main.create_directory()
 flight_data = None
 
 
@@ -88,7 +89,7 @@ while vehicle.armed is True:
     altitude = autopilot_interface.get_altitude()
     
     if altitude >= altitudeCondition:
-        flight_data = main.main_loop(vehicle, num, newpath, camera_interface, autopilot_interface)
+        flight_data = main.main_loop(vehicle, num, newpath_mono, camera_interface, autopilot_interface)
         camera_interface.test_settings(num)
         num += 1
 
