@@ -87,8 +87,8 @@ class VisualCameraInterface:
     def write_json(self, num_visual, path_visual):
         self.visualimages.append(
             {
-                "image_id": self.num,
-                "image_path": self.path,
+                "image_id": num_visual,
+                "image_path": path_visual,
             }
         )
 
@@ -116,7 +116,7 @@ class VisualCameraInterface:
 
         # Using cv2.putText() method
         cv2.putText(img, str(coordinates), org, font, fontScale, color, thickness, cv2.LINE_AA)
-
+        return img
 
     def save_image(self, img, num):
         name = str(self.path) + '/' + str(num)
