@@ -62,7 +62,7 @@ cmds.download()
 
 camera_interface = CameraInterface()
 autopilot_interface = AutopilotInterface(vehicle)
-visualcamera_interface = VisualCameraInterface(num_visual, timestamp, data_drone, path_visualimages)
+visualcamera_interface = VisualCameraInterface()
 
 # we get the home coordinates to introduce them in the intelligent RTL function
 home_coordinates = (autopilot_interface.get_latitude, autopilot_interface.get_longitude)

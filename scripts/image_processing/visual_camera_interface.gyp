@@ -9,7 +9,8 @@ Actions to be performed with the camera:
     2) Set the camera settings 
     3) Take images and store them to be readable by the main program
     4) Save those images on the correct path 
-    5) write all the needed information in the corresponding json file
+    5) GPS coordinates are tagged directl on the image, not in the json file
+    6) write all the image path and the name on the json file
 
 To do so, we will work with the pygame library for controlling the camera and 
 as well as with numpy and cv2 (the same as the other programs contained on that project)
@@ -26,7 +27,7 @@ import cv2
 
 class VisualCameraInterface:
 
-    def __init__(self, num_visual, timestamp, data_drone, path_visualimages):
+    def __init__(self, timestamp, path_visualimages):
 
         # visual camera settings
         self.port = "/dev/video0"
@@ -35,10 +36,11 @@ class VisualCameraInterface:
         self.cam.start()
         
         # variables we need to introduce from the main script
-        self.num = num_visual
         self.timestamp = timestamp
-        self.data_drone = data_drone
         self.path = path_visualimages
+
+        # We initialize the array containing the data of the images
+        self.visualimages = []
 
 
     def take_image(self):    #function to take an image with the visual image
@@ -82,26 +84,42 @@ class VisualCameraInterface:
         print("done")
 
 
-    def write_json(self):
-        coordinates = (self.data_drone[0], self.data_drone[1])
-        visualimages.append(
+    def write_json(self, num_visual, path_visual):
+        self.visualimages.append(
             {
                 "image_id": self.num,
-                "coordinates": coordinates,
                 "image_path": self.path,
             }
         )
 
         locust_images = {
             "id": self.timestamp,
-            "results": visualimages
+            "results": self.visualimages
         }
 
         return locust_images
 
+    def tag_image(self, img, coordinates):
 
-    def save_image(self):
-        name = str(self.path_visualimages) + '/' + str(self.num)
-        cv2.imwrite(name, )
+
+        font = cv2.FONT_HERSHEY_SIMPLEX
+        # org
+        org = (50, 50)
+        # fontScale
+        fontScale = 0.8
+
+        # Blue color in BGR
+        color = (255, 255, 255)
+
+        # Line thickness of 2 px
+        thickness = 2
+
+        # Using cv2.putText() method
+        cv2.putText(img, str(coordinates), org, font, fontScale, color, thickness, cv2.LINE_AA)
+
+
+    def save_image(self, img, num):
+        name = str(self.path) + '/' + str(num)
+        cv2.imwrite(name, img)
 
     
