@@ -1,12 +1,12 @@
+import cv2
 import picamera
 from picamera import PiCamera
 import picamera.array
-import cv2
 import numpy as np
 import json
 
 
-class CameraInterface:
+class CameraInterface():
 
     def __init__(self):
 

@@ -86,32 +86,41 @@ if connectionString != "local":
 else:
     altitudeCondition = -50
 
+# We initialize time variables for the visual camera 
+previous = time()
+delta_time = 0
 
 while vehicle.armed is True:
 
     altitude = autopilot_interface.get_altitude()
-    
+    current = time()
+    delta_time += current - previous
+    previous = current
+
     if altitude >= altitudeCondition:
         flight_data = main.main_loop_mono(vehicle, num, newpath_mono, camera_interface, autopilot_interface)
-        visual_images = main.main_loop_visual(num_visual, newpath_visual, visualcamera_interface, autopilot_interface)
         camera_interface.test_settings(num)
         num += 1
+
+    if delta_time > 30:  # we want to take images every 30 seconds
+        visual_images = main.main_loop_visual(num_visual, newpath_visual, visualcamera_interface, autopilot_interface)
+        num_visual += 1
 
 if flight_data and visual_images is not None:
     try:
         camera_interface.edit_json(flight_data)
         visualcamera_interface.edit_json(visual_images)
     except:
-        print("No flight")
+        pass
+
 else:
     try:
-        results[0] = 'No vegetation found'
-        main.edit_json(flight_data)
+        visualcamera_interface.edit_json(visual_images)
+        # Would be nice to generate a fake json saying no vegetation detected
         print("No vegetation found")
         
     except:
-        
-        print('Flight data is empty')
+        pass
     
     
 # Close vehicle object before exiting script

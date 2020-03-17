@@ -25,7 +25,7 @@ import numpy as np
 import cv2
 
 
-class VisualCameraInterface:
+class VisualCameraInterface():
 
     def __init__(self, timestamp, path_visualimages):
 
@@ -85,6 +85,7 @@ class VisualCameraInterface:
 
 
     def write_json(self, num_visual, path_visual):
+        
         self.visualimages.append(
             {
                 "image_id": num_visual,
@@ -100,7 +101,16 @@ class VisualCameraInterface:
         return locust_images
 
     def tag_image(self, img, coordinates):
+        # Th main purspose of that function is tag the image with the image coordinates over a white bckground
 
+        # we will draw a white rectangle as background 
+        rectangle_bgr = (255, 255, 255)
+
+        text = str(coordinates)
+
+        # set the text start position
+        text_offset_x = 50
+        text_offset_y = img.shape[0] - 25
 
         font = cv2.FONT_HERSHEY_SIMPLEX
         # org
@@ -109,13 +119,20 @@ class VisualCameraInterface:
         fontScale = 0.8
 
         # Blue color in BGR
-        color = (255, 255, 255)
+        color = (0, 0, 0)
 
         # Line thickness of 2 px
         thickness = 2
 
+        # get the width and height of the text box
+        (text_width, text_height) = cv2.getTextSize(text, font, fontScale=fontScale, thickness=1)[0]
+
+        # make the coords of the box with a small padding of two pixels
+        box_coords = ((text_offset_x, text_offset_y), (text_offset_x + text_width + 2, text_offset_y - text_height - 2))
+        cv2.rectangle(img, box_coords[0], box_coords[1], rectangle_bgr, cv2.FILLED)
+
         # Using cv2.putText() method
-        cv2.putText(img, str(coordinates), org, font, fontScale, color, thickness, cv2.LINE_AA)
+        cv2.putText(img, text, (text_offset_x, text_offset_y), font, fontScale, color, thickness, cv2.LINE_AA)
         return img
 
     def save_image(self, img, num):

@@ -14,7 +14,7 @@ For this reason, we need:
 
 from image_processing.autopilot_interface import *
 from image_processing.camera_interface import *
-from image_processing,visualcamera_interface import *
+from image_processing.visualcamera_interface import *
 from commonFunctions import *
 import numpy as np
 import os
@@ -138,7 +138,7 @@ def get_coordinates(coordinates, heading, h, pitch, roll):
     return vertex_coordinates
 
 
-def main_loop_mono(vehicle, num, newpath, camera_interface, autopilot_interface):
+def main_loop_mono(num, newpath, camera_interface, autopilot_interface):
     img = camera_interface.capture_frame()
 
     # Once we have the original image, we need to take the red and nir channels to operate with them
@@ -257,5 +257,6 @@ def main_loop_visual(num, path, visualcamera_interface, autopilot_interface):
     img = visualcamera_interface.tag_image(img, coordinates)
 
     visual_images = visualcamera_interface.write_json(num, path)
+    visualcamera_interface.save_image(img, num)
 
     return visual_images
