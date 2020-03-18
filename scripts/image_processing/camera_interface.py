@@ -74,7 +74,7 @@ class CameraInterface():
     
 
     def edit_json(self, newFlight):
-    # we try to write an existing json. If not existing, we create a new one
+        # we try to write an existing json. If not existing, we create a new one
         try:
             with open('/home/pi/Desktop/HF-LOCUST-WASP/results.json', 'r+') as f:
                 data = []

@@ -247,6 +247,7 @@ def main_loop_mono(num, newpath, camera_interface, autopilot_interface):
         cv2.imwrite(name, img)
         return None
 
+
 def main_loop_visual(num, path, visualcamera_interface, autopilot_interface):
     img = visualcamera_interface.take_image()
 
