@@ -31,12 +31,7 @@
 
     <br><br>
     <div id=droneDirectionDiv style="display:flex">
-<<<<<<< HEAD
-      <button class="square_btn" id="directionDroneButton" style="margin-right:20px" disabled="true">Set
-        direction</button>
-=======
       <button class="square_btn" id="directionDroneButton" style="margin-right:20px" disabled = "true">Set direction</button>
->>>>>>> fdf0f3d7ff7599ce2e107df0428a25688579bf1f
       <img id="directionDroneImg" src="../images/button.png" height="50" width=50 style="margin-right:20px">
       <h4 id="directionDroneH4">Place the drone facing inspection area</h4>
       <h4 id="directionDroneConnectedH4" hidden=true>Drone is oriented now!</h4>
@@ -44,11 +39,7 @@
 
 
     <br><br>
-<<<<<<< HEAD
-    <div id=droneSettingTabDiv>
-=======
     <div id=droneSettingTabDiv >
->>>>>>> fdf0f3d7ff7599ce2e107df0428a25688579bf1f
       <div class="tab">
         <button class="tablinks" onclick="openTab(event, 'flypathtab')">Fly path</button>
         <button class="tablinks" onclick="openTab(event, 'parameterstab')">Other parameters</button>
@@ -60,12 +51,7 @@
           <br><br>
           Distance (P): <input id="distancetext" type="number" value=""> meters
           <br><br>
-<<<<<<< HEAD
-          Maximum distance (Pmax): <label id="maxdistancetext" value="500" onchange="computeMaxDistance()"
-            type="number"></label> meters
-=======
           Maximum distance (Pmax): <label id="maxdistancetext" type="number"></label> meters
->>>>>>> fdf0f3d7ff7599ce2e107df0428a25688579bf1f
           <br><br>
           **Place the drone pointing towards the wind and push load mission! **
           <button class="square_btn" id="uploadbut" disabled="true">Load Mission</button>
@@ -84,10 +70,6 @@
         </h2>
       </div>
     </div>
-<<<<<<< HEAD
-=======
-
->>>>>>> fdf0f3d7ff7599ce2e107df0428a25688579bf1f
 
     <br><br>
     <div id=droneStartDiv style="display:flex">
@@ -98,7 +80,6 @@
     </div>
 
 
-<<<<<<< HEAD
     <br><br>
     <div id=droneStartDiv style="display:flex">
       <button class="square_btn" id="droneStartButton" style="margin-right:20px" disabled="true">Start!</button>
@@ -120,13 +101,6 @@
     <br><br><br>
     <button class="square_btn" id="getresultsbut">
       <a href="../results/History.html">Get results!</a>
-=======
-    <br><br><br>
-    <button class="square_btn" id="getresultsbut">
-      <a href="../results/History.html">Get results!</a>
-
-    </button>
->>>>>>> fdf0f3d7ff7599ce2e107df0428a25688579bf1f
 
     </button>
   </div>
@@ -150,7 +124,6 @@
       }
       document.getElementById(id).style.display = "block";
     }
-<<<<<<< HEAD
 
     var started = false;
 
@@ -196,8 +169,6 @@
 
     }
 
-=======
->>>>>>> fdf0f3d7ff7599ce2e107df0428a25688579bf1f
 
     function computeMaxDistance() {
       var x = document.getElementById("xtext").value;
@@ -212,19 +183,11 @@
         document.getElementById("maxdistancetext").innerHTML = pmax;
         console.log(nmax);
       }
-<<<<<<< HEAD
       return pmax;
-=======
-
->>>>>>> fdf0f3d7ff7599ce2e107df0428a25688579bf1f
     }
 
     $(document).ready(function () {
       $('#theme_switcher').on('click', themeSwitcher);
-<<<<<<< HEAD
-=======
-
->>>>>>> fdf0f3d7ff7599ce2e107df0428a25688579bf1f
       $("#droneConnectButton").click(function () {
         document.getElementById('droneConnectImg').src = "../images/waiting.png";
         $.ajax({
@@ -309,19 +272,13 @@
             success: function (data, textStatus, xhr) {
               document.getElementById('photostart').src = "../images/tick.png";
               document.getElementById('photoplane').style = "visibility:visible; margin:10px 0px -10px 10px";
-<<<<<<< HEAD
               startTimer();
 
-=======
->>>>>>> fdf0f3d7ff7599ce2e107df0428a25688579bf1f
             },
             error: function (data, textStatus, xhr) {
               document.getElementById('photostart').src = "../images/tick.png";
               document.getElementById('photoplane').style = "visibility:visible; margin:10px 0px -10px 10px";
-<<<<<<< HEAD
               startTimer();
-=======
->>>>>>> fdf0f3d7ff7599ce2e107df0428a25688579bf1f
             },
           })
       });
