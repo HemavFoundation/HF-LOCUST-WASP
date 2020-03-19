@@ -66,11 +66,6 @@
                 </div> 
                   <br><br>
                   <a button class="tablinks" onclick="openTab(event, 'parameterstab')">Other parameters</button></a>
-                  <br><br><br>
-                  **Place the drone pointing towards the wind and push load mission! **
-                  <button class="square_btn" id="uploadbut" disabled="true">Load Mission</button>
-
-                  <img id="photoupload" src="../images/button.png" height="50" width=50 style="margin:10px 0px -10px 10px">
               </p>
           </div>
           <div id="parameterstab" class="tabcontent" >
@@ -81,6 +76,15 @@
                   <br><br>
                   Flight height = <input id="htext" type="number" value="120" onchange="computeMaxDistance()"> meters
               </p>
+          </div>
+          <div id= "LoasMission";>
+            <h3>
+            <br>
+                  Place the drone pointing towards the wind and push load mission!
+                  <button class="square_btn" id="uploadbut" disabled="true">Load Mission</button>
+
+                  <img id="photoupload" src="../images/button.png" height="30" width=30 style="margin:10px 0px -10px 10px">
+            </h3>
           </div>
       </div>
 
