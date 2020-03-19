@@ -16,8 +16,58 @@ body {
 
 #viewPhoto {
 	color: #961919;
-	height: 200px;
-	width: 200px;
+	height: 400px;
+	border: 3px solid #8a1a2d;
+}
+
+#VideoController {
+	color: #961919;
+	/* border: 3px solid #8a1a2d; */
+	height: 40px;
+
+}
+
+#InsideVideoController {
+	/* border: 3px solid #8a1a2d; */
+	width: 400px;
+	height: 40px;
+	margin: 0 auto;
+}
+
+#ButtonMinorLeft {
+	/* border: 3px solid #8a1a2d; */
+	width: 50px;
+	height: 40px;
+	float: left;
+	margin-right: 10%;
+}
+
+#ButtonMajorLeft {
+	/* border: 3px solid #8a1a2d; */
+	width: 50px;
+	height: 40px;
+	float: left;
+	margin-right: 14%;
+
+}
+
+#ButtonMajorRight {
+	/* border: 3px solid #8a1a2d; */
+	width: 50px;
+	height: 40px;
+	float: left;
+	margin-left: 14%;
+	
+
+}
+
+#ButtonMinorRight {
+	/* border: 3px solid #8a1a2d; */
+	width: 50px;
+	height: 40px;
+	float: left;
+	margin-left: 10%;
+
 }
 
 #inline {
@@ -571,6 +621,44 @@ th, td {
 }
 
 .square_btn:active {
+	/*on Click*/
+	-ms-transform: translateY(4px);
+	-webkit-transform: translateY(4px);
+	transform: translateY(4px);
+	/*Move down*/
+	border-bottom: none;
+	/*disappears*/
+}
+
+.MajorButton {
+	display: inline-block;
+	padding: 10px 24px;
+	background: #8a1a2d;
+	color: #FFF;
+	border-radius: 10%;
+	font-size: 20px;
+}
+
+.MajorButton:active {
+	/*on Click*/
+	-ms-transform: translateY(4px);
+	-webkit-transform: translateY(4px);
+	transform: translateY(4px);
+	/*Move down*/
+	border-bottom: none;
+	/*disappears*/
+}
+
+.MinorButton {
+	display: inline-block;
+	padding: 10px 24px;
+	background: #8a1a2d;
+	color: #FFF;
+	border-radius: 10%;
+	font-size: 20px;
+}
+
+.MinorButton:active {
 	/*on Click*/
 	-ms-transform: translateY(4px);
 	-webkit-transform: translateY(4px);
