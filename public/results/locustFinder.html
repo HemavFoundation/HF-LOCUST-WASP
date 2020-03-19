@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../css/style.css">
+    <title>Flight Planner</title>
+</head>
+
+
+<body id="page">
+    <div id="header">
+        <div id="headerimg">
+        </div>
+    </div>
+
+    <script src="/jquery.js"></script>
+    <!-- <script src="GetResults.js"></script>
+  <script src="ThisResult.js"></script> -->
+    <button id="theme_switcher">Dark theme</button>
+    <h2><a>Locust Finder</a></h2>
+    <br><br>
+    <hr />
+    <div id="viewPhoto" class="viewPhoto">
+       
+    </div>
+    <br><br><br>
+    <h2><a>Flight Results</a></h2>
+    <br><br>
+    <div id="rsTable">
+        <table id="completeTableResults" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>% green vegetation</th>
+                    <th>Longitude</th>
+                    <th>Latitude</th>
+                    <th>Image</th>
+
+                </tr>
+            </thead>
+            <tbody id="resultsTable">
+            </tbody>
+        </table>
+
+    </div>
+
+    <br><br>
+    <button class="square_btn" onclick="window.location='History.html'" target="_new">Clear</button>
+    <script>
+        $(document).ready(function () {
+            var theme = 'DEFAULT'
+            var ipConnection = 'localhost'
+            fillHistoryTable(ipConnection);
+            $('#theme_switcher').on('click', themeSwitcher);
+
+        })
+
+
+        function fillHistoryTable(ipConnection) {
+            $("#historyTable").html(""); //primero vacio la tabla existente
+
+            $.ajax({
+                type: 'GET',
+                url: 'http://' + ipConnection + ':9000/results.json',
+                dataType: 'json',
+                success: function (data) {
+                    $.each(data, function (index, datos) {
+                        $("#historyTable").append("<tr><td>" + datos.id + "</td><td><button id='" + index + "' type='button' class='square_btn' onclick='fillResultsTable(" + index + ")'>GO!</button></td></tr>");
+                    });
+                }
+            })
+
+        }
+
+        function fillResultsTable(passId) {
+            $("#resultsTable").html(""); //primero vacio la tabla existente
+
+            var ipConnection = 'localhost'
+
+            $.ajax({
+                type: 'GET',
+                url: 'http://' + ipConnection + ':9000/results.json',
+                dataType: 'json',
+                success: function (data) {
+                    $.each(data[passId].results, function (index, datos) {
+                        console.log(datos);
+                        $("#resultsTable").append("<tr><td>" + datos.image_id + "</td><td>" + datos.percentage + "</td><td>" + datos.coordinates[0] + "</td><td>" + datos.coordinates[1] + "</td><td><a href=" + datos.image_path + ">Show image</a></td></tr>");
+                    });
+                }
+            })
+
+
+        }
+
+        function themeSwitcher() {
+            var isDefaultTheme = theme === 'DEFAULT';
+            if (isDefaultTheme) {
+                theme = 'HIGH_CONTRAST';
+
+                $('body').addClass('HIGH_CONTRAST');
+                $('#header').css('background-image', 'none');
+                $('#theme_switcher').text('Light theme')
+                return;
+            }
+            if (!isDefaultTheme) {
+                theme = 'DEFAULT';
+
+                $('body').removeClass('HIGH_CONTRAST');
+                $('#header').css('background-image', 'url("../images/FundationHemavLogo.png")');
+                $('#theme_switcher').text('Dark theme')
+
+                return;
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

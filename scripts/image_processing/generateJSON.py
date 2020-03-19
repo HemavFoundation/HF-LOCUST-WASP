@@ -54,7 +54,7 @@ flight_info = None
 results = []
 while i < 100:
     timestamp = 'Test Flight'
-    image_path = 'C:/Users/anavarrete/Desktop/results/endurance flight/raw_images' + '/' + str(num) + '.jpeg'
+    image_path = 'public/results/photos/Test Flight' + '/' + str(num) + '.jpeg'
     flight_info = write_json(timestamp, num, image_path)
     num += 1 
     i += 1
