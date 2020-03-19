@@ -61,7 +61,8 @@
   <script>
     $(document).ready(function () {
       var theme = 'DEFAULT'
-      var ipConnection = '192.168.0.10'
+      var ipConnection = 'localhost'
+ //     var ipConnection = '192.180.0.10'
       fillHistoryTable(ipConnection);
       $('#theme_switcher').on('click', themeSwitcher);
 
@@ -86,8 +87,8 @@
 
     function fillResultsTable(passId) {
       $("#resultsTable").html(""); //primero vacio la tabla existente
-
-      var ipConnection = '192.168.0.10'
+      var ipConnection = "localhost"
+  //    var ipConnection = '192.168.0.10'
 
       $.ajax({
         type: 'GET',
