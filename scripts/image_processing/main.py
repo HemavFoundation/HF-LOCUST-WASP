@@ -14,7 +14,7 @@ For this reason, we need:
 
 from image_processing.autopilot_interface import *
 from image_processing.camera_interface import *
-from image_processing.visualcamera_interface import *
+from image_processing.visual_camera_interface import *
 from commonFunctions import *
 import numpy as np
 import os
