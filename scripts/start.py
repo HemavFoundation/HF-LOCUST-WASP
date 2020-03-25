@@ -10,7 +10,7 @@ from image_processing.visual_camera_interface import VisualCameraInterface
 from image_processing import main
 import geopy.distance
 from time import time
-
+from time import sleep
 import numpy as np
 import json
 import pandas as pd
@@ -31,12 +31,12 @@ def armDrone():
 
     while not vehicle.armed:      
         print(" Waiting for arming...")
-        time.sleep(1)
+        sleep(1)
 
     print("Done!")
 
 if connectionString != "local":
-    connection_string = "/dev/ttyS0"
+    connection_string = "/dev/serial0"
 else:
     connection_string = None
     
@@ -110,17 +110,20 @@ if flight_data and visual_images is not None:
     try:
         camera_interface.edit_json(flight_data)
         visualcamera_interface.edit_json(visual_images)
+        print('both json written')
     except:
-        pass
-
+        print('could not write both json')
 else:
     try:
-        visualcamera_interface.edit_json(visual_images)
+        if flight_data is not None:
+            camera_interface.edit_json(flight_data)
+            print('only monospectral json')
+        if visual_images is not None:
+            visualcamera_interface.edit_json(visual_images)
+            print('only visual camera json')
+    except:
         # Would be nice to generate a fake json saying no vegetation detected
         print("No vegetation found")
-        
-    except:
-        pass
     
     
 # Close vehicle object before exiting script
