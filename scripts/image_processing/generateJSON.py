@@ -3,7 +3,7 @@ import pandas as pd
 
 def edit_json(newFlight):
     try:
-        with open('C:/Users/anavarrete/Desktop/results/endurance flight/results.json', 'r+') as f:
+        with open('/home/pi/Desktop/HF-LOCUST-WASP/results.json', 'r+') as f:
             data = []
             try:
                 data = json.load(f)
@@ -15,7 +15,7 @@ def edit_json(newFlight):
             f.truncate()
             f.close()
     except:
-        with open('C:/Users/anavarrete/Desktop/results/endurance flight/results.json', 'w') as f:
+        with open('/home/pi/Desktop/HF-LOCUST-WASP/results.json', 'w') as f:
             data = []
             try:
                 data = json.load(f)
@@ -54,7 +54,7 @@ flight_info = None
 results = []
 while i < 100:
     timestamp = 'Test Flight'
-    image_path = 'public/results/photos/Test Flight' + '/' + str(num) + '.jpeg'
+    image_path = '/results/photos/Test Flight' + '/' + str(num) + '.jpeg'
     flight_info = write_json(timestamp, num, image_path)
     num += 1 
     i += 1
