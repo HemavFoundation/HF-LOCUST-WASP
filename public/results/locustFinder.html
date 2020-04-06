@@ -46,10 +46,30 @@
         $(document).ready(function () {
             var theme = 'DEFAULT'
             var ipConnection = 'localhost'
+            var videoJSON =  getJSON(ipConnection);
+            console.log(videoJSON);
             fillHistoryTable(ipConnection);
             $('#theme_switcher').on('click', themeSwitcher);
 
         })
+
+        async function getJSON(ipConnection) {
+
+            var result = 0;
+            console.log(result)
+            await $.ajax({
+                type: 'GET',
+                url: 'http://' + ipConnection + ':9000/videoResults.json',
+                dataType: 'json',
+                success: function (json) {
+                    console.log(json)
+                    result = json;
+                }
+            })
+
+            return result
+  
+        }
 
 
         function fillHistoryTable(ipConnection) {
