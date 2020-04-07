@@ -38,54 +38,11 @@
     </div>
 
 
-<<<<<<< HEAD
-      <br><br>
-      <div id=droneSettingTabDiv>
-          <div class="tab">
-              <button class="tablinks" onclick="openTab(event, 'flypathtab')">Fly path</button>
-              <button class="tablinks" onclick="openTab(event, 'parameterstab')">Other parameters</button>
-<<<<<<< HEAD
-          </div>
-          <div id="flypathtab" class="tabcontent">
-              <h2>
-                  Rectangle width (d): <input id="rectwidthtext" type="number" value="500" onchange="computeMaxDistance()">
-                  meters
-=======
-              
-          </div>
-          <div id="flypathtab" class="tabcontent">
-              <h2>
-                   Rectangle width (d): <input id="rectwidthtext" type="number" value="500" onchange="computeMaxDistance()">
-                   meters
->>>>>>> f56305d9192b7f4325496117936c6e7b53c5cb04
-                  <br><br>
-                  Distance (P): <input id="distancetext" type="number" value=""> meters
-                  <br><br>
-                  Maximum distance (Pmax): <label id="maxdistancetext" value="500" onchange="computeMaxDistance()" type="number"></label> meters
-                  <br><br>
-                  **Place the drone pointing towards the wind and push load mission! **
-                  <button class="square_btn" id="uploadbut" disabled="true">Load Mission</button>
-
-                  <img id="photoupload" src="../images/button.png" height="50" width=50 style="margin:10px 0px -10px 10px">
-              </h2>
-          </div>
-          <div id="parameterstab" class="tabcontent" style="display:none">
-              <h2>
-                  Take off distance = <input id="xtext" type="number" value="500" onchange="computeMaxDistance()"> meters
-                  <br><br>
-                  Space between lines inside the rectangle = <input id="Ltext" type="number" value="120"
-                                                                    onchange="computeMaxDistance()"> meters
-                  <br><br>
-                  Flight height = <input id="htext" type="number" value="120" onchange="computeMaxDistance()"> meters
-              </h2>
-          </div>
-=======
     <br><br>
     <div id=droneSettingTabDiv >
       <div class="tab">
         <button class="tablinks" onclick="openTab(event, 'flypathtab')">Fly path</button>
         <button class="tablinks" onclick="openTab(event, 'parameterstab')">Other parameters</button>
->>>>>>> fdf0f3d7ff7599ce2e107df0428a25688579bf1f
       </div>
       <div id="flypathtab" class="tabcontent">
         <h2>
@@ -102,19 +59,6 @@
           <img id="photoupload" src="../images/button.png" height="50" width=50 style="margin:10px 0px -10px 10px">
         </h2>
       </div>
-<<<<<<< HEAD
-
-      <div id="timerDiv">
-          <h2>
-              <label id="labeltimer"></label>
-              <br><br>
-              <label id="counthours" type="number"></label>
-              <label id="countmins" type="number"></label>
-              <label id="count" type="number"></label>
-<<<<<<< HEAD
-
-          </h2>
-=======
       <div id="parameterstab" class="tabcontent" style="display:none">
         <h2>
           Take off distance = <input id="xtext" type="number" value="500" onchange="computeMaxDistance()"> meters
@@ -124,7 +68,6 @@
           <br><br>
           Flight height = <input id="htext" type="number" value="120" onchange="computeMaxDistance()"> meters
         </h2>
->>>>>>> fdf0f3d7ff7599ce2e107df0428a25688579bf1f
       </div>
     </div>
 
@@ -142,24 +85,7 @@
     <button class="square_btn" id="getresultsbut">
       <a href="../results/History.html">Get results!</a>
 
-<<<<<<< HEAD
-=======
-
-          </h2>
-      </div>
-      
-
-
-
-      <br><br><br>
-      <button class="square_btn" id="getresultsbut">
-          <a href="../results/History.html">Get results!</a>
-
->>>>>>> f56305d9192b7f4325496117936c6e7b53c5cb04
-      </button>
-=======
     </button>
->>>>>>> fdf0f3d7ff7599ce2e107df0428a25688579bf1f
 
   </div>
   <script>
@@ -180,62 +106,7 @@
         tablinks[i].className = tablinks[i].className.replace(" active", "");
       }
       document.getElementById(id).style.display = "block";
-<<<<<<< HEAD
-      }
-
-      var started = false;
-      function startTimer() {
-          var counter = computeFlightTime();
-          if (started==false) {
-                started = true;
-                setInterval(function () {
-                    counter--;
-                    hours = Math.floor(counter / 3600);
-                    minutes = Math.floor(counter / 60);
-                    seconds = counter % 60;
-                    if (counter >= 0) {
-
-                        idlabel = document.getElementById("labeltimer");
-                        idlabel.innerHTML = "Drone landing scheduled in:";
-                        id = document.getElementById("count");
-                        id.innerHTML = seconds;
-                        idmin = document.getElementById("countmins");
-                        idmin.innerHTML = minutes + ":";
-                        idhour = document.getElementById("counthours");
-                        idhour.innerHTML = hours + ":";
-                    }
-                    if (counter == 0) {
-                        idlabel = document.getElementById("labeltimer");
-                        idlabel.innerHTML = "Drone has landed succesfully";
-                        started = false;
-                    }
-                }, 1000);
-           }}
-
-
-
-
-      
-      function computeFlightTime() {
-          
-<<<<<<< HEAD
-          var distance = computeMaxDistance();
-          console.log(distance);
-            var velocity = 440;
-            var time = Math.round( distance / velocity);
-            console.log(time);
-=======
-            var distance = computeMaxDistance();
-            var velocity = 17;
-            var time = Math.round( distance / velocity);
->>>>>>> f56305d9192b7f4325496117936c6e7b53c5cb04
-            return time;
-
-      }
-
-=======
     }
->>>>>>> fdf0f3d7ff7599ce2e107df0428a25688579bf1f
 
     function computeMaxDistance() {
       var x = document.getElementById("xtext").value;
@@ -249,30 +120,12 @@
       else {
         document.getElementById("maxdistancetext").innerHTML = pmax;
         console.log(nmax);
-<<<<<<< HEAD
-        }
-        return pmax;
-<<<<<<< HEAD
-=======
-
       }
->>>>>>> f56305d9192b7f4325496117936c6e7b53c5cb04
 
-=======
-      }
->>>>>>> fdf0f3d7ff7599ce2e107df0428a25688579bf1f
-
+    }
 
     $(document).ready(function () {
-<<<<<<< HEAD
-        $('#theme_switcher').on('click', themeSwitcher);
-<<<<<<< HEAD
-        startTimer();
-=======
->>>>>>> f56305d9192b7f4325496117936c6e7b53c5cb04
-=======
       $('#theme_switcher').on('click', themeSwitcher);
->>>>>>> fdf0f3d7ff7599ce2e107df0428a25688579bf1f
 
       $("#droneConnectButton").click(function () {
         document.getElementById('droneConnectImg').src = "../images/waiting.png";
@@ -349,16 +202,7 @@
       });
 
       $("#droneStartButton").click(function () {
-<<<<<<< HEAD
-<<<<<<< HEAD
-          
-=======
-          startTimer();
->>>>>>> f56305d9192b7f4325496117936c6e7b53c5cb04
-          document.getElementById('photostart').src = "../images/waiting.png";
-=======
         document.getElementById('photostart').src = "../images/waiting.png";
->>>>>>> fdf0f3d7ff7599ce2e107df0428a25688579bf1f
         $.ajax
           ({
             type: 'GET',
@@ -367,15 +211,7 @@
             success: function (data, textStatus, xhr) {
               document.getElementById('photostart').src = "../images/tick.png";
               document.getElementById('photoplane').style = "visibility:visible; margin:10px 0px -10px 10px";
-<<<<<<< HEAD
-<<<<<<< HEAD
-              startTimer();
-=======
->>>>>>> f56305d9192b7f4325496117936c6e7b53c5cb04
-              },
-=======
             },
->>>>>>> fdf0f3d7ff7599ce2e107df0428a25688579bf1f
             error: function (data, textStatus, xhr) {
               document.getElementById('photostart').src = "../images/tick.png";
               document.getElementById('photoplane').style = "visibility:visible; margin:10px 0px -10px 10px";
