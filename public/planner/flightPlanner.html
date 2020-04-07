@@ -71,6 +71,7 @@
       </div>
     </div>
 
+
     <br><br>
     <div id=droneStartDiv style="display:flex">
       <button class="square_btn" id="droneStartButton" style="margin-right:20px" disabled = "true">Start!</button>
@@ -80,30 +81,12 @@
     </div>
 
 
-    <br><br>
-    <div id=droneStartDiv style="display:flex">
-      <button class="square_btn" id="droneStartButton" style="margin-right:20px" disabled="true">Start!</button>
-      <img id="photostart" src="../images/button.png" height="50" width=50 style="margin-right:20px">
-      <img id="photoplane" src="../images/plane.png" height="50" width=50 style="visibility:hidden; margin-right:20px">
-      <h4 id="directionDroneH4">Press start and take off the drone!</h4>
-    </div>
-    <div id="timerDiv">
-      <h2>
-        <label id="labeltimer"></label>
-        <br><br>
-        <label id="counthours" type="number"></label>
-        <label id="countmins" type="number"></label>
-        <label id="count" type="number"></label>
-      </h2>
-    </div>
-    <button class="square_btn" id="timerButton" style="margin-right:20px" onclick="startTimer();">timer!</button>
-
     <br><br><br>
     <button class="square_btn" id="getresultsbut">
       <a href="../results/History.html">Get results!</a>
 
     </button>
-  </div>
+
   </div>
   <script>
     var theme = 'DEFAULT'
@@ -125,51 +108,6 @@
       document.getElementById(id).style.display = "block";
     }
 
-    var started = false;
-
-    function startTimer() {
-      var counter = computeFlightTime();
-      if (started == false) {
-        started = true;
-        setInterval(function () {
-          counter--;
-          hours = Math.floor(counter / 3600);
-          minutes = Math.floor(counter / 60);
-          seconds = counter % 60;
-          if (counter >= 0) {
-
-            idlabel = document.getElementById("labeltimer");
-            idlabel.innerHTML = "Drone landing scheduled in:";
-            id = document.getElementById("count");
-            id.innerHTML = seconds;
-            idmin = document.getElementById("countmins");
-            idmin.innerHTML = minutes + ":";
-            idhour = document.getElementById("counthours");
-            idhour.innerHTML = hours + ":";
-
-          }
-          if (counter == 0) {
-            idlabel = document.getElementById("labeltimer");
-            idlabel.innerHTML = "Drone has landed succesfully";
-            started = false;
-          }
-        }, 1000);
-      }
-    }
-
-    function computeFlightTime() {
-
-      var distance = parseFloat(document.getElementById("distancetext").value);
-      var velocity = 17;
-      var width = parseFloat(document.getElementById("rectwidthtext").value);
-      var distance_between_lines = parseFloat(document.getElementById("Ltext").value);
-      var time = (width * ((distance / distance_between_lines) + 1) + distance * 2) / velocity;
-
-      return time;
-
-    }
-
-
     function computeMaxDistance() {
       var x = document.getElementById("xtext").value;
       var l = document.getElementById("Ltext").value;
@@ -183,11 +121,12 @@
         document.getElementById("maxdistancetext").innerHTML = pmax;
         console.log(nmax);
       }
-      return pmax;
+
     }
 
     $(document).ready(function () {
       $('#theme_switcher').on('click', themeSwitcher);
+
       $("#droneConnectButton").click(function () {
         document.getElementById('droneConnectImg').src = "../images/waiting.png";
         $.ajax({
@@ -218,7 +157,7 @@
             document.getElementById('directionDroneConnectedH4').hidden = false
             document.getElementById('directionDroneImg').src = "../images/tick.png";
             document.getElementById('uploadbut').disabled = false;
-
+            
           },
           error: function (data, textStatus, xhr) {
             document.getElementById('directionDroneImg').src = "../images/cross.png";
@@ -272,13 +211,10 @@
             success: function (data, textStatus, xhr) {
               document.getElementById('photostart').src = "../images/tick.png";
               document.getElementById('photoplane').style = "visibility:visible; margin:10px 0px -10px 10px";
-              startTimer();
-
             },
             error: function (data, textStatus, xhr) {
               document.getElementById('photostart').src = "../images/tick.png";
               document.getElementById('photoplane').style = "visibility:visible; margin:10px 0px -10px 10px";
-              startTimer();
             },
           })
       });
