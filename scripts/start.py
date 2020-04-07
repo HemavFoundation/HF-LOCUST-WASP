@@ -44,7 +44,7 @@ def battery_check(home_coordinates, timer_start, elapsed_time):
 
     if time_capacity < time_to_home and timer_start is not None:
         timer_actual = time.time()
-        elapsed_time += (timer_actual - timer_start)
+        elapsed_time = timer_actual - timer_start
 
     if time_capacity > time_to_home:
         timer_start = None
@@ -122,7 +122,7 @@ flight_data = None
 
 
 if connectionString != "local":
-    altitudeCondition = 50
+    altitudeCondition = 50 
 else:
     altitudeCondition = -50
 
