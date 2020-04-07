@@ -95,8 +95,6 @@
             </h3>
           </div>
       </div>
-
-
       <br><br>
       <div id=droneStartDiv>
           <button class="square_btn" id="droneStartButton" style="margin-right:20px" disabled="true">Start!</button>
@@ -104,22 +102,6 @@
           <img id="photoplane" src="../images/plane.png" height="50" width=50 style="visibility:hidden; margin-right:20px">
           <h4 id="directionDroneH4">Press start and take off the drone!</h4>
       </div>
-          <br><br>
-          **Place the drone pointing towards the wind and push load mission! **
-          <button class="square_btn" id="uploadbut" disabled="true">Load Mission</button>
-
-          <img id="photoupload" src="../images/button.png" height="50" width=50 style="margin:10px 0px -10px 10px">
-        </h2>
-      </div>
-    </div>
-
-
-    <br><br>
-    <div id=droneStartDiv style="display:flex">
-      <button class="square_btn" id="droneStartButton" style="margin-right:20px" disabled="true">Start!</button>
-      <img id="photostart" src="../images/button.png" height="50" width=50 style="margin-right:20px">
-      <img id="photoplane" src="../images/plane.png" height="50" width=50 style="visibility:hidden; margin-right:20px">
-      <h4 id="directionDroneH4">Press start and take off the drone!</h4>
     </div>
     <div id="timerDiv">
       <h2>
@@ -140,15 +122,15 @@
   </div>
   </div>
   <script>
-
+ 
     var theme = 'DEFAULT'
     openTab({target: '#Rectanglebutton'}, 'flypathtab');
     computeMaxDistance();
-
+ 
     // var ipConnection = '192.168.0.10';
     var ipConnection = 'localhost';
     var missiontype = 0;
-
+ 
     function openTab(evt, id) {
       var i, tabcontent, tablinks;
       tabcontent = document.getElementsByClassName("tabcontent");
@@ -160,27 +142,27 @@
       for (i = 0; i < tablinks.length; i++) {
         tablinks[i].className = tablinks[i].className.replace(" active", "");
       }
-
+ 
       $('#' + id).css('display', 'inline-block');
       $('#droneSettingTabDiv .tablinks').removeClass('active')
       $(evt.target).addClass('active')
       }
-
+ 
       function getParametersTabSize() {
         var $droneSettingsTab = $('#droneSettingTabDiv .tab');
         var height = $droneSettingsTab.height();
         return height;
       }
-
+ 
       getParametersTabSize();
       setParametersTabMinHeight();
       function setParametersTabMinHeight() {
         var $parametersTab = $('#parameterstab');
         $parametersTab.css('min-height', getParametersTabSize());
       }
-
+ 
     var started = false;
-
+ 
     function startTimer() {
       var counter = computeFlightTime();
       if (started == false) {
@@ -191,7 +173,7 @@
           minutes = Math.floor(counter / 60);
           seconds = counter % 60;
           if (counter >= 0) {
-
+ 
             idlabel = document.getElementById("labeltimer");
             idlabel.innerHTML = "Drone landing scheduled in:";
             id = document.getElementById("count");
@@ -200,7 +182,7 @@
             idmin.innerHTML = minutes + ":";
             idhour = document.getElementById("counthours");
             idhour.innerHTML = hours + ":";
-
+ 
           }
           if (counter == 0) {
             idlabel = document.getElementById("labeltimer");
@@ -210,20 +192,21 @@
         }, 1000);
       }
     }
-
+ 
     function computeFlightTime() {
-
+ 
       var distance = parseFloat(document.getElementById("distancetext").value);
       var velocity = 17;
+      var velocityConverted = velocity * 3.6;
       var width = parseFloat(document.getElementById("rectwidthtext").value);
       var distance_between_lines = parseFloat(document.getElementById("Ltext").value);
       var time = (width * ((distance / distance_between_lines) + 1) + distance * 2) / velocity;
-
+ 
       return time;
-
+ 
     }
-
-
+ 
+ 
     function computeMaxDistance() {
       var x = document.getElementById("xtext").value;
       var l = document.getElementById("Ltext").value;
@@ -239,29 +222,31 @@
       }
       return pmax;
     }
-
-    $("#Straightlinebutton").click(function(){
-      $("#distanceparameter").show();
-      $("#maxdistanceparameter").show();
-      $("#rectwidthparameter").hide();
-
-    });
-
+ 
     $("#Rectanglebutton").click(function(){
       $("#rectwidthparameter").show();
       $("#distanceparameter").show();
       $("#maxdistanceparameter").show();
-
+      missiontype = 1;
     });
-
+ 
+ 
+    $("#Straightlinebutton").click(function(){
+      $("#distanceparameter").show();
+      $("#maxdistanceparameter").show();
+      $("#rectwidthparameter").hide();
+      missiontype = 2;
+    });
+ 
+ 
     $("#Zigzagbutton").click(function(){
       $("#rectwidthparameter").show();
       $("#distanceparameter").show();
       $("#maxdistanceparameter").show();
-
+      missiontype = 3;
     });
-
-
+ 
+ 
     $(document).ready(function () {
       $('#theme_switcher').on('click', themeSwitcher);
       $("#droneConnectButton").click(function () {
@@ -282,7 +267,7 @@
           },
         })
       });
-
+ 
       $("#directionDroneButton").click(function () {
         document.getElementById('directionDroneImg').src = "../images/waiting.png"
         $.ajax({
@@ -294,7 +279,7 @@
             document.getElementById('directionDroneConnectedH4').hidden = false
             document.getElementById('directionDroneImg').src = "../images/tick.png";
             document.getElementById('uploadbut').disabled = false;
-
+ 
           },
           error: function (data, textStatus, xhr) {
             document.getElementById('directionDroneImg').src = "../images/cross.png";
@@ -302,21 +287,21 @@
           },
         })
       });
-
+ 
       if (missiontype != 0) {
         console.log(missiontype + "missiontype");
       }
       else {
         console.log(missiontype);
       }
-
-
+ 
+ 
       $("#uploadbut").click(function () {
         document.getElementById('photoupload').src = "../images/waiting.png";
         var p = document.getElementById("distancetext").value;
-
+ 
         if (p != "") {
-
+ 
           var missiontype = missiontypenum;
           var pnum = parseFloat(p);
           var maxdistancetext = $('#maxdistancetext');
@@ -325,29 +310,67 @@
           var l = parseFloat(document.getElementById("Ltext").value);
           var h = parseFloat(document.getElementById("htext").value);
           var d = parseFloat(document.getElementById("rectwidthtext").value);
-
-          if (pnum < pmax) {
-
-            $.ajax
-              ({
-                type: 'POST',
-                url: 'http://' + ipConnection + ':9000/api/load/rectangleMission/' + pnum + '/' + x + '/' + d + '/' + l + '/' + h,
-                data: { data1: pnum, data2: pmax, data3: x, data4: l, data5: h, data6: d },
-                dataType: 'json',
-                success: function (data, textStatus, xhr) {
-                  document.getElementById('photoupload').src = "../images/tick.png";
-                  document.getElementById('droneStartButton').disabled = false;
-
-                },
-                error: function (data, textStatus, xhr) {
-                  document.getElementById('photoupload').src = "../images/cross.png";
-
-                },
-              })
-          }
+ 
+            if (pnum < pmax) {
+                if (missiontype == 1) {
+                $.ajax
+                    ({
+                        type: 'POST',
+                        url: 'http://' + ipConnection + ':9000/api/load/rectangleMission/' + pnum + '/' + x + '/' + d + '/' + l + '/' + h,
+                        data: { data1: pnum, data2: pmax, data3: x, data4: l, data5: h, data6: d },
+                        dataType: 'json',
+                        success: function (data, textStatus, xhr) {
+                            document.getElementById('photoupload').src = "../images/tick.png";
+                            document.getElementById('droneStartButton').disabled = false;
+ 
+                        },
+                        error: function (data, textStatus, xhr) {
+                            document.getElementById('photoupload').src = "../images/cross.png";
+                        },
+                    })
+                }
+ 
+                if (missiontype == 2) {
+                    $.ajax
+                       ({
+                            type: 'POST',
+                            url: 'http://' + ipConnection + ':9000/api/load/straightMission/' + pnum + '/' + x + '/' + d + '/' + l + '/' + h,
+                            data: { data1: pnum, data2: pmax, data3: x, data4: l, data5: h, data6: d },
+                            dataType: 'json',
+                            success: function (data, textStatus, xhr) {
+                                document.getElementById('photoupload').src = "../images/tick.png";
+                                document.getElementById('droneStartButton').disabled = false;
+ 
+                            },
+                            error: function (data, textStatus, xhr) {
+                                document.getElementById('photoupload').src = "../images/cross.png";
+                            },
+                        })
+                }
+ 
+                if (missiontype == 3) {
+                    $.ajax
+                        ({
+                            type: 'POST',
+                            url: 'http://' + ipConnection + ':9000/api/load/zigzagMission/' + pnum + '/' + x + '/' + d + '/' + l + '/' + h,
+                            data: { data1: pnum, data2: pmax, data3: x, data4: l, data5: h, data6: d },
+                            dataType: 'json',
+                            success: function (data, textStatus, xhr) {
+                                document.getElementById('photoupload').src = "../images/tick.png";
+                                document.getElementById('droneStartButton').disabled = false;
+ 
+                            },
+                            error: function (data, textStatus, xhr) {
+                                document.getElementById('photoupload').src = "../images/cross.png";
+                            },
+                        })
+                }
+ 
+ 
+            }
         }
       });
-
+ 
       $("#droneStartButton").click(function () {
         document.getElementById('photostart').src = "../images/waiting.png";
         $.ajax
@@ -359,7 +382,7 @@
               document.getElementById('photostart').src = "../images/tick.png";
               document.getElementById('photoplane').style = "visibility:visible; margin:10px 0px -10px 10px";
               startTimer();
-
+ 
             },
             error: function (data, textStatus, xhr) {
               document.getElementById('photostart').src = "../images/tick.png";
@@ -369,12 +392,12 @@
           })
       });
     });
-
+ 
     function themeSwitcher() {
       var isDefaultTheme = theme === 'DEFAULT';
       if (isDefaultTheme) {
         theme = 'HIGH_CONTRAST';
-
+ 
         $('body').addClass('HIGH_CONTRAST');
         $('#header').css('background-image', 'none');
         $('#theme_switcher').text('Light theme')
@@ -382,15 +405,15 @@
       }
       if (!isDefaultTheme) {
         theme = 'DEFAULT';
-
+ 
         $('body').removeClass('HIGH_CONTRAST');
         $('#header').css('background-image', 'url("../images/header.png")');
         $('#theme_switcher').text('Dark theme')
-
+ 
         return;
       }
     }
   </script>
 </body>
-
+ 
 </html>
