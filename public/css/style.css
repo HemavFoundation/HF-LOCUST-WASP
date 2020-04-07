@@ -559,6 +559,20 @@ td, th
 	color: white;
 	width: fit-content;
   }
+  .otherparameters a {
+	text-decoration:none;
+	font-family: calibri;
+	background-color: #8a1a2d;
+	float: left;
+	border: 1px solid white;
+	outline: none;
+	cursor: pointer;
+	padding: 10px;
+	transition: 0.3s;
+	font-size: 15px;
+	color: white;
+	width: fit-content;
+  }
   .tab a:hover {
 	background-color: darksalmon;
   }
