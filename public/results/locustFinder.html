@@ -34,7 +34,7 @@
                 <button class="square_btn" onclick="window.location='History.html'" target="_new"><<</button>
             </div>
             <div id="ButtonMajorRight" class="ButtonMajorRight">
-                <button class="square_btn" onclick="window.location='History.html'" target="_new">>></button>
+                <button id="ButtonMajorRight" class="square_btn"  target="_new">>></button>
             </div>
             <div id="ButtonMinorRight" class="ButtonMinorRight">
                 <button class="MinorButton" onclick="window.location='History.html'" target="_new">></button>
@@ -45,31 +45,69 @@
     <script>
         $(document).ready(function () {
             var theme = 'DEFAULT'
+            var index = 1;
             var ipConnection = 'localhost'
-            var videoJSON =  getJSON(ipConnection);
-            console.log(videoJSON);
+            var videoJSON = getJSON(ipConnection);
+            videoJSON.then(data => {
+                console.log(data[0].results.length)
+
+            })
+
+
             fillHistoryTable(ipConnection);
             $('#theme_switcher').on('click', themeSwitcher);
 
+            $('#ButtonMajorRight').click(function () {
+                var videoJSON = getJSON(ipConnection);
+
+                videoJSON.then(data => {
+                    var freq = 5;
+                    var pointer = Math.floor(data[0].results.length / freq)
+
+                    if (index <= freq) {
+                        if (index == 1) {
+                            console.log(data[0].results[(pointer - 1) * index].image_path + "+" + index)
+                            index++
+                        } else if (pointer * index > (Math.floor(data[0].results.length)) - 1) {
+                            console.log(data[0].results[(Math.floor(data[0].results.length) - 1)].image_path + "+" + index)
+
+                        } else {
+                            console.log(data[0].results[(pointer) * index].image_path + "+" + index)
+                            index++
+                        }
+                    } else {
+                        index = freq
+                    }
+
+                })
+            });
+
         })
+
+
 
         async function getJSON(ipConnection) {
 
-            var result = 0;
-            console.log(result)
             await $.ajax({
                 type: 'GET',
                 url: 'http://' + ipConnection + ':9000/videoResults.json',
                 dataType: 'json',
                 success: function (json) {
-                    console.log(json)
                     result = json;
                 }
             })
 
             return result
-  
+
         }
+
+        function test(index) {
+
+            console.log(index)
+
+        }
+
+
 
 
         function fillHistoryTable(ipConnection) {
