@@ -23,7 +23,7 @@
     <br><br>
     <hr />
     <div id="viewPhoto" class="viewPhoto">
-        <img src="/results/photos/Test Flight/1.jpeg" height="398" width="776">
+        <img id = "image" src="/results/photos/Test Flight/1.jpeg" height="398" width="776">
     </div>
     <div id="VideoController" class="VideoController">
         <div id="InsideVideoController" class="InsideVideoController">
@@ -46,6 +46,7 @@
         $(document).ready(function () {
             var theme = 'DEFAULT'
             var index = 0;
+            var freq = 50;
             var ipConnection = 'localhost'
             var videoJSON = getJSON(ipConnection);
             videoJSON.then(data => {
@@ -61,20 +62,24 @@
                 var videoJSON = getJSON(ipConnection);
 
                 videoJSON.then(data => {
-                    var freq = 8;
+                    
                     var pointer = Math.floor(data[0].results.length / freq)
 
                     if (index <= freq) {
                         if (index == 0) {
                             console.log(data[0].results[(pointer - 1) * 1].image_path + "+" + index)
+                            $('#image').prop('src', data[0].results[(pointer - 1) * 1].image_path);
                             index = 2
                             console.log(index)
                         } else if (pointer * index > (Math.floor(data[0].results.length)) - 1) {
                             console.log(data[0].results[(Math.floor(data[0].results.length) - 1)].image_path + "+" + index)
+                            $('#image').prop('src', data[0].results[(Math.floor(data[0].results.length) - 1)].image_path);
                             console.log(index)
 
                         } else {
                             console.log(data[0].results[(pointer) * index].image_path + "+" + index)
+                            $('#image').prop('src', data[0].results[(pointer) * index].image_path);
+
                             index++
                             console.log(index)
                         }
@@ -90,7 +95,6 @@
                 var videoJSON = getJSON(ipConnection);
 
                 videoJSON.then(data => {
-                    var freq = 8;
                     var pointer = Math.floor(data[0].results.length / freq)
                     index--
                     console.log(index)
@@ -98,8 +102,12 @@
                     if (index >= 0) {
                         if (index == 0) {
                             console.log(data[0].results[0].image_path + "+" + index)
+                            $('#image').prop('src', data[0].results[0].image_path);
+
                         } else {
                             console.log(data[0].results[(pointer) * (index-1)].image_path + "+" + index)
+                            $('#image').prop('src', data[0].results[(pointer) * (index-1)].image_path);
+
                         }
                     } else {
                         index = 0
