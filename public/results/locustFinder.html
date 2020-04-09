@@ -28,7 +28,7 @@
     <div id="VideoController" class="VideoController">
         <div id="InsideVideoController" class="InsideVideoController">
             <div id="ButtonMinorLeft" class="ButtonMinorLeft">
-                <button class="MinorButton" onclick="window.location='History.html'" target="_new"><</button>
+                <button id="ButtonMinorLeft" class="MinorButton" target="_new"><</button>
             </div>
             <div id="ButtonMajorLeft" class="ButtonMajorLeft">
                 <button id="ButtonMajorLeft" class="square_btn" target="_new"><<</button>
@@ -37,7 +37,7 @@
                 <button id="ButtonMajorRight" class="square_btn"  target="_new">>></button>
             </div>
             <div id="ButtonMinorRight" class="ButtonMinorRight">
-                <button class="MinorButton" onclick="window.location='History.html'" target="_new">></button>
+                <button id="ButtonMinorRight" class="MinorButton" target="_new">></button>
             </div>
         </div>
 
@@ -46,7 +46,8 @@
         $(document).ready(function () {
             var theme = 'DEFAULT'
             var index = 0;
-            var freq = 50;
+            var indexBefore = 0;
+            var freq = 1/10;
             var ipConnection = 'localhost'
             var videoJSON = getJSON(ipConnection);
             videoJSON.then(data => {
@@ -63,39 +64,90 @@
 
                 videoJSON.then(data => {
                     
-                    var pointer = Math.floor(data[0].results.length / freq)
+                    numPhotos = (Math.floor(data[0].results.length)) * freq;
 
-                    if (index <= freq) {
-                        if (index == 0) {
-                            console.log(data[0].results[(pointer - 1) * 1].image_path + "+" + index)
-                            $('#image').prop('src', data[0].results[(pointer - 1) * 1].image_path);
-                            index = 2
-                            console.log(index)
-                        } else if (pointer * index > (Math.floor(data[0].results.length)) - 1) {
-                            console.log(data[0].results[(Math.floor(data[0].results.length) - 1)].image_path + "+" + index)
-                            $('#image').prop('src', data[0].results[(Math.floor(data[0].results.length) - 1)].image_path);
-                            console.log(index)
+                    var pointer = Math.floor(data[0].results.length / numPhotos);
 
-                        } else {
-                            console.log(data[0].results[(pointer) * index].image_path + "+" + index)
-                            $('#image').prop('src', data[0].results[(pointer) * index].image_path);
+                    var position;
 
-                            index++
-                            console.log(index)
+                    //tener en cuenta los que tienen resto igual a 0 ya que habría que sumarles uno
+
+                    if(index <= (data[0].results.length) - (pointer)){
+
+                        if(index != 0){
+                            if(index == indexBefore){
+                                position = indexBefore + pointer;
+                                $('#image').prop('src', data[0].results[position].image_path);
+                                index = position;
+                                indexBefore = position;
+                                console.log(position + "uno")                            }
+                            else {
+                                console.log(index)
+                                position = (Math.ceil(index*freq) * pointer) + 1
+                                console.log(position)
+                                $('#image').prop('src', data[0].results[position].image_path);
+                                index = position;
+                                indexBefore = position;
+                                console.log(position + "dos")
+                            }
+
+
+                        }else{
+                            position = pointer + 1;
+                            $('#image').prop('src', data[0].results[position].image_path);
+                            index = position;
+                            indexBefore = position;
+                            console.log(position + "tres")
+
                         }
-                    } else {
-                        index = freq
-                        console.log(index)
-                    }
+                    }else{
+                        
+                        position = (data[0].results.length) - 1
+                        
+                        $('#image').prop('src', data[0].results[position].image_path);
+                        console.log((data[0].results.length) - 1 + "cuatro")
 
+                        index = position;
+                        indexBefore = position;
+
+                    }
+                        
                 })
+            });
+
+            $('#ButtonMinorRight').click(function () {
+                var videoJSON = getJSON(ipConnection);
+
+                videoJSON.then(data => {
+                    
+                    numPhotos = (Math.floor(data[0].results.length)) * freq;
+
+                    var pointer = Math.floor(data[0].results.length / numPhotos);
+
+                    var position = index + 1
+
+                    //tener en cuenta los que tienen resto igual a 0 ya que habría que sumarles uno
+
+
+                    if(position <= (data[0].results.length) - 1){
+                        $('#image').prop('src', data[0].results[position].image_path);
+                        index = position;
+                        console.log(position +" "+ index+ "cinco") 
+
+                    }else{
+                        console.log("SE ACABO POR ARRIBA")
+                        index = (data[0].results.length) - 1
+
+                    }
+                })
+
             });
 
             $('#ButtonMajorLeft').click(function () {
                 var videoJSON = getJSON(ipConnection);
 
                 videoJSON.then(data => {
-                    var pointer = Math.floor(data[0].results.length / freq)
+                    var pointer = Math.floor(data[0].results.length / numPhotos)
                     index--
                     console.log(index)
 
