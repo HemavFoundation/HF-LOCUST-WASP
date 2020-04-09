@@ -47,7 +47,7 @@
             var theme = 'DEFAULT'
             var index = 0;
             var indexBefore = 0;
-            var freq = 1/10;
+            var freq = 1 / 8;
             var ipConnection = 'localhost'
             var videoJSON = getJSON(ipConnection);
             videoJSON.then(data => {
@@ -63,8 +63,8 @@
                 var videoJSON = getJSON(ipConnection);
 
                 videoJSON.then(data => {
-                    
-                    numPhotos = (Math.floor(data[0].results.length)) * freq;
+
+                    numPhotos = Math.floor(Math.floor(data[0].results.length) * freq);
 
                     var pointer = Math.floor(data[0].results.length / numPhotos);
 
@@ -72,18 +72,24 @@
 
                     //tener en cuenta los que tienen resto igual a 0 ya que habría que sumarles uno
 
-                    if(index <= (data[0].results.length) - (pointer)){
+                    if (index <= (data[0].results.length) - (pointer)) {
 
-                        if(index != 0){
-                            if(index == indexBefore){
+                        if (index != 0) {
+                            if (index == indexBefore) {
                                 position = indexBefore + pointer;
+
+                                if (position >= (data[0].results.length)) {
+                                    position = (data[0].results.length) - 1
+                                }
+
                                 $('#image').prop('src', data[0].results[position].image_path);
                                 index = position;
                                 indexBefore = position;
-                                console.log(position + "uno")                            }
+                                console.log(position + "uno")
+                            }
                             else {
                                 console.log(index)
-                                position = (Math.ceil(index*freq) * pointer) + 1
+                                position = (Math.ceil(index * freq) * pointer) + 1
                                 console.log(position)
                                 $('#image').prop('src', data[0].results[position].image_path);
                                 index = position;
@@ -92,7 +98,7 @@
                             }
 
 
-                        }else{
+                        } else {
                             position = pointer + 1;
                             $('#image').prop('src', data[0].results[position].image_path);
                             index = position;
@@ -100,10 +106,10 @@
                             console.log(position + "tres")
 
                         }
-                    }else{
-                        
+                    } else {
+
                         position = (data[0].results.length) - 1
-                        
+
                         $('#image').prop('src', data[0].results[position].image_path);
                         console.log((data[0].results.length) - 1 + "cuatro")
 
@@ -111,7 +117,7 @@
                         indexBefore = position;
 
                     }
-                        
+
                 })
             });
 
@@ -119,22 +125,24 @@
                 var videoJSON = getJSON(ipConnection);
 
                 videoJSON.then(data => {
-                    
-                    numPhotos = (Math.floor(data[0].results.length)) * freq;
+
+                    numPhotos = Math.floor(Math.floor(data[0].results.length) * freq);
 
                     var pointer = Math.floor(data[0].results.length / numPhotos);
 
                     var position = index + 1
 
-                    //tener en cuenta los que tienen resto igual a 0 ya que habría que sumarles uno
+                    if ((position - 1) % pointer == 0) {
+                        indexBefore = position;
+                        console.log("OK")
+                    }
 
-
-                    if(position <= (data[0].results.length) - 1){
+                    if (position <= (data[0].results.length) - 1) {
                         $('#image').prop('src', data[0].results[position].image_path);
                         index = position;
-                        console.log(position +" "+ index+ "cinco") 
+                        console.log(position + " " + index + "cinco")
 
-                    }else{
+                    } else {
                         console.log("SE ACABO POR ARRIBA")
                         index = (data[0].results.length) - 1
 
@@ -147,26 +155,91 @@
                 var videoJSON = getJSON(ipConnection);
 
                 videoJSON.then(data => {
-                    var pointer = Math.floor(data[0].results.length / numPhotos)
-                    index--
-                    console.log(index)
 
-                    if (index >= 0) {
-                        if (index == 0) {
-                            console.log(data[0].results[0].image_path + "+" + index)
-                            $('#image').prop('src', data[0].results[0].image_path);
+                    numPhotos = Math.floor(Math.floor(data[0].results.length) * freq);
+
+                    var pointer = Math.floor(data[0].results.length / numPhotos);
+
+                    var position;
+
+
+                    if (index >= 0 && index != (data[0].results.length) - 1) {
+
+                        if (index != 0) {
+                            if (index == indexBefore) {
+                                position = indexBefore - pointer;
+                                $('#image').prop('src', data[0].results[position].image_path);
+                                index = position;
+                                indexBefore = position;
+                                console.log(position + "seis")
+                            }
+                            else {
+                                console.log(index)
+                                position = (Math.floor(index * freq) * pointer) + 1
+                                console.log(position)
+                                $('#image').prop('src', data[0].results[position].image_path);
+                                index = position;
+                                indexBefore = position;
+                                console.log(position + "siete")
+                            }
+
 
                         } else {
-                            console.log(data[0].results[(pointer) * (index-1)].image_path + "+" + index)
-                            $('#image').prop('src', data[0].results[(pointer) * (index-1)].image_path);
+                            position = pointer + 1;
+                            $('#image').prop('src', data[0].results[position].image_path);
+                            index = position;
+                            indexBefore = position;
+                            console.log(position + "ocho")
 
                         }
-                    } else {
-                        index = 0
+                    } else if (index == (data[0].results.length) - 1) {
+
+                        position = (pointer * (numPhotos)) + 1
+
+
+
+                        $('#image').prop('src', data[0].results[position].image_path);
+                        console.log(position + "nueve")
+
+                        index = position;
+                        indexBefore = position;
+
                     }
 
                 })
+
             });
+
+            $('#ButtonMinorLeft').click(function () {
+                var videoJSON = getJSON(ipConnection);
+
+                videoJSON.then(data => {
+
+                    numPhotos = Math.floor(Math.floor(data[0].results.length) * freq);
+
+                    var pointer = Math.floor(data[0].results.length / numPhotos);
+
+                    var position = index - 1
+
+                    if ((position - 1) % pointer == 0) {
+                        indexBefore = position;
+                        console.log("OK")
+                    }
+
+                    if (position >= 0) {
+                        $('#image').prop('src', data[0].results[position].image_path);
+                        index = position;
+                        console.log(position + " " + index + "diez")
+
+                    } else {
+                        console.log("SE ACABO POR ABAJO")
+                        index = 0
+
+                    }
+                })
+
+            });
+
 
         })
 
