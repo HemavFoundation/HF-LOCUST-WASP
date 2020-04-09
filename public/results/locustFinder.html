@@ -42,16 +42,22 @@
         </div>
 
     </div>
+    <br><br>
+    <div>
+        <label id="label" for="male">Male</label>
+    </div>
     <script>
         $(document).ready(function () {
             var theme = 'DEFAULT'
             var index = 0;
             var indexBefore = 0;
-            var freq = 1 / 8;
+            var freq = 1 / 5;
             var ipConnection = 'localhost'
             var videoJSON = getJSON(ipConnection);
             videoJSON.then(data => {
                 console.log(data[0].results.length)
+
+                changePhoto(0,data[0].results[0].image_path,data[0].results.length)
 
             })
 
@@ -76,22 +82,23 @@
 
                         if (index != 0) {
                             if (index == indexBefore) {
+                                console.log(indexBefore)
                                 position = indexBefore + pointer;
 
                                 if (position >= (data[0].results.length)) {
                                     position = (data[0].results.length) - 1
                                 }
+                                changePhoto(position, data[0].results[position].image_path, data[0].results.length )
 
-                                $('#image').prop('src', data[0].results[position].image_path);
                                 index = position;
                                 indexBefore = position;
                                 console.log(position + "uno")
                             }
                             else {
                                 console.log(index)
-                                position = (Math.ceil(index * freq) * pointer) + 1
+                                position = (Math.ceil(index * freq) * pointer)
                                 console.log(position)
-                                $('#image').prop('src', data[0].results[position].image_path);
+                                changePhoto(position, data[0].results[position].image_path, data[0].results.length )
                                 index = position;
                                 indexBefore = position;
                                 console.log(position + "dos")
@@ -99,10 +106,11 @@
 
 
                         } else {
-                            position = pointer + 1;
-                            $('#image').prop('src', data[0].results[position].image_path);
+                            position = pointer;
+                            changePhoto(position, data[0].results[position].image_path, data[0].results.length )
                             index = position;
                             indexBefore = position;
+                            console.log(indexBefore)
                             console.log(position + "tres")
 
                         }
@@ -110,11 +118,12 @@
 
                         position = (data[0].results.length) - 1
 
-                        $('#image').prop('src', data[0].results[position].image_path);
+                        changePhoto(position, data[0].results[position].image_path, data[0].results.length )
                         console.log((data[0].results.length) - 1 + "cuatro")
 
                         index = position;
                         indexBefore = position;
+                        console.log(indexBefore +" "+ index)
 
                     }
 
@@ -132,13 +141,13 @@
 
                     var position = index + 1
 
-                    if ((position - 1) % pointer == 0) {
+                    if ((position) % pointer == 0) {
                         indexBefore = position;
                         console.log("OK")
                     }
 
                     if (position <= (data[0].results.length) - 1) {
-                        $('#image').prop('src', data[0].results[position].image_path);
+                        changePhoto(position, data[0].results[position].image_path, data[0].results.length )
                         index = position;
                         console.log(position + " " + index + "cinco")
 
@@ -168,25 +177,31 @@
                         if (index != 0) {
                             if (index == indexBefore) {
                                 position = indexBefore - pointer;
-                                $('#image').prop('src', data[0].results[position].image_path);
+                                changePhoto(position, data[0].results[position].image_path, data[0].results.length )
                                 index = position;
                                 indexBefore = position;
                                 console.log(position + "seis")
                             }
                             else {
                                 console.log(index)
-                                position = (Math.floor(index * freq) * pointer) + 1
+                                position = (Math.floor(index * freq) * pointer)
                                 console.log(position)
-                                $('#image').prop('src', data[0].results[position].image_path);
+                                changePhoto(position, data[0].results[position].image_path, data[0].results.length )
                                 index = position;
                                 indexBefore = position;
                                 console.log(position + "siete")
                             }
 
 
-                        } else {
+                        } else if (index == 0){
+                            console.log("SE ACABO POR ABAJO")
+                            index = 0
+                            indexBefore = 0
+
+                        }
+                        else {
                             position = pointer + 1;
-                            $('#image').prop('src', data[0].results[position].image_path);
+                            changePhoto(position, data[0].results[position].image_path, data[0].results.length )
                             index = position;
                             indexBefore = position;
                             console.log(position + "ocho")
@@ -194,11 +209,10 @@
                         }
                     } else if (index == (data[0].results.length) - 1) {
 
-                        position = (pointer * (numPhotos)) + 1
+                        position = (pointer * (numPhotos-1))
 
 
-
-                        $('#image').prop('src', data[0].results[position].image_path);
+                        changePhoto(position, data[0].results[position].image_path, data[0].results.length )
                         console.log(position + "nueve")
 
                         index = position;
@@ -227,7 +241,7 @@
                     }
 
                     if (position >= 0) {
-                        $('#image').prop('src', data[0].results[position].image_path);
+                        changePhoto(position, data[0].results[position].image_path, data[0].results.length )
                         index = position;
                         console.log(position + " " + index + "diez")
 
@@ -242,6 +256,14 @@
 
 
         })
+
+        function changePhoto(num, img, datalength){
+            $('#image').prop('src', img);
+           // $('#label').value(num + "/" + datalength)
+            $("#label").empty();
+            $("#label").append(num + 1 + "/" + datalength);
+
+        }
 
 
 
