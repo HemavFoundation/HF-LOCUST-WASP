@@ -49,15 +49,16 @@
     <script>
         $(document).ready(function () {
             var theme = 'DEFAULT'
+            var flightIndex = window.location.search.substring(1);
             var index = 0;
             var indexBefore = 0;
             var freq = 1 / 5;
             var ipConnection = 'localhost'
             var videoJSON = getJSON(ipConnection);
             videoJSON.then(data => {
-                console.log(data[0].results.length)
+                console.log(data)
 
-                changePhoto(0,data[0].results[0].image_path,data[0].results.length)
+                changePhoto(0,data[flightIndex].results[0].image_path,data[flightIndex].results.length)
 
             })
 
@@ -70,25 +71,25 @@
 
                 videoJSON.then(data => {
 
-                    numPhotos = Math.floor(Math.floor(data[0].results.length) * freq);
+                    numPhotos = Math.floor(Math.floor(data[flightIndex].results.length) * freq);
 
-                    var pointer = Math.floor(data[0].results.length / numPhotos);
+                    var pointer = Math.floor(data[flightIndex].results.length / numPhotos);
 
                     var position;
 
                     //tener en cuenta los que tienen resto igual a 0 ya que habría que sumarles uno
 
-                    if (index <= (data[0].results.length) - (pointer)) {
+                    if (index <= (data[flightIndex].results.length) - (pointer)) {
 
                         if (index != 0) {
                             if (index == indexBefore) {
                                 console.log(indexBefore)
                                 position = indexBefore + pointer;
 
-                                if (position >= (data[0].results.length)) {
-                                    position = (data[0].results.length) - 1
+                                if (position >= (data[flightIndex].results.length)) {
+                                    position = (data[flightIndex].results.length) - 1
                                 }
-                                changePhoto(position, data[0].results[position].image_path, data[0].results.length )
+                                changePhoto(position, data[flightIndex].results[position].image_path, data[flightIndex].results.length )
 
                                 index = position;
                                 indexBefore = position;
@@ -98,7 +99,7 @@
                                 console.log(index)
                                 position = (Math.ceil(index * freq) * pointer)
                                 console.log(position)
-                                changePhoto(position, data[0].results[position].image_path, data[0].results.length )
+                                changePhoto(position, data[flightIndex].results[position].image_path, data[flightIndex].results.length )
                                 index = position;
                                 indexBefore = position;
                                 console.log(position + "dos")
@@ -107,7 +108,7 @@
 
                         } else {
                             position = pointer;
-                            changePhoto(position, data[0].results[position].image_path, data[0].results.length )
+                            changePhoto(position, data[flightIndex].results[position].image_path, data[flightIndex].results.length )
                             index = position;
                             indexBefore = position;
                             console.log(indexBefore)
@@ -116,10 +117,10 @@
                         }
                     } else {
 
-                        position = (data[0].results.length) - 1
+                        position = (data[flightIndex].results.length) - 1
 
-                        changePhoto(position, data[0].results[position].image_path, data[0].results.length )
-                        console.log((data[0].results.length) - 1 + "cuatro")
+                        changePhoto(position, data[flightIndex].results[position].image_path, data[flightIndex].results.length )
+                        console.log((data[flightIndex].results.length) - 1 + "cuatro")
 
                         index = position;
                         indexBefore = position;
@@ -135,9 +136,9 @@
 
                 videoJSON.then(data => {
 
-                    numPhotos = Math.floor(Math.floor(data[0].results.length) * freq);
+                    numPhotos = Math.floor(Math.floor(data[flightIndex].results.length) * freq);
 
-                    var pointer = Math.floor(data[0].results.length / numPhotos);
+                    var pointer = Math.floor(data[flightIndex].results.length / numPhotos);
 
                     var position = index + 1
 
@@ -146,14 +147,14 @@
                         console.log("OK")
                     }
 
-                    if (position <= (data[0].results.length) - 1) {
-                        changePhoto(position, data[0].results[position].image_path, data[0].results.length )
+                    if (position <= (data[flightIndex].results.length) - 1) {
+                        changePhoto(position, data[flightIndex].results[position].image_path, data[flightIndex].results.length )
                         index = position;
                         console.log(position + " " + index + "cinco")
 
                     } else {
                         console.log("SE ACABO POR ARRIBA")
-                        index = (data[0].results.length) - 1
+                        index = (data[flightIndex].results.length) - 1
 
                     }
                 })
@@ -165,19 +166,19 @@
 
                 videoJSON.then(data => {
 
-                    numPhotos = Math.floor(Math.floor(data[0].results.length) * freq);
+                    numPhotos = Math.floor(Math.floor(data[flightIndex].results.length) * freq);
 
-                    var pointer = Math.floor(data[0].results.length / numPhotos);
+                    var pointer = Math.floor(data[flightIndex].results.length / numPhotos);
 
                     var position;
 
 
-                    if (index >= 0 && index != (data[0].results.length) - 1) {
+                    if (index >= 0 && index != (data[flightIndex].results.length) - 1) {
 
                         if (index != 0) {
                             if (index == indexBefore) {
                                 position = indexBefore - pointer;
-                                changePhoto(position, data[0].results[position].image_path, data[0].results.length )
+                                changePhoto(position, data[flightIndex].results[position].image_path, data[flightIndex].results.length )
                                 index = position;
                                 indexBefore = position;
                                 console.log(position + "seis")
@@ -186,7 +187,7 @@
                                 console.log(index)
                                 position = (Math.floor(index * freq) * pointer)
                                 console.log(position)
-                                changePhoto(position, data[0].results[position].image_path, data[0].results.length )
+                                changePhoto(position, data[flightIndex].results[position].image_path, data[flightIndex].results.length )
                                 index = position;
                                 indexBefore = position;
                                 console.log(position + "siete")
@@ -201,18 +202,18 @@
                         }
                         else {
                             position = pointer + 1;
-                            changePhoto(position, data[0].results[position].image_path, data[0].results.length )
+                            changePhoto(position, data[flightIndex].results[position].image_path, data[flightIndex].results.length )
                             index = position;
                             indexBefore = position;
                             console.log(position + "ocho")
 
                         }
-                    } else if (index == (data[0].results.length) - 1) {
+                    } else if (index == (data[flightIndex].results.length) - 1) {
 
                         position = (pointer * (numPhotos-1))
 
 
-                        changePhoto(position, data[0].results[position].image_path, data[0].results.length )
+                        changePhoto(position, data[flightIndex].results[position].image_path, data[flightIndex].results.length )
                         console.log(position + "nueve")
 
                         index = position;
@@ -229,9 +230,9 @@
 
                 videoJSON.then(data => {
 
-                    numPhotos = Math.floor(Math.floor(data[0].results.length) * freq);
+                    numPhotos = Math.floor(Math.floor(data[flightIndex].results.length) * freq);
 
-                    var pointer = Math.floor(data[0].results.length / numPhotos);
+                    var pointer = Math.floor(data[flightIndex].results.length / numPhotos);
 
                     var position = index - 1
 
@@ -241,7 +242,7 @@
                     }
 
                     if (position >= 0) {
-                        changePhoto(position, data[0].results[position].image_path, data[0].results.length )
+                        changePhoto(position, data[flightIndex].results[position].image_path, data[flightIndex].results.length )
                         index = position;
                         console.log(position + " " + index + "diez")
 

@@ -73,11 +73,12 @@
 
       $.ajax({
         type: 'GET',
-        url: 'http://'+ ipConnection +':9000/results.json',
+        url: 'http://' + ipConnection + ':9000/results.json',
         dataType: 'json',
         success: function (data) {
           $.each(data, function (index, datos) {
-            $("#historyTable").append("<tr><td>" + datos.id + "</td><td><button id='" + index + "' type='button' class='square_btn' onclick='fillResultsTable(" + index +")'>GO!</button></td></tr>");
+            $("#historyTable").append("<tr><td>" + datos.id + "</td><td><button id='" + index + "' type='button' class='square_btn' onclick='fillResultsTable(" + index + ")'>GO!</button><button id='" + index + "' type='button' class='square_btn' onclick='goToLocustFinder(" + index + ")'>Plague inspector</button></td></tr>");
+
           });
         }
       })
@@ -91,17 +92,21 @@
 
       $.ajax({
         type: 'GET',
-        url: 'http://'+ ipConnection +':9000/results.json',
+        url: 'http://' + ipConnection + ':9000/results.json',
         dataType: 'json',
         success: function (data) {
           $.each(data[passId].results, function (index, datos) {
             console.log(datos);
-            $("#resultsTable").append("<tr><td>"+ datos.image_id +"</td><td>"+ datos.percentage +"</td><td>" + datos.coordinates[0] + "</td><td>" + datos.coordinates[1] + "</td><td><a href=" + datos.image_path + ">Show image</a></td></tr>");
+            $("#resultsTable").append("<tr><td>" + datos.image_id + "</td><td>" + datos.percentage + "</td><td>" + datos.coordinates[0] + "</td><td>" + datos.coordinates[1] + "</td><td><a href=" + datos.image_path + ">Show image</a></td></tr>");
           });
         }
       })
 
 
+    }
+
+    function goToLocustFinder(passId) {
+      window.location = '/locustFinder?' + passId
     }
 
     function themeSwitcher() {
@@ -126,7 +131,7 @@
     }
 
   </script>
-  
+
 </body>
 
 </html>
