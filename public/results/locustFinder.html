@@ -16,61 +16,67 @@
     </div>
 
     <script src="/jquery.js"></script>
-    <!-- <script src="GetResults.js"></script>
-  <script src="ThisResult.js"></script> -->
-    <button id="theme_switcher">Dark theme</button>
-    <h2><a>Locust Finder</a></h2>
-    <br><br>
-    <hr />
-    <div id="viewPhoto" class="viewPhoto">
-        <img id = "image" src="/results/photos/Test Flight/1.jpeg" height="398" width="776">
-    </div>
-    <div id="VideoController" class="VideoController">
-        <div id="InsideVideoController" class="InsideVideoController">
-            <div id="ButtonMinorLeft" class="ButtonMinorLeft">
-                <button id="ButtonMinorLeft" class="MinorButton" target="_new"><</button>
-            </div>
-            <div id="ButtonMajorLeft" class="ButtonMajorLeft">
-                <button id="ButtonMajorLeft" class="square_btn" target="_new"><<</button>
-            </div>
-            <div id="ButtonMajorRight" class="ButtonMajorRight">
-                <button id="ButtonMajorRight" class="square_btn"  target="_new">>></button>
-            </div>
-            <div id="ButtonMinorRight" class="ButtonMinorRight">
-                <button id="ButtonMinorRight" class="MinorButton" target="_new">></button>
-            </div>
+
+
+
+<button id="theme_switcher">Dark theme</button>
+<h2><a>Locust Finder</a></h2>
+<br><br>
+<hr />
+<div id="viewPhoto" class="viewPhoto">
+    <img id="image" src=""" height=" 398" width="776">
+</div>
+<div id="VideoController" class="VideoController">
+    <div id="InsideVideoController" class="InsideVideoController">
+        <div id="ButtonMinorLeft" class="ButtonMinorLeft">
+            <button id="ButtonMinorLeft" class="MinorButton" target="_new"><</button>
         </div>
-
+        <div id="ButtonMajorLeft" class="ButtonMajorLeft">
+            <button id="ButtonMajorLeft" class="square_btn" target="_new"><<</button>
+        </div>
+        <div id="ButtonMajorRight" class="ButtonMajorRight">
+            <button id="ButtonMajorRight" class="square_btn"  target="_new">>></button>
+        </div>
+        <div id="ButtonMinorRight" class="ButtonMinorRight">
+            <button id="ButtonMinorRight" class="MinorButton" target="_new">></button>
+        </div>
     </div>
-    <br><br>
-    <div>
-        <label id="label" for="male">Male</label>
-    </div>
-    <script>
-        $(document).ready(function () {
-            var theme = 'DEFAULT'
-            var flightIndex = window.location.search.substring(1);
-            var index = 0;
-            var indexBefore = 0;
-            var freq = 1 / 5;
-            var ipConnection = '192.168.0.10'
-            var videoJSON = getJSON(ipConnection);
-            videoJSON.then(data => {
-                console.log(data)
+</div>
 
-                changePhoto(0,data[flightIndex].results[0].image_path,data[flightIndex].results.length)
+<br><br>
+<div>
+    <label id="label" for="male">error</label>
+</div>
+<script>
+    $(document).ready(function () {
+        var theme = 'DEFAULT'
+        var flightIndex = window.location.search.substring(1);
+        var index = 0;
+        var indexBefore = 0;
+        var freq = 1 / 5;
+        var ipConnection = '192.168.1.2'
 
-            })
+        $.ajax({
+            type: 'GET',
+            url: 'http://' + ipConnection + ':9000/videoResults.json',
+            dataType: 'json',
+            success: function (json) {
+                console.log(json)
+                changePhoto(0, json[flightIndex].results[0].image_path, json[flightIndex].results.length)
+            }
+        })
 
 
-            fillHistoryTable(ipConnection);
-            $('#theme_switcher').on('click', themeSwitcher);
 
-            $('#ButtonMajorRight').click(function () {
-                var videoJSON = getJSON(ipConnection);
 
-                videoJSON.then(data => {
+        $('#theme_switcher').on('click', themeSwitcher);
 
+        $('#ButtonMajorRight').click(function () {
+            $.ajax({
+                type: 'GET',
+                url: 'http://' + ipConnection + ':9000/videoResults.json',
+                dataType: 'json',
+                success: function (data) {
                     numPhotos = Math.floor(Math.floor(data[flightIndex].results.length) * freq);
 
                     var pointer = Math.floor(data[flightIndex].results.length / numPhotos);
@@ -89,7 +95,7 @@
                                 if (position >= (data[flightIndex].results.length)) {
                                     position = (data[flightIndex].results.length) - 1
                                 }
-                                changePhoto(position, data[flightIndex].results[position].image_path, data[flightIndex].results.length )
+                                changePhoto(position, data[flightIndex].results[position].image_path, data[flightIndex].results.length)
 
                                 index = position;
                                 indexBefore = position;
@@ -99,7 +105,7 @@
                                 console.log(index)
                                 position = (Math.ceil(index * freq) * pointer)
                                 console.log(position)
-                                changePhoto(position, data[flightIndex].results[position].image_path, data[flightIndex].results.length )
+                                changePhoto(position, data[flightIndex].results[position].image_path, data[flightIndex].results.length)
                                 index = position;
                                 indexBefore = position;
                                 console.log(position + "dos")
@@ -108,7 +114,7 @@
 
                         } else {
                             position = pointer;
-                            changePhoto(position, data[flightIndex].results[position].image_path, data[flightIndex].results.length )
+                            changePhoto(position, data[flightIndex].results[position].image_path, data[flightIndex].results.length)
                             index = position;
                             indexBefore = position;
                             console.log(indexBefore)
@@ -119,22 +125,25 @@
 
                         position = (data[flightIndex].results.length) - 1
 
-                        changePhoto(position, data[flightIndex].results[position].image_path, data[flightIndex].results.length )
+                        changePhoto(position, data[flightIndex].results[position].image_path, data[flightIndex].results.length)
                         console.log((data[flightIndex].results.length) - 1 + "cuatro")
 
                         index = position;
                         indexBefore = position;
-                        console.log(indexBefore +" "+ index)
+                        console.log(indexBefore + " " + index)
 
                     }
+                }
+            })
 
-                })
-            });
+        });
 
-            $('#ButtonMinorRight').click(function () {
-                var videoJSON = getJSON(ipConnection);
-
-                videoJSON.then(data => {
+        $('#ButtonMinorRight').click(function () {
+            $.ajax({
+                type: 'GET',
+                url: 'http://' + ipConnection + ':9000/videoResults.json',
+                dataType: 'json',
+                success: function (data) {
 
                     numPhotos = Math.floor(Math.floor(data[flightIndex].results.length) * freq);
 
@@ -157,14 +166,18 @@
                         index = (data[flightIndex].results.length) - 1
 
                     }
-                })
+            }
+        })
 
-            });
+        });
 
-            $('#ButtonMajorLeft').click(function () {
-                var videoJSON = getJSON(ipConnection);
+        $('#ButtonMajorLeft').click(function () {
 
-                videoJSON.then(data => {
+            $.ajax({
+                type: 'GET',
+                url: 'http://' + ipConnection + ':9000/videoResults.json',
+                dataType: 'json',
+                success: function (data) {
 
                     numPhotos = Math.floor(Math.floor(data[flightIndex].results.length) * freq);
 
@@ -178,7 +191,7 @@
                         if (index != 0) {
                             if (index == indexBefore) {
                                 position = indexBefore - pointer;
-                                changePhoto(position, data[flightIndex].results[position].image_path, data[flightIndex].results.length )
+                                changePhoto(position, data[flightIndex].results[position].image_path, data[flightIndex].results.length)
                                 index = position;
                                 indexBefore = position;
                                 console.log(position + "seis")
@@ -187,14 +200,14 @@
                                 console.log(index)
                                 position = (Math.floor(index * freq) * pointer)
                                 console.log(position)
-                                changePhoto(position, data[flightIndex].results[position].image_path, data[flightIndex].results.length )
+                                changePhoto(position, data[flightIndex].results[position].image_path, data[flightIndex].results.length)
                                 index = position;
                                 indexBefore = position;
                                 console.log(position + "siete")
                             }
 
 
-                        } else if (index == 0){
+                        } else if (index == 0) {
                             console.log("SE ACABO POR ABAJO")
                             index = 0
                             indexBefore = 0
@@ -202,7 +215,7 @@
                         }
                         else {
                             position = pointer + 1;
-                            changePhoto(position, data[flightIndex].results[position].image_path, data[flightIndex].results.length )
+                            changePhoto(position, data[flightIndex].results[position].image_path, data[flightIndex].results.length)
                             index = position;
                             indexBefore = position;
                             console.log(position + "ocho")
@@ -210,146 +223,103 @@
                         }
                     } else if (index == (data[flightIndex].results.length) - 1) {
 
-                        position = (pointer * (numPhotos-1))
+                        position = (pointer * (numPhotos - 1))
 
 
-                        changePhoto(position, data[flightIndex].results[position].image_path, data[flightIndex].results.length )
+                        changePhoto(position, data[flightIndex].results[position].image_path, data[flightIndex].results.length)
                         console.log(position + "nueve")
 
                         index = position;
                         indexBefore = position;
 
                     }
-
-                })
-
-            });
-
-            $('#ButtonMinorLeft').click(function () {
-                var videoJSON = getJSON(ipConnection);
-
-                videoJSON.then(data => {
-
-                    numPhotos = Math.floor(Math.floor(data[flightIndex].results.length) * freq);
-
-                    var pointer = Math.floor(data[flightIndex].results.length / numPhotos);
-
-                    var position = index - 1
-
-                    if ((position) % pointer == 0) {
-                        indexBefore = position;
-                        console.log("OK")
-                    }
-
-                    if (position >= 0) {
-                        changePhoto(position, data[flightIndex].results[position].image_path, data[flightIndex].results.length )
-                        index = position;
-                        console.log(position + " " + index + "diez")
-
-                    } else {
-                        console.log("SE ACABO POR ABAJO")
-                        index = 0
-
-                    }
-                })
-
+                }
             });
 
 
-        })
 
-        function changePhoto(num, img, datalength){
-            $('#image').prop('src', img);
-           // $('#label').value(num + "/" + datalength)
-            $("#label").empty();
-            $("#label").append(num + 1 + "/" + datalength);
+        });
 
-        }
+        $('#ButtonMinorLeft').click(function () {
 
-
-
-        async function getJSON(ipConnection) {
-
-            await $.ajax({
+            $.ajax({
                 type: 'GET',
                 url: 'http://' + ipConnection + ':9000/videoResults.json',
                 dataType: 'json',
-                success: function (json) {
-                    result = json;
-                }
-            })
-
-            return result
-
-        }
-
-        function test(index) {
-
-            console.log(index)
-
-        }
-
-
-
-
-        function fillHistoryTable(ipConnection) {
-            $("#historyTable").html(""); //primero vacio la tabla existente
-
-            $.ajax({
-                type: 'GET',
-                url: 'http://' + ipConnection + ':9000/results.json',
-                dataType: 'json',
                 success: function (data) {
-                    $.each(data, function (index, datos) {
-                        $("#historyTable").append("<tr><td>" + datos.id + "</td><td><button id='" + index + "' type='button' class='square_btn' onclick='fillResultsTable(" + index + ")'>GO!</button></td></tr>");
-                    });
+
+                numPhotos = Math.floor(Math.floor(data[flightIndex].results.length) * freq);
+
+                var pointer = Math.floor(data[flightIndex].results.length / numPhotos);
+
+                var position = index - 1
+
+                if ((position) % pointer == 0) {
+                    indexBefore = position;
+                    console.log("OK")
                 }
-            })
 
-        }
+                if (position >= 0) {
+                    changePhoto(position, data[flightIndex].results[position].image_path, data[flightIndex].results.length )
+                    index = position;
+                    console.log(position + " " + index + "diez")
 
-        function fillResultsTable(passId) {
-            $("#resultsTable").html(""); //primero vacio la tabla existente
+                } else {
+                    console.log("SE ACABO POR ABAJO")
+                    index = 0
 
-            var ipConnection = '192.168.0.10'
-
-            $.ajax({
-                type: 'GET',
-                url: 'http://' + ipConnection + ':9000/results.json',
-                dataType: 'json',
-                success: function (data) {
-                    $.each(data[passId].results, function (index, datos) {
-                        console.log(datos);
-                        $("#resultsTable").append("<tr><td>" + datos.image_id + "</td><td>" + datos.percentage + "</td><td>" + datos.coordinates[0] + "</td><td>" + datos.coordinates[1] + "</td><td><a href=" + datos.image_path + ">Show image</a></td></tr>");
-                    });
                 }
-            })
-
-
-        }
-
-        function themeSwitcher() {
-            var isDefaultTheme = theme === 'DEFAULT';
-            if (isDefaultTheme) {
-                theme = 'HIGH_CONTRAST';
-
-                $('body').addClass('HIGH_CONTRAST');
-                $('#header').css('background-image', 'none');
-                $('#theme_switcher').text('Light theme')
-                return;
             }
-            if (!isDefaultTheme) {
-                theme = 'DEFAULT';
+        })
+            
 
-                $('body').removeClass('HIGH_CONTRAST');
-                $('#header').css('background-image', 'url("../images/FundationHemavLogo.png")');
-                $('#theme_switcher').text('Dark theme')
+        });
 
-                return;
-            }
+
+    })
+
+    function changePhoto(num, img, datalength) {
+
+        $('#image').prop('src', img);
+        $("#label").empty()
+        $("#label").append(num + 1 + "/" + datalength);
+
+    }
+
+
+
+    function test(index) {
+
+        console.log(index)
+
+    }
+
+
+
+
+
+    function themeSwitcher() {
+        var isDefaultTheme = theme === 'DEFAULT';
+        if (isDefaultTheme) {
+            theme = 'HIGH_CONTRAST';
+
+            $('body').addClass('HIGH_CONTRAST');
+            $('#header').css('background-image', 'none');
+            $('#theme_switcher').text('Light theme')
+            return;
         }
+        if (!isDefaultTheme) {
+            theme = 'DEFAULT';
 
-    </script>
+            $('body').removeClass('HIGH_CONTRAST');
+            $('#header').css('background-image', 'url("../images/FundationHemavLogo.png")');
+            $('#theme_switcher').text('Dark theme')
+
+            return;
+        }
+    }
+
+</script>
 
 </body>
 
