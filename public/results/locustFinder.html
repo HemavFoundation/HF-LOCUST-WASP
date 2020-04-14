@@ -53,7 +53,7 @@
             var index = 0;
             var indexBefore = 0;
             var freq = 1 / 5;
-            var ipConnection = 'localhost'
+            var ipConnection = '192.168.0.10'
             var videoJSON = getJSON(ipConnection);
             videoJSON.then(data => {
                 console.log(data)
@@ -311,7 +311,7 @@
         function fillResultsTable(passId) {
             $("#resultsTable").html(""); //primero vacio la tabla existente
 
-            var ipConnection = 'localhost'
+            var ipConnection = '192.168.0.10'
 
             $.ajax({
                 type: 'GET',
