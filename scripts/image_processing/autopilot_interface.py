@@ -5,23 +5,13 @@ from dronekit import *
 class AutopilotInterface():
 
     def __init__(self, vehicle):
-        #device = args.connect
-
+        
         device = '/dev/ttyS0'
         #vehicle = connect(device, wait_ready=True, baud=57600)
 #       vehicle = connect(device, baud=921600, wait_ready=True)
         self.vehicle = vehicle
 
-    # def connect_to_vehicle(self):
-    #     # with mini USB: '/dev/ttyACM0'
-    #     # with cable (telem2): '/dev/ttyAMA0'
-    #     device = args.connect
-    #
-    #     vehicle = connect(device, wait_ready=True, baud=57600)
-    #
-    #     return vehicle
-
-    # # #
+    
     def set_data_drone(self):      # necessary data to tag the obtained vegetated images
         latitude = self.vehicle.location.global_frame.lat
         longitude = self.vehicle.location.global_frame.lon
@@ -113,3 +103,4 @@ class AutopilotInterface():
             print("not able to get roll")
 
         return self.vehicle.attitude.roll
+

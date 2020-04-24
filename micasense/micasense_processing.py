@@ -323,7 +323,7 @@ def main_loop(nir, red, path, num):
     # opening = cv2.morphologyEx(ndvi, cv2.MORPH_OPEN, kernel)
     # ndvi = opening
 
-    if percent > 5:
+    if percent > 0.5:
         # kernel = np.ones((2, 2), np.uint8)
         # opening = cv2.morphologyEx(ndvi, cv2.MORPH_OPEN, kernel)
         # ndvi = opening

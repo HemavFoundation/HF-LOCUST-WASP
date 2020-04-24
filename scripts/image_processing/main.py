@@ -14,72 +14,21 @@ For this reason, we need:
 
 from image_processing.autopilot_interface import *
 from image_processing.camera_interface import *
+from image_processing.visual_camera_interface import *
+from commonFunctions import *
 import numpy as np
 import os
 import json
 import pandas as pd
 import cv2
 import math
-global results
-
-results = []
-
-def edit_json(newFlight):
-    # we try to write an existing json. If not existing, we create a new one
-    try:
-        with open('/home/pi/Desktop/HF-LOCUST-WASP/results.json', 'r+') as f:
-            data = []
-            try:
-                data = json.load(f)
-            except:
-                print("Empty json r+")
-
-            data.append(newFlight)
-            f.seek(0)
-            json.dump(data, f)
-            f.truncate()
-            f.close()
-
-    except:
-        with open('/home/pi/Desktop/HF-LOCUST-WASP/results.json', 'w') as f:
-            data = []
-            try:
-                data = json.load(f)
-            except:
-                print("Empty json x")
-
-            data.append(newFlight)
-            f.seek(0)
-            json.dump(data, f)
-            f.truncate()
-            f.close()
-
-    print("done")
-
-
-def write_json(timestamp, num, percentage, data_drone, image_settings, path):
-    coordinates = (data_drone[0], data_drone[1])
-    results.append(
-        {
-            "image_id": num,
-            "percentage": percentage,
-            "coordinates": coordinates,
-            "image_path": path,
-            "camera_settings": image_settings,
-        }
-    )
-
-    flight = {
-        "id": timestamp,
-        "results": results
-    }
-
-    return flight
 
 
 def create_directory():  # tested and working
 
-    path = '/home/pi/Desktop/HF-LOCUST-WASP/public/results/photos'
+    path_mono = '/home/pi/Desktop/HF-LOCUST-WASP/public/results/monospectral'
+
+    path_visual = '/home/pi/Desktop/HF-LOCUST-WASP/public/results/visual_camera'
     # we need to convert numbers to string to be able to create the new path
     year = str(pd.datetime.now().year)
     month = str(pd.datetime.now().month)
@@ -87,17 +36,21 @@ def create_directory():  # tested and working
     hour = str(pd.datetime.now().hour)
     minute = str(pd.datetime.now().minute)
     global timestamp
-
     timestamp = year + "_" + month + "_" + day + "-" + hour + "_" + minute
-    newpath = path + "/" + timestamp  # we create the string for the new directory
 
-    os.mkdir(newpath)  # creates a directory
-    normal_images = newpath + '/' + 'raw_images'
-    ndvi_images = newpath + '/' + 'ndvi_images'
+    newpath_mono = path_mono + "/" + timestamp  # we create the string for the new directory
+    newpath_visual = path_visual + "/" + timestamp 
+
+    os.mkdir(newpath_mono)  # creates a directory
+    os.mkdir(newpath_visual)
+
+    normal_images = newpath_mono + '/' + 'raw_images'
+    ndvi_images = newpath_mono + '/' + 'ndvi_images'
+    
     os.mkdir(normal_images)
     os.mkdir(ndvi_images)
 
-    return newpath
+    return newpath_mono, newpath_visual
 
 
 def contrast_stretch(im):
@@ -117,28 +70,6 @@ def contrast_stretch(im):
     return out
 
 
-def getEndpoint(image_coordinates, bearing, d):
-    lat1 = image_coordinates[0]
-    lon1 = image_coordinates[1]
-
-    R = 6371 * 1000  # Radius of the Earth in meters
-
-    brng = math.radians(bearing)  # convert degrees to radians
-    lat1 = math.radians(lat1)  # Current lat point converted to radians
-    lon1 = math.radians(lon1)  # Current long point converted to radians
-
-    lat2 = math.asin(math.sin(lat1) * math.cos(d / R) + math.cos(lat1) * math.sin(d / R) * math.cos(brng))
-    lon2 = lon1 + math.atan2(math.sin(brng) * math.sin(d / R) * math.cos(lat1),
-                             math.cos(d / R) - math.sin(lat1) * math.sin(lat2))
-
-    lat2 = round(math.degrees(lat2), 6)
-    lon2 = round(math.degrees(lon2), 6)
-
-    coordinates2 = [lat2, lon2]
-
-    return coordinates2
-
-
 def get_coordinates(coordinates, heading, h, pitch, roll):
     # CAMERA PARAMETERS
 
@@ -148,8 +79,8 @@ def get_coordinates(coordinates, heading, h, pitch, roll):
     # Focal length of lens (mm)
     fl = 3.04
     # Pixels
-    px = 1920
-    py = 1080
+    px = 2528
+    py = 1968
     pixels_camera = px * py
 
     # Field of view wide (gra)
@@ -181,25 +112,25 @@ def get_coordinates(coordinates, heading, h, pitch, roll):
     # Front left vertex
     diagonal1 = math.hypot(d1, fx / 2)
     orientation = heading - math.degrees(math.atan((fx / 2) / d1))
-    fl_coordinates = getEndpoint(coordinates, orientation, diagonal1)
+    fl_coordinates = pointRadialDistance(coordinates[0], coordinates[1], orientation, diagonal1)
     print('@@@@ orientation 1', orientation)
 
     # Front right vertex
     diagonal = math.hypot(d1, fx / 2)
     orientation = heading + math.degrees(math.atan((fx / 2) / d1))
-    fr_coordinates = getEndpoint(coordinates, orientation, diagonal)
+    fr_coordinates = pointRadialDistance(coordinates[0], coordinates[1], orientation, diagonal)
     print('@@@@ orientation 2', orientation)
 
     # Back left vertex
     diagonal2 = math.hypot(d2, fx / 2)
     orientation = -heading + math.degrees(math.atan(d2 / (fx / 2)))
-    bl_coordinates = getEndpoint(coordinates, orientation, diagonal2)
+    bl_coordinates = pointRadialDistance(coordinates[0], coordinates[1], orientation, diagonal2)
     print('@@@@ orientation 3', orientation)
 
     # Back right vertex
     diagonal = math.hypot(d2, fx / 2)
     orientation = -heading - math.degrees(math.atan(d2 / (fx / 2)))
-    br_coordinates = getEndpoint(coordinates, orientation, diagonal)
+    br_coordinates = pointRadialDistance(coordinates[0], coordinates[1], orientation, diagonal)
     print('@@@@ orientation 4', orientation)
 
     vertex_coordinates = [fl_coordinates, fr_coordinates, bl_coordinates, br_coordinates]
@@ -207,7 +138,7 @@ def get_coordinates(coordinates, heading, h, pitch, roll):
     return vertex_coordinates
 
 
-def main_loop(vehicle, num, newpath, camera_interface, autopilot_interface):
+def main_loop_mono(num, newpath, camera_interface, autopilot_interface):
     img = camera_interface.capture_frame()
 
     # Once we have the original image, we need to take the red and nir channels to operate with them
@@ -290,31 +221,8 @@ def main_loop(vehicle, num, newpath, camera_interface, autopilot_interface):
         vertex_coordinates = get_coordinates(tag_images[0], tag_images[1], tag_images[2], tag_images[3], tag_images[4])
 
         img = fusion
-        font = cv2.FONT_HERSHEY_SIMPLEX
-        # org
-        org = (50, 50)
-        # fontScale
-        fontScale = 0.5
-
-        # Blue color in BGR
-        color = (255, 255, 255)
-
-        # Line thickness of 2 px
-        thickness = 1
-
-        # Using cv2.putText() method
-        cv2.putText(img, str(vertex_coordinates[0]), org, font, fontScale, color, thickness, cv2.LINE_AA)
-        # org
-        org = (img.shape[1] - 230, 50)
-        cv2.putText(img, str(vertex_coordinates[1]), org, font, fontScale, color, thickness, cv2.LINE_AA)
-        # org
-        org = (50, img.shape[0] - 50)
-        cv2.putText(img, str(vertex_coordinates[2]), org, font, fontScale, color, thickness, cv2.LINE_AA)
-        # org
-        org = (img.shape[1] - 230, img.shape[0] - 50)
-        cv2.putText(img, str(vertex_coordinates[3]), org, font, fontScale, color, thickness, cv2.LINE_AA)
-
-        fusion = img
+        
+        fusion = camera_interface.tag_image(img, vertex_coordinates)
 
         cv2.imwrite(name_ndvi, fusion)
 
@@ -325,7 +233,7 @@ def main_loop(vehicle, num, newpath, camera_interface, autopilot_interface):
         image_settings = camera_interface.camera_settings()
 
         path_json = '/results/photos/' + str(timestamp) + '/' + 'ndvi_images' + '/' + str(num) + '.jpeg'
-        flight_info = write_json(timestamp, num, percent, data_drone, image_settings, path_json)
+        flight_info = camera_interface.write_json(timestamp, num, percent, data_drone, image_settings, path_json)
 
         print('@@@ image processed @@@')
         return flight_info
@@ -340,28 +248,16 @@ def main_loop(vehicle, num, newpath, camera_interface, autopilot_interface):
         return None
 
 
-# def main(vehicle):
-#     global num
-#     num = 1
-#     camera_interface = CameraInterface()
-#     autopilot_interface = AutopilotInterface(vehicle)
-#     newpath = create_directory()
-#     flight_data = None
-# 
-#     while vehicle.armed is True:
-# 
-#         altitude = autopilot_interface.get_altitude()
-# 
-#         if altitude >= 50:
-#             flight_data = main_loop(vehicle, num, newpath, camera_interface, autopilot_interface)
-#             camera_interface.test_settings(num)
-#             num += 1
-# 
-#     if flight_data is not None:
-#         try:
-#             edit_json(flight_data)
-#         except:
-#             print("No flight")
-# 
-#     else:
-#         print('Flight data is empty')
+def main_loop_visual(num, path, visualcamera_interface, autopilot_interface):
+    img = visualcamera_interface.take_image()
+
+    latitude = autopilot_interface.get_latitude()
+    longitude = autopilot_interface.get_longitude()
+    coordinates = (latitude, longitude)
+
+    img = visualcamera_interface.tag_image(img, coordinates)
+
+    visual_images = visualcamera_interface.write_json(num, path)
+    visualcamera_interface.save_image(img, num)
+
+    return visual_images
