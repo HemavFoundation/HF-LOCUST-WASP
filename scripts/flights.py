@@ -144,3 +144,13 @@ def rectangleMission_normal(latWind, lonWind, headingWind, distance, spaceDistan
     return cmds
 
 
+    def persicopeMission(latWind, lonWind, headingWind, distance, spaceDistance, widthRectangle, spaceBtwLines, height, latFlight, lonFlight, headingFlight, cmds):
+
+       
+        takeoff(cmds, height)
+        
+        landing(latWind,lonWind,headingWind,cmds)
+
+        cmds.upload()
+
+         return cmds
