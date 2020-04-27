@@ -1,4 +1,7 @@
 import json
+import reverse_geocoder as rg
+import numpy as np
+import pandas as pd
 
 
 class DOMA():
@@ -60,3 +63,13 @@ class DOMA():
         }
 
         return drone_info
+    
+    def location_decoder(self, coordinates):  # function to know the region and the country where the flight takes place
+        location = rg.search(coordinates)
+
+        df = pd.DataFrame.from_dict(location)
+        region = df['name'][0]
+        state = df['admin1'][0]
+        country = df['cc'][0]
+
+        return region, country
