@@ -144,13 +144,31 @@ def rectangleMission_normal(latWind, lonWind, headingWind, distance, spaceDistan
     return cmds
 
 
-    def persicopeMission(latWind, lonWind, headingWind, distance, spaceDistance, widthRectangle, spaceBtwLines, height, latFlight, lonFlight, headingFlight, cmds):
+def persicopeMission(latWind, lonWind, headingWind, height, latFlight, lonFlight, radius, cmds):
 
-       
-        takeoff(cmds, height)
-        
-        landing(latWind,lonWind,headingWind,cmds)
+    perimeter = math.pi * 2 * radius  # circle perimeter in meters
+    distance_between_wp = 200 # distance between waypoints in meters
 
-        cmds.upload()
+    radius = radius / 1000 # we need to have the radius variable in km
 
-         return cmds
+    wp_number = truncate(perimeter / distance_between_wp, 1)   # we compute the number of waypoints we will need to cover all 
+    angle_between_wp = 360 / wp_number
+
+    takeoff(cmds, height)
+
+    number_turns = 2 * 360 
+
+    counter_angle = 0
+
+    while counter_angle < number_turns:
+
+        locationLoop = pointRadialDistance(latFlight,lonFlight, counter_angle, radius)
+        cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, locationLoop.lat, locationLoop.lon, height))
+
+        counter_angle += angle_between_wp    
+    
+    landing(latWind,lonWind,headingWind,cmds)
+
+    cmds.upload()
+
+    return cmds
