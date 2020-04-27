@@ -1,11 +1,16 @@
 import json
 
 
-class DOMA:
-    def __init__(self:):
+class DOMA():
+    def __init__(self):
+        self.drone_plate = 'HP2_FAO_078'
 
 
-    def edit_json(self, newFlight):
+        #We initialize some other variables that has nothing related with camera settings
+
+        self.flights_info = []
+
+    def edit_json(self, DOMA_input):
         # we try to write an existing json. If not existing, we create a new one
         try:
             with open('/home/pi/Desktop/HF-LOCUST-WASP/DOMA.json', 'r+') as f:
@@ -15,7 +20,7 @@ class DOMA:
                 except:
                     print("Empty json r+")
 
-                data.append(newFlight)
+                data.append(DOMA_input)
                 f.seek(0)
                 json.dump(data, f)
                 f.truncate()
@@ -29,28 +34,29 @@ class DOMA:
                 except:
                     print("Empty json x")
 
-                data.append(newFlight)
+                data.append(DOMA_input)
                 f.seek(0)
                 json.dump(data, f)
                 f.truncate()
                 f.close()
 
 
-    def write_json(self, timestamp, num, percentage, data_drone, image_settings, path):
+    def write_json(self, timestamp,):
         coordinates = (data_drone[0], data_drone[1])
-        self.results.append(
+        self.flights_info.append(
             {
-                "image_id": num,
-                "percentage": percentage,
-                "coordinates": coordinates,
-                "image_path": path,
-                "camera_settings": image_settings,
+                "date": 
+                "time": 
+                "country": 
+                "region": 
+                "flight type":
+                "flight time": 
             }
         )
 
-        flight = {
-            "id": timestamp,
-            "flight_data": self.results
+        drone_info = {
+            "id": self.drone_plate,
+            "flight_data": self.flights_info
         }
 
-        return flight
+        return drone_info
