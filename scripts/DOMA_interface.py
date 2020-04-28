@@ -9,7 +9,7 @@ class DOMA():
         self.drone_plate = 'HP2_FAO_078'
 
 
-        #We initialize some other variables that has nothing related with camera settings
+        #We need to initialize some variables that will be used later on
 
         self.flights_info = []
 
@@ -44,14 +44,17 @@ class DOMA():
                 f.close()
 
 
-    def write_json(self, timestamp,):
+    def write_json(self, timestamp, data_drone):
         coordinates = (data_drone[0], data_drone[1])
+
+        region, country = location_decoder(coordinates)
+
         self.flights_info.append(
             {
                 "date": 
                 "time": 
-                "country": 
-                "region": 
+                "country": country
+                "region": region
                 "flight type":
                 "flight time": 
             }
