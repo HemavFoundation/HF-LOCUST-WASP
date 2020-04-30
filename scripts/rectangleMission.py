@@ -59,7 +59,9 @@ headingWind = vehicle.heading
 
 #cmds = rectangleMission_reversed(latWind, lonWind, headingWind, distance, spaceDistance, widthRectangle, spaceBtwLines, height, latFlight, lonFlight, headingFlight, cmds)
 
-cmds = rectangleMission_normal(latWind, lonWind, headingWind, distance, spaceDistance, widthRectangle, spaceBtwLines, height, latFlight, lonFlight, headingFlight, cmds)
+#cmds = rectangleMission_normal(latWind, lonWind, headingWind, distance, spaceDistance, widthRectangle, spaceBtwLines, height, latFlight, lonFlight, headingFlight, cmds)
+
+cmds = persicopeMission(latWind, lonWind, headingWind, height, latFlight, lonFlight, cmds):
 
 print(" Upload new commands to vehicle")
 
