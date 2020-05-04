@@ -56,6 +56,7 @@
         <br>
         <a button class="tablinks" id="PeriscopeButton" onclick="openTab(event, 'flypathtab')">Periscope
           mission</button></a>
+        <br>
 
       </div>
 
@@ -234,15 +235,16 @@
       return pmax;
     }
 
-    $("#Rectanglebutton").click(function () {
+    $("#RectangleButton").click(function () {
       $("#rectwidthparameter").show();
       $("#distanceparameter").show();
       $("#maxdistanceparameter").show();
       missiontype = 1;
+      console.log(missiontype);
     });
 
 
-    $("#Straightlinebutton").click(function () {
+    $("#StraightlineButton").click(function () {
       $("#distanceparameter").show();
       $("#maxdistanceparameter").show();
       $("#rectwidthparameter").hide();
@@ -250,11 +252,12 @@
     });
 
 
-    $("#Zigzagbutton").click(function () {
+    $("#ZigzagButton").click(function () {
       $("#rectwidthparameter").show();
       $("#distanceparameter").show();
       $("#maxdistanceparameter").show();
       missiontype = 3;
+      console.log(missiontype);
     });
 
     $("#PeriscopeButton").click(function () {
@@ -262,6 +265,7 @@
       $("#distanceparameter").show();
       $("#maxdistanceparameter").show();
       missiontype = 4;
+      console.log(missiontype);
     });
 
 
