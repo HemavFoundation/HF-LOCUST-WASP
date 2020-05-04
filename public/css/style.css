@@ -4,10 +4,11 @@ body {
 	color: #ededed;
 	text-align: center;
 	background-color: black;
-	background-image:url("../images/backgroundWeb.png");
-	background-repeat:no-repeat;
-	background-size:inherit;
-	}
+	background-image: url("../images/backgroundWeb.png");
+	background-repeat: no-repeat;
+	background-size: inherit;
+	background-size: cover;
+}
 
 #page {
 	text-align: left;
@@ -187,7 +188,6 @@ h2, h2 a, h2 a:visited, h3, h3 a, h3 a:visited {
 	color: #ededed;
 	}
 
-
 .commentlist li, #commentform input, #commentform textarea {
 	font: 0.9em Verdana, Arial, Sans-Serif;
 	}
@@ -260,7 +260,6 @@ a:hover {
 	text-decoration: underline;
 	}
 
-
 body {
 	margin: 0;
 	padding: 0; 
@@ -269,8 +268,8 @@ body {
 #page {
 	margin: 0 auto;
 	padding: 0;
-	width: 782px;
-	}
+	width: 760px;
+}
 
 
 #headerimg {
@@ -439,8 +438,6 @@ select {
 	display: block;
 	}
 
-
-
 /* Begin Various Tags and Classes */
 acronym, abbr, span.caps {
 	cursor: help;
@@ -503,7 +500,7 @@ h1
 h3 
 {
   font-family: calibri;
-  color: black;
+  color:white;
 }
 
 button 
@@ -529,12 +526,75 @@ td, th
   padding: 5px;
 }
 
+.tab a {
+	text-decoration:none;
+	font-family: calibri;
+	background-color: #8a1a2d;
+	float: left;
+	border: 1px solid white;
+	outline: none;
+	cursor: pointer;
+	padding: 15px 10px 10px 30px;
+	transition: 0.3s;
+	font-size: 20px;
+	color: white;
+	width: fit-content;
+	}
+	
+.tab a:hover, .tab a.active {
+	background-color: darksalmon;
+	}
 
+.tabcontent a {
+	text-decoration:none;
+	font-family: calibri;
+	background-color: #8a1a2d;
+	float: left;
+	border: 1px solid white;
+	outline: none;
+	cursor: pointer;
+	padding: 10px;
+	transition: 0.3s;
+	font-size: 15px;
+	color: white;
+	width: fit-content;
+  }
+  .otherparameters a {
+	text-decoration:none;
+	font-family: calibri;
+	background-color: #8a1a2d;
+	float: left;
+	border: 1px solid white;
+	outline: none;
+	cursor: pointer;
+	padding: 10px;
+	transition: 0.3s;
+	font-size: 15px;
+	color: white;
+	width: fit-content;
+  }
+  .tab a:hover {
+	background-color: darksalmon;
+  }
+  .tabcontent a:hover{
+	  background-color: darksalmon;
+  }
 .tab 
 {
   font-family: calibri;
   overflow: hidden;
-  border: 5px solid #8a1a2d;
+}
+
+#droneSettingTabDiv .tab {
+	width: 160px;
+	display: inline-block;
+	vertical-align: top;
+}
+
+#droneSettingTabDiv #flypathtab, #droneSettingTabDiv #parameterstab  {
+	display: inline-block;
+	width: 560px;
+	box-sizing: border-box;
 }
 
 table{
@@ -559,15 +619,18 @@ th, td {
 .tab button 
 {
   font-family: calibri;
-  background-color: inherit;
+  background-color: #8a1a2d;
   float: left;
-  border: 1px solid #8a1a2d;
+  border: 1px solid white;
   outline: none;
   cursor: pointer;
-  padding: 14px 16px;
+  padding: 15px 10px 10px 30px;
   transition: 0.3s;
-  font-size: 30px;
+  font-size: 20px;
   color: white;
+  width: fit-content;
+  display: block;
+  
 }
 
 .photoupload{
@@ -582,10 +645,13 @@ th, td {
 .tabcontent 
 {
   font-family: calibri;
-  display: none;
-  padding: 6px 12px;
-  border: 5px solid #8a1a2d;
-  border-top: none;
+  padding: 5px 10px 10px 100px;
+  font-size: 20px;
+  border: 1.5px solid white;
+
+}
+.tabcontent div{
+	display: none;
 }
 
 .square_btn{
@@ -635,7 +701,9 @@ body.HIGH_CONTRAST {
 body.HIGH_CONTRAST * {
 	color: #ffffff;
 }
-
+body.HIGH_CONTRAST input {
+	color: #000;
+}
 /*******CARD STYLE********/
  
 .card{
@@ -648,3 +716,5 @@ body.HIGH_CONTRAST * {
 body.HIGH_CONTRAST .card{
 	background-color: transparent;
 }
+/******* MENU STYLE********/
+
