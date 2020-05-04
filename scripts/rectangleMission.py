@@ -11,15 +11,13 @@ from config import *
 from flights import *
 import sys
 
-
-distance = float(sys.argv[1]) / 1000
-widthRectangle = float(sys.argv[3]) / 1000
-spaceDistance = float(sys.argv[2]) / 1000
-spaceBtwLines = float(sys.argv[4]) / 1000
-height = int(sys.argv[5])
-
-
 if connectionString != "local":
+    distance = float(sys.argv[1]) / 1000
+    widthRectangle = float(sys.argv[3]) / 1000
+    spaceDistance = float(sys.argv[2]) / 1000
+    spaceBtwLines = float(sys.argv[4]) / 1000
+    height = int(sys.argv[5])
+
     connection_string = "/dev/ttyS0"
     latFlight = int(sys.argv[6])
     lonFlight = int(sys.argv[7])
@@ -51,9 +49,17 @@ global cmds
 
 cmds = vehicle.commands
 
-latWind = vehicle.location.global_frame.lat
-lonWind = vehicle.location.global_frame.lon
-headingWind = vehicle.heading
+if connectionString is "local":
+
+    latWind = -35.363261
+    lonWind = 149.165229
+    headingWind = 259
+    height = 120
+
+else:
+    latWind = vehicle.location.global_frame.lat
+    lonWind = vehicle.location.global_frame.lon
+    headingWind = vehicle.heading
 
 #rectangleMission can change between reversed or normal depending how you want to make the mission
 
@@ -61,7 +67,7 @@ headingWind = vehicle.heading
 
 #cmds = rectangleMission_normal(latWind, lonWind, headingWind, distance, spaceDistance, widthRectangle, spaceBtwLines, height, latFlight, lonFlight, headingFlight, cmds)
 
-cmds = persicopeMission(latWind, lonWind, headingWind, height, latFlight, lonFlight, cmds):
+cmds = periscopeMission(latWind, lonWind, headingWind, height, latFlight, lonFlight, cmds)
 
 print(" Upload new commands to vehicle")
 

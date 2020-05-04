@@ -144,7 +144,7 @@ def rectangleMission_normal(latWind, lonWind, headingWind, distance, spaceDistan
     return cmds
 
 
-def persicopeMission(latWind, lonWind, headingWind, height, latFlight, lonFlight, cmds):
+def periscopeMission(latWind, lonWind, headingWind, height, latFlight, lonFlight, cmds):
 
     radius = 0.1 # we need to have the radius variable in km
     wp_number = 6  # we define the number of wp we will have on one loop
