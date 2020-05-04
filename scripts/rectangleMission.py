@@ -28,6 +28,7 @@ else:
     latFlight = -35.363261
     lonFlight = 149.165229
     headingFlight = 353
+    height = 120
 
 
 #Start SITL if no connection string specified
@@ -49,17 +50,9 @@ global cmds
 
 cmds = vehicle.commands
 
-if connectionString is "local":
-
-    latWind = -35.363261
-    lonWind = 149.165229
-    headingWind = 259
-    height = 120
-
-else:
-    latWind = vehicle.location.global_frame.lat
-    lonWind = vehicle.location.global_frame.lon
-    headingWind = vehicle.heading
+latWind = vehicle.location.global_frame.lat
+lonWind = vehicle.location.global_frame.lon
+headingWind = vehicle.heading
 
 #rectangleMission can change between reversed or normal depending how you want to make the mission
 
