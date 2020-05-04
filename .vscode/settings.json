@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
-    "python.pythonPath": "/usr/local/bin/python3",
+    "python.pythonPath": "C:\\Users\\Adri\\AppData\\Local\\Programs\\Python\\Python38-32\\python.exe",
     "python.linting.pylintEnabled": true,
     "python.linting.enabled": true
-=======
-    "python.pythonPath": "/Library/Frameworks/Python.framework/Versions/2.7/bin/python2.7"
->>>>>>> DisplayDifferentMission
 }
