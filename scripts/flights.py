@@ -144,7 +144,7 @@ def rectangleMission_normal(latWind, lonWind, headingWind, distance, spaceDistan
     return cmds
 
 
-def periscopeMission(latWind, lonWind, headingWind, height, latFlight, lonFlight, cmds):
+""" def periscopeMission(latWind, lonWind, headingWind, height, latFlight, lonFlight, cmds):
 
     radius = 0.1 # we need to have the radius variable in km
     wp_number = 6  # we define the number of wp we will have on one loop
@@ -164,6 +164,28 @@ def periscopeMission(latWind, lonWind, headingWind, height, latFlight, lonFlight
 
         counter_angle += angle_between_wp    
     
+    landing(latWind,lonWind,headingWind,cmds)
+
+    cmds.upload()
+
+    return cmds
+ """
+
+def periscopeMission(latWind, lonWind, headingWind, height, latFlight, lonFlight, cmds):
+
+    radius = 150 # we need to have the radius variable in km
+    wp_number = 6  # we define the number of wp we will have on one loop
+
+    angle_between_wp = round((360 / wp_number), 1)
+
+    takeoff(cmds, height)
+
+    number_turns = 2  
+
+    counter_angle = 0
+
+    cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_LOITER_TURNS, 0, 0, number_turns, 0, radius, 0, latFlight, lonFlight, height))
+
     landing(latWind,lonWind,headingWind,cmds)
 
     cmds.upload()
