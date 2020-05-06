@@ -90,42 +90,60 @@ else:
 previous = time()
 delta_time = 0
 
-while vehicle.armed is True:
+if typeOfMission is "straight" or "zigzag" or "rectangle":
+    while vehicle.armed is True:
 
-    altitude = autopilot_interface.get_altitude()
-    current = time()
-    delta_time += current - previous
-    previous = current
+        altitude = autopilot_interface.get_altitude()
+        current = time()
+        delta_time += current - previous
+        previous = current
 
-    if altitude >= altitudeCondition:
-        flight_data = main.main_loop_mono(num, newpath_mono, camera_interface, autopilot_interface)
-        camera_interface.test_settings(num)
-        num += 1
+        if altitude >= altitudeCondition:
+            flight_data = main.main_loop_mono(num, newpath_mono, camera_interface, autopilot_interface)
+            camera_interface.test_settings(num)
+            num += 1
 
-    if delta_time > 30:  # we want to take images every 30 seconds
-        #visual_images = main.main_loop_visual(num_visual, newpath_visual, visualcamera_interface, autopilot_interface)
-        num_visual += 1
+        if delta_time > 30:  # we want to take images every 30 seconds
+            #visual_images = main.main_loop_visual(num_visual, newpath_visual, visualcamera_interface, autopilot_interface)
+            num_visual += 1
 
-if flight_data and visual_images is not None:
-    try:
-        camera_interface.edit_json(flight_data)
-        visualcamera_interface.edit_json(visual_images)
-        print('both json written')
-    except:
-        print('could not write both json')
-else:
-    try:
-        if flight_data is not None:
+    if flight_data and visual_images is not None:
+        try:
             camera_interface.edit_json(flight_data)
-            print('only monospectral json')
-        if visual_images is not None:
             visualcamera_interface.edit_json(visual_images)
-            print('only visual camera json')
-    except:
-        # Would be nice to generate a fake json saying no vegetation detected
-        print("No vegetation found")
-    
-    
+            print('both json written')
+        except:
+            print('could not write both json')
+    else:
+        try:
+            if flight_data is not None:
+                camera_interface.edit_json(flight_data)
+                print('only monospectral json')
+            if visual_images is not None:
+                visualcamera_interface.edit_json(visual_images)
+                print('only visual camera json')
+        except:
+            # Would be nice to generate a fake json saying no vegetation detected
+            print("No vegetation found")
+
+if typeOfMission is "periscope":
+    while vehicle.armed is True:
+
+        altitude = autopilot_interface.get_altitude()
+
+        if altitude >= altitudeCondition:  # on the periscope mission we just one to make as much photos as possible with the visual camera
+            visual_images = main.main_loop_visual(num_visual, newpath_visual, visualcamera_interface, autopilot_interface)
+            num_visual += 1
+
+    if visual_images is not None:
+        try:
+            visualcamera_interface.edit_json(visual_images)
+            print('json written')
+        except:
+            print('could not write json')
+    else:
+        print('could not save the json properly')
+        
 # Close vehicle object before exiting script
 vehicle.close()
 
