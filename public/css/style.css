@@ -10,6 +10,86 @@ body {
 	background-size: cover;
 }
 
+#viewPhoto {
+	color: #961919;
+	height: 400px;
+	border: 3px solid #8a1a2d;
+}
+
+#VideoController {
+	color: #961919;
+	/* border: 3px solid #8a1a2d; */
+	height: 40px;
+
+}
+
+#InsideVideoController {
+	/* border: 3px solid #8a1a2d; */
+	width:100%;
+    text-align: center;
+}
+
+.inner{
+	display: inline-block;
+}
+
+
+#minus50 {
+	/* border: 3px solid #8a1a2d; */
+	width: 50px;
+	height: 40px;
+	float: left;
+}
+
+#minus25 {
+	/* border: 3px solid #8a1a2d; */
+	width: 50px;
+	height: 40px;
+	float: left;
+}
+
+#minus5 {
+	/* border: 3px solid #8a1a2d; */
+	width: 50px;
+	height: 40px;
+	float: left;
+}
+
+#minus1 {
+	/* border: 3px solid #8a1a2d; */
+	width: 50px;
+	height: 40px;
+	float: left;
+}
+
+#plus50 {
+	/* border: 3px solid #8a1a2d; */
+	width: 50px;
+	height: 40px;
+	float: left;
+}
+
+#plus25 {
+	/* border: 3px solid #8a1a2d; */
+	width: 50px;
+	height: 40px;
+	float: left;
+}
+
+#plus5 {
+	/* border: 3px solid #8a1a2d; */
+	width: 50px;
+	height: 40px;
+	float: left;
+}
+
+#plus1 {
+	/* border: 3px solid #8a1a2d; */
+	width: 50px;
+	height: 40px;
+	float: left;
+}
+
 #page {
 	text-align: left;
 	color: #ededed;
