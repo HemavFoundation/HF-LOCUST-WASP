@@ -57,7 +57,7 @@
   </div>
 
   <br><br>
-  <button class="square_btn" onclick="window.location='History.html'" target="_new">Clear</button>
+  <button class="square_btn" onclick="window.location='History'" target="_new">Clear</button>
   <script>
     $(document).ready(function () {
       var theme = 'DEFAULT'
@@ -95,7 +95,7 @@
         url: 'http://' + ipConnection + ':9000/results.json',
         dataType: 'json',
         success: function (data) {
-          $.each(data[passId].results, function (index, datos) {
+          $.each(data[passId].GreenResults, function (index, datos) {
             console.log(datos);
             $("#resultsTable").append("<tr><td>" + datos.image_id + "</td><td>" + datos.percentage + "</td><td>" + datos.coordinates[0] + "</td><td>" + datos.coordinates[1] + "</td><td><a href=" + datos.image_path + ">Show image</a></td></tr>");
           });
