@@ -37,40 +37,63 @@ body {
 	display: inline-block;
 }
 
-#ButtonDisplay {
+
+#minus50 {
 	/* border: 3px solid #8a1a2d; */
 	width: 50px;
 	height: 40px;
 	float: left;
 }
 
-#ButtonMajorLeft {
+#minus25 {
 	/* border: 3px solid #8a1a2d; */
 	width: 50px;
 	height: 40px;
 	float: left;
-	margin-right: 14%;
-
 }
 
-#ButtonMajorRight {
+#minus5 {
 	/* border: 3px solid #8a1a2d; */
 	width: 50px;
 	height: 40px;
 	float: left;
-	margin-left: 14%;
-	
-
 }
 
-#ButtonMinorRight {
+#minus1 {
 	/* border: 3px solid #8a1a2d; */
 	width: 50px;
 	height: 40px;
 	float: left;
-	margin-left: 10%;
-
 }
+
+#plus50 {
+	/* border: 3px solid #8a1a2d; */
+	width: 50px;
+	height: 40px;
+	float: left;
+}
+
+#plus25 {
+	/* border: 3px solid #8a1a2d; */
+	width: 50px;
+	height: 40px;
+	float: left;
+}
+
+#plus5 {
+	/* border: 3px solid #8a1a2d; */
+	width: 50px;
+	height: 40px;
+	float: left;
+}
+
+#plus1 {
+	/* border: 3px solid #8a1a2d; */
+	width: 50px;
+	height: 40px;
+	float: left;
+}
+
 
 #inline {
 	overflow-y: hidden;

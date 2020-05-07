@@ -29,30 +29,30 @@
 <div id="VideoController" class="VideoController">
     <div id="InsideVideoController" class="InsideVideoController">
         <div class="inner">
-            <button id="ButtonDisplay" class="MajorButton" target="_new">-50</button>
+            <button id="minus50" class="MajorButton" target="_new">-50</button>
         </div>
         <div class="inner">
-            <button id="ButtonDisplay" class="MajorButton" target="_new">-25</button>
+            <button id="minus25" class="MajorButton" target="_new">-25</button>
         </div>
         <div class="inner">
-            <button id="ButtonDisplay" class="MajorButton" target="_new">-5</button>
+            <button id="minus5" class="MajorButton" target="_new">-5</button>
         </div>
         <div class="inner">
-            <button id="ButtonDisplay" class="MajorButton"  target="_new">-1</button>
-        </div>
-
-        <div class="inner">
-            <button id="ButtonDisplay" class="MajorButton" target="_new">+1</button>
+            <button id="minus1" class="MajorButton"  target="_new">-1</button>
         </div>
 
         <div class="inner">
-            <button id="ButtonDisplay" class="MajorButton" target="_new">+5</button>
+            <button id="plus1" class="MajorButton" target="_new">+1</button>
+        </div>
+
+        <div class="inner">
+            <button id="plus5" class="MajorButton" target="_new">+5</button>
         </div>
         <div class="inner">
-            <button id="ButtonDisplay" class="MajorButton" target="_new">+25</button>
+            <button id="plus25" class="MajorButton" target="_new">+25</button>
         </div>  
         <div class="inner">
-            <button id="ButtonDisplay" class="MajorButton" target="_new">+50</button>
+            <button id="plus50" class="MajorButton" target="_new">+50</button>
         </div>        
     </div>
 </div>
@@ -85,62 +85,33 @@
 
         $('#theme_switcher').on('click', themeSwitcher);
 
-        $('#ButtonMajorRight').click(function () {
+        $('#plus50').click(function () {
             $.ajax({
                 type: 'GET',
                 url: 'http://' + ipConnection + ':9000/videoResults.json',
                 dataType: 'json',
                 success: function (data) {
-                    numPhotos = Math.floor(Math.floor(data[flightIndex].results.length) * freq);
+                    numPhotos = data[flightIndex].results.length;                   
 
-                    var pointer = Math.floor(data[flightIndex].results.length / numPhotos);
+                    var pointer = 50;
 
-                    var position;
+                    var position = index + pointer;
 
                     //tener en cuenta los que tienen resto igual a 0 ya que habría que sumarles uno
 
-                    if (index <= (data[flightIndex].results.length) - (pointer)) {
+                    if (position >=  numPhotos) {
 
-                        if (index != 0) {
-                            if (index == indexBefore) {
-                                console.log(indexBefore)
-                                position = indexBefore + pointer;
-
-                                if (position >= (data[flightIndex].results.length)) {
-                                    position = (data[flightIndex].results.length) - 1
-                                }
-                                changePhoto(position, data[flightIndex].results[position].image_path, data[flightIndex].results.length)
-
-                                index = position;
-                                indexBefore = position;
-                                console.log(position + "uno")
-                            }
-                            else {
-                                console.log(index)
-                                position = (Math.ceil(index * freq) * pointer)
-                                console.log(position)
-                                changePhoto(position, data[flightIndex].results[position].image_path, data[flightIndex].results.length)
-                                index = position;
-                                indexBefore = position;
-                                console.log(position + "dos")
-                            }
+                        changePhoto(numPhotos, data[flightIndex].results[numPhotos-1].image_path, numPhotos)  
+                        index = numPhotos;
+                        indexBefore = numPhotos;
+                        console.log(indexBefore + " " + index)
+                  
 
 
-                        } else {
-                            position = pointer;
-                            changePhoto(position, data[flightIndex].results[position].image_path, data[flightIndex].results.length)
-                            index = position;
-                            indexBefore = position;
-                            console.log(indexBefore)
-                            console.log(position + "tres")
-
-                        }
+                  
                     } else {
 
-                        position = (data[flightIndex].results.length) - 1
-
-                        changePhoto(position, data[flightIndex].results[position].image_path, data[flightIndex].results.length)
-                        console.log((data[flightIndex].results.length) - 1 + "cuatro")
+                        changePhoto(position, data[flightIndex].results[position].image_path, numPhotos)
 
                         index = position;
                         indexBefore = position;
@@ -152,142 +123,267 @@
 
         });
 
-        $('#ButtonMinorRight').click(function () {
+        $('#plus25').click(function () {
             $.ajax({
                 type: 'GET',
                 url: 'http://' + ipConnection + ':9000/videoResults.json',
                 dataType: 'json',
                 success: function (data) {
+                    numPhotos = data[flightIndex].results.length;                   
 
-                    numPhotos = Math.floor(Math.floor(data[flightIndex].results.length) * freq);
+                    var pointer = 25;
 
-                    var pointer = Math.floor(data[flightIndex].results.length / numPhotos);
+                    var position = index + pointer;
 
-                    var position = index + 1
+                    //tener en cuenta los que tienen resto igual a 0 ya que habría que sumarles uno
 
-                    if ((position) % pointer == 0) {
-                        indexBefore = position;
-                        console.log("OK")
-                    }
+                    if (position >=  numPhotos) {
 
-                    if (position <= (data[flightIndex].results.length) - 1) {
-                        changePhoto(position, data[flightIndex].results[position].image_path, data[flightIndex].results.length )
-                        index = position;
-                        console.log(position + " " + index + "cinco")
+                        changePhoto(numPhotos, data[flightIndex].results[numPhotos-1].image_path, numPhotos)  
+                        index = numPhotos;
+                        indexBefore = numPhotos;
+                        console.log(indexBefore + " " + index)
+                  
 
+
+                  
                     } else {
-                        console.log("SE ACABO POR ARRIBA")
-                        index = (data[flightIndex].results.length) - 1
 
-                    }
-            }
-        })
-
-        });
-
-        $('#ButtonMajorLeft').click(function () {
-
-            $.ajax({
-                type: 'GET',
-                url: 'http://' + ipConnection + ':9000/videoResults.json',
-                dataType: 'json',
-                success: function (data) {
-
-                    numPhotos = Math.floor(Math.floor(data[flightIndex].results.length) * freq);
-
-                    var pointer = Math.floor(data[flightIndex].results.length / numPhotos);
-
-                    var position;
-
-
-                    if (index >= 0 && index != (data[flightIndex].results.length) - 1) {
-
-                        if (index != 0) {
-                            if (index == indexBefore) {
-                                position = indexBefore - pointer;
-                                changePhoto(position, data[flightIndex].results[position].image_path, data[flightIndex].results.length)
-                                index = position;
-                                indexBefore = position;
-                                console.log(position + "seis")
-                            }
-                            else {
-                                console.log(index)
-                                position = (Math.floor(index * freq) * pointer)
-                                console.log(position)
-                                changePhoto(position, data[flightIndex].results[position].image_path, data[flightIndex].results.length)
-                                index = position;
-                                indexBefore = position;
-                                console.log(position + "siete")
-                            }
-
-
-                        } else if (index == 0) {
-                            console.log("SE ACABO POR ABAJO")
-                            index = 0
-                            indexBefore = 0
-
-                        }
-                        else {
-                            position = pointer + 1;
-                            changePhoto(position, data[flightIndex].results[position].image_path, data[flightIndex].results.length)
-                            index = position;
-                            indexBefore = position;
-                            console.log(position + "ocho")
-
-                        }
-                    } else if (index == (data[flightIndex].results.length) - 1) {
-
-                        position = (pointer * (numPhotos - 1))
-
-
-                        changePhoto(position, data[flightIndex].results[position].image_path, data[flightIndex].results.length)
-                        console.log(position + "nueve")
+                        changePhoto(position, data[flightIndex].results[position].image_path, numPhotos)
 
                         index = position;
                         indexBefore = position;
+                        console.log(indexBefore + " " + index)
 
                     }
                 }
-            });
-
-
+            })
 
         });
 
-        $('#ButtonMinorLeft').click(function () {
-
+        $('#plus5').click(function () {
             $.ajax({
                 type: 'GET',
                 url: 'http://' + ipConnection + ':9000/videoResults.json',
                 dataType: 'json',
                 success: function (data) {
+                    numPhotos = data[flightIndex].results.length;                   
 
-                numPhotos = Math.floor(Math.floor(data[flightIndex].results.length) * freq);
+                    var pointer = 5;
 
-                var pointer = Math.floor(data[flightIndex].results.length / numPhotos);
+                    var position = index + pointer;
 
-                var position = index - 1
+                    //tener en cuenta los que tienen resto igual a 0 ya que habría que sumarles uno
 
-                if ((position) % pointer == 0) {
-                    indexBefore = position;
-                    console.log("OK")
+                    if (position >=  numPhotos) {
+
+                        changePhoto(numPhotos, data[flightIndex].results[numPhotos-1].image_path, numPhotos)  
+                        index = numPhotos;
+                        indexBefore = numPhotos;
+                        console.log(indexBefore + " " + index)
+                  
+
+
+                  
+                    } else {
+
+                        changePhoto(position, data[flightIndex].results[position].image_path, numPhotos)
+
+                        index = position;
+                        indexBefore = position;
+                        console.log(indexBefore + " " + index)
+
+                    }
                 }
-
-                if (position >= 0) {
-                    changePhoto(position, data[flightIndex].results[position].image_path, data[flightIndex].results.length )
-                    index = position;
-                    console.log(position + " " + index + "diez")
-
-                } else {
-                    console.log("SE ACABO POR ABAJO")
-                    index = 0
-
-                }
-            }
-        })
-            
+            })
 
         });
+
+        $('#plus1').click(function () {
+            $.ajax({
+                type: 'GET',
+                url: 'http://' + ipConnection + ':9000/videoResults.json',
+                dataType: 'json',
+                success: function (data) {
+                    numPhotos = data[flightIndex].results.length;                   
+
+                    var pointer = 1;
+
+                    var position = index + pointer;
+
+                    //tener en cuenta los que tienen resto igual a 0 ya que habría que sumarles uno
+
+                    if (position >=  numPhotos) {
+
+                        changePhoto(numPhotos, data[flightIndex].results[numPhotos-1].image_path, numPhotos)  
+                        index = numPhotos;
+                        indexBefore = numPhotos;
+                        console.log(indexBefore + " " + index)             
+
+
+                  
+                    } else {
+
+                        changePhoto(position, data[flightIndex].results[position].image_path, numPhotos)
+
+                        index = position;
+                        indexBefore = position;
+                        console.log(indexBefore + " " + index)
+
+                    }
+                }
+            })
+
+        });
+
+        $('#minus1').click(function () {
+            $.ajax({
+                type: 'GET',
+                url: 'http://' + ipConnection + ':9000/videoResults.json',
+                dataType: 'json',
+                success: function (data) {
+                    numPhotos = data[flightIndex].results.length;                   
+
+                    var pointer = 1;
+
+                    var position = index - pointer;
+
+                    //tener en cuenta los que tienen resto igual a 0 ya que habría que sumarles uno
+
+                    if (position <=  0) {
+
+                        changePhoto(0, data[flightIndex].results[0].image_path, numPhotos)  
+                        index = 0;
+                        indexBefore = 0;
+                        console.log(indexBefore + " " + index)             
+
+
+                  
+                    } else {
+
+                        changePhoto(position, data[flightIndex].results[position].image_path, numPhotos)
+
+                        index = position;
+                        indexBefore = position;
+                        console.log(indexBefore + " " + index)
+
+                    }
+                }
+            })
+
+        });
+
+        $('#minus5').click(function () {
+            $.ajax({
+                type: 'GET',
+                url: 'http://' + ipConnection + ':9000/videoResults.json',
+                dataType: 'json',
+                success: function (data) {
+                    numPhotos = data[flightIndex].results.length;                   
+
+                    var pointer = 5;
+
+                    var position = index - pointer;
+
+                    //tener en cuenta los que tienen resto igual a 0 ya que habría que sumarles uno
+
+                    if (position <=  0) {
+
+                        changePhoto(0, data[flightIndex].results[0].image_path, numPhotos)  
+                        index = 0;
+                        indexBefore = 0;
+                        console.log(indexBefore + " " + index)             
+
+
+                  
+                    } else {
+
+                        changePhoto(position, data[flightIndex].results[position].image_path, numPhotos)
+
+                        index = position;
+                        indexBefore = position;
+                        console.log(indexBefore + " " + index)
+
+                    }
+                }
+            })
+
+        });
+
+        $('#minus25').click(function () {
+            $.ajax({
+                type: 'GET',
+                url: 'http://' + ipConnection + ':9000/videoResults.json',
+                dataType: 'json',
+                success: function (data) {
+                    numPhotos = data[flightIndex].results.length;                   
+
+                    var pointer = 25;
+
+                    var position = index - pointer;
+
+                    //tener en cuenta los que tienen resto igual a 0 ya que habría que sumarles uno
+
+                    if (position <=  0) {
+
+                        changePhoto(0, data[flightIndex].results[0].image_path, numPhotos)  
+                        index = 0;
+                        indexBefore = 0;
+                        console.log(indexBefore + " " + index)             
+
+
+                  
+                    } else {
+
+                        changePhoto(position, data[flightIndex].results[position].image_path, numPhotos)
+
+                        index = position;
+                        indexBefore = position;
+                        console.log(indexBefore + " " + index)
+
+                    }
+                }
+            })
+
+        });
+
+        $('#minus50').click(function () {
+            $.ajax({
+                type: 'GET',
+                url: 'http://' + ipConnection + ':9000/videoResults.json',
+                dataType: 'json',
+                success: function (data) {
+                    numPhotos = data[flightIndex].results.length;                   
+
+                    var pointer = 50;
+
+                    var position = index - pointer;
+
+                    //tener en cuenta los que tienen resto igual a 0 ya que habría que sumarles uno
+
+                    if (position <=  0) {
+
+                        changePhoto(0, data[flightIndex].results[0].image_path, numPhotos)  
+                        index = 0;
+                        indexBefore = 0;
+                        console.log(indexBefore + " " + index)             
+
+
+                  
+                    } else {
+
+                        changePhoto(position, data[flightIndex].results[position].image_path, numPhotos)
+
+                        index = position;
+                        indexBefore = position;
+                        console.log(indexBefore + " " + index)
+
+                    }
+                }
+            })
+
+        });
+
 
 
     })
@@ -296,7 +392,12 @@
 
         $('#image').prop('src', img);
         $("#label").empty()
-        $("#label").append(num + 1 + "/" + datalength);
+        if(datalength == num){
+            $("#label").append(num + "/" + datalength);
+        }else{
+            $("#label").append(num + 1 + "/" + datalength);
+        }
+
 
     }
 
