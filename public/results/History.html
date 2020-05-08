@@ -27,6 +27,7 @@
       <thead>
         <tr>
           <th>Hour</th>
+          <th>Type of Mission</th>
           <th>Flight Info</th>
         </tr>
       </thead>
@@ -77,7 +78,7 @@
         dataType: 'json',
         success: function (data) {
           $.each(data, function (index, datos) {
-            $("#historyTable").append("<tr><td>" + datos.id + "</td><td><button id='" + index + "' type='button' class='square_btn' onclick='fillResultsTable(" + index + ")'>GO!</button><button id='" + index + "' type='button' class='square_btn' onclick='goToLocustFinder(" + index + ")'>Plague inspector</button></td></tr>");
+            $("#historyTable").append("<tr><td>" + datos.id + "</td><td>"+ datos.typeOfFlight +"</td><td><button id='" + index + "' type='button' class='square_btn' onclick='fillResultsTable(" + index + ")'>GO!</button><button id='" + index + "' type='button' class='square_btn' onclick='goToLocustFinder(" + index + ")'>Plague inspector</button></td></tr>");
 
           });
         }
