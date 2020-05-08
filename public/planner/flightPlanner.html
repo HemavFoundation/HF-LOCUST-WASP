@@ -5,6 +5,7 @@
 <head>
   <meta charset="utf-8">
   <script src="../js/jquery.js"></script>
+  <script src="../js/jquery.MultiLanguage.min.js"></script>
   <link rel="stylesheet" href="../css/style.css">
   <title>Flight Planner</title>
 </head>
@@ -12,13 +13,16 @@
 
 <body id="page">
   <button id="theme_switcher">Dark theme</button>
+
   <div id="header">
     <div id="headerimg">
+
+
     </div>
   </div>
 
   <div class="card">
-    <h2><a>Flight Planner</a></h2>
+    <h2 id="test"></h2>
 
     <br><br>
     <div>
@@ -140,6 +144,13 @@
   </button>
   </div>
   </div>
+  <div id="footer">
+    <p>App created by Hemav Fundation Team</p>
+  </div>
+  <select onchange="languageSelector();" id="languageSelector" class="language">
+    <option value="en" >English</option>
+    <option value="ar" >Arabian</option>
+  </select>
   <script>
 
     var theme = 'DEFAULT'
@@ -241,6 +252,14 @@
 
     }
 
+    function languageSelector() {
+
+      var x = document.getElementById("languageSelector").value;
+      console.log(x)
+      $.MultiLanguage('/language.json', x)
+
+    }
+
     $("#RectangleButton").click(function () {
       $("#rectwidthparameter").show();
       $("#distanceparameter").show();
@@ -283,8 +302,9 @@
 
 
     $(document).ready(function () {
-      $('#theme_switcher').on('click', themeSwitcher);
 
+      $('#theme_switcher').on('click', themeSwitcher);
+      $.MultiLanguage('/language.json', 'en')
       $("#droneConnectButton").click(function () {
         document.getElementById('droneConnectImg').src = "../images/waiting.png";
         $.ajax({
@@ -304,6 +324,8 @@
         })
       });
 
+      // $("#languageSelector").on('click', languageSelector);
+
       $("#directionDroneButton").click(function () {
         document.getElementById('directionDroneImg').src = "../images/waiting.png"
         $.ajax({
@@ -315,7 +337,7 @@
             document.getElementById('directionDroneConnectedH4').hidden = false
             document.getElementById('directionDroneImg').src = "../images/tick.png";
             document.getElementById('uploadbut').disabled = false;
-            
+
           },
           error: function (data, textStatus, xhr) {
             document.getElementById('directionDroneImg').src = "../images/cross.png";
