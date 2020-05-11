@@ -1,0 +1,70 @@
+from config import *
+import numpy as np
+import json
+
+
+
+class DataManagement_Interface():
+    def __init__(self):
+        self.mission_type = typeOfMission
+        self.results = []
+        self.visualimages = []
+
+    def edit_json(self, new_flight):
+        # we try to write an existing json. If not existing, we create a new one
+        try:
+            with open('/home/pi/Desktop/HF-LOCUST-WASP/results.json', 'r+') as f:
+                data = []
+                try:
+                    data = json.load(f)
+                except:
+                    print("Empty json r+")
+
+                data.append(new_flight)
+                f.seek(0)
+                json.dump(data, f)
+                f.truncate()
+                f.close()
+
+        except:
+            with open('/home/pi/Desktop/HF-LOCUST-WASP/results.json', 'w') as f:
+                data = []
+                try:
+                    data = json.load(f)
+                except:
+                    print("Empty json x")
+
+                data.append(new_flight)
+                f.seek(0)
+                json.dump(data, f)
+                f.truncate()
+                f.close()
+
+        print("done")
+
+    def write_json(self):
+        self.visualimages.append(
+            {
+                "image_id": num_visual,
+                "image_path": path_visual,
+            }
+        )
+
+        self.results.append(
+            {
+                "image_id": num,
+                "percentage": percentage,
+                "coordinates": coordinates,
+                "image_path": path,
+                "camera_settings": image_settings,
+            }
+        )
+
+        flight = {
+            "id": self.timestamp,
+            "typeOfFlight": self.mission_type
+            "GreenResults": self.results
+            "VisualImages": self.visualimages
+        }
+
+        return flight
