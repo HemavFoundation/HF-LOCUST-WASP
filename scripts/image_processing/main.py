@@ -15,6 +15,7 @@ For this reason, we need:
 from image_processing.autopilot_interface import *
 from image_processing.camera_interface import *
 from image_processing.visual_camera_interface import *
+from image.processing.data_management import *
 from commonFunctions import *
 import numpy as np
 import os
@@ -138,7 +139,7 @@ def get_coordinates(coordinates, heading, h, pitch, roll):
     return vertex_coordinates
 
 
-def main_loop_mono(num, newpath, camera_interface, autopilot_interface):
+def main_loop_mono(num, newpath, camera_interface, autopilot_interface, data_interface):
     img = camera_interface.capture_frame()
 
     # Once we have the original image, we need to take the red and nir channels to operate with them
@@ -233,7 +234,7 @@ def main_loop_mono(num, newpath, camera_interface, autopilot_interface):
         image_settings = camera_interface.camera_settings()
 
         path_json = '/results/photos/' + str(timestamp) + '/' + 'ndvi_images' + '/' + str(num) + '.jpeg'
-        flight_info = camera_interface.write_json(timestamp, num, percent, data_drone, image_settings, path_json)
+        flight_info = data_interface.write_json(timestamp, num, percent, data_drone, path_json)
 
         print('@@@ image processed @@@')
         return flight_info
@@ -248,7 +249,7 @@ def main_loop_mono(num, newpath, camera_interface, autopilot_interface):
         return None
 
 
-def main_loop_visual(num, path, visualcamera_interface, autopilot_interface):
+def main_loop_visual(num, path, visualcamera_interface, autopilot_interface, data_interface):
     img = visualcamera_interface.take_image()
 
     latitude = autopilot_interface.get_latitude()
@@ -257,7 +258,7 @@ def main_loop_visual(num, path, visualcamera_interface, autopilot_interface):
 
     img = visualcamera_interface.tag_image(img, coordinates)
 
-    visual_images = visualcamera_interface.write_json(num, path)
+    visual_images = data_interface.write_json(timestamp, num, path)
     visualcamera_interface.save_image(img, num)
 
     return visual_images

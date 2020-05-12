@@ -8,6 +8,7 @@ from image_processing.autopilot_interface import AutopilotInterface
 from image_processing.camera_interface import CameraInterface
 from image_processing.visual_camera_interface import VisualCameraInterface
 from image_processing import main
+from image_processing.data_management import DataManagement
 import geopy.distance
 from time import time
 from time import sleep
@@ -62,7 +63,8 @@ cmds.download()
 
 camera_interface = CameraInterface()
 autopilot_interface = AutopilotInterface(vehicle)
-#visualcamera_interface = VisualCameraInterface()
+visualcamera_interface = VisualCameraInterface()
+data_interface = DataManagement() 
 
 # we get the home coordinates to introduce them in the intelligent RTL function
 home_coordinates = (autopilot_interface.get_latitude, autopilot_interface.get_longitude)
@@ -98,12 +100,12 @@ while vehicle.armed is True:
     previous = current
 
     if altitude >= altitudeCondition:
-        flight_data = main.main_loop_mono(num, newpath_mono, camera_interface, autopilot_interface)
+        flight_data = main.main_loop_mono(num, newpath_mono, camera_interface, autopilot_interface, data_interface)
         camera_interface.test_settings(num)
         num += 1
 
     if delta_time > 30:  # we want to take images every 30 seconds
-        #visual_images = main.main_loop_visual(num_visual, newpath_visual, visualcamera_interface, autopilot_interface)
+        visual_images = main.main_loop_visual(num_visual, newpath_visual, visualcamera_interface, autopilot_interface)
         num_visual += 1
 
 if flight_data and visual_images is not None:
