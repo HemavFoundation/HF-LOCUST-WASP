@@ -8,7 +8,6 @@ class DataManagement():
     def __init__(self):
         self.mission_type = typeOfMission
        
-
         self.results = []
         self.visualimages = []
 
@@ -58,10 +57,10 @@ class DataManagement():
         )
 
         flight = {
-            "id": self.timestamp,
-            "typeOfFlight": self.mission_type
-            "GreenResults": self.results
-            "VisualImages": self.visualimages
+            "id": timestamp,
+            "typeOfFlight": self.mission_type,
+            "GreenResults": self.results,
+            "VisualImages": self.visualimages,
         }
 
         return flight
@@ -76,10 +75,10 @@ class DataManagement():
         )
 
         flight = {
-            "id": self.timestamp,
-            "typeOfFlight": self.mission_type
-            "GreenResults": self.results
-            "VisualImages": self.visualimages
+            "id": timestamp,
+            "typeOfFlight": self.mission_type,
+            "GreenResults": self.results,
+            "VisualImages": self.visualimages,
         }
 
         return flight

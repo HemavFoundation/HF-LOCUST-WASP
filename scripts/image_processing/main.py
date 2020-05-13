@@ -258,7 +258,7 @@ def main_loop_visual(num, path, visualcamera_interface, autopilot_interface, dat
 
     img = visualcamera_interface.tag_image(img, coordinates)
 
-    visual_images = data_interface.write_json(timestamp, num, path)
+    flight_info = data_interface.write_json(timestamp, num, path)
     visualcamera_interface.save_image(img, num)
 
-    return visual_images
+    return flight_info

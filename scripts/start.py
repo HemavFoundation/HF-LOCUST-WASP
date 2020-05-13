@@ -80,7 +80,7 @@ newpath_mono, newpath_visual = main.create_directory()
 
 # Json structures containing all the data
 flight_data = None
-visual_images = None
+
 
 
 if connectionString != "local":
@@ -105,28 +105,17 @@ while vehicle.armed is True:
         num += 1
 
     if delta_time > 30:  # we want to take images every 30 seconds
-        visual_images = main.main_loop_visual(num_visual, newpath_visual, visualcamera_interface, autopilot_interface)
+        flight_data = main.main_loop_visual(num_visual, newpath_visual, visualcamera_interface, autopilot_interface)
         num_visual += 1
 
-if flight_data and visual_images is not None:
+if flight_data is not None:
     try:
-        camera_interface.edit_json(flight_data)
-        visualcamera_interface.edit_json(visual_images)
-        print('both json written')
+        data_interface.edit_json(flight_data)
+        print('json written')
     except:
-        print('could not write both json')
+        print('could not write json')
 else:
-    try:
-        if flight_data is not None:
-            camera_interface.edit_json(flight_data)
-            print('only monospectral json')
-        if visual_images is not None:
-            visualcamera_interface.edit_json(visual_images)
-            print('only visual camera json')
-    except:
-        # Would be nice to generate a fake json saying no vegetation detected
-        print("No vegetation found")
-    
+    print("empty json")
     
 # Close vehicle object before exiting script
 vehicle.close()
