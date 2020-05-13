@@ -27,6 +27,7 @@
       <thead>
         <tr>
           <th>Hour</th>
+          <th>Type of Mission</th>
           <th>Flight Info</th>
         </tr>
       </thead>
@@ -57,11 +58,12 @@
   </div>
 
   <br><br>
-  <button class="square_btn" onclick="window.location='History.html'" target="_new">Clear</button>
+  <button class="square_btn" onclick="window.location='/History'" target="_new">Clear</button>
+  <button class="square_btn" onclick="window.location='/planner'" target="_new">Go to Flight Planner</button>
   <script>
     $(document).ready(function () {
       var theme = 'DEFAULT'
-      var ipConnection = '192.168.0.10'
+      var ipConnection = 'localhost'
       fillHistoryTable(ipConnection);
       $('#theme_switcher').on('click', themeSwitcher);
 
@@ -73,11 +75,12 @@
 
       $.ajax({
         type: 'GET',
-        url: 'http://'+ ipConnection +':9000/results.json',
+        url: 'http://' + ipConnection + ':9000/results.json',
         dataType: 'json',
         success: function (data) {
           $.each(data, function (index, datos) {
-            $("#historyTable").append("<tr><td>" + datos.id + "</td><td><button id='" + index + "' type='button' class='square_btn' onclick='fillResultsTable(" + index +")'>GO!</button></td></tr>");
+            $("#historyTable").append("<tr><td>" + datos.id + "</td><td>"+ datos.typeOfFlight +"</td><td><button id='" + index + "' type='button' class='square_btn' onclick='fillResultsTable(" + index + ")'>GO!</button><button id='" + index + "' type='button' class='square_btn' onclick='goToLocustFinder(" + index + ")'>Plague inspector</button></td></tr>");
+
           });
         }
       })
@@ -87,21 +90,25 @@
     function fillResultsTable(passId) {
       $("#resultsTable").html(""); //primero vacio la tabla existente
 
-      var ipConnection = '192.168.0.10'
+      var ipConnection = 'localhost'
 
       $.ajax({
         type: 'GET',
-        url: 'http://'+ ipConnection +':9000/results.json',
+        url: 'http://' + ipConnection + ':9000/results.json',
         dataType: 'json',
         success: function (data) {
-          $.each(data[passId].results, function (index, datos) {
+          $.each(data[passId].GreenResults, function (index, datos) {
             console.log(datos);
-            $("#resultsTable").append("<tr><td>"+ datos.image_id +"</td><td>"+ datos.percentage +"</td><td>" + datos.coordinates[0] + "</td><td>" + datos.coordinates[1] + "</td><td><a href=" + datos.image_path + ">Show image</a></td></tr>");
+            $("#resultsTable").append("<tr><td>" + datos.image_id + "</td><td>" + datos.percentage + "</td><td>" + datos.coordinates[0] + "</td><td>" + datos.coordinates[1] + "</td><td><a href=" + datos.image_path + ">Show image</a></td></tr>");
           });
         }
       })
 
 
+    }
+
+    function goToLocustFinder(passId) {
+      window.location = '/locustFinder?' + passId
     }
 
     function themeSwitcher() {
@@ -126,7 +133,7 @@
     }
 
   </script>
-  
+
 </body>
 
 </html>

@@ -23,6 +23,7 @@ import pygame.camera
 from pygame.locals import *
 import numpy as np
 import cv2
+from config import *
 
 
 class VisualCameraInterface():
@@ -100,17 +101,13 @@ class VisualCameraInterface():
 
         return locust_images
 
-    def tag_image(self, img, coordinates):
+    def tag_image(self, img, coordinates, heading):
         # Th main purspose of that function is tag the image with the image coordinates over a white bckground
 
         # we will draw a white rectangle as background 
         rectangle_bgr = (255, 255, 255)
 
         text = str(coordinates)
-
-        # set the text start position
-        text_offset_x = 50
-        text_offset_y = img.shape[0] - 25
 
         font = cv2.FONT_HERSHEY_SIMPLEX
         # org
@@ -127,12 +124,39 @@ class VisualCameraInterface():
         # get the width and height of the text box
         (text_width, text_height) = cv2.getTextSize(text, font, fontScale=fontScale, thickness=1)[0]
 
+        # set the text start position
+        text_offset_x = int(50 + text_width/2)
+        text_offset_y = img.shape[0] - (25 + text_height/2)
+
         # make the coords of the box with a small padding of two pixels
-        box_coords = ((text_offset_x, text_offset_y), (text_offset_x + text_width + 2, text_offset_y - text_height - 2))
+        box_coords = ((text_offset_x, text_offset_y + 4), (text_offset_x + text_width + 4, text_offset_y - text_height - 4))
         cv2.rectangle(img, box_coords[0], box_coords[1], rectangle_bgr, cv2.FILLED)
 
         # Using cv2.putText() method
         cv2.putText(img, text, (text_offset_x, text_offset_y), font, fontScale, color, thickness, cv2.LINE_AA)
+
+        if typeOfMission is "periscope":
+
+            heading = int(heading)
+
+            # Line thickness of 5 px
+            thickness = 5
+
+            # get the width and height of the text box
+            (text_width, text_height) = cv2.getTextSize(heading, font, fontScale=fontScale, thickness=1)[0]
+
+            # set the text start position
+            text_offset_x = int((img.shape[1]/2)-(text_width/2))
+            text_offset_y = int(50 + text_height/2)
+
+            # make the coords of the box with a small padding of two pixels
+            box_coords = ((text_offset_x, text_offset_y + 10), (text_offset_x + text_width + 10, text_offset_y - text_height - 10))
+            cv2.rectangle(img, box_coords[0], box_coords[1], rectangle_bgr, cv2.FILLED)
+
+            # Using cv2.putText() method
+            cv2.putText(img, heading, (text_offset_x, text_offset_y), font, fontScale, color, thickness, cv2.LINE_AA)
+
+
         return img
 
     def save_image(self, img, num):

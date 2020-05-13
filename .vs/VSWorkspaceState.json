@@ -5,8 +5,9 @@
     "\\public\\css",
     "\\public\\js",
     "\\public\\planner",
+    "\\public\\results",
     "\\src"
   ],
-  "SelectedNode": "\\public\\planner\\flightPlanner.html",
+  "SelectedNode": "\\public\\index.html",
   "PreviewInSolutionExplorer": false
 }

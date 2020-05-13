@@ -146,7 +146,9 @@ router.post("/rectangleMission/:distance/:w/:x/:L/:h", (req, res) => {
   });
 });
 
-router.post("/periscopeMission/:h", (req, res) => {
+
+router.post("/straightMission/:distance/:h", (req, res) => {
+  const distance = req.params.distance;
   const height = req.params.h;
 
   let options;
@@ -158,7 +160,11 @@ router.post("/periscopeMission/:h", (req, res) => {
       pythonOptions: ["-u"], // get print results in real-time
       scriptPath: "./scripts",
       args: [
-        height
+        distance,
+        height,
+        latFlight,
+        lonFlight,
+        headingFlight
       ]
     };
   } else if (environment === "win") {
@@ -167,7 +173,11 @@ router.post("/periscopeMission/:h", (req, res) => {
       pythonOptions: ["-u"], // get print results in real-time
       scriptPath: "./scripts",
       args: [
-        height
+        distance,
+        height,
+        latFlight,
+        lonFlight,
+        headingFlight
       ]
     };
   } else {
@@ -177,16 +187,20 @@ router.post("/periscopeMission/:h", (req, res) => {
       pythonOptions: ["-u"], // get print results in real-time
       scriptPath: "./scripts",
       args: [
-        height
+        distance,
+        height,
+        latFlight,
+        lonFlight,
+        headingFlight
       ]
     };
   }
 
-  PythonShell.run("periscopeMission.py", options, function (err, results) {
+  PythonShell.run("straightMission.py", options, function (err, results) {
     if (err) {
       res
         .status(400)
-        .send({ message: "ERROR: Fallo el script periscopeMission.py" });
+        .send({ message: "ERROR: Fallo el script straightMission.py" });
       console.log(err);
     } else {
       console.log(results);
@@ -195,5 +209,73 @@ router.post("/periscopeMission/:h", (req, res) => {
   });
 });
 
+router.post("/ZigZagMission/:distance/:w/:L/:h", (req, res) => {
+  const distance = req.params.distance;
+  const width = req.params.w;
+  const spaceBtwPeaks = req.params.L;
+  const height = req.params.h;
 
+  let options;
+
+  if (environment === "drone") {
+    options = {
+      mode: "text",
+      pythonPath: "/usr/bin/python3",
+      pythonOptions: ["-u"], // get print results in real-time
+      scriptPath: "./scripts",
+      args: [
+        distance,
+        width,
+        spaceBtwPeaks,
+        height,
+        latFlight,
+        lonFlight,
+        headingFlight
+      ]
+    };
+  } else if (environment === "win") {
+    options = {
+      mode: "text",
+      pythonOptions: ["-u"], // get print results in real-time
+      scriptPath: "./scripts",
+      args: [
+        distance,
+        width,
+        spaceBtwPeaks,
+        height,
+        latFlight,
+        lonFlight,
+        headingFlight
+      ]
+    };
+  } else {
+    options = {
+      mode: "text",
+      pythonPath: "/usr/local/bin/python",
+      pythonOptions: ["-u"], // get print results in real-time
+      scriptPath: "./scripts",
+      args: [
+        distance,
+        width,,
+        spaceBtwPeaks,
+        height,
+        latFlight,
+        lonFlight,
+        headingFlight
+      ]
+    };
+  }
+
+  PythonShell.run("ZigZagMission.py", options, function (err, results) {
+    if (err) {
+      res
+        .status(400)
+        .send({ message: "ERROR: Fallo el script ZigZagMission.py" });
+      console.log(err);
+    } else {
+      console.log(results);
+      res.status(200).send({ message: "Misión cargada correctamente!" });
+    }
+  });
+});
 module.exports = router;

@@ -7,6 +7,7 @@ from config import *
 from image_processing.autopilot_interface import AutopilotInterface
 from image_processing.camera_interface import CameraInterface
 from image_processing.visual_camera_interface import VisualCameraInterface
+from image_processing.data_management import DataManagement
 from image_processing import main
 import geopy.distance
 from time import time
@@ -62,7 +63,8 @@ cmds.download()
 
 camera_interface = CameraInterface()
 autopilot_interface = AutopilotInterface(vehicle)
-#visualcamera_interface = VisualCameraInterface()
+visualcamera_interface = VisualCameraInterface()
+data_interface = DataManagement()
 
 # we get the home coordinates to introduce them in the intelligent RTL function
 home_coordinates = (autopilot_interface.get_latitude, autopilot_interface.get_longitude)
@@ -78,8 +80,6 @@ newpath_mono, newpath_visual = main.create_directory()
 
 # Json structures containing all the data
 flight_data = None
-visual_images = None
-
 
 if connectionString != "local":
     altitudeCondition = 50
@@ -90,42 +90,50 @@ else:
 previous = time()
 delta_time = 0
 
-while vehicle.armed is True:
+if typeOfMission is "straight" or "zigzag" or "rectangle":
+    while vehicle.armed is True:
 
-    altitude = autopilot_interface.get_altitude()
-    current = time()
-    delta_time += current - previous
-    previous = current
+        altitude = autopilot_interface.get_altitude()
+        current = time()
+        delta_time += current - previous
+        previous = current
 
-    if altitude >= altitudeCondition:
-        flight_data = main.main_loop_mono(num, newpath_mono, camera_interface, autopilot_interface)
-        camera_interface.test_settings(num)
-        num += 1
+        if altitude >= altitudeCondition:
+            flight_data = main.main_loop_mono(num, newpath_mono, camera_interface, autopilot_interface, data_interface)
+            camera_interface.test_settings(num)
+            num += 1
 
-    if delta_time > 30:  # we want to take images every 30 seconds
-        #visual_images = main.main_loop_visual(num_visual, newpath_visual, visualcamera_interface, autopilot_interface)
-        num_visual += 1
+        if delta_time > 30:  # we want to take images every 30 seconds
+            flight_data = main.main_loop_visual(num_visual, newpath_visual, visualcamera_interface, autopilot_interface, data_interface)
+            num_visual += 1
 
-if flight_data and visual_images is not None:
-    try:
-        camera_interface.edit_json(flight_data)
-        visualcamera_interface.edit_json(visual_images)
-        print('both json written')
-    except:
-        print('could not write both json')
-else:
-    try:
-        if flight_data is not None:
-            camera_interface.edit_json(flight_data)
-            print('only monospectral json')
-        if visual_images is not None:
-            visualcamera_interface.edit_json(visual_images)
-            print('only visual camera json')
-    except:
-        # Would be nice to generate a fake json saying no vegetation detected
-        print("No vegetation found")
-    
-    
+    if flight_data is not None:
+        try:
+            data_interface.edit_json(flight_data)
+            print('json written')
+        except:
+            print('could not write json')
+    else: 
+        print('Empty json')
+
+if typeOfMission is "periscope":
+    while vehicle.armed is True:
+
+        altitude = autopilot_interface.get_altitude()
+
+        if altitude >= altitudeCondition:  # on the periscope mission we just one to make as much photos as possible with the visual camera
+            flight_data = main.main_loop_visual(num_visual, newpath_visual, visualcamera_interface, autopilot_interface, data_interface)
+            num_visual += 1
+
+    if flight_data is not None:
+        try:
+            data_interface.edit_json(flight_data)
+            print('json written')
+        except:
+            print('could not write json')
+    else:
+        print('could not save the json properly')
+        
 # Close vehicle object before exiting script
 vehicle.close()
 
