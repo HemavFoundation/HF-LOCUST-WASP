@@ -400,7 +400,7 @@
                 $.ajax
                   ({
                     type: 'POST',
-                    url: 'http://' + ipConnection + ':9000/api/load/periscope',
+                    url: 'http://' + ipConnection + ':9000/api/load/periscopeMission/' + height,
                     dataType: 'json',
                     success: function (data, textStatus, xhr) {
                       document.getElementById('photoupload').src = "../images/tick.png";
