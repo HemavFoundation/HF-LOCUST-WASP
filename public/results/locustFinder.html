@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../css/style.css">
+    <title>Flight Planner</title>
+</head>
+
+
+<body id="page">
+    <div id="header">
+        <div id="headerimg">
+        </div>
+    </div>
+
+    <script src="/jquery.js"></script>
+
+
+
+<button id="theme_switcher">Dark theme</button>
+<h2><a>Locust Finder</a></h2>
+<br><br>
+<hr />
+<div id="viewPhoto" class="viewPhoto">
+    <img id="image" src="" height=" 398" width="776">
+</div>
+<div id="VideoController" class="VideoController">
+    <div id="InsideVideoController" class="InsideVideoController">
+        <div class="inner">
+            <button id="minus50" class="MajorButton" target="_new">-50</button>
+        </div>
+        <div class="inner">
+            <button id="minus25" class="MajorButton" target="_new">-25</button>
+        </div>
+        <div class="inner">
+            <button id="minus5" class="MajorButton" target="_new">-5</button>
+        </div>
+        <div class="inner">
+            <button id="minus1" class="MajorButton"  target="_new">-1</button>
+        </div>
+
+        <div class="inner">
+            <button id="plus1" class="MajorButton" target="_new">+1</button>
+        </div>
+
+        <div class="inner">
+            <button id="plus5" class="MajorButton" target="_new">+5</button>
+        </div>
+        <div class="inner">
+            <button id="plus25" class="MajorButton" target="_new">+25</button>
+        </div>  
+        <div class="inner">
+            <button id="plus50" class="MajorButton" target="_new">+50</button>
+        </div>        
+    </div>
+</div>
+
+<br><br>
+<div>
+    <label id="label" for="male">error</label>
+</div>
+<br><br><br>
+<div>
+    <button class="MajorButton" onclick="goToHistory()">Go Back</button>
+</div>
+<script>
+    $(document).ready(function () {
+        var theme = 'DEFAULT'
+        var flightIndex = window.location.search.substring(1);
+        var index = 0;
+        var indexBefore = 0;
+        var freq = 1 / 5;
+        var ipConnection = 'localhost'
+
+        $.ajax({
+            type: 'GET',
+            url: 'http://' + ipConnection + ':9000/videoResults.json',
+            dataType: 'json',
+            success: function (json) {
+                console.log(json)
+                changePhoto(0, json[flightIndex].AllPhotos[0].image_path, json[flightIndex].AllPhotos.length)
+            }
+        })
+
+
+
+
+        $('#theme_switcher').on('click', themeSwitcher);
+
+        $('#plus50').click(function () {
+            $.ajax({
+                type: 'GET',
+                url: 'http://' + ipConnection + ':9000/videoResults.json',
+                dataType: 'json',
+                success: function (data) {
+                    numPhotos = data[flightIndex].AllPhotos.length;                   
+
+                    var pointer = 50;
+
+                    var position = index + pointer;
+
+                    //tener en cuenta los que tienen resto igual a 0 ya que habría que sumarles uno
+
+                    if (position >=  numPhotos) {
+
+                        changePhoto(numPhotos, data[flightIndex].AllPhotos[numPhotos-1].image_path, numPhotos)  
+                        index = numPhotos;
+                        indexBefore = numPhotos;
+                        console.log(indexBefore + " " + index)
+                  
+
+
+                  
+                    } else {
+
+                        changePhoto(position, data[flightIndex].AllPhotos[position].image_path, numPhotos)
+
+                        index = position;
+                        indexBefore = position;
+                        console.log(indexBefore + " " + index)
+
+                    }
+                }
+            })
+
+        });
+
+        $('#plus25').click(function () {
+            $.ajax({
+                type: 'GET',
+                url: 'http://' + ipConnection + ':9000/videoResults.json',
+                dataType: 'json',
+                success: function (data) {
+                    numPhotos = data[flightIndex].AllPhotos.length;                   
+
+                    var pointer = 25;
+
+                    var position = index + pointer;
+
+                    //tener en cuenta los que tienen resto igual a 0 ya que habría que sumarles uno
+
+                    if (position >=  numPhotos) {
+
+                        changePhoto(numPhotos, data[flightIndex].AllPhotos[numPhotos-1].image_path, numPhotos)  
+                        index = numPhotos;
+                        indexBefore = numPhotos;
+                        console.log(indexBefore + " " + index)
+                  
+
+
+                  
+                    } else {
+
+                        changePhoto(position, data[flightIndex].AllPhotos[position].image_path, numPhotos)
+
+                        index = position;
+                        indexBefore = position;
+                        console.log(indexBefore + " " + index)
+
+                    }
+                }
+            })
+
+        });
+
+        $('#plus5').click(function () {
+            $.ajax({
+                type: 'GET',
+                url: 'http://' + ipConnection + ':9000/videoResults.json',
+                dataType: 'json',
+                success: function (data) {
+                    numPhotos = data[flightIndex].AllPhotos.length;                   
+
+                    var pointer = 5;
+
+                    var position = index + pointer;
+
+                    //tener en cuenta los que tienen resto igual a 0 ya que habría que sumarles uno
+
+                    if (position >=  numPhotos) {
+
+                        changePhoto(numPhotos, data[flightIndex].AllPhotos[numPhotos-1].image_path, numPhotos)  
+                        index = numPhotos;
+                        indexBefore = numPhotos;
+                        console.log(indexBefore + " " + index)
+                  
+
+
+                  
+                    } else {
+
+                        changePhoto(position, data[flightIndex].AllPhotos[position].image_path, numPhotos)
+
+                        index = position;
+                        indexBefore = position;
+                        console.log(indexBefore + " " + index)
+
+                    }
+                }
+            })
+
+        });
+
+        $('#plus1').click(function () {
+            $.ajax({
+                type: 'GET',
+                url: 'http://' + ipConnection + ':9000/videoResults.json',
+                dataType: 'json',
+                success: function (data) {
+                    numPhotos = data[flightIndex].AllPhotos.length;                   
+
+                    var pointer = 1;
+
+                    var position = index + pointer;
+
+                    //tener en cuenta los que tienen resto igual a 0 ya que habría que sumarles uno
+
+                    if (position >=  numPhotos) {
+
+                        changePhoto(numPhotos, data[flightIndex].AllPhotos[numPhotos-1].image_path, numPhotos)  
+                        index = numPhotos;
+                        indexBefore = numPhotos;
+                        console.log(indexBefore + " " + index)             
+
+
+                  
+                    } else {
+
+                        changePhoto(position, data[flightIndex].AllPhotos[position].image_path, numPhotos)
+
+                        index = position;
+                        indexBefore = position;
+                        console.log(indexBefore + " " + index)
+
+                    }
+                }
+            })
+
+        });
+
+        $('#minus1').click(function () {
+            $.ajax({
+                type: 'GET',
+                url: 'http://' + ipConnection + ':9000/videoResults.json',
+                dataType: 'json',
+                success: function (data) {
+                    numPhotos = data[flightIndex].AllPhotos.length;                   
+
+                    var pointer = 1;
+
+                    var position = index - pointer;
+
+                    //tener en cuenta los que tienen resto igual a 0 ya que habría que sumarles uno
+
+                    if (position <=  0) {
+
+                        changePhoto(0, data[flightIndex].AllPhotos[0].image_path, numPhotos)  
+                        index = 0;
+                        indexBefore = 0;
+                        console.log(indexBefore + " " + index)             
+
+
+                  
+                    } else {
+
+                        changePhoto(position, data[flightIndex].AllPhotos[position].image_path, numPhotos)
+
+                        index = position;
+                        indexBefore = position;
+                        console.log(indexBefore + " " + index)
+
+                    }
+                }
+            })
+
+        });
+
+        $('#minus5').click(function () {
+            $.ajax({
+                type: 'GET',
+                url: 'http://' + ipConnection + ':9000/videoResults.json',
+                dataType: 'json',
+                success: function (data) {
+                    numPhotos = data[flightIndex].AllPhotos.length;                   
+
+                    var pointer = 5;
+
+                    var position = index - pointer;
+
+                    //tener en cuenta los que tienen resto igual a 0 ya que habría que sumarles uno
+
+                    if (position <=  0) {
+
+                        changePhoto(0, data[flightIndex].AllPhotos[0].image_path, numPhotos)  
+                        index = 0;
+                        indexBefore = 0;
+                        console.log(indexBefore + " " + index)             
+
+
+                  
+                    } else {
+
+                        changePhoto(position, data[flightIndex].AllPhotos[position].image_path, numPhotos)
+
+                        index = position;
+                        indexBefore = position;
+                        console.log(indexBefore + " " + index)
+
+                    }
+                }
+            })
+
+        });
+
+        $('#minus25').click(function () {
+            $.ajax({
+                type: 'GET',
+                url: 'http://' + ipConnection + ':9000/videoResults.json',
+                dataType: 'json',
+                success: function (data) {
+                    numPhotos = data[flightIndex].AllPhotos.length;                   
+
+                    var pointer = 25;
+
+                    var position = index - pointer;
+
+                    //tener en cuenta los que tienen resto igual a 0 ya que habría que sumarles uno
+
+                    if (position <=  0) {
+
+                        changePhoto(0, data[flightIndex].AllPhotos[0].image_path, numPhotos)  
+                        index = 0;
+                        indexBefore = 0;
+                        console.log(indexBefore + " " + index)             
+
+
+                  
+                    } else {
+
+                        changePhoto(position, data[flightIndex].AllPhotos[position].image_path, numPhotos)
+
+                        index = position;
+                        indexBefore = position;
+                        console.log(indexBefore + " " + index)
+
+                    }
+                }
+            })
+
+        });
+
+        $('#minus50').click(function () {
+            $.ajax({
+                type: 'GET',
+                url: 'http://' + ipConnection + ':9000/videoResults.json',
+                dataType: 'json',
+                success: function (data) {
+                    numPhotos = data[flightIndex].AllPhotos.length;                   
+
+                    var pointer = 50;
+
+                    var position = index - pointer;
+
+                    //tener en cuenta los que tienen resto igual a 0 ya que habría que sumarles uno
+
+                    if (position <=  0) {
+
+                        changePhoto(0, data[flightIndex].AllPhotos[0].image_path, numPhotos)  
+                        index = 0;
+                        indexBefore = 0;
+                        console.log(indexBefore + " " + index)             
+
+
+                  
+                    } else {
+
+                        changePhoto(position, data[flightIndex].AllPhotos[position].image_path, numPhotos)
+
+                        index = position;
+                        indexBefore = position;
+                        console.log(indexBefore + " " + index)
+
+                    }
+                }
+            })
+
+        });
+
+
+
+    })
+
+    function changePhoto(num, img, datalength) {
+
+        $('#image').prop('src', img);
+        $("#label").empty()
+        if(datalength == num){
+            $("#label").append(num + "/" + datalength);
+        }else{
+            $("#label").append(num + 1 + "/" + datalength);
+        }
+
+
+    }
+
+
+
+    function goToHistory() {
+      window.location = '/history';
+    }
+
+
+
+
+
+    function themeSwitcher() {
+        var isDefaultTheme = theme === 'DEFAULT';
+        if (isDefaultTheme) {
+            theme = 'HIGH_CONTRAST';
+
+            $('body').addClass('HIGH_CONTRAST');
+            $('#header').css('background-image', 'none');
+            $('#theme_switcher').text('Light theme')
+            return;
+        }
+        if (!isDefaultTheme) {
+            theme = 'DEFAULT';
+
+            $('body').removeClass('HIGH_CONTRAST');
+            $('#header').css('background-image', 'url("../images/FundationHemavLogo.png")');
+            $('#theme_switcher').text('Dark theme')
+
+            return;
+        }
+    }
+
+</script>
+
+</body>
+
+</html>

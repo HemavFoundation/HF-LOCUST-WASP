@@ -47,7 +47,19 @@ app.get('/history', (req, res) => {
     res.sendFile(path.join(___dirname + '/public/results/History.html'));
 });
 
+app.get('/locustFinder', (req, res) => {
+    res.sendFile(path.join(___dirname + '/public/results/locustFinder.html'));
+});
+
+app.get('/1.jpeg', (req, res) => {
+    res.sendFile(path.join(___dirname + '/public/results/photos/Test Flight/raw_images/1.jpeg'));
+});
+
 app.get('/results.json', (req, res) => {
+    res.sendFile(path.join(___dirname + '/results.json'));
+});
+
+app.get('/videoResults.json', (req, res) => {
     res.sendFile(path.join(___dirname + '/results.json'));
 });
 
