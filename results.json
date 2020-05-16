@@ -10,13 +10,7 @@
                     0.0,
                     0.0
                 ],
-                "image_path": "/results/photos/2020_2_24-15_22/ndvi_images/1.jpeg",
-                "camera_settings": [
-                    0.9,
-                    2.2,
-                    "auto",
-                    30
-                ]
+                "image_path": "/results/photos/2020_2_24-15_22/ndvi_images/1.jpeg"
             },
             {
                 "image_id": 2,
@@ -25,13 +19,7 @@
                     0.0,
                     0.0
                 ],
-                "image_path": "/results/photos/2020_2_24-15_22/ndvi_images/2.jpeg",
-                "camera_settings": [
-                    0.9,
-                    2.2,
-                    "auto",
-                    30
-                ]
+                "image_path": "/results/photos/2020_2_24-15_22/ndvi_images/2.jpeg"
             },
             {
                 "image_id": 3,
@@ -40,16 +28,10 @@
                     0.0,
                     0.0
                 ],
-                "image_path": "/results/photos/2020_2_24-15_22/ndvi_images/3.jpeg",
-                "camera_settings": [
-                    0.9,
-                    2.2,
-                    "auto",
-                    30
-                ]
+                "image_path": "/results/photos/2020_2_24-15_22/ndvi_images/3.jpeg"
             }
         ],
-        "AllPhotos": [
+        "VisualImages": [
             {
                 "image_id": 1,
                 "image_path": "/results/photos/2020_2_24-15_22/display_photos/1.jpeg"
