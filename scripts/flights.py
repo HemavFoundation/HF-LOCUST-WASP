@@ -238,3 +238,56 @@ def ZigZagMission(latWind, lonWind, headingWind, distance, periodDistance, width
     cmds.upload()
 
     return cmds
+
+def ZigZagMissionInversed(latWind, lonWind, headingWind, distance, periodDistance, width, height, latFlight, lonFlight, headingFlight, cmds):
+
+    firstpoint = pointRadialDistance(latFlight, lonFlight, headingFlight, distance)
+
+    takeoff(cmds, height)
+    print("Taken off, initialazing mission")
+
+    # straight line to first point
+    cmds.add(Command(0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, latWind, lonWind, height))
+    cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, firstpoint.lat, firstpoint.lon, height))
+    print("Arrived at first point, initializing come-back")
+
+    # then start zig-zag but inversed way
+    finalpoint = LocationGlobal(latFlight, lonFlight, 0)
+    headingFlight = -headingFlight
+    alpha = rad2deg(math.atan(periodDistance/(2*width)))
+    print("Angle of diagonal: ", alpha)
+    diagonalDist = math.hypot((periodDistance/2),width)
+    print("Length of the diagonal:", diagonalDist)
+
+    firstlocation = pointRadialDistance(firstpoint.lat,firstpoint.lon,(headingFlight+90-alpha),(diagonalDist/2))
+    #second location
+    lastlocation = pointRadialDistance(firstlocation.lat,firstlocation.lon,(headingFlight-90+alpha),diagonalDist)
+    
+    cmds.add(Command(0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, firstlocation.lat, firstlocation.lon, height))
+    cmds.add(Command(0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, lastlocation.lat, lastlocation.lon, height))
+
+    x = (periodDistance/4)+(periodDistance/2) #lo que hemos recorrido ya
+    while x<distance:
+        nextlocation = pointRadialDistance(lastlocation.lat,lastlocation.lon,(headingFlight+90-alpha),diagonalDist)
+        cmds.add(Command(0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, nextlocation.lat, nextlocation.lon, height))
+        print(nextlocation.lat,nextlocation.lon)
+
+        nextnextlocation = pointRadialDistance(nextlocation.lat,nextlocation.lon,(headingFlight-90+alpha),diagonalDist)
+        cmds.add(Command(0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, nextnextlocation.lat, nextnextlocation.lon, height))
+        print(nextnextlocation.lat,nextnextlocation.lon)
+
+        lastlocation.lat = nextnextlocation.lat
+        lastlocation.lon = nextnextlocation.lon
+        
+        x=x+periodDistance
+
+    # start landing
+    cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_DO_LAND_START, 0, 0, 0, 0, 0, 0, latFlight, lonFlight, height))
+    cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, latFlight, lonFlight, height))
+    cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_LOITER_TO_ALT, 0, 0, 0, 0, 0, 0, latFlight, lonFlight, 50))
+
+    landing(latWind,lonWind,headingWind,cmds)
+
+    cmds.upload()
+
+    return cmds

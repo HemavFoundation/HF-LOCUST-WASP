@@ -62,26 +62,34 @@
 
       <div id="flypathtab" class="tabcontent" ;>
         <p>
-          <div id="rectwidthparameter">
-            Rectangle width: <input id="rectwidthtext" type="number" value="500" onchange="computeMaxDistance()">meters
-          </div>
+        <div id="rectwidthparameter">
+          Rectangle width: <input id="rectwidthtext" type="number" value="500" onchange="computeMaxDistance()"> meters
           <br>
-          <div id="zigwidthparameter">
-            Width beetwen peaks: <input id="rectwidthtext" type="number" value="500"
-              onchange="computeMaxDistance()">meters
-          </div>
-          <br>
-          <div id="distanceparameter">
-            Distance: <input id="distancetext" type="number" value=""> meters
-          </div>
-          <br>
-          <div id="maxdistanceparameter">
-            Maximum distance: <label id="maxdistancetext" value="500" onchange="computeMaxDistance()"
-              type="number"></label> meters
-          </div>
-          <div id="periscope">
-            Mision description
-          </div>
+        </div>
+        <br>
+        <div id="zigwidthparameter">
+          Width beetwen peaks: <input id="rectwidthtext" type="number" value="500"
+            onchange="computeMaxDistance()">meters
+        </div>
+        <br>
+        <div id="inversedParameter">
+          Inversed mission: <select id="inversed">
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+          </select>
+        </div>
+        <br>
+        <div id="distanceparameter">
+          Distance: <input id="distancetext" type="number" value=""> meters
+        </div>
+        <br>
+        <div id="maxdistanceparameter">
+          Maximum distance: <label id="maxdistancetext" value="500" onchange="computeMaxDistance()"
+            type="number"></label> meters
+        </div>
+        <div id="periscope">
+          Mision description
+        </div>
 
 
         </p>
@@ -148,6 +156,8 @@
 
     var ipConnection = 'localhost';
     var missiontype = 0;
+    var inversed;
+
 
     function openTab(evt, id) {
       var i, tabcontent, tablinks;
@@ -243,6 +253,7 @@
 
     $("#RectangleButton").click(function () {
       $("#rectwidthparameter").show();
+      $("#inversedParameter").show();
       $("#distanceparameter").show();
       $("#maxdistanceparameter").show();
       $("#periscope").hide();
@@ -257,6 +268,8 @@
       $("#rectwidthparameter").hide();
       $("#zigwidthparameter").hide();
       $("#periscope").hide();
+      $("#inversedParameter").hide();
+
 
 
       missiontype = 2;
@@ -265,6 +278,7 @@
 
     $("#ZigzagButton").click(function () {
       $("#zigwidthparameter").show();
+      $("#inversedParameter").show();
       $("#distanceparameter").show();
       $("#maxdistanceparameter").show();
       $("#rectwidthparameter").hide();
@@ -278,6 +292,7 @@
       $("#distanceparameter").hide();
       $("#maxdistanceparameter").hide();
       $("#periscope").show();
+      $("#inversedParameter").hide();
       missiontype = 4;
     });
 
@@ -315,7 +330,7 @@
             document.getElementById('directionDroneConnectedH4').hidden = false
             document.getElementById('directionDroneImg').src = "../images/tick.png";
             document.getElementById('uploadbut').disabled = false;
-            
+
           },
           error: function (data, textStatus, xhr) {
             document.getElementById('directionDroneImg').src = "../images/cross.png";
@@ -344,6 +359,8 @@
           var spaceBetweenLines = parseFloat(document.getElementById("Ltext").value);
           var height = parseFloat(document.getElementById("htext").value);
           var width = parseFloat(document.getElementById("rectwidthtext").value);
+
+          console.log(inversed)
 
           if (distance < maxDistance) {
             switch (missiontype) {

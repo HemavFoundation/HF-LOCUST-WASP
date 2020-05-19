@@ -43,13 +43,23 @@ latWind = vehicle.location.global_frame.lat #recogemos la latitud actual del dro
 lonWind = vehicle.location.global_frame.lon #recogemos la longitud actual del drone
 headingWind = vehicle.heading #recogemos el heading actual del drone
 
-cmds_Linea = ZigZagMission(latWind,lonWind,headingWind,distance,periodDistance,width,height,latFlight,lonFlight,headingFlight,cmds)
+if inverse == False:
+    cmds = ZigZagMission(latWind,lonWind,headingWind,distance,periodDistance,width,height,latFlight,lonFlight,headingFlight,cmds)
+else:
+    cmds = ZigZagMissionInversed(latWind, lonWind, headingWind, distance, periodDistance, width, height, latFlight, lonFlight, headingFlight, cmds)
+
 
 print("New commands uploaded")
 
-save_mission('./ZigZag.waypoints',cmds_Linea)
-print("Saved")
+typeOfMission = "zigzag"
 
+
+if connectionString == "local":
+    save_mission('./hola.waypoints', cmds)
+
+# Close vehicle object before exiting script
 vehicle.close()
+
+# Shut down simulator
 if sitl is not None:
     sitl.stop()

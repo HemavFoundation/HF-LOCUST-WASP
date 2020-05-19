@@ -58,6 +58,9 @@ cmds = periscopeMission(latWind, lonWind, headingWind, height, latFlight, lonFli
 
 print(" Upload new commands to vehicle")
 
+typeOfMission = "straight"
+
+
 if connectionString == "local":
     save_mission('./hola.waypoints', cmds)
 

@@ -58,6 +58,8 @@ cmds_final = straightMission(latWind, lonWind, headingWind, distance, height, la
 
 print(" Upload new commands to vehicle")
 
+typeOfMission = "straight"
+
 if connectionString == "local":
     save_mission('./hola.waypoints', cmds_final)
 
