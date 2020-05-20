@@ -72,12 +72,13 @@ router.get("/directionOfFlight", (req, res) => {
   });
 });
 
-router.post("/rectangleMission/:distance/:w/:x/:L/:h", (req, res) => {
+router.post("/rectangleMission/:distance/:w/:x/:L/:h/:i", (req, res) => {
   const distance = req.params.distance;
   const width = req.params.w;
   const spaceDistance = req.params.x;
   const spaceBtwLines = req.params.L;
   const height = req.params.h;
+  const inversed = req.params.i
 
   let options;
 
@@ -93,9 +94,11 @@ router.post("/rectangleMission/:distance/:w/:x/:L/:h", (req, res) => {
         spaceDistance,
         spaceBtwLines,
         height,
+        inversed,
         latFlight,
         lonFlight,
         headingFlight
+        
       ]
     };
   } else if (environment === "win") {
@@ -109,6 +112,7 @@ router.post("/rectangleMission/:distance/:w/:x/:L/:h", (req, res) => {
         spaceDistance,
         spaceBtwLines,
         height,
+        inversed,
         latFlight,
         lonFlight,
         headingFlight
@@ -126,6 +130,7 @@ router.post("/rectangleMission/:distance/:w/:x/:L/:h", (req, res) => {
         spaceDistance,
         spaceBtwLines,
         height,
+        inversed,
         latFlight,
         lonFlight,
         headingFlight
@@ -209,11 +214,12 @@ router.post("/straightMission/:distance/:h", (req, res) => {
   });
 });
 
-router.post("/ZigZagMission/:distance/:w/:L/:h", (req, res) => {
+router.post("/ZigZagMission/:distance/:w/:L/:h/:i", (req, res) => {
   const distance = req.params.distance;
   const width = req.params.w;
   const spaceBtwPeaks = req.params.L;
   const height = req.params.h;
+  const inversed = req.params.i;
 
   let options;
 
@@ -228,9 +234,11 @@ router.post("/ZigZagMission/:distance/:w/:L/:h", (req, res) => {
         width,
         spaceBtwPeaks,
         height,
+        inversed,
         latFlight,
         lonFlight,
         headingFlight
+        
       ]
     };
   } else if (environment === "win") {
@@ -243,6 +251,7 @@ router.post("/ZigZagMission/:distance/:w/:L/:h", (req, res) => {
         width,
         spaceBtwPeaks,
         height,
+        inversed,
         latFlight,
         lonFlight,
         headingFlight
@@ -259,6 +268,7 @@ router.post("/ZigZagMission/:distance/:w/:L/:h", (req, res) => {
         width,,
         spaceBtwPeaks,
         height,
+        inversed,
         latFlight,
         lonFlight,
         headingFlight

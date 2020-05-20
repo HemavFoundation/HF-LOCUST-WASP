@@ -1,5 +1,5 @@
 from __future__ import print_function
-from math import asin,cos,pi,sin
+from math import asin, cos, pi, sin
 
 #from dronekit import connect, VehicleMode, LocationGlobalRelative, LocationGlobal, Command
 from dronekit import *
@@ -11,13 +11,15 @@ from config import *
 from flights import *
 import sys
 
-if connectionString != "local":
-    distance = float(sys.argv[1]) / 1000
-    widthRectangle = float(sys.argv[3]) / 1000
-    spaceDistance = float(sys.argv[2]) / 1000
-    spaceBtwLines = float(sys.argv[4]) / 1000
-    height = int(sys.argv[5])
+distance = float(sys.argv[1]) / 1000
+widthRectangle = float(sys.argv[3]) / 1000
+spaceDistance = float(sys.argv[2]) / 1000
+spaceBtwLines = float(sys.argv[4]) / 1000
+height = int(sys.argv[5])
 
+
+if connectionString != "local":
+    
     connection_string = "/dev/ttyS0"
     latFlight = int(sys.argv[6])
     lonFlight = int(sys.argv[7])
@@ -31,14 +33,14 @@ else:
     height = 120
 
 
-#Start SITL if no connection string specified
+# Start SITL if no connection string specified
 if not connection_string:
     import dronekit_sitl
     sitl = dronekit_sitl.start_default()
     connection_string = sitl.connection_string()
 
 
-# Connect to the Vehicle. 
+# Connect to the Vehicle.
 #   Set `wait_ready=True` to ensure default attributes are populated before `connect()` returns.
 #print("\nConnecting to vehicle on: %s" % connection_string)
 
@@ -54,7 +56,8 @@ latWind = vehicle.location.global_frame.lat
 lonWind = vehicle.location.global_frame.lon
 headingWind = vehicle.heading
 
-cmds = periscopeMission(latWind, lonWind, headingWind, height, latFlight, lonFlight, cmds)
+cmds = periscopeMission(latWind, lonWind, headingWind,
+                        height, latFlight, lonFlight, cmds)
 
 print(" Upload new commands to vehicle")
 
@@ -70,6 +73,4 @@ vehicle.close()
 # Shut down simulator
 if sitl is not None:
     sitl.stop()
-
-
 

@@ -11,24 +11,29 @@ from config import *
 from flights import *
 import sys
 
-if connectionString != "local":
-    distance = float(sys.argv[1]) / 1000
-    widthRectangle = float(sys.argv[3]) / 1000
-    spaceDistance = float(sys.argv[2]) / 1000
-    spaceBtwLines = float(sys.argv[4]) / 1000
-    height = int(sys.argv[5])
+distance = float(sys.argv[1]) / 1000
+widthRectangle = float(sys.argv[2]) / 1000
+spaceDistance = float(sys.argv[3]) / 1000
+spaceBtwLines = float(sys.argv[4]) / 1000
+height = int(sys.argv[5])
 
+if( int(sys.argv[6]) == 1):
+    inverse = True
+else:
+    inverse = False
+
+
+if connectionString != "local":
     connection_string = "/dev/ttyS0"
-    latFlight = int(sys.argv[6])
-    lonFlight = int(sys.argv[7])
-    headingFlight = int(sys.argv[8])
+    latFlight = int(sys.argv[7])
+    lonFlight = int(sys.argv[8])
+    headingFlight = int(sys.argv[9])
 
 else:
     connection_string = None
     latFlight = -35.363261
     lonFlight = 149.165229
     headingFlight = 353
-    height = 120
 
 
 #Start SITL if no connection string specified
@@ -59,6 +64,7 @@ headingWind = vehicle.heading
 if inverse == False:
     cmds = rectangleMission_normal(latWind, lonWind, headingWind, distance, spaceDistance, widthRectangle, spaceBtwLines, height, latFlight, lonFlight, headingFlight, cmds)
 else:
+    print('reversed')
     cmds = rectangleMission_reversed(latWind, lonWind, headingWind, distance, spaceDistance, widthRectangle, spaceBtwLines, height, latFlight, lonFlight, headingFlight, cmds)
 
 

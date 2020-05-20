@@ -144,8 +144,28 @@ def rectangleMission_normal(latWind, lonWind, headingWind, distance, spaceDistan
     return cmds
 
 def straightMission(latWind, lonWind, headingWind, distance, height, latFlight, lonFlight, headingFlight, cmds):
+    
+    finalPoint = pointRadialDistance(latFlight, lonFlight, headingFlight, distance)
 
-""" def periscopeMission(latWind, lonWind, headingWind, height, latFlight, lonFlight, cmds):
+    takeoff(cmds, height)
+    
+    #first point
+    cmds.add(Command(0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, latWind, lonWind, height))
+    cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, finalPoint.lat, finalPoint.lon, height))
+
+
+    cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_DO_LAND_START, 0, 0, 0, 0, 0, 0, latFlight, lonFlight, height))
+    cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, latFlight, lonFlight, height))
+    cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_LOITER_TO_ALT, 0, 0, 0, 0, 0, 0, latFlight, lonFlight, 50))
+
+    landing(latWind,lonWind,headingWind,cmds)    
+    cmds.upload()
+
+    return cmds
+
+
+""" 
+def periscopeMission(latWind, lonWind, headingWind, height, latFlight, lonFlight, cmds):
 
     radius = 0.1 # we need to have the radius variable in km
     wp_number = 6  # we define the number of wp we will have on one loop
@@ -164,7 +184,7 @@ def straightMission(latWind, lonWind, headingWind, distance, height, latFlight, 
         cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, locationLoop.lat, locationLoop.lon, height))
 
         counter_angle += angle_between_wp    
-    
+
     landing(latWind,lonWind,headingWind,cmds)
 
     cmds.upload()
