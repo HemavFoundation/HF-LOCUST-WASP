@@ -28,7 +28,23 @@
         "#fp-zigwidthparameter": "Width beetwen peaks (m):",
         "#fp-distanceparameter": "Distance (m):",
         "#fp-maxdistanceparameter": "Maximum distance (m):",
-        "#fp-periscope-desc": "Mission description"
+        "#fp-periscope-desc": "Mission description",
+        "#h-history-title": "History",
+        "#h-flight-title": "Flight Results",
+        "#h-hour": "Hour",
+        "#h-typeofmission": "Type Of Mission",
+        "#h-flightinfo": "Flight Info",
+        "#h-go": "GO!",
+        "#h-plague": "Plague Inspector",
+        "#h-id": "ID",
+        "#h-greenveg": "Green Vegetation (%)",
+        "#h-long": "Longitude",
+        "#h-lat": "Latitude",
+        "#h-image": "Image",
+        "#h-clear": "Clear",
+        "#h-goPlanner": "Go to Flight Planner",
+        "#LF-title": "Locust Finder",
+        "#LF-GoBack": "Go back"
 
       },
       "ar": {
@@ -55,7 +71,23 @@
         "#fp-zigwidthparameter": "عرض قمم بين (m):",
         "#fp-distanceparameter": "مسافة (m):",
         "#fp-maxdistanceparameter": "المسافة القصوى(m):",
-        "#fp-periscope-desc": "Mission description"
+        "#fp-periscope-desc": "Mission description",
+        "#h-history-title": "wefw",
+        "#h-flight-title": "Flight Results",
+        "#h-hour": "Hour",
+        "#h-typeofmission": "Type Of Mission",
+        "#h-flightinfo": "Flight Info",
+        "#h-go": "GO!",
+        "#h-plague": "Plague Inspector",
+        "#h-id": "ID",
+        "#h-greenveg": "Green Vegetation (%)",
+        "#h-long": "Longitude",
+        "#h-lat": "Latitude",
+        "#h-image": "Image",
+        "#h-clear": "Clear",
+        "#h-goPlanner": "Go to Flight Planner",
+        "#LF-title": "Locust Finder",
+        "#LF-GoBack": "Go back"
 
 
       }

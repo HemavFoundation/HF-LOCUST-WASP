@@ -331,8 +331,9 @@
 
     $(document).ready(function () {
 
-      $('#theme_switcher').on('click', themeSwitcher);
       $.MultiLanguage('/language.json', 'en')
+
+      $('#theme_switcher').on('click', themeSwitcher);
       $("#droneConnectButton").click(function () {
         document.getElementById('droneConnectImg').src = "../images/waiting.png";
         $.ajax({

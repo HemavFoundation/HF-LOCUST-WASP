@@ -59,6 +59,14 @@ app.get('/language.json', (req, res) => {
     res.sendFile(path.join(___dirname + '/language.json'));
 });
 
+app.get('/history-language.json', (req, res) => {
+    res.sendFile(path.join(___dirname + '/history-language.json'));
+});
+
+app.get('/locustFinder-language.json', (req, res) => {
+    res.sendFile(path.join(___dirname + '/locustFinder-language.json'));
+});
+
 app.get('/results.json', (req, res) => {
     res.sendFile(path.join(___dirname + '/results.json'));
 });
