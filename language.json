@@ -23,7 +23,13 @@
         "#fp-loadmission-desc": "Place the drone pointing towards the wind and push load mission!",
         "#fp-start": "Start!",
         "#fp-start-desc": "Press start and take off the drone!",
-        "#fp-getresults": "Get results"
+        "#fp-getresults": "Get results",
+        "#fp-rect": "Rectangle width (m):",
+        "#fp-zigwidthparameter": "Width beetwen peaks (m):",
+        "#fp-distanceparameter": "Distance (m):",
+        "#fp-maxdistanceparameter": "Maximum distance (m):",
+        "#fp-periscope-desc": "Mission description"
+
       },
       "ar": {
         "#fp-title": "مخطط الرحلة",
@@ -44,7 +50,13 @@
         "#fp-loadmission-desc": "ضع الطائرة بدون طيار متجهة نحو الرياح ودفع مهمة التحميل",
         "#fp-start": "بداية",
         "#fp-start-desc": "اضغط على زر البداية واخلع الطائرة بدون طيار",
-        "#fp-getresults": "الحصول على النتائج"
+        "#fp-getresults": "الحصول على النتائج",
+        "#fp-rect": "عرض المستطيل (m):",
+        "#fp-zigwidthparameter": "عرض قمم بين (m):",
+        "#fp-distanceparameter": "مسافة (m):",
+        "#fp-maxdistanceparameter": "المسافة القصوى(m):",
+        "#fp-periscope-desc": "Mission description"
+
 
       }
     }

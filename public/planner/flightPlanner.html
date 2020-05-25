@@ -26,61 +26,83 @@
 
     <br><br>
     <div>
-      <button class="square_btn" id="droneConnectButton" style="margin-right:20px"><div id="fp-connect"></div></button>
+      <button class="square_btn" id="droneConnectButton" style="margin-right:20px">
+        <div id="fp-connect"></div>
+      </button>
       <img id="droneConnectImg" src="../images/button.png" height="50" width=50 style="margin-right:20px">
-      <h4 id="droneConnectionH4"><div id="fp-connect-desc-1"></div></h4>
-      <h4 id="droneCoonnectedH4" hidden=true><div id="fp-connect-desc-2"></div></h4>
+      <h4 id="droneConnectionH4">
+        <div id="fp-connect-desc-1"></div>
+      </h4>
+      <h4 id="droneCoonnectedH4" hidden=true>
+        <div id="fp-connect-desc-2"></div>
+      </h4>
     </div>
 
 
     <br><br>
     <div id=droneDirectionDiv>
-      <button class="square_btn" id="directionDroneButton" style="margin-right:20px" disabled="true"><div id="fp-setdirection"></div></button>
+      <button class="square_btn" id="directionDroneButton" style="margin-right:20px" disabled="true">
+        <div id="fp-setdirection"></div>
+      </button>
       <img id="directionDroneImg" src="../images/button.png" height="50" width=50 style="margin-right:20px">
-      <h4 id="directionDroneH4"><div id="fp-setdirection-desc-1"></div></h4>
-      <h4 id="directionDroneConnectedH4" hidden=true><div id="fp-setdirection-desc-2"></div></h4>
+      <h4 id="directionDroneH4">
+        <div id="fp-setdirection-desc-1"></div>
+      </h4>
+      <h4 id="directionDroneConnectedH4" hidden=true>
+        <div id="fp-setdirection-desc-2"></div>
+      </h4>
     </div>
     <br><br>
     <div>
-      <h3 style="border: 1.5px solid white;padding: 10px 10px; text-align: center; background-color:#8a1a2d" ;><div id="fp-selectyourfp"></div></h3>
+      <h3 style="border: 1.5px solid white;padding: 10px 10px; text-align: center; background-color:#8a1a2d" ;>
+        <div id="fp-selectyourfp"></div>
+      </h3>
       <br>
     </div>
     <div id=droneSettingTabDiv>
       <br>
       <div class="tab">
-        <a button class="tablinks" id="RectangleButton" onclick="openTab(event, 'flypathtab')"><div id="fp-rectangle"></div></button></a>
+        <a button class="tablinks" id="RectangleButton" onclick="openTab(event, 'flypathtab')">
+          <div id="fp-rectangle"></div></button>
+        </a>
         <br>
-        <a button class="tablinks" id="StraightlineButton" onclick="openTab(event, 'flypathtab')"><div id="fp-straight"></div></button></a>
+        <a button class="tablinks" id="StraightlineButton" onclick="openTab(event, 'flypathtab')">
+          <div id="fp-straight"></div></button>
+        </a>
         <br>
-        <a button class="tablinks" id="ZigzagButton" onclick="openTab(event, 'flypathtab')"><div id="fp-zigzag"></div></button></a>
+        <a button class="tablinks" id="ZigzagButton" onclick="openTab(event, 'flypathtab')">
+          <div id="fp-zigzag"></div></button>
+        </a>
         <br>
-        <a button class="tablinks" id="PeriscopeButton" onclick="openTab(event, 'flypathtab')"><div id="fp-periscope"></div></button></a>
+        <a button class="tablinks" id="PeriscopeButton" onclick="openTab(event, 'flypathtab')">
+          <div id="fp-periscope"></div></button>
+        </a>
         <br>
 
       </div>
 
       <div id="flypathtab" class="tabcontent" ;>
         <p>
-          <div id="rectwidthparameter">
-            Rectangle width: <input id="rectwidthtext" type="number" value="500" onchange="computeMaxDistance()">meters
-          </div>
-          <br>
-          <div id="zigwidthparameter">
-            Width beetwen peaks: <input id="rectwidthtext" type="number" value="500"
-              onchange="computeMaxDistance()">meters
-          </div>
-          <br>
-          <div id="distanceparameter">
-            Distance: <input id="distancetext" type="number" value=""> meters
-          </div>
-          <br>
-          <div id="maxdistanceparameter">
-            Maximum distance: <label id="maxdistancetext" value="500" onchange="computeMaxDistance()"
-              type="number"></label> meters
-          </div>
-          <div id="periscope">
-            Mision description
-          </div>
+        <div id="rectwidthparameter">
+          <p id="fp-rect"></p><input id="rectwidthtext" type="number" value="500" onchange="computeMaxDistance()">
+        </div>
+        <br>
+        <div id="zigwidthparameter">
+          <p id="fp-zigwidthparameter"></p><input id="rectwidthtext" type="number" value="500"
+            onchange="computeMaxDistance()">meters
+        </div>
+        <br>
+        <div id="distanceparameter">
+          <p id="fp-distanceparameter"></p><input id="distancetext" type="number" value=""> meters
+        </div>
+        <br>
+        <div id="maxdistanceparameter">
+          <p id="fp-maxdistanceparameter"></p><label id="maxdistancetext" value="500" onchange="computeMaxDistance()"
+            type="number"></label> meters
+        </div>
+        <div id="periscope">
+          <p id="fp-periscope-desc">
+        </div>
 
 
         </p>
@@ -90,7 +112,9 @@
         <h3 id="fp-selectforeachmission">
         </h3>
         <br>
-        <a button class="tablinks" onclick="openTab(event, 'parameterstab')"><div id="fp-otherparameters"></div></button></a>
+        <a button class="tablinks" onclick="openTab(event, 'parameterstab')">
+          <div id="fp-otherparameters"></div></button>
+        </a>
       </div>
       <div id="parameterstab" class="tabcontent">
         <p>
@@ -107,7 +131,9 @@
           <br><br>
           <div id="fp-loadmission-desc"></div>
           <br>
-          <button class="square_btn" id="uploadbut" disabled="true"><div id="fp-loadmission"></div></button>
+          <button class="square_btn" id="uploadbut" disabled="true">
+            <div id="fp-loadmission"></div>
+          </button>
 
           <img id="photoupload" src="../images/button.png" height="30" width=30 style="margin:10px 0px -10px 10px">
         </h3>
@@ -115,10 +141,14 @@
     </div>
     <br><br>
     <div id=droneStartDiv>
-      <button class="square_btn" id="droneStartButton" style="margin-right:20px" disabled="true"><div id="fp-start"></div></button>
+      <button class="square_btn" id="droneStartButton" style="margin-right:20px" disabled="true">
+        <div id="fp-start"></div>
+      </button>
       <img id="photostart" src="../images/button.png" height="50" width=50 style="margin-right:20px">
       <img id="photoplane" src="../images/plane.png" height="50" width=50 style="visibility:hidden; margin-right:20px">
-      <h4 id="directionDroneH4"><div id="fp-start-desc"></div></h4>
+      <h4 id="directionDroneH4">
+        <div id="fp-start-desc"></div>
+      </h4>
     </div>
   </div>
   <div id="timerDiv">
@@ -134,7 +164,9 @@
 
   <br><br><br>
   <button class="square_btn" id="getresultsbut">
-    <a href="../results/History.html"><div id="fp-getresults"></div></a>
+    <a href="../results/History.html">
+      <div id="fp-getresults"></div>
+    </a>
 
   </button>
   <br>
@@ -143,8 +175,8 @@
 
 
   <select onchange="languageSelector();" id="languageSelector" class="language">
-    <option value="en" >English</option>
-    <option value="ar" >عرب</option>
+    <option value="en">English</option>
+    <option value="ar">عرب</option>
   </select>
   <script>
 
@@ -289,6 +321,7 @@
 
     $("#PeriscopeButton").click(function () {
       $("#rectwidthparameter").hide();
+      $("#zigwidthparameter").hide();
       $("#distanceparameter").hide();
       $("#maxdistanceparameter").hide();
       $("#periscope").show();
