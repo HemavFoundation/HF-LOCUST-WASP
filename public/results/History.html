@@ -2,11 +2,13 @@
 
 <html lang="en">
 
-<head>
-  <meta charset="utf-8">
-  <link rel="stylesheet" href="../css/style.css">
-  <title>Flight Planner</title>
-</head>
+  <head>
+    <meta charset="utf-8">
+    <script src="../js/jquery.js"></script>
+    <script src="../js/jquery.MultiLanguage.min.js"></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <title>Flight Planner</title>
+  </head>
 
 
 <body id="page">
@@ -15,20 +17,17 @@
     </div>
   </div>
 
-  <script src="/jquery.js"></script>
-  <!-- <script src="GetResults.js"></script>
-  <script src="ThisResult.js"></script> -->
   <button id="theme_switcher">Dark theme</button>
-  <h2><a>History</a></h2>
+  <h2 id="h-history-title"></h2>
   <br><br>
   <hr />
   <div id="dvTable">
     <table id="tablacompleta" class="table table-striped">
       <thead>
         <tr>
-          <th>Hour</th>
-          <th>Type of Mission</th>
-          <th>Flight Info</th>
+          <th id = "h-hour"></th>
+          <th id = "h-typeofmission"></th>
+          <th id = "h-flightinfo"></th>
         </tr>
       </thead>
       <tbody id="historyTable">
@@ -37,17 +36,18 @@
   </div>
 
   <br><br><br>
-  <h2><a>Flight Results</a></h2>
+  <h2 id="h-flight-title"></h2>
+
   <br><br>
   <div id="rsTable">
     <table id="completeTableResults" class="table table-striped">
       <thead>
         <tr>
-          <th>ID</th>
-          <th>% green vegetation</th>
-          <th>Longitude</th>
-          <th>Latitude</th>
-          <th>Image</th>
+          <th id = "h-id"></th>
+          <th id = "h-greenveg"></th>
+          <th id = "h-long"></th>
+          <th id = "h-lat"></th>
+          <th id = "h-image"></th>
 
         </tr>
       </thead>
@@ -58,11 +58,18 @@
   </div>
 
   <br><br>
-  <button class="square_btn" onclick="window.location='/History'" target="_new">Clear</button>
-  <button class="square_btn" onclick="window.location='/planner'" target="_new">Go to Flight Planner</button>
+  <button class="square_btn" onclick="window.location='/History'" target="_new"><div id="h-clear"></div></button>
+  <button class="square_btn" onclick="window.location='/planner'" target="_new"><div id="h-goPlanner"></div></button>
+
+  <select onchange="languageSelector();" id="languageSelector" class="language">
+    <option value="en">English</option>
+    <option value="ar">عرب</option>
+  </select>
+
   <script>
     $(document).ready(function () {
       var theme = 'DEFAULT'
+      $.MultiLanguage('/history-language.json', 'en')
       var ipConnection = 'localhost'
       fillHistoryTable(ipConnection);
       $('#theme_switcher').on('click', themeSwitcher);
@@ -79,7 +86,7 @@
         dataType: 'json',
         success: function (data) {
           $.each(data, function (index, datos) {
-            $("#historyTable").append("<tr><td>" + datos.id + "</td><td>"+ datos.typeOfFlight +"</td><td><button id='" + index + "' type='button' class='square_btn' onclick='fillResultsTable(" + index + ")'>GO!</button><button id='" + index + "' type='button' class='square_btn' onclick='goToLocustFinder(" + index + ")'>Plague inspector</button></td></tr>");
+            $("#historyTable").append("<tr><td>" + datos.id + "</td><td>" + datos.typeOfFlight + "</td><td><button id='" + index + "' type='button' class='square_btn' onclick='fillResultsTable(" + index + ")'>GO!</button><button id='" + index + "' type='button' class='square_btn' onclick='goToLocustFinder(" + index + ")'>Plague inspector</button></td></tr>");
 
           });
         }
@@ -104,6 +111,14 @@
         }
       })
 
+
+    }
+
+    function languageSelector() {
+
+      var x = document.getElementById("languageSelector").value;
+      console.log(x)
+      $.MultiLanguage('/history-language.json', x)
 
     }
 

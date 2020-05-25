@@ -1,0 +1,17 @@
+
+{
+    "config": {
+      "default": "en"
+    },
+    "language": {
+      "en": {
+        "#LF-title": "Locust Finder",
+        "#LF-GoBack": "Go back"
+      },
+      "ar": {
+
+        "#LF-title": "مكتشف الجراد",
+        "#LF-GoBack": "عد"
+      }
+    }
+  }
