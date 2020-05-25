@@ -86,7 +86,7 @@
                 dataType: 'json',
                 success: function (json) {
                     console.log(json)
-                    changePhoto(0, json[flightIndex].AllPhotos[0].image_path, json[flightIndex].AllPhotos.length)
+                    changePhoto(0, json[flightIndex].VisualImages[0].image_path, json[flightIndex].VisualImages.length)
                 }
             })
 
@@ -101,7 +101,7 @@
                     url: 'http://' + ipConnection + ':9000/videoResults.json',
                     dataType: 'json',
                     success: function (data) {
-                        numPhotos = data[flightIndex].AllPhotos.length;
+                        numPhotos = data[flightIndex].VisualImages.length;
 
                         var pointer = 50;
 
@@ -111,7 +111,7 @@
 
                         if (position >= numPhotos) {
 
-                            changePhoto(numPhotos, data[flightIndex].AllPhotos[numPhotos - 1].image_path, numPhotos)
+                            changePhoto(numPhotos, data[flightIndex].VisualImages[numPhotos - 1].image_path, numPhotos)
                             index = numPhotos;
                             indexBefore = numPhotos;
                             console.log(indexBefore + " " + index)
@@ -121,7 +121,7 @@
 
                         } else {
 
-                            changePhoto(position, data[flightIndex].AllPhotos[position].image_path, numPhotos)
+                            changePhoto(position, data[flightIndex].VisualImages[position].image_path, numPhotos)
 
                             index = position;
                             indexBefore = position;
@@ -139,7 +139,7 @@
                     url: 'http://' + ipConnection + ':9000/videoResults.json',
                     dataType: 'json',
                     success: function (data) {
-                        numPhotos = data[flightIndex].AllPhotos.length;
+                        numPhotos = data[flightIndex].VisualImages.length;
 
                         var pointer = 25;
 
@@ -149,7 +149,7 @@
 
                         if (position >= numPhotos) {
 
-                            changePhoto(numPhotos, data[flightIndex].AllPhotos[numPhotos - 1].image_path, numPhotos)
+                            changePhoto(numPhotos, data[flightIndex].VisualImages[numPhotos - 1].image_path, numPhotos)
                             index = numPhotos;
                             indexBefore = numPhotos;
                             console.log(indexBefore + " " + index)
@@ -159,7 +159,7 @@
 
                         } else {
 
-                            changePhoto(position, data[flightIndex].AllPhotos[position].image_path, numPhotos)
+                            changePhoto(position, data[flightIndex].VisualImages[position].image_path, numPhotos)
 
                             index = position;
                             indexBefore = position;
@@ -177,7 +177,7 @@
                     url: 'http://' + ipConnection + ':9000/videoResults.json',
                     dataType: 'json',
                     success: function (data) {
-                        numPhotos = data[flightIndex].AllPhotos.length;
+                        numPhotos = data[flightIndex].VisualImages.length;
 
                         var pointer = 5;
 
@@ -187,7 +187,7 @@
 
                         if (position >= numPhotos) {
 
-                            changePhoto(numPhotos, data[flightIndex].AllPhotos[numPhotos - 1].image_path, numPhotos)
+                            changePhoto(numPhotos, data[flightIndex].VisualImages[numPhotos - 1].image_path, numPhotos)
                             index = numPhotos;
                             indexBefore = numPhotos;
                             console.log(indexBefore + " " + index)
@@ -197,7 +197,7 @@
 
                         } else {
 
-                            changePhoto(position, data[flightIndex].AllPhotos[position].image_path, numPhotos)
+                            changePhoto(position, data[flightIndex].VisualImages[position].image_path, numPhotos)
 
                             index = position;
                             indexBefore = position;
@@ -215,7 +215,7 @@
                     url: 'http://' + ipConnection + ':9000/videoResults.json',
                     dataType: 'json',
                     success: function (data) {
-                        numPhotos = data[flightIndex].AllPhotos.length;
+                        numPhotos = data[flightIndex].VisualImages.length;
 
                         var pointer = 1;
 
@@ -225,7 +225,7 @@
 
                         if (position >= numPhotos) {
 
-                            changePhoto(numPhotos, data[flightIndex].AllPhotos[numPhotos - 1].image_path, numPhotos)
+                            changePhoto(numPhotos, data[flightIndex].VisualImages[numPhotos - 1].image_path, numPhotos)
                             index = numPhotos;
                             indexBefore = numPhotos;
                             console.log(indexBefore + " " + index)
@@ -234,7 +234,7 @@
 
                         } else {
 
-                            changePhoto(position, data[flightIndex].AllPhotos[position].image_path, numPhotos)
+                            changePhoto(position, data[flightIndex].VisualImages[position].image_path, numPhotos)
 
                             index = position;
                             indexBefore = position;
@@ -252,7 +252,7 @@
                     url: 'http://' + ipConnection + ':9000/videoResults.json',
                     dataType: 'json',
                     success: function (data) {
-                        numPhotos = data[flightIndex].AllPhotos.length;
+                        numPhotos = data[flightIndex].VisualImages.length;
 
                         var pointer = 1;
 
@@ -262,7 +262,7 @@
 
                         if (position <= 0) {
 
-                            changePhoto(0, data[flightIndex].AllPhotos[0].image_path, numPhotos)
+                            changePhoto(0, data[flightIndex].VisualImages[0].image_path, numPhotos)
                             index = 0;
                             indexBefore = 0;
                             console.log(indexBefore + " " + index)
@@ -271,7 +271,7 @@
 
                         } else {
 
-                            changePhoto(position, data[flightIndex].AllPhotos[position].image_path, numPhotos)
+                            changePhoto(position, data[flightIndex].VisualImages[position].image_path, numPhotos)
 
                             index = position;
                             indexBefore = position;
@@ -289,7 +289,7 @@
                     url: 'http://' + ipConnection + ':9000/videoResults.json',
                     dataType: 'json',
                     success: function (data) {
-                        numPhotos = data[flightIndex].AllPhotos.length;
+                        numPhotos = data[flightIndex].VisualImages.length;
 
                         var pointer = 5;
 
@@ -299,7 +299,7 @@
 
                         if (position <= 0) {
 
-                            changePhoto(0, data[flightIndex].AllPhotos[0].image_path, numPhotos)
+                            changePhoto(0, data[flightIndex].VisualImages[0].image_path, numPhotos)
                             index = 0;
                             indexBefore = 0;
                             console.log(indexBefore + " " + index)
@@ -308,7 +308,7 @@
 
                         } else {
 
-                            changePhoto(position, data[flightIndex].AllPhotos[position].image_path, numPhotos)
+                            changePhoto(position, data[flightIndex].VisualImages[position].image_path, numPhotos)
 
                             index = position;
                             indexBefore = position;
@@ -326,7 +326,7 @@
                     url: 'http://' + ipConnection + ':9000/videoResults.json',
                     dataType: 'json',
                     success: function (data) {
-                        numPhotos = data[flightIndex].AllPhotos.length;
+                        numPhotos = data[flightIndex].VisualImages.length;
 
                         var pointer = 25;
 
@@ -336,7 +336,7 @@
 
                         if (position <= 0) {
 
-                            changePhoto(0, data[flightIndex].AllPhotos[0].image_path, numPhotos)
+                            changePhoto(0, data[flightIndex].VisualImages[0].image_path, numPhotos)
                             index = 0;
                             indexBefore = 0;
                             console.log(indexBefore + " " + index)
@@ -345,7 +345,7 @@
 
                         } else {
 
-                            changePhoto(position, data[flightIndex].AllPhotos[position].image_path, numPhotos)
+                            changePhoto(position, data[flightIndex].VisualImages[position].image_path, numPhotos)
 
                             index = position;
                             indexBefore = position;
@@ -363,7 +363,7 @@
                     url: 'http://' + ipConnection + ':9000/videoResults.json',
                     dataType: 'json',
                     success: function (data) {
-                        numPhotos = data[flightIndex].AllPhotos.length;
+                        numPhotos = data[flightIndex].VisualImages.length;
 
                         var pointer = 50;
 
@@ -373,7 +373,7 @@
 
                         if (position <= 0) {
 
-                            changePhoto(0, data[flightIndex].AllPhotos[0].image_path, numPhotos)
+                            changePhoto(0, data[flightIndex].VisualImages[0].image_path, numPhotos)
                             index = 0;
                             indexBefore = 0;
                             console.log(indexBefore + " " + index)
@@ -382,7 +382,7 @@
 
                         } else {
 
-                            changePhoto(position, data[flightIndex].AllPhotos[position].image_path, numPhotos)
+                            changePhoto(position, data[flightIndex].VisualImages[position].image_path, numPhotos)
 
                             index = position;
                             indexBefore = position;
