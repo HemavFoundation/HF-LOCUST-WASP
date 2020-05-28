@@ -164,7 +164,7 @@ def straightMission(latWind, lonWind, headingWind, distance, height, latFlight, 
     return cmds
 
 
-""" 
+
 def periscopeMission(latWind, lonWind, headingWind, height, latFlight, lonFlight, cmds):
 
     radius = 0.1 # we need to have the radius variable in km
@@ -190,8 +190,8 @@ def periscopeMission(latWind, lonWind, headingWind, height, latFlight, lonFlight
     cmds.upload()
 
     return cmds
- """
-
+ 
+'''
 def periscopeMission(latWind, lonWind, headingWind, height, latFlight, lonFlight, cmds):
 
     radius = 150 # we need to have the radius variable in km
@@ -212,6 +212,7 @@ def periscopeMission(latWind, lonWind, headingWind, height, latFlight, lonFlight
     cmds.upload()
 
     return cmds
+'''
 
 def ZigZagMission(latWind, lonWind, headingWind, distance, periodDistance, width, height, latFlight, lonFlight, headingFlight, cmds):
     
