@@ -63,7 +63,7 @@ cmds.download()
 
 camera_interface = CameraInterface()
 autopilot_interface = AutopilotInterface(vehicle)
-visualcamera_interface = VisualCameraInterface()
+#visualcamera_interface = VisualCameraInterface()
 data_interface = DataManagement()
 
 # we get the home coordinates to introduce them in the intelligent RTL function
@@ -82,7 +82,7 @@ newpath_mono, newpath_visual = main.create_directory()
 flight_data = None
 
 if connectionString != "local":
-    altitudeCondition = 50
+    altitudeCondition = -50
 else:
     altitudeCondition = -50
 
@@ -90,7 +90,11 @@ else:
 previous = time()
 delta_time = 0
 
-if typeOfMission is "straight" or "zigzag" or "rectangle":
+print('type of mission:', typeOfMission)
+
+if typeOfMission in ["straight", "zigzag", "rectangle"]:
+    
+    print('no periscope missions')
     while vehicle.armed is True:
 
         altitude = autopilot_interface.get_altitude()
@@ -104,7 +108,7 @@ if typeOfMission is "straight" or "zigzag" or "rectangle":
             num += 1
 
         if delta_time > 30:  # we want to take images every 30 seconds
-            flight_data = main.main_loop_visual(num_visual, newpath_visual, visualcamera_interface, autopilot_interface, data_interface)
+            #flight_data = main.main_loop_visual(num_visual, newpath_visual, visualcamera_interface, autopilot_interface, data_interface)
             num_visual += 1
 
     if flight_data is not None:
@@ -117,12 +121,13 @@ if typeOfMission is "straight" or "zigzag" or "rectangle":
         print('Empty json')
 
 if typeOfMission is "periscope":
+    print('periscope mission')
     while vehicle.armed is True:
 
         altitude = autopilot_interface.get_altitude()
 
         if altitude >= altitudeCondition:  # on the periscope mission we just one to make as much photos as possible with the visual camera
-            flight_data = main.main_loop_visual(num_visual, newpath_visual, visualcamera_interface, autopilot_interface, data_interface)
+            #flight_data = main.main_loop_visual(num_visual, newpath_visual, visualcamera_interface, autopilot_interface, data_interface)
             num_visual += 1
 
     if flight_data is not None:
@@ -132,7 +137,7 @@ if typeOfMission is "periscope":
         except:
             print('could not write json')
     else:
-        print('could not save the json properly')
+        print('flight data is empty')
         
 # Close vehicle object before exiting script
 vehicle.close()

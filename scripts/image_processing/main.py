@@ -15,7 +15,7 @@ For this reason, we need:
 from image_processing.autopilot_interface import *
 from image_processing.camera_interface import *
 from image_processing.visual_camera_interface import *
-from image.processing.data_management import *
+from image_processing.data_management import *
 from commonFunctions import *
 import numpy as np
 import os
@@ -234,7 +234,7 @@ def main_loop_mono(num, newpath, camera_interface, autopilot_interface, data_int
         image_settings = camera_interface.camera_settings()
 
         path_json = '/results/photos/' + str(timestamp) + '/' + 'ndvi_images' + '/' + str(num) + '.jpeg'
-        flight_info = data_interface.write_json(timestamp, num, percent, data_drone, path_json)
+        flight_info = data_interface.write_json_vegetation(timestamp, num, percent, data_drone, path_json)
 
         print('@@@ image processed @@@')
         return flight_info
