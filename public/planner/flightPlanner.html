@@ -62,19 +62,19 @@
     <div id=droneSettingTabDiv>
       <br>
       <div class="tab">
-        <a button class="tablinks" id="RectangleButton" onclick="openTab(event, 'flypathtab')">
+        <a button class="tablinks" id="RectangleButton" onclick="openTab(event, 'flypathtab')" onclick="computeMaxDistance()">
           <div id="fp-rectangle"></div></button>
         </a>
         <br>
-        <a button class="tablinks" id="StraightlineButton" onclick="openTab(event, 'flypathtab')">
+        <a button class="tablinks" id="StraightlineButton" onclick="openTab(event, 'flypathtab')" onclick="computeMaxDistance()">
           <div id="fp-straight"></div></button>
         </a>
         <br>
-        <a button class="tablinks" id="ZigzagButton" onclick="openTab(event, 'flypathtab')">
+        <a button class="tablinks" id="ZigzagButton" onclick="openTab(event, 'flypathtab')" onclick="computeMaxDistance()">
           <div id="fp-zigzag"></div></button>
         </a>
         <br>
-        <a button class="tablinks" id="PeriscopeButton" onclick="openTab(event, 'flypathtab')">
+        <a button class="tablinks" id="PeriscopeButton" onclick="openTab(event, 'flypathtab')" onclick="computeMaxDistance()">
           <div id="fp-periscope"></div></button>
         </a>
         <br>
@@ -93,7 +93,7 @@
         </div>
         <br>
         <div id="inversedParameter">
-          Inversed mission: <select onchange="inversedSelector();" id="inversed">
+          Inversed mission: <select onchange="inversedSelector();" onchange="computeMaxDistance()" id="inversed">
             <option value="0" selected="selected">Select One</option>
             <option value="1">Yes</option>
             <option value="2">No</option>
@@ -101,13 +101,21 @@
         </div>
         <br>
         <div id="distanceparameter">
-          <p id="fp-distanceparameter"></p><input id="distancetext" type="number" value=""> meters
+          <p id="fp-distanceparameter"></p><input id="distancetext" type="number" value=""
+            onchange="computeMaxDistance()"> meters
         </div>
+
         <br>
         <div id="maxdistanceparameter">
           <p id="fp-maxdistanceparameter"></p><label id="maxdistancetext" value="500" onchange="computeMaxDistance()"
             type="number"></label> meters
         </div>
+        <br>
+        <div id="distanceStraightParameter">
+          <p id="fp-distanceparameter"></p><label id="maxdistanceStraightText" value="500" 
+          type="number">Maximum distance: 30000 meters</label>
+        </div>
+        <br>
         <div id="periscope">
           <p id="fp-periscope-desc">
         </div>
@@ -198,15 +206,19 @@
 
 
     function openTab(evt, id) {
+
       var i, tabcontent, tablinks;
       tabcontent = document.getElementsByClassName("tabcontent");
       for (i = 0; i < tabcontent.length; i++) {
         tabcontent[i].style.display = "none";
+
       }
       tablinks = $('.tablinks')
       console.log()
       for (i = 0; i < tablinks.length; i++) {
         tablinks[i].className = tablinks[i].className.replace(" active", "");
+        computeMaxDistance()
+
       }
 
       $('#' + id).css('display', 'inline-block');
@@ -263,7 +275,7 @@
 
       inversed = parseInt(document.getElementById("inversed").value)
       console.log(inversed)
-    
+
     }
 
     function computeFlightTime() {
@@ -286,15 +298,31 @@
       var d = document.getElementById("rectwidthtext").value;
       var nmax = Math.floor((60000 - parseInt(x)) / (2 * parseInt(l) + parseInt(d)));
       var pmax = nmax * l;
-      if (pmax <= 0) {
-        document.getElementById("maxdistancetext").innerHTML = "0";
-      }
-      else {
-        document.getElementById("maxdistancetext").innerHTML = pmax;
-        console.log(nmax);
+      if (missiontype != 2) {
+        if (pmax <= 0) {
+          document.getElementById("maxdistancetext").innerHTML = "0";
+        }
+        else {
+          document.getElementById("maxdistancetext").innerHTML = pmax;
+          console.log(nmax);
+        }
+      } else {
+
+        var dmax = 30000;
+        var d = dmax - x
+
+        if (d <= dmax) {
+          $('#maxdistancetext').text(d);
+        }
+        else {
+          $('#maxdistancetext').text("0");
+          console.log(nmax);
+        }
+
       }
 
     }
+
 
     function languageSelector() {
 
@@ -307,6 +335,7 @@
     $("#RectangleButton").click(function () {
       $("#rectwidthparameter").show();
       $("#inversedParameter").show();
+      $("#zigwidthparameter").hide();
       $("#distanceparameter").show();
       $("#maxdistanceparameter").show();
       $("#periscope").hide();
@@ -317,7 +346,9 @@
 
     $("#StraightlineButton").click(function () {
       $("#distanceparameter").show();
-      $("#maxdistanceparameter").show();
+      
+      $("#distanceStraightParameter").show();
+      $("#maxdistanceparameter").hide();
       $("#rectwidthparameter").hide();
       $("#zigwidthparameter").hide();
       $("#periscope").hide();
