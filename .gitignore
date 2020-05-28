@@ -3,7 +3,9 @@
 # Edit at https://www.gitignore.io/?templates=node,python,visualstudiocode
 
 ##Images from drone
-public/results/photos
+public/results/monospectral
+public/results/visual_camera
+
 
 ### Node ###
 # Logs
