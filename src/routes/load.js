@@ -288,4 +288,68 @@ router.post("/ZigZagMission/:distance/:w/:L/:h/:i", (req, res) => {
     }
   });
 });
+
+router.post("/periscopeMission/:h", (req, res) => {
+
+  const height = req.params.h;
+
+  let options;
+
+  if (environment === "drone") {
+    options = {
+      mode: "text",
+      pythonPath: "/usr/bin/python3",
+      pythonOptions: ["-u"], // get print results in real-time
+      scriptPath: "./scripts",
+      args: [
+        height,
+        latFlight,
+        lonFlight,
+        headingFlight
+        
+      ]
+    };
+  } else if (environment === "win") {
+    options = {
+      mode: "text",
+      pythonOptions: ["-u"], // get print results in real-time
+      scriptPath: "./scripts",
+      args: [
+        height,
+        latFlight,
+        lonFlight,
+        headingFlight
+      ]
+    };
+  } else {
+    options = {
+      mode: "text",
+      pythonPath: "/usr/local/bin/python",
+      pythonOptions: ["-u"], // get print results in real-time
+      scriptPath: "./scripts",
+      args: [
+        height,
+        latFlight,
+        lonFlight,
+        headingFlight
+      ]
+    };
+  }
+
+  PythonShell.run("periscopeMission.py", options, function (err, results) {
+    if (err) {
+      res
+        .status(400)
+        .send({ message: "ERROR: Fallo el script periscopeMission.py" });
+      console.log(err);
+    } else {
+      console.log(results);
+      res.status(200).send({ message: "Misión cargada correctamente!" });
+    }
+  });
+});
+
+
+
+
 module.exports = router;

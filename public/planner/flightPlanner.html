@@ -108,56 +108,61 @@
           <p id="fp-maxdistanceparameter"></p><label id="maxdistancetext" value="500" onchange="computeMaxDistance()"
             type="number"></label> meters
         </div>
+        <br>
         <div id="periscope">
           <p id="fp-periscope-desc">
         </div>
 
-
-        </p>
-      </div>
-      <br>
-      <div class="otherparameters">
-        <h3 id="fp-selectforeachmission">
-        </h3>
         <br>
-        <a button class="tablinks" onclick="openTab(event, 'parameterstab')">
-          <div id="fp-otherparameters"></div></button>
-        </a>
-      </div>
-      <div id="parameterstab" class="tabcontent">
-        <p>
-          Take off distance = <input id="xtext" type="number" value="500" onchange="computeMaxDistance()"> meters
-          <br><br>
-          Space between lines or between peaks in zig zag = <input id="Ltext" type="number" value="120"
-            onchange="computeMaxDistance()"> meters
-          <br><br>
-          Flight height = <input id="htext" type="number" value="120" onchange="computeMaxDistance()"> meters
-        </p>
-      </div>
-      <div id="LoadMission" ;>
-        <h3>
-          <br><br>
-          <div id="fp-loadmission-desc"></div>
-          <br>
-          <button class="square_btn" id="uploadbut" disabled="true">
-            <div id="fp-loadmission"></div>
-          </button>
 
-          <img id="photoupload" src="../images/button.png" height="30" width=30 style="margin:10px 0px -10px 10px">
-        </h3>
       </div>
+
+
+      </p>
     </div>
-    <br><br>
-    <div id=droneStartDiv>
-      <button class="square_btn" id="droneStartButton" style="margin-right:20px" disabled="true">
-        <div id="fp-start"></div>
-      </button>
-      <img id="photostart" src="../images/button.png" height="50" width=50 style="margin-right:20px">
-      <img id="photoplane" src="../images/plane.png" height="50" width=50 style="visibility:hidden; margin-right:20px">
-      <h4 id="directionDroneH4">
-        <div id="fp-start-desc"></div>
-      </h4>
+    <br>
+    <div class="otherparameters">
+      <h3 id="fp-selectforeachmission">
+      </h3>
+      <br>
+      <a button class="tablinks" onclick="openTab(event, 'parameterstab')">
+        <div id="fp-otherparameters"></div></button>
+      </a>
     </div>
+    <div id="parameterstab" class="tabcontent">
+      <p>
+        Take off distance = <input id="xtext" type="number" value="500" onchange="computeMaxDistance()"> meters
+        <br><br>
+        Space between lines or between peaks in zig zag = <input id="Ltext" type="number" value="120"
+          onchange="computeMaxDistance()"> meters
+        <br><br>
+        Flight height = <input id="htext" type="number" value="120" onchange="computeMaxDistance()"> meters
+      </p>
+    </div>
+    <div id="LoadMission" ;>
+      <h3>
+        <br><br>
+        <div id="fp-loadmission-desc"></div>
+        <br>
+        <button class="square_btn" id="uploadbut" disabled="true">
+          <div id="fp-loadmission"></div>
+        </button>
+
+        <img id="photoupload" src="../images/button.png" height="30" width=30 style="margin:10px 0px -10px 10px">
+      </h3>
+    </div>
+  </div>
+  <br><br>
+  <div id=droneStartDiv>
+    <button class="square_btn" id="droneStartButton" style="margin-right:20px" disabled="true">
+      <div id="fp-start"></div>
+    </button>
+    <img id="photostart" src="../images/button.png" height="50" width=50 style="margin-right:20px">
+    <img id="photoplane" src="../images/plane.png" height="50" width=50 style="visibility:hidden; margin-right:20px">
+    <h4 id="directionDroneH4">
+      <div id="fp-start-desc"></div>
+    </h4>
+  </div>
   </div>
   <div id="timerDiv">
     <h2>
@@ -263,7 +268,7 @@
 
       inversed = parseInt(document.getElementById("inversed").value)
       console.log(inversed)
-    
+
     }
 
     function computeFlightTime() {
@@ -310,6 +315,7 @@
       $("#distanceparameter").show();
       $("#maxdistanceparameter").show();
       $("#periscope").hide();
+      $("#heightParam").hide();
 
       missiontype = 1;
     });
@@ -321,6 +327,7 @@
       $("#rectwidthparameter").hide();
       $("#zigwidthparameter").hide();
       $("#periscope").hide();
+      $("#heightParam").hide();
       $("#inversedParameter").hide();
 
 
@@ -336,16 +343,18 @@
       $("#maxdistanceparameter").show();
       $("#rectwidthparameter").hide();
       $("#periscope").hide();
+      $("#heightParam").hide();
 
       missiontype = 3;
     });
 
     $("#PeriscopeButton").click(function () {
       $("#rectwidthparameter").hide();
+      $("#periscope").show();
       $("#zigwidthparameter").hide();
       $("#distanceparameter").hide();
       $("#maxdistanceparameter").hide();
-      $("#periscope").show();
+      
       $("#inversedParameter").hide();
       missiontype = 4;
     });
@@ -409,7 +418,7 @@
         document.getElementById('photoupload').src = "../images/waiting.png";
         var distanceText = document.getElementById("distancetext").value;
 
-        if (distanceText != "") {
+        if (distanceText != "" || missiontype == 4) {
 
           var distance = parseFloat(distanceText);
           var maxDistance = parseFloat($('#maxdistancetext').text());
@@ -420,7 +429,9 @@
 
           console.log(inversed)
 
-          if (distance < maxDistance) {
+          console.log(distance)
+
+          if (distance < maxDistance || missiontype == 4) {
             switch (missiontype) {
               case 1:
                 $.ajax
@@ -456,6 +467,8 @@
                   })
                 break;
               case 3:
+                console.log("3")
+
                 $.ajax
                   ({
                     type: 'POST',
@@ -472,6 +485,7 @@
                   })
                 break;
               case 4:
+                console.log("4")
                 $.ajax
                   ({
                     type: 'POST',
