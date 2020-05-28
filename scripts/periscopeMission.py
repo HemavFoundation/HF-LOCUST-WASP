@@ -52,8 +52,7 @@ latWind = vehicle.location.global_frame.lat
 lonWind = vehicle.location.global_frame.lon
 headingWind = vehicle.heading
 
-cmds = periscopeMission(latWind, lonWind, headingWind,
-                        height, latFlight, lonFlight, cmds)
+cmds = periscopeMission(latWind, lonWind, headingWind, height, latFlight, lonFlight, cmds)
 
 print(" Upload new commands to vehicle")
 

@@ -233,17 +233,12 @@ def main_loop_mono(num, newpath, camera_interface, autopilot_interface, data_int
 
         image_settings = camera_interface.camera_settings()
 
-        path_json = '/results/photos/' + str(timestamp) + '/' + 'ndvi_images' + '/' + str(num) + '.jpeg'
-        flight_info = data_interface.write_json_vegetation(timestamp, num, percent, data_drone, path_json)
+        flight_info = data_interface.write_json_vegetation(timestamp, num, percent, data_drone, name_ndvi)
 
         print('@@@ image processed @@@')
         return flight_info
 
     else:
-
-        name = newpath + '/' + 'raw_images' + '/' + str(num) + '.jpeg'
-
-        # name = path + '/' + 'ndvi_results' + '/' + 'image' + 'ndvi' + str(percent) + '.jpeg'
 
         cv2.imwrite(name, img)
         return None
