@@ -168,7 +168,7 @@ def straightMission(latWind, lonWind, headingWind, distance, height, latFlight, 
 def periscopeMission(latWind, lonWind, headingWind, height, latFlight, lonFlight, cmds):
 
     radius = 0.1 # we need to have the radius variable in km
-    wp_number = 6  # we define the number of wp we will have on one loop
+    wp_number = 10  # we define the number of wp we will have on one loop
 
     angle_between_wp = round((360 / wp_number), 1)
 
