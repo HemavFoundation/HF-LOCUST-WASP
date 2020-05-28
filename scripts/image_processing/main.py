@@ -232,8 +232,10 @@ def main_loop_mono(num, newpath, camera_interface, autopilot_interface, data_int
         data_drone = autopilot_interface.set_data_drone()
 
         image_settings = camera_interface.camera_settings()
-
-        flight_info = data_interface.write_json_vegetation(timestamp, num, percent, data_drone, name_ndvi)
+        
+        path_ndvi_json = 'monospectral/' + str(timestamp) + '/ndvi_images/' + str(num) + '.jpeg'
+        
+        flight_info = data_interface.write_json_vegetation(timestamp, num, percent, data_drone, path_ndvi_json)
 
         print('@@@ image processed @@@')
         return flight_info
