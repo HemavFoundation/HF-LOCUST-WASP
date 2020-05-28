@@ -13,12 +13,13 @@ import sys
 
 height = int(sys.argv[1])
 
+sitl = None
 
 if connectionString != "local":
     
     connection_string = "/dev/ttyS0"
-    latFlight = int(sys.argv[2])
-    lonFlight = int(sys.argv[3])
+    latFlight = float(sys.argv[2])
+    lonFlight = float(sys.argv[3])
     headingFlight = int(sys.argv[4])
 
 else:

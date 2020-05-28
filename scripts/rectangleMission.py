@@ -17,6 +17,8 @@ spaceDistance = float(sys.argv[3]) / 1000
 spaceBtwLines = float(sys.argv[4]) / 1000
 height = int(sys.argv[5])
 
+sitl = None
+
 if( int(sys.argv[6]) == 1):
     inverse = True
 else:
@@ -25,8 +27,8 @@ else:
 
 if connectionString != "local":
     connection_string = "/dev/ttyS0"
-    latFlight = int(sys.argv[7])
-    lonFlight = int(sys.argv[8])
+    latFlight = float(sys.argv[7])
+    lonFlight = float(sys.argv[8])
     headingFlight = int(sys.argv[9])
 
 else:
