@@ -62,19 +62,23 @@
     <div id=droneSettingTabDiv>
       <br>
       <div class="tab">
-        <a button class="tablinks" id="RectangleButton" onclick="openTab(event, 'flypathtab')" onclick="computeMaxDistance()">
+        <a button class="tablinks" id="RectangleButton" onclick="openTab(event, 'flypathtab')"
+          onclick="computeMaxDistance()">
           <div id="fp-rectangle"></div></button>
         </a>
         <br>
-        <a button class="tablinks" id="StraightlineButton" onclick="openTab(event, 'flypathtab')" onclick="computeMaxDistance()">
+        <a button class="tablinks" id="StraightlineButton" onclick="openTab(event, 'flypathtab')"
+          onclick="computeMaxDistance()">
           <div id="fp-straight"></div></button>
         </a>
         <br>
-        <a button class="tablinks" id="ZigzagButton" onclick="openTab(event, 'flypathtab')" onclick="computeMaxDistance()">
+        <a button class="tablinks" id="ZigzagButton" onclick="openTab(event, 'flypathtab')"
+          onclick="computeMaxDistance()">
           <div id="fp-zigzag"></div></button>
         </a>
         <br>
-        <a button class="tablinks" id="PeriscopeButton" onclick="openTab(event, 'flypathtab')" onclick="computeMaxDistance()">
+        <a button class="tablinks" id="PeriscopeButton" onclick="openTab(event, 'flypathtab')"
+          onclick="computeMaxDistance()">
           <div id="fp-periscope"></div></button>
         </a>
         <br>
@@ -88,8 +92,8 @@
         </div>
         <br>
         <div id="zigwidthparameter">
-          <p id="fp-zigwidthparameter"></p><input id="rectwidthtext" type="number" value="500"
-            onchange="computeMaxDistance()">meters
+          <p id="fp-zigwidthparameter"></p><input id="rectwidthtextZigZag" type="number" value="500"
+            onchange="computeMaxDistanceZigZag()">meters
         </div>
         <br>
         <div id="inversedParameter">
@@ -112,8 +116,8 @@
         </div>
         <br>
         <div id="distanceStraightParameter">
-          <p id="fp-distanceparameter"></p><label id="maxdistanceStraightText" value="500" 
-          type="number">Maximum distance: 30000 meters</label>
+          <p id="fp-distanceparameter"></p><label id="maxdistanceStraightText" value="500" type="number">Maximum
+            distance: 30000 meters</label>
         </div>
         <br>
         <div id="periscope">
@@ -293,32 +297,37 @@
 
 
     function computeMaxDistance() {
+      console.log("hola")
       var x = document.getElementById("xtext").value;
       var l = document.getElementById("Ltext").value;
       var d = document.getElementById("rectwidthtext").value;
       var nmax = Math.floor((60000 - parseInt(x)) / (2 * parseInt(l) + parseInt(d)));
+      console.log("ey warap men " + x + " " + l + " " + d)
       var pmax = nmax * l;
-      if (missiontype != 2) {
-        if (pmax <= 0) {
-          document.getElementById("maxdistancetext").innerHTML = "0";
-        }
-        else {
-          document.getElementById("maxdistancetext").innerHTML = pmax;
-          console.log(nmax);
-        }
-      } else {
+      if (pmax <= 0) {
+        document.getElementById("maxdistancetext").innerHTML = "0";
+      }
+      else {
+        document.getElementById("maxdistancetext").innerHTML = pmax;
+        console.log(nmax);
+      }
 
-        var dmax = 30000;
-        var d = dmax - x
+    }
 
-        if (d <= dmax) {
-          $('#maxdistancetext').text(d);
-        }
-        else {
-          $('#maxdistancetext').text("0");
-          console.log(nmax);
-        }
-
+    function computeMaxDistanceZigZag() {
+      console.log("hola")
+      var x = document.getElementById("xtext").value;
+      var l = document.getElementById("Ltext").value;
+      var d = document.getElementById("rectwidthtextZigZag").value;
+      var nmax = Math.floor((60000 - parseInt(x)) / (2 * parseInt(l) + parseInt(d)));
+      console.log("ey warap men " + x + " " + l + " " + d)
+      var pmax = nmax * l;
+      if (pmax <= 0) {
+        document.getElementById("maxdistancetext").innerHTML = "0";
+      }
+      else {
+        document.getElementById("maxdistancetext").innerHTML = pmax;
+        console.log(nmax);
       }
 
     }
@@ -339,6 +348,8 @@
       $("#distanceparameter").show();
       $("#maxdistanceparameter").show();
       $("#periscope").hide();
+      $("#distanceStraightParameter").hide();
+
 
       missiontype = 1;
     });
@@ -346,7 +357,7 @@
 
     $("#StraightlineButton").click(function () {
       $("#distanceparameter").show();
-      
+
       $("#distanceStraightParameter").show();
       $("#maxdistanceparameter").hide();
       $("#rectwidthparameter").hide();
@@ -367,6 +378,8 @@
       $("#maxdistanceparameter").show();
       $("#rectwidthparameter").hide();
       $("#periscope").hide();
+      $("#distanceStraightParameter").hide();
+
 
       missiontype = 3;
     });
@@ -378,6 +391,8 @@
       $("#maxdistanceparameter").hide();
       $("#periscope").show();
       $("#inversedParameter").hide();
+      $("#distanceStraightParameter").hide();
+
       missiontype = 4;
     });
 
