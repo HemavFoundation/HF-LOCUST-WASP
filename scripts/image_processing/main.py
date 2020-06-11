@@ -27,9 +27,8 @@ import math
 
 def create_directory():  # tested and working
 
-    path_mono = '/home/pi/Desktop/HF-LOCUST-WASP/public/results/monospectral'
+    path = '/home/pi/Desktop/HF-LOCUST-WASP/public/results/photos'
 
-    path_visual = '/home/pi/Desktop/HF-LOCUST-WASP/public/results/visual_camera'
     # we need to convert numbers to string to be able to create the new path
     year = str(pd.datetime.now().year)
     month = str(pd.datetime.now().month)
@@ -38,20 +37,21 @@ def create_directory():  # tested and working
     minute = str(pd.datetime.now().minute)
     global timestamp
     timestamp = year + "_" + month + "_" + day + "-" + hour + "_" + minute
-
-    newpath_mono = path_mono + "/" + timestamp  # we create the string for the new directory
-    newpath_visual = path_visual + "/" + timestamp 
-
-    os.mkdir(newpath_mono)  # creates a directory
-    os.mkdir(newpath_visual)
-
-    normal_images = newpath_mono + '/' + 'raw_images'
-    ndvi_images = newpath_mono + '/' + 'ndvi_images'
     
-    os.mkdir(normal_images)
-    os.mkdir(ndvi_images)
+    path_flight = path + "/" + timestamp
+    
+    os.mkdir(path_flight)
+    
+    path_ndvi_images = path_flight + "/" + "ndvi_images"  # we create the string for the new directory
+    path_display_photos = path_flight + "/" + "display_photos" 
+    
+    os.mkdir(path_ndvi_images)  # creates a directory
+    os.mkdir(path_display_photos)
 
-    return newpath_mono, newpath_visual
+    raw_images = path_ndvi_images + "/" + "raw_images"
+    os.mkdir(raw_images)
+
+    return path_ndvi_images, path_display_photos, raw_images
 
 
 def contrast_stretch(im):
@@ -139,7 +139,7 @@ def get_coordinates(coordinates, heading, h, pitch, roll):
     return vertex_coordinates
 
 
-def main_loop_mono(num, newpath, camera_interface, autopilot_interface, data_interface):
+def main_loop_mono(num, newpath, raw_images_path, camera_interface, autopilot_interface, data_interface):
     img = camera_interface.capture_frame()
 
     # Once we have the original image, we need to take the red and nir channels to operate with them
@@ -193,13 +193,11 @@ def main_loop_mono(num, newpath, camera_interface, autopilot_interface, data_int
 
     percent = round(((ndvi_values / total_values) * 100), 2)
 
-    if percent >= 5:
+    if percent >= 0:
 
-        name = newpath + '/' + 'raw_images' + '/' + str(num) + '.jpeg'
-        name_ndvi = newpath + '/' + 'ndvi_images' + '/' + str(num) + '.jpeg'
-
-        # name = path + '/' + 'ndvi_results' + '/' + 'image' + 'ndvi' + str(percent) + '.jpeg'
-
+        name_ndvi = newpath + '/' + str(num) + '.jpeg'
+        
+        name = raw_images_path + '/' + str(num) + '.jpeg'
         # we save the raw image
         cv2.imwrite(name, img)
 
@@ -233,7 +231,7 @@ def main_loop_mono(num, newpath, camera_interface, autopilot_interface, data_int
 
         image_settings = camera_interface.camera_settings()
         
-        path_ndvi_json = 'monospectral/' + str(timestamp) + '/ndvi_images/' + str(num) + '.jpeg'
+        path_ndvi_json = '/results/photos/' + str(timestamp) + '/ndvi_images/' + str(num) + '.jpeg'
         
         flight_info = data_interface.write_json_vegetation(timestamp, num, percent, data_drone, path_ndvi_json)
 
@@ -241,8 +239,6 @@ def main_loop_mono(num, newpath, camera_interface, autopilot_interface, data_int
         return flight_info
 
     else:
-
-        cv2.imwrite(name, img)
         return None
 
 

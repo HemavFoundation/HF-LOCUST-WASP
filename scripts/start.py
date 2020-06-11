@@ -76,7 +76,7 @@ global num_visual
 num = 1
 num_visual = 1
 
-newpath_mono, newpath_visual = main.create_directory()
+path_ndvi, path_visual, raw_images = main.create_directory()
 
 # Json structures containing all the data
 flight_data = None
@@ -103,7 +103,7 @@ if typeOfMission in ["straight", "zigzag", "rectangle"]:
         previous = current
 
         if altitude >= altitudeCondition:
-            flight_data = main.main_loop_mono(num, newpath_mono, camera_interface, autopilot_interface, data_interface)
+            flight_data = main.main_loop_mono(num, path_ndvi, raw_images, camera_interface, autopilot_interface, data_interface)
             camera_interface.test_settings(num)
             num += 1
 
