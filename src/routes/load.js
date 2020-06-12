@@ -72,7 +72,7 @@ router.get("/directionOfFlight", (req, res) => {
   });
 });
 
-router.post("/rectangleMission/:distance/:w/:x/:L/:h/:i", (req, res) => {
+router.post("/rectangleMission/:distance/:w/:L/:x/:h/:i", (req, res) => {
   const distance = req.params.distance;
   const width = req.params.w;
   const spaceDistance = req.params.x;
@@ -214,9 +214,10 @@ router.post("/straightMission/:distance/:h", (req, res) => {
   });
 });
 
-router.post("/ZigZagMission/:distance/:w/:L/:h/:i", (req, res) => {
+router.post("/ZigZagMission/:distance/:w/:L/:x/:h/:i", (req, res) => {
   const distance = req.params.distance;
   const width = req.params.w;
+  const spaceDistance = req.params.x
   const spaceBtwPeaks = req.params.L;
   const height = req.params.h;
   const inversed = req.params.i;
@@ -232,6 +233,7 @@ router.post("/ZigZagMission/:distance/:w/:L/:h/:i", (req, res) => {
       args: [
         distance,
         width,
+        spaceDistance,
         spaceBtwPeaks,
         height,
         inversed,
@@ -249,6 +251,7 @@ router.post("/ZigZagMission/:distance/:w/:L/:h/:i", (req, res) => {
       args: [
         distance,
         width,
+        spaceDistance,
         spaceBtwPeaks,
         height,
         inversed,
@@ -265,7 +268,8 @@ router.post("/ZigZagMission/:distance/:w/:L/:h/:i", (req, res) => {
       scriptPath: "./scripts",
       args: [
         distance,
-        width,,
+        width,
+        spaceDistance,
         spaceBtwPeaks,
         height,
         inversed,

@@ -86,7 +86,7 @@ def rectangleMission_reversed(latWind, lonWind, headingWind, distance, spaceDist
 
 def rectangleMission_normal(latWind, lonWind, headingWind, distance, spaceDistance, widthRectangle, spaceBtwLines, height, latFlight, lonFlight, headingFlight, cmds):
 
-    finalPoint = pointRadialDistance(latWind, lonWind, headingWind, (distance + spaceDistance))
+    finalPoint = pointRadialDistance(latFlight, lonFlight, headingFlight, (distance + spaceDistance))
 
     # we're going to calculate the mission, we need some space for the takeoff of the drone and this space will be 500 meters and the width of the rectangle in this case will be 500m
     fase = rad2deg(math.atan((widthRectangle/2)/spaceDistance))
@@ -214,16 +214,19 @@ def periscopeMission(latWind, lonWind, headingWind, height, latFlight, lonFlight
     return cmds
 '''
 
-def ZigZagMission(latWind, lonWind, headingWind, distance, periodDistance, width, height, latFlight, lonFlight, headingFlight, cmds):
+def ZigZagMission(latWind, lonWind, headingWind, distance, spaceDistance, spaceBtwPeaks, width, height, latFlight, lonFlight, headingFlight, cmds):
     
-    finalpoint = pointRadialDistance(latFlight, lonFlight, headingFlight, distance)
-    alpha = rad2deg(math.atan(periodDistance/(2*width)))
-    print("Angle of diagonal: ", alpha)
-    diagonalDist = math.hypot((periodDistance/2),width)
-    print("Longitude of the diagonal:", diagonalDist)
+    finalpoint = pointRadialDistance(latFlight, lonFlight, headingFlight, (distance + spaceDistance))
+    fase = rad2deg(math.atan((width/2)/spaceDistance))
+    hTakeOff = math.hypot((width/2),spaceDistance)
 
-    firstlocation = pointRadialDistance(latWind,lonWind,(headingFlight+90-alpha),(diagonalDist/2))
-    lastlocation = pointRadialDistance(firstlocation.lat,firstlocation.lon,(headingFlight-90+alpha),diagonalDist) #second location
+    faseDiagonal = rad2deg(math.atan(width/spaceBtwPeaks))
+    hZigZag = math.hypot(width,spaceDistance)
+
+    firstlocation = pointRadialDistance(latFlight,lonFlight,(headingFlight + fase), hTakeOff)
+
+    firstLandingWaypoint = pointRadialDistance(latWind, lonWind, (headingWind + 180), 0.1)
+    secondLandingWaypoint = pointRadialDistance(firstLandingWaypoint.lat, firstLandingWaypoint.lon, (headingWind + 180), 0.1)
 
     takeoff(cmds, height)
     print("Taken off, initialazing mission")
@@ -232,24 +235,24 @@ def ZigZagMission(latWind, lonWind, headingWind, distance, periodDistance, width
     
     #Empezamos el zig-zag
     cmds.add(Command(0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, firstlocation.lat, firstlocation.lon, height))
-    cmds.add(Command(0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, lastlocation.lat, lastlocation.lon, height))
     
-    x = (periodDistance/4)+(periodDistance/2) #lo que hemos recorrido ya
+    #Second point
+    locationLoop = pointRadialDistance(firstlocation.lat, firstlocation.lon, headingFlight - faseDiagonal, hZigZag)
+    cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, locationLoop.lat, locationLoop.lon, height))
+
+
+    x = spaceBtwPeaks
+
     while x<distance:
-        nextlocation = pointRadialDistance(lastlocation.lat,lastlocation.lon,(headingFlight+90-alpha),diagonalDist)
-        cmds.add(Command(0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, nextlocation.lat, nextlocation.lon, height))
-        print(nextlocation.lat,nextlocation.lon)
+        locationLoop = pointRadialDistance(locationLoop.lat,locationLoop.lon, headingFlight + faseDiagonal, hZigZag)
+        cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, locationLoop.lat, locationLoop.lon, height))
 
-        nextnextlocation = pointRadialDistance(nextlocation.lat,nextlocation.lon,(headingFlight-90+alpha),diagonalDist)
-        cmds.add(Command(0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, nextnextlocation.lat, nextnextlocation.lon, height))
-        print(nextnextlocation.lat,nextnextlocation.lon)
+        locationLoop = pointRadialDistance(locationLoop.lat,locationLoop.lon, headingFlight - faseDiagonal, hZigZag)
+        cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, locationLoop.lat, locationLoop.lon, height))
 
-        lastlocation.lat = nextnextlocation.lat
-        lastlocation.lon = nextnextlocation.lon
         
-        x=x+periodDistance
+        x= x+ (2*spaceBtwPeaks)
     
-    cmds.add(Command(0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, finalpoint.lat, finalpoint.lon, height))
     cmds.add(Command(0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_DO_LAND_START, 0, 0, 0, 0, 0, 0, latFlight, lonFlight, height))
     cmds.add(Command(0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, latFlight, lonFlight, height))
     cmds.add(Command(0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_LOITER_TO_ALT, 0, 0, 0, 0, 0, 0, latFlight, lonFlight, 50))
@@ -260,7 +263,7 @@ def ZigZagMission(latWind, lonWind, headingWind, distance, periodDistance, width
 
     return cmds
 
-def ZigZagMissionInversed(latWind, lonWind, headingWind, distance, periodDistance, width, height, latFlight, lonFlight, headingFlight, cmds):
+def ZigZagMissionInversed(latWind, lonWind, headingWind, distance, spaceDistance, spaceBtwPeaks, width, height, latFlight, lonFlight, headingFlight, cmds):
 
     firstpoint = pointRadialDistance(latFlight, lonFlight, headingFlight, distance)
 
@@ -275,9 +278,9 @@ def ZigZagMissionInversed(latWind, lonWind, headingWind, distance, periodDistanc
     # then start zig-zag but inversed way
     finalpoint = LocationGlobal(latFlight, lonFlight, 0)
     headingFlight = -headingFlight
-    alpha = rad2deg(math.atan(periodDistance/(2*width)))
+    alpha = rad2deg(math.atan(spaceBtwPeaks/(2*width)))
     print("Angle of diagonal: ", alpha)
-    diagonalDist = math.hypot((periodDistance/2),width)
+    diagonalDist = math.hypot((spaceBtwPeaks/2),width)
     print("Length of the diagonal:", diagonalDist)
 
     firstlocation = pointRadialDistance(firstpoint.lat,firstpoint.lon,(headingFlight+90-alpha),(diagonalDist/2))
@@ -287,7 +290,7 @@ def ZigZagMissionInversed(latWind, lonWind, headingWind, distance, periodDistanc
     cmds.add(Command(0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, firstlocation.lat, firstlocation.lon, height))
     cmds.add(Command(0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, lastlocation.lat, lastlocation.lon, height))
 
-    x = (periodDistance/4)+(periodDistance/2) #lo que hemos recorrido ya
+    x = (spaceBtwPeaks/4)+(spaceBtwPeaks/2) #lo que hemos recorrido ya
     while x<distance:
         nextlocation = pointRadialDistance(lastlocation.lat,lastlocation.lon,(headingFlight+90-alpha),diagonalDist)
         cmds.add(Command(0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, nextlocation.lat, nextlocation.lon, height))
@@ -300,7 +303,7 @@ def ZigZagMissionInversed(latWind, lonWind, headingWind, distance, periodDistanc
         lastlocation.lat = nextnextlocation.lat
         lastlocation.lon = nextnextlocation.lon
         
-        x=x+periodDistance
+        x=x+spaceBtwPeaks
 
     # start landing
     cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_DO_LAND_START, 0, 0, 0, 0, 0, 0, latFlight, lonFlight, height))

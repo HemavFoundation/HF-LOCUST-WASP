@@ -28,7 +28,7 @@ else:
     connection_string = None
     latFlight = -35.363261
     lonFlight = 149.165229
-    headingFlight = 120
+    headingFlight = 353
 
 
 # Start SITL if no connection string specified

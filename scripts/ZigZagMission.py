@@ -14,27 +14,29 @@ import sys
 
 distance = float(sys.argv[1]) / 1000
 width = float(sys.argv[2]) / 1000
-periodDistance = float(sys.argv[3]) / 1000
-height = int(sys.argv[4])
+spaceDistance = float(sys.argv[3]) / 1000
+periodDistance = float(sys.argv[4]) / 1000
+height = int(sys.argv[5])
+print(int(sys.argv[5]))
 
 sitl = None
 
-if(int(sys.argv[5]) == 1):
+if(int(sys.argv[6]) == 1):
     inverse = True
 else:
     inverse = False
 
 if connectionString != "local":
     connection_string = "/dev/ttyS0"
-    latFlight = float(sys.argv[6])
-    lonFlight = float(sys.argv[7])
-    headingFlight = int(sys.argv[8])
+    latFlight = float(sys.argv[7])
+    lonFlight = float(sys.argv[8])
+    headingFlight = int(sys.argv[9])
 
 else:
     connection_string = None
     latFlight = -35.363261
     lonFlight = 149.165229
-    headingFlight = 90
+    headingFlight = 353
 
 #Start SITL if no connection string specified
 if not connection_string:
@@ -51,9 +53,9 @@ lonWind = vehicle.location.global_frame.lon #recogemos la longitud actual del dr
 headingWind = vehicle.heading #recogemos el heading actual del drone
 
 if inverse == False:
-    cmds = ZigZagMission(latWind,lonWind,headingWind,distance,periodDistance,width,height,latFlight,lonFlight,headingFlight,cmds)
+    cmds = ZigZagMission(latWind,lonWind,headingWind,distance, spaceDistance, periodDistance,width,height,latFlight,lonFlight,headingFlight,cmds)
 else:
-    cmds = ZigZagMissionInversed(latWind, lonWind, headingWind, distance, periodDistance, width, height, latFlight, lonFlight, headingFlight, cmds)
+    cmds = ZigZagMissionInversed(latWind, lonWind, headingWind, distance, spaceDistance, periodDistance, width, height, latFlight, lonFlight, headingFlight, cmds)
 
 
 print("New commands uploaded")
