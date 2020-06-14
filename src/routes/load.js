@@ -152,8 +152,10 @@ router.post("/rectangleMission/:distance/:w/:L/:x/:h/:i", (req, res) => {
 });
 
 
-router.post("/straightMission/:distance/:h", (req, res) => {
+router.post("/straightMission/:distance/:x/:h", (req, res) => {
   const distance = req.params.distance;
+  const spaceDistance = req.params.x;
+
   const height = req.params.h;
 
   let options;
@@ -166,6 +168,7 @@ router.post("/straightMission/:distance/:h", (req, res) => {
       scriptPath: "./scripts",
       args: [
         distance,
+        spaceDistance,
         height,
         latFlight,
         lonFlight,
@@ -179,6 +182,7 @@ router.post("/straightMission/:distance/:h", (req, res) => {
       scriptPath: "./scripts",
       args: [
         distance,
+        spaceDistance,
         height,
         latFlight,
         lonFlight,
@@ -193,6 +197,7 @@ router.post("/straightMission/:distance/:h", (req, res) => {
       scriptPath: "./scripts",
       args: [
         distance,
+        spaceDistance,
         height,
         latFlight,
         lonFlight,

@@ -13,16 +13,17 @@ import sys
 
 
 distance = int(sys.argv[1]) / 1000
-height = int(sys.argv[2]) / 1000
+spaceDistance = int(sys.argv[2]) / 1000
+height = int(sys.argv[3]) / 1000
 
 sitl = None
 
 if connectionString != "local":
     connection_string = "/dev/ttyS0"
 
-    latFlight = float(sys.argv[3])
-    lonFlight = float(sys.argv[4])
-    headingFlight = int(sys.argv[5])
+    latFlight = float(sys.argv[4])
+    lonFlight = float(sys.argv[5])
+    headingFlight = int(sys.argv[6])
 
 else:
     connection_string = None
@@ -55,7 +56,7 @@ lonWind = vehicle.location.global_frame.lon
 headingWind = vehicle.heading  # recogemos el heading actual del drone
 
 
-cmds_final = straightMission(latWind, lonWind, headingWind, distance, height, latFlight,
+cmds_final = straightMission(latWind, lonWind, headingWind, distance, spaceDistance, height, latFlight,
                              lonFlight, headingFlight, cmds)  # lineal mission devuelve un objeto cmds relleno
 
 print(" Upload new commands to vehicle")

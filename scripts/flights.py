@@ -143,9 +143,9 @@ def rectangleMission_normal(latWind, lonWind, headingWind, distance, spaceDistan
 
     return cmds
 
-def straightMission(latWind, lonWind, headingWind, distance, height, latFlight, lonFlight, headingFlight, cmds):
+def straightMission(latWind, lonWind, headingWind, distance, spaceDistance, height, latFlight, lonFlight, headingFlight, cmds):
     
-    finalPoint = pointRadialDistance(latFlight, lonFlight, headingFlight, distance)
+    finalPoint = pointRadialDistance(latFlight, lonFlight, headingFlight, distance + spaceDistance)
 
     takeoff(cmds, height)
     
