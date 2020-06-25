@@ -18,11 +18,9 @@ as well as with numpy and cv2 (the same as the other programs contained on that 
 
 import os
 import json
-import pygame
-import pygame.camera
-from pygame.locals import *
 import numpy as np
 import cv2
+from time import sleep
 
 
 class VisualCameraInterface():
@@ -32,8 +30,13 @@ class VisualCameraInterface():
         # visual camera settings
         self.port = "/dev/video0"
         self.resolution = (640, 480)
-        self.cam = pygame.camera.Camera(self.port, self.resolution)
-        self.cam.start()
+        
+        self.camera_settings = dict(
+            frame_width = 640, 
+            frame_height = 640,
+            expusure = 50,
+            brightness = 50,
+        )
         
         # variables we need to introduce from the main script
         self.timestamp = timestamp
@@ -42,12 +45,23 @@ class VisualCameraInterface():
         # We initialize the array containing the data of the images
         self.visualimages = []
 
+    def load_settings(self, cap):
+        cap.set(cv2.CAP_PROP_FRAME_WIDTH, self.camera_settings['frame_width'])
+        cap.set(cv2.CAP_PROP_FRAME_HEIGHT, self.camera_settings['frame_height'])
+        cap.set(cv2.CAP_PROP_FRAME_EXPOSURE, self.camera_settings['exposure'])
+        cap.set(cv2.CAP_PROP_FRAME_BRIGHTNESS, self.camera_settings['brightness'])
 
-    def take_image(self):    #function to take an image with the visual image
+    def take_image(self):    #function to take an image with the visual camera
+        cap = cv2.VideoCapture(0)
+        
+        if not cap.isOpened():
+            time.sleep(1)
+            self.take_image()
 
-        img = np.empty((self.resolution[1], self.resolution[0], 3), dtype=np.uint8)
-        image = self.cam.get_image()
-        img = cv2.imread(image)
+        self.load_settings(cap)
+        ret, img = cap.read()
+        cap.release()
+
         return img
 
 
