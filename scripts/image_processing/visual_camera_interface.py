@@ -25,11 +25,10 @@ from time import sleep
 
 class VisualCameraInterface():
 
-    def __init__(self, timestamp, path_visualimages):
+    def __init__(self):
 
         # visual camera settings
         self.port = "/dev/video0"
-        self.resolution = (640, 480)
         
         self.camera_settings = dict(
             frame_width = 640, 
@@ -61,6 +60,8 @@ class VisualCameraInterface():
         self.load_settings(cap)
         ret, img = cap.read()
         cap.release()
+
+        
 
         return img
 

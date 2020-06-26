@@ -60,9 +60,12 @@ print('#### connected ####')
 cmds = vehicle.commands
 cmds.download()
 
+newpath_mono, newpath_visual = main.create_directory()
+
 camera_interface = CameraInterface()
 autopilot_interface = AutopilotInterface(vehicle)
-#visualcamera_interface = VisualCameraInterface()
+visualcamera_interface = VisualCameraInterface()
+
 
 # we get the home coordinates to introduce them in the intelligent RTL function
 home_coordinates = (autopilot_interface.get_latitude, autopilot_interface.get_longitude)
@@ -74,7 +77,6 @@ global num_visual
 num = 1
 num_visual = 1
 
-newpath_mono, newpath_visual = main.create_directory()
 
 # Json structures containing all the data
 flight_data = None
@@ -102,8 +104,8 @@ while vehicle.armed is True:
         camera_interface.test_settings(num)
         num += 1
 
-    if delta_time > 30:  # we want to take images every 30 seconds
-        #visual_images = main.main_loop_visual(num_visual, newpath_visual, visualcamera_interface, autopilot_interface)
+    if delta_time > 5:  # we want to take images every 30 seconds
+        visual_images = main.main_loop_visual(num_visual, newpath_visual, visualcamera_interface, autopilot_interface)
         num_visual += 1
 
 if flight_data and visual_images is not None:
