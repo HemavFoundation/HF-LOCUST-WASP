@@ -30,10 +30,10 @@ class VisualCameraInterface():
 
         # visual camera settings
         self.port = "/dev/video0"
-        
+        #2528, 1968
         self.camera_settings = dict(
-            frame_width = 640, 
-            frame_height = 640,
+            frame_width = 2528, 
+            frame_height = 1968,
             exposure = 50,
             brightness = 50,
         )
@@ -48,8 +48,8 @@ class VisualCameraInterface():
     def load_settings(self, cap):
         cap.set(cv2.CAP_PROP_FRAME_WIDTH, self.camera_settings['frame_width'])
         cap.set(cv2.CAP_PROP_FRAME_HEIGHT, self.camera_settings['frame_height'])
-        #cap.set(cv2.CAP_PROP_FRAME_EXPOSURE, self.camera_settings['exposure'])
-        #cap.set(cv2.CAP_PROP_FRAME_BRIGHTNESS, self.camera_settings['brightness'])
+        cap.set(cv2.CAP_PROP_FRAME_EXPOSURE, self.camera_settings['exposure'])
+        cap.set(cv2.CAP_PROP_FRAME_BRIGHTNESS, self.camera_settings['brightness'])
 
     def take_image(self):    #function to take an image with the visual camera
         cap = cv2.VideoCapture(0)
@@ -175,8 +175,8 @@ class VisualCameraInterface():
 
         return img
 
-    def save_image(self, img, num):
-        name = str(self.path) + '/' + str(num)
+    def save_image(self, path_visual, img, num):
+        name = str(path_visual) + '/' + str(num) + '.jpeg'
         cv2.imwrite(name, img)
 
     
