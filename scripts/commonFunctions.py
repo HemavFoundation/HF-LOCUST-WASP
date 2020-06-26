@@ -34,6 +34,10 @@ def save_mission(aFileName, cmds):
 def rad2deg(angle):
     return angle*180/pi
 
+def truncate(n, decimals=0):
+    multiplier = 10 ** decimals
+    return int(n * multiplier) / multiplier
+
 
 def pointRadialDistance(lat1, lon1, bearing, distance):
     """

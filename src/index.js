@@ -47,7 +47,31 @@ app.get('/history', (req, res) => {
     res.sendFile(path.join(___dirname + '/public/results/History.html'));
 });
 
+app.get('/locustFinder', (req, res) => {
+    res.sendFile(path.join(___dirname + '/public/results/locustFinder.html'));
+});
+
+app.get('/1.jpeg', (req, res) => {
+    res.sendFile(path.join(___dirname + '/public/results/photos/Test Flight/raw_images/1.jpeg'));
+});
+
+app.get('/language.json', (req, res) => {
+    res.sendFile(path.join(___dirname + '/language.json'));
+});
+
+app.get('/history-language.json', (req, res) => {
+    res.sendFile(path.join(___dirname + '/history-language.json'));
+});
+
+app.get('/locustFinder-language.json', (req, res) => {
+    res.sendFile(path.join(___dirname + '/locustFinder-language.json'));
+});
+
 app.get('/results.json', (req, res) => {
+    res.sendFile(path.join(___dirname + '/results.json'));
+});
+
+app.get('/videoResults.json', (req, res) => {
     res.sendFile(path.join(___dirname + '/results.json'));
 });
 

@@ -1,5 +1,5 @@
 from __future__ import print_function
-from math import asin,cos,pi,sin
+from math import asin, cos, pi, sin
 
 #from dronekit import connect, VehicleMode, LocationGlobalRelative, LocationGlobal, Command
 from dronekit import *
@@ -11,25 +11,16 @@ from config import *
 from flights import *
 import sys
 
-distance = float(sys.argv[1]) / 1000
-widthRectangle = float(sys.argv[2]) / 1000
-spaceDistance = float(sys.argv[3]) / 1000
-spaceBtwLines = float(sys.argv[4]) / 1000
-height = int(sys.argv[5])
+height = int(sys.argv[1])
 
 sitl = None
 
-if( int(sys.argv[6]) == 1):
-    inverse = True
-else:
-    inverse = False
-
-
 if connectionString != "local":
+    
     connection_string = "/dev/ttyS0"
-    latFlight = float(sys.argv[7])
-    lonFlight = float(sys.argv[8])
-    headingFlight = int(sys.argv[9])
+    latFlight = float(sys.argv[2])
+    lonFlight = float(sys.argv[3])
+    headingFlight = int(sys.argv[4])
 
 else:
     connection_string = None
@@ -38,14 +29,14 @@ else:
     headingFlight = 353
 
 
-#Start SITL if no connection string specified
+# Start SITL if no connection string specified
 if not connection_string:
     import dronekit_sitl
     sitl = dronekit_sitl.start_default()
     connection_string = sitl.connection_string()
 
 
-# Connect to the Vehicle. 
+# Connect to the Vehicle.
 #   Set `wait_ready=True` to ensure default attributes are populated before `connect()` returns.
 #print("\nConnecting to vehicle on: %s" % connection_string)
 
@@ -61,18 +52,12 @@ latWind = vehicle.location.global_frame.lat
 lonWind = vehicle.location.global_frame.lon
 headingWind = vehicle.heading
 
-#rectangleMission can change between reversed or normal depending how you want to make the mission
-
-if inverse == False:
-    cmds = rectangleMission_normal(latWind, lonWind, headingWind, distance, spaceDistance, widthRectangle, spaceBtwLines, height, latFlight, lonFlight, headingFlight, cmds)
-else:
-    print('reversed')
-    cmds = rectangleMission_reversed(latWind, lonWind, headingWind, distance, spaceDistance, widthRectangle, spaceBtwLines, height, latFlight, lonFlight, headingFlight, cmds)
-
+cmds = periscopeMission(latWind, lonWind, headingWind, height, latFlight, lonFlight, cmds)
 
 print(" Upload new commands to vehicle")
 
-typeOfMission = "rectangle"
+typeOfMission = "periscope"
+
 
 if connectionString == "local":
     save_mission('./hola.waypoints', cmds)
@@ -83,6 +68,4 @@ vehicle.close()
 # Shut down simulator
 if sitl is not None:
     sitl.stop()
-
-
 

@@ -1,0 +1,39 @@
+
+{
+    "config": {
+      "default": "en"
+    },
+    "language": {
+      "en": {
+        "#h-history-title": "History",
+        "#h-flight-title": "Flight Results",
+        "#h-hour": "Hour",
+        "#h-typeofmission": "Type Of Mission",
+        "#h-flightinfo": "Flight Info",
+        "#h-id": "ID",
+        "#h-greenveg": "Green Vegetation (%)",
+        "#h-long": "Longitude",
+        "#h-lat": "Latitude",
+        "#h-image": "Image",
+        "#h-clear": "Clear",
+        "#h-goPlanner": "Go to Flight Planner"
+
+
+      },
+      "ar": {
+        "#h-history-title": "التاريخ",
+        "#h-flight-title": "نتائج الرحلة",
+        "#h-hour": "ساعة",
+        "#h-typeofmission": "نوع المهمة",
+        "#h-flightinfo": "معلومات الرحلة",
+        "#h-id": "هوية شخصية",
+        "#h-greenveg": "نباتات خضراء (%)",
+        "#h-long": "خط الطول",
+        "#h-lat": "خط العرض",
+        "#h-image": "صورة",
+        "#h-clear": "واضح",
+        "#h-goPlanner": "انتقل إلى مخطط الرحلة"
+
+      }
+    }
+  }

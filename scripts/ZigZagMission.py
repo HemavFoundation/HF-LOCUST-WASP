@@ -11,19 +11,20 @@ from config import *
 from flights import *
 import sys
 
+
 distance = float(sys.argv[1]) / 1000
-widthRectangle = float(sys.argv[2]) / 1000
+width = float(sys.argv[2]) / 1000
 spaceDistance = float(sys.argv[3]) / 1000
-spaceBtwLines = float(sys.argv[4]) / 1000
+periodDistance = float(sys.argv[4]) / 1000
 height = int(sys.argv[5])
+print(int(sys.argv[5]))
 
 sitl = None
 
-if( int(sys.argv[6]) == 1):
+if(int(sys.argv[6]) == 1):
     inverse = True
 else:
     inverse = False
-
 
 if connectionString != "local":
     connection_string = "/dev/ttyS0"
@@ -37,42 +38,30 @@ else:
     lonFlight = 149.165229
     headingFlight = 353
 
-
 #Start SITL if no connection string specified
 if not connection_string:
     import dronekit_sitl
     sitl = dronekit_sitl.start_default()
     connection_string = sitl.connection_string()
 
-
-# Connect to the Vehicle. 
-#   Set `wait_ready=True` to ensure default attributes are populated before `connect()` returns.
-#print("\nConnecting to vehicle on: %s" % connection_string)
-
-vehicle = connect(connection_string, baud=921600, wait_ready=True)
-
-
-# Get some vehicle attributes (state)
 global cmds
+vehicle = connect(connection_string, baud=921600, wait_ready=True) #objeto con el cual vamos a interactuar con la controladora del dron y nos va a dar datos
+cmds = vehicle.commands # vehicle commands es donde vamos a ir registrando todos los puntos de control de vuelo (waypoints) donde finalmente se los pasaremos de nuevo a la controladora y esta sabrá que pasos ha de realizar para volar
 
-cmds = vehicle.commands
-
-latWind = vehicle.location.global_frame.lat
-lonWind = vehicle.location.global_frame.lon
-headingWind = vehicle.heading
-
-#rectangleMission can change between reversed or normal depending how you want to make the mission
+latWind = vehicle.location.global_frame.lat #recogemos la latitud actual del drone
+lonWind = vehicle.location.global_frame.lon #recogemos la longitud actual del drone
+headingWind = vehicle.heading #recogemos el heading actual del drone
 
 if inverse == False:
-    cmds = rectangleMission_normal(latWind, lonWind, headingWind, distance, spaceDistance, widthRectangle, spaceBtwLines, height, latFlight, lonFlight, headingFlight, cmds)
+    cmds = ZigZagMission(latWind,lonWind,headingWind,distance, spaceDistance, periodDistance,width,height,latFlight,lonFlight,headingFlight,cmds)
 else:
-    print('reversed')
-    cmds = rectangleMission_reversed(latWind, lonWind, headingWind, distance, spaceDistance, widthRectangle, spaceBtwLines, height, latFlight, lonFlight, headingFlight, cmds)
+    cmds = ZigZagMissionInversed(latWind, lonWind, headingWind, distance, spaceDistance, periodDistance, width, height, latFlight, lonFlight, headingFlight, cmds)
 
 
-print(" Upload new commands to vehicle")
+print("New commands uploaded")
 
-typeOfMission = "rectangle"
+typeOfMission = "zigzag"
+
 
 if connectionString == "local":
     save_mission('./hola.waypoints', cmds)
@@ -83,6 +72,3 @@ vehicle.close()
 # Shut down simulator
 if sitl is not None:
     sitl.stop()
-
-
-
