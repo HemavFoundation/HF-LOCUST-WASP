@@ -26,7 +26,7 @@ from config import *
 
 class VisualCameraInterface():
 
-    def __init__(self):
+    def __init__(self, timestamp):
 
         # visual camera settings
         self.port = "/dev/video0"
@@ -34,13 +34,13 @@ class VisualCameraInterface():
         self.camera_settings = dict(
             frame_width = 640, 
             frame_height = 640,
-            expusure = 50,
+            exposure = 50,
             brightness = 50,
         )
         
         # variables we need to introduce from the main script
         self.timestamp = timestamp
-        self.path = path_visualimages
+        #self.path = path_visualimages
 
         # We initialize the array containing the data of the images
         self.visualimages = []
@@ -48,8 +48,8 @@ class VisualCameraInterface():
     def load_settings(self, cap):
         cap.set(cv2.CAP_PROP_FRAME_WIDTH, self.camera_settings['frame_width'])
         cap.set(cv2.CAP_PROP_FRAME_HEIGHT, self.camera_settings['frame_height'])
-        cap.set(cv2.CAP_PROP_FRAME_EXPOSURE, self.camera_settings['exposure'])
-        cap.set(cv2.CAP_PROP_FRAME_BRIGHTNESS, self.camera_settings['brightness'])
+        #cap.set(cv2.CAP_PROP_FRAME_EXPOSURE, self.camera_settings['exposure'])
+        #cap.set(cv2.CAP_PROP_FRAME_BRIGHTNESS, self.camera_settings['brightness'])
 
     def take_image(self):    #function to take an image with the visual camera
         cap = cv2.VideoCapture(0)
@@ -61,8 +61,6 @@ class VisualCameraInterface():
         self.load_settings(cap)
         ret, img = cap.read()
         cap.release()
-
-        
 
         return img
 
@@ -141,10 +139,13 @@ class VisualCameraInterface():
 
         # set the text start position
         text_offset_x = int(50 + text_width/2)
-        text_offset_y = img.shape[0] - (25 + text_height/2)
+        text_offset_y = int(img.shape[0] - (25 + text_height/2))
 
         # make the coords of the box with a small padding of two pixels
-        box_coords = ((text_offset_x, text_offset_y + 4), (text_offset_x + text_width + 4, text_offset_y - text_height - 4))
+        box_coords = ((text_offset_x, int(text_offset_y + 4)), (int(text_offset_x + text_width + 4), int(text_offset_y - text_height - 4)))
+        print('box coords 0:', box_coords[0])
+        print('box coords 1:', box_coords[1])
+        
         cv2.rectangle(img, box_coords[0], box_coords[1], rectangle_bgr, cv2.FILLED)
 
         # Using cv2.putText() method
