@@ -6,7 +6,7 @@ from commonFunctions import *
 from config import *
 from image_processing.autopilot_interface import AutopilotInterface
 from image_processing.camera_interface import CameraInterface
-from image_processing.visual_camera_interface import VisualCameraInterface
+#from image_processing.visual_camera_interface import VisualCameraInterface
 from image_processing.data_management import DataManagement
 from image_processing import main
 import geopy.distance
@@ -82,7 +82,7 @@ path_ndvi, path_visual, raw_images = main.create_directory()
 flight_data = None
 
 if connectionString != "local":
-    altitudeCondition = -50
+    altitudeCondition = 50
 else:
     altitudeCondition = -50
 
