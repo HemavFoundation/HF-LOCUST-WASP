@@ -221,7 +221,7 @@ def ZigZagMission(latWind, lonWind, headingWind, distance, spaceDistance, spaceB
     hTakeOff = math.hypot((width/2),spaceDistance)
 
     faseDiagonal = rad2deg(math.atan(width/spaceBtwPeaks))
-    hZigZag = math.hypot(width,spaceDistance)
+    hZigZag = math.hypot(width,spaceBtwPeaks)
 
     firstlocation = pointRadialDistance(latFlight,lonFlight,(headingFlight + fase), hTakeOff)
 

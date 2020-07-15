@@ -253,6 +253,7 @@
     function startTimer() {
       var counter = computeFlightTime();
       if (started == false) {
+        console.log("llego")
         started = true;
         setInterval(function () {
           counter--;
@@ -295,23 +296,52 @@
       var width = parseFloat(document.getElementById("rectwidthtext").value);
       var distanceBetweenLines = parseFloat(document.getElementById("Ltext").value);
       var takeOffDistance = parseFloat(document.getElementById("xtext").value);
-
+      var hypot = Math.hypot(takeOffDistance, width / 2)
+      var hZigZag = Math.hypot(width, distanceBetweenLines)
 
       if (missiontype == 1) {
-        var hypot = Math.hypot(takeOffDistance, width / 2)
         var path = ((distance / distanceBetweenLines) * (distanceBetweenLines + width)) + hypot + takeOffDistance + distance
         time = path / velocity;
+
+        console.log("patrh", path)
+        console.log("time", time)
+        console.log("rectangle done")
+
 
       } else if (missiontype == 2) {
         var path = (distance + takeOffDistance) * 2
         time = path / velocity;
 
-      } else {
+        console.log("patrh", path)
+        console.log("time", time)
+
+        console.log("straight done")
+
+
+      } else if (missiontype == 3) {
+        console.log("distance", distance)
+        console.log("distanceBet", distanceBetweenLines)
+        console.log("hZigZag", hZigZag)
+        console.log("takeOffDistance", takeOffDistance)
+        console.log("hypot", hypot)
+
+
+
+        var path = ((distance / distanceBetweenLines) * hZigZag) + distance + takeOffDistance + hypot
+        time = path / velocity;
+
+        console.log("patrh", path)
+        console.log("time", time)
+
+        console.log("zigzag done")
+
 
       }
 
-     
+      console.log(Math.round(time + (7 * 60)))
+
       return Math.round(time + (7 * 60));
+      
 
     }
 
