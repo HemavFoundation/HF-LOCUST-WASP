@@ -51,7 +51,7 @@ def create_directory():  # tested and working
     raw_images = path_ndvi_images + "/" + "raw_images"
     os.mkdir(raw_images)
 
-    return path_ndvi_images, path_display_photos, raw_images
+    return path_ndvi_images, path_display_photos, raw_images, timestamp
 
 
 def contrast_stretch(im):
@@ -247,11 +247,13 @@ def main_loop_visual(num, path, visualcamera_interface, autopilot_interface, dat
 
     latitude = autopilot_interface.get_latitude()
     longitude = autopilot_interface.get_longitude()
+    heading = autopilot_interface.get_heading()
+    
     coordinates = (latitude, longitude)
-
-    img = visualcamera_interface.tag_image(img, coordinates)
-
-    flight_info = data_interface.write_json(timestamp, num, path)
-    visualcamera_interface.save_image(img, num)
+    
+    img = visualcamera_interface.tag_image(img, coordinates, heading)
+    
+    flight_info = data_interface.write_json_visual(timestamp, num, path)
+    visualcamera_interface.save_image(path, img, num)
 
     return flight_info

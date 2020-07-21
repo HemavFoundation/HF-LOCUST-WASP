@@ -61,9 +61,11 @@ print('#### connected ####')
 cmds = vehicle.commands
 cmds.download()
 
+path_mono, path_visual, raw_images, timestamp = main.create_directory()
+
 camera_interface = CameraInterface()
 autopilot_interface = AutopilotInterface(vehicle)
-#visualcamera_interface = VisualCameraInterface()
+visualcamera_interface = VisualCameraInterface(timestamp)
 data_interface = DataManagement()
 
 # we get the home coordinates to introduce them in the intelligent RTL function
@@ -76,7 +78,6 @@ global num_visual
 num = 1
 num_visual = 1
 
-path_ndvi, path_visual, raw_images = main.create_directory()
 
 # Json structures containing all the data
 flight_data = None
@@ -103,12 +104,12 @@ if typeOfMission in ["straight", "zigzag", "rectangle"]:
         previous = current
 
         if altitude >= altitudeCondition:
-            flight_data = main.main_loop_mono(num, path_ndvi, raw_images, camera_interface, autopilot_interface, data_interface)
+            flight_data = main.main_loop_mono(num, path_mono, raw_images, camera_interface, autopilot_interface, data_interface)
             camera_interface.test_settings(num)
             num += 1
 
-        if delta_time > 30:  # we want to take images every 30 seconds
-            #flight_data = main.main_loop_visual(num_visual, newpath_visual, visualcamera_interface, autopilot_interface, data_interface)
+        if delta_time > 5:  # we want to take images every 30 seconds
+            flight_data = main.main_loop_visual(num_visual, path_visual, visualcamera_interface, autopilot_interface, data_interface)
             num_visual += 1
 
     if flight_data is not None:
@@ -127,7 +128,7 @@ if typeOfMission is "periscope":
         altitude = autopilot_interface.get_altitude()
 
         if altitude >= altitudeCondition:  # on the periscope mission we just one to make as much photos as possible with the visual camera
-            #flight_data = main.main_loop_visual(num_visual, newpath_visual, visualcamera_interface, autopilot_interface, data_interface)
+            flight_data = main.main_loop_visual(num_visual, path_visual, visualcamera_interface, autopilot_interface, data_interface)
             num_visual += 1
 
     if flight_data is not None:
