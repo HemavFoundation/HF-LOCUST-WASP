@@ -35,7 +35,9 @@ class VisualCameraInterface():
             frame_width = 2528, 
             frame_height = 1968,
             exposure = 50,
-            brightness = 50,
+            brightness = 40,
+            contrast = 30,
+            saturation = 20,
         )
         
         # variables we need to introduce from the main script
@@ -48,8 +50,10 @@ class VisualCameraInterface():
     def load_settings(self, cap):
         cap.set(cv2.CAP_PROP_FRAME_WIDTH, self.camera_settings['frame_width'])
         cap.set(cv2.CAP_PROP_FRAME_HEIGHT, self.camera_settings['frame_height'])
-        cap.set(cv2.CAP_PROP_FRAME_EXPOSURE, self.camera_settings['exposure'])
-        cap.set(cv2.CAP_PROP_FRAME_BRIGHTNESS, self.camera_settings['brightness'])
+        cap.set(cv2.CAP_PROP_EXPOSURE, self.camera_settings['exposure'])
+        cap.set(cv2.CAP_PROP_BRIGHTNESS, self.camera_settings['brightness'])
+        cap.set(cv2.CAP_PROP_CONTRAST, self.camera_settings['contrast'])
+        cap.set(cv2.CAP_PROP_SATURATION, self.camera_settings['saturation'])
 
     def take_image(self):    #function to take an image with the visual camera
         cap = cv2.VideoCapture(0)
@@ -61,7 +65,8 @@ class VisualCameraInterface():
         self.load_settings(cap)
         ret, img = cap.read()
         cap.release()
-
+        
+        print('visual image ok')
         return img
 
 
@@ -116,7 +121,7 @@ class VisualCameraInterface():
 
     def tag_image(self, img, coordinates, heading):
         # Th main purspose of that function is tag the image with the image coordinates over a white bckground
-
+        
         # we will draw a white rectangle as background 
         rectangle_bgr = (255, 255, 255)
 
@@ -136,7 +141,7 @@ class VisualCameraInterface():
 
         # get the width and height of the text box
         (text_width, text_height) = cv2.getTextSize(text, font, fontScale=fontScale, thickness=1)[0]
-
+            
         # set the text start position
         text_offset_x = int(50 + text_width/2)
         text_offset_y = int(img.shape[0] - (25 + text_height/2))
