@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
     "python.pythonPath": "/usr/bin/python3",
-=======
-    "python.pythonPath": "C:\\Users\\Adri\\AppData\\Local\\Programs\\Python\\Python38-32\\python.exe",
->>>>>>> cd3ccbc0c13667c47e31ac2ff4bbb4b31703619c
     "python.linting.pylintEnabled": true,
     "python.linting.enabled": true
 }

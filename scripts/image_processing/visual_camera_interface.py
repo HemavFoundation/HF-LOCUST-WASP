@@ -35,7 +35,9 @@ class VisualCameraInterface():
             frame_width = 2528, 
             frame_height = 1968,
             exposure = 50,
-            brightness = 50,
+            brightness = 40,
+            contrast = 30,
+            saturation = 20,
         )
         
         # variables we need to introduce from the main script
@@ -50,6 +52,8 @@ class VisualCameraInterface():
         cap.set(cv2.CAP_PROP_FRAME_HEIGHT, self.camera_settings['frame_height'])
         cap.set(cv2.CAP_PROP_EXPOSURE, self.camera_settings['exposure'])
         cap.set(cv2.CAP_PROP_BRIGHTNESS, self.camera_settings['brightness'])
+        cap.set(cv2.CAP_PROP_CONTRAST, self.camera_settings['contrast'])
+        cap.set(cv2.CAP_PROP_SATURATION, self.camera_settings['saturation'])
 
     def take_image(self):    #function to take an image with the visual camera
         cap = cv2.VideoCapture(0)
@@ -61,7 +65,8 @@ class VisualCameraInterface():
         self.load_settings(cap)
         ret, img = cap.read()
         cap.release()
-
+        
+        print('visual image ok')
         return img
 
 
@@ -116,7 +121,7 @@ class VisualCameraInterface():
 
     def tag_image(self, img, coordinates, heading):
         # Th main purspose of that function is tag the image with the image coordinates over a white bckground
-
+        
         # we will draw a white rectangle as background 
         rectangle_bgr = (255, 255, 255)
 
@@ -136,7 +141,7 @@ class VisualCameraInterface():
 
         # get the width and height of the text box
         (text_width, text_height) = cv2.getTextSize(text, font, fontScale=fontScale, thickness=1)[0]
-
+            
         # set the text start position
         text_offset_x = int(50 + text_width/2)
         text_offset_y = int(img.shape[0] - (25 + text_height/2))
@@ -151,26 +156,24 @@ class VisualCameraInterface():
         # Using cv2.putText() method
         cv2.putText(img, text, (text_offset_x, text_offset_y), font, fontScale, color, thickness, cv2.LINE_AA)
 
-        if typeOfMission is "periscope":
+        heading = int(heading)
 
-            heading = int(heading)
+        # Line thickness of 5 px
+        thickness = 5
 
-            # Line thickness of 5 px
-            thickness = 5
+        # get the width and height of the text box
+        (text_width, text_height) = cv2.getTextSize(heading, font, fontScale=fontScale, thickness=1)[0]
 
-            # get the width and height of the text box
-            (text_width, text_height) = cv2.getTextSize(heading, font, fontScale=fontScale, thickness=1)[0]
+        # set the text start position
+        text_offset_x = int((img.shape[1]/2)-(text_width/2))
+        text_offset_y = int(50 + text_height/2)
 
-            # set the text start position
-            text_offset_x = int((img.shape[1]/2)-(text_width/2))
-            text_offset_y = int(50 + text_height/2)
+        # make the coords of the box with a small padding of two pixels
+        box_coords = ((text_offset_x, text_offset_y + 10), (text_offset_x + text_width + 10, text_offset_y - text_height - 10))
+        cv2.rectangle(img, box_coords[0], box_coords[1], rectangle_bgr, cv2.FILLED)
 
-            # make the coords of the box with a small padding of two pixels
-            box_coords = ((text_offset_x, text_offset_y + 10), (text_offset_x + text_width + 10, text_offset_y - text_height - 10))
-            cv2.rectangle(img, box_coords[0], box_coords[1], rectangle_bgr, cv2.FILLED)
-
-            # Using cv2.putText() method
-            cv2.putText(img, heading, (text_offset_x, text_offset_y), font, fontScale, color, thickness, cv2.LINE_AA)
+        # Using cv2.putText() method
+        cv2.putText(img, heading, (text_offset_x, text_offset_y), font, fontScale, color, thickness, cv2.LINE_AA)
 
 
         return img
