@@ -156,10 +156,15 @@ class VisualCameraInterface():
         # Using cv2.putText() method
         cv2.putText(img, text, (text_offset_x, text_offset_y), font, fontScale, color, thickness, cv2.LINE_AA)
 
-        heading = int(heading)
+        heading = str(heading)
+        # fontScale
+        fontScale = 3
 
-        # Line thickness of 5 px
-        thickness = 5
+        # Blue color in BGR
+        color = (0, 0, 0)
+
+        # Line thickness of 2 px
+        thickness = 4
 
         # get the width and height of the text box
         (text_width, text_height) = cv2.getTextSize(heading, font, fontScale=fontScale, thickness=1)[0]
