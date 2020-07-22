@@ -35,6 +35,13 @@ class AutopilotInterface():
 
         return tag_images
 
+    def get_coordinates(self):
+        latitude = self.vehicle.location.global_frame.lat
+        longitude = self.vehicle.location.global_frame.lon
+
+        coordinates = [latitude, longitude]
+        return coordinates
+
     def get_altitude(self):
         try:
             print(self.vehicle.location.global_relative_frame.alt)

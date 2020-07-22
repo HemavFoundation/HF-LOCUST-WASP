@@ -218,11 +218,13 @@ def main_loop_mono(num, newpath, raw_images_path, camera_interface, autopilot_in
         # we want to tag each corner of the image with its real geographical coordinates
 
         tag_images = autopilot_interface.image_coordinates()
-        vertex_coordinates = get_coordinates(tag_images[0], tag_images[1], tag_images[2], tag_images[3], tag_images[4])
+        #vertex_coordinates = get_coordinates(tag_images[0], tag_images[1], tag_images[2], tag_images[3], tag_images[4])
+        coordinates = autopilot_interface.get_coordinates()
+        heading = autopilot_interface.get_heading()
 
         img = fusion
         
-        fusion = camera_interface.tag_image(img, vertex_coordinates)
+        fusion = camera_interface.tag_image(img, coordinates, heading)
 
         cv2.imwrite(name_ndvi, fusion)
 
