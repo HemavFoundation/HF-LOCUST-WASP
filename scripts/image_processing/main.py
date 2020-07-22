@@ -29,6 +29,7 @@ def create_directory():  # tested and working
 
     path = '/home/pi/Desktop/HF-LOCUST-WASP/public/results/photos'
 
+    
     # we need to convert numbers to string to be able to create the new path
     year = str(pd.datetime.now().year)
     month = str(pd.datetime.now().month)
@@ -217,11 +218,13 @@ def main_loop_mono(num, newpath, raw_images_path, camera_interface, autopilot_in
         # we want to tag each corner of the image with its real geographical coordinates
 
         tag_images = autopilot_interface.image_coordinates()
-        vertex_coordinates = get_coordinates(tag_images[0], tag_images[1], tag_images[2], tag_images[3], tag_images[4])
+        #vertex_coordinates = get_coordinates(tag_images[0], tag_images[1], tag_images[2], tag_images[3], tag_images[4])
+        coordinates = autopilot_interface.get_coordinates()
+        heading = autopilot_interface.get_heading()
 
         img = fusion
         
-        fusion = camera_interface.tag_image(img, vertex_coordinates)
+        fusion = camera_interface.tag_image(img, coordinates, heading)
 
         cv2.imwrite(name_ndvi, fusion)
 
@@ -245,6 +248,8 @@ def main_loop_mono(num, newpath, raw_images_path, camera_interface, autopilot_in
 def main_loop_visual(num, path, visualcamera_interface, autopilot_interface, data_interface):
     img = visualcamera_interface.take_image()
 
+    path_visual_json = '/results/photos/' + str(timestamp) + '/display_photos/' + str(num) + '.jpeg'
+
     latitude = autopilot_interface.get_latitude()
     longitude = autopilot_interface.get_longitude()
     heading = autopilot_interface.get_heading()
@@ -253,7 +258,7 @@ def main_loop_visual(num, path, visualcamera_interface, autopilot_interface, dat
     
     img = visualcamera_interface.tag_image(img, coordinates, heading)
     
-    flight_info = data_interface.write_json_visual(timestamp, num, path)
+    flight_info = data_interface.write_json_visual(timestamp, num, path_visual_json)
     visualcamera_interface.save_image(path, img, num)
 
     return flight_info

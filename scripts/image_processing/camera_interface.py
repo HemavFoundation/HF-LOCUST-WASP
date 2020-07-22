@@ -123,30 +123,75 @@ class CameraInterface():
 
         return flight
 
-    def tag_image(self, img, vertex_coordinates):
+    def tag_image(self, img, vertex_coordinates, heading):
+
+        text = str(vertex_coordinates)
+
+        # we will draw a white rectangle as background 
+        rectangle_bgr = (255, 255, 255)
+
         font = cv2.FONT_HERSHEY_SIMPLEX
         # org
         org = (50, 50)
         # fontScale
-        fontScale = 0.5
+        fontScale = 0.8
 
         # Blue color in BGR
-        color = (255, 255, 255)
+        color = (0, 0, 0)
 
         # Line thickness of 2 px
-        thickness = 1
+        thickness = 2
+
+        # get the width and height of the text box
+        (text_width, text_height) = cv2.getTextSize(text, font, fontScale=fontScale, thickness=1)[0]
+            
+        # set the text start position
+        text_offset_x = int(50 + text_width/2)
+        text_offset_y = int(img.shape[0] - (25 + text_height/2))
+
+        # make the coords of the box with a small padding of two pixels
+        box_coords = ((text_offset_x, int(text_offset_y + 4)), (int(text_offset_x + text_width + 4), int(text_offset_y - text_height - 4)))
+        
+        cv2.rectangle(img, box_coords[0], box_coords[1], rectangle_bgr, cv2.FILLED)
 
         # Using cv2.putText() method
-        cv2.putText(img, str(vertex_coordinates[0]), org, font, fontScale, color, thickness, cv2.LINE_AA)
-        # org
-        org = (img.shape[1] - 230, 50)
-        cv2.putText(img, str(vertex_coordinates[1]), org, font, fontScale, color, thickness, cv2.LINE_AA)
-        # org
-        org = (50, img.shape[0] - 50)
-        cv2.putText(img, str(vertex_coordinates[2]), org, font, fontScale, color, thickness, cv2.LINE_AA)
-        # org
-        org = (img.shape[1] - 230, img.shape[0] - 50)
-        cv2.putText(img, str(vertex_coordinates[3]), org, font, fontScale, color, thickness, cv2.LINE_AA)
+        cv2.putText(img, text, (text_offset_x, text_offset_y), font, fontScale, color, thickness, cv2.LINE_AA)
+
+        heading = str(heading)
+        # fontScale
+        fontScale = 2
+
+        # Blue color in BGR
+        color = (0, 0, 0)
+
+        # Line thickness of 2 px
+        thickness = 3
+
+        # get the width and height of the text box
+        (text_width, text_height) = cv2.getTextSize(heading, font, fontScale=fontScale, thickness=1)[0]
+
+        # set the text start position
+        text_offset_x = int((img.shape[1]/2)-(text_width/2))
+        text_offset_y = int(50 + text_height/2)
+
+        # make the coords of the box with a small padding of two pixels
+        box_coords = ((text_offset_x, text_offset_y + 10), (text_offset_x + text_width + 10, text_offset_y - text_height - 10))
+        cv2.rectangle(img, box_coords[0], box_coords[1], rectangle_bgr, cv2.FILLED)
+
+        # Using cv2.putText() method
+        cv2.putText(img, heading, (text_offset_x, text_offset_y), font, fontScale, color, thickness, cv2.LINE_AA)
+
+        # # Using cv2.putText() method
+        # cv2.putText(img, str(vertex_coordinates[0]), org, font, fontScale, color, thickness, cv2.LINE_AA)
+        # # org
+        # org = (img.shape[1] - 230, 50)
+        # cv2.putText(img, str(vertex_coordinates[1]), org, font, fontScale, color, thickness, cv2.LINE_AA)
+        # # org
+        # org = (50, img.shape[0] - 50)
+        # cv2.putText(img, str(vertex_coordinates[2]), org, font, fontScale, color, thickness, cv2.LINE_AA)
+        # # org
+        # org = (img.shape[1] - 230, img.shape[0] - 50)
+        # cv2.putText(img, str(vertex_coordinates[3]), org, font, fontScale, color, thickness, cv2.LINE_AA)
 
         return img
 
