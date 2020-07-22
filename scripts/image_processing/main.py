@@ -245,6 +245,8 @@ def main_loop_mono(num, newpath, raw_images_path, camera_interface, autopilot_in
 def main_loop_visual(num, path, visualcamera_interface, autopilot_interface, data_interface):
     img = visualcamera_interface.take_image()
 
+    path_json = str(path) + '/' + str(num) + '.jpeg'
+
     latitude = autopilot_interface.get_latitude()
     longitude = autopilot_interface.get_longitude()
     heading = autopilot_interface.get_heading()
@@ -253,7 +255,7 @@ def main_loop_visual(num, path, visualcamera_interface, autopilot_interface, dat
     
     img = visualcamera_interface.tag_image(img, coordinates, heading)
     
-    flight_info = data_interface.write_json_visual(timestamp, num, path)
+    flight_info = data_interface.write_json_visual(timestamp, num, path_json)
     visualcamera_interface.save_image(path, img, num)
 
     return flight_info
