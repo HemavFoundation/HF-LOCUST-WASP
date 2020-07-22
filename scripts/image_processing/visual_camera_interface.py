@@ -48,8 +48,8 @@ class VisualCameraInterface():
     def load_settings(self, cap):
         cap.set(cv2.CAP_PROP_FRAME_WIDTH, self.camera_settings['frame_width'])
         cap.set(cv2.CAP_PROP_FRAME_HEIGHT, self.camera_settings['frame_height'])
-        cap.set(cv2.CAP_PROP_FRAME_EXPOSURE, self.camera_settings['exposure'])
-        cap.set(cv2.CAP_PROP_FRAME_BRIGHTNESS, self.camera_settings['brightness'])
+        cap.set(cv2.CAP_PROP_EXPOSURE, self.camera_settings['exposure'])
+        cap.set(cv2.CAP_PROP_BRIGHTNESS, self.camera_settings['brightness'])
 
     def take_image(self):    #function to take an image with the visual camera
         cap = cv2.VideoCapture(0)
