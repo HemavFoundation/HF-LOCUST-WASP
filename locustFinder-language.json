@@ -5,12 +5,12 @@
     },
     "language": {
       "en": {
-        "#LF-title": "Locust Finder",
+        "#LF-title": "Visual Results",
         "#LF-GoBack": "Go back"
       },
       "ar": {
 
-        "#LF-title": "مكتشف الجراد",
+        "#LF-title": "faLTA",
         "#LF-GoBack": "عد"
       }
     }
