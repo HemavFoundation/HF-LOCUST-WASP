@@ -185,9 +185,8 @@
       <label id="count" type="number"></label>
     </h2>
   </div>
-  <button class="square_btn" id="timerButton" style="margin-right:20px" onclick="startTimer();">timer!</button>
 
-  <br><br><br>
+  <br>
   <button class="square_btn" id="getresultsbut">
     <a href="../results/History.html">
       <div id="fp-getresults"></div>
@@ -253,7 +252,6 @@
     function startTimer() {
       var counter = computeFlightTime();
       if (started == false) {
-        console.log("llego")
         started = true;
         setInterval(function () {
           counter--;
@@ -319,29 +317,28 @@
 
 
       } else if (missiontype == 3) {
-        console.log("distance", distance)
-        console.log("distanceBet", distanceBetweenLines)
-        console.log("hZigZag", hZigZag)
-        console.log("takeOffDistance", takeOffDistance)
-        console.log("hypot", hypot)
-
-
 
         var path = ((distance / distanceBetweenLines) * hZigZag) + distance + takeOffDistance + hypot
         time = path / velocity;
 
-        console.log("patrh", path)
-        console.log("time", time)
+      } else {
 
-        console.log("zigzag done")
+        var radius = 100
 
+        var perimeter = Math.PI * radius * 2
+
+        var path = (radius * 2) + (2 * perimeter)
+
+        time = path / velocity;
+
+        console.log("periscope")
 
       }
 
       console.log(Math.round(time + (7 * 60)))
 
       return Math.round(time + (7 * 60));
-      
+
 
     }
 
@@ -595,6 +592,25 @@
                 },
               })
 
+
+          } else if (missiontype == 4) {
+            document.getElementById('photoupload').src = "../images/waiting.png";
+
+            $.ajax
+                  ({
+                    type: 'POST',
+                    url: 'http://' + ipConnection + ':9000/api/load/periscopeMission/' + height,
+                    dataType: 'json',
+                    success: function (data, textStatus, xhr) {
+                      document.getElementById('photoupload').src = "../images/tick.png";
+                      document.getElementById('droneStartButton').disabled = false;
+
+                    },
+                    error: function (data, textStatus, xhr) {
+                      document.getElementById('photoupload').src = "../images/cross.png";
+                    },
+                  })
+            
 
           } else {
             console.log("the distance of flight is lower than the maximum permited")
