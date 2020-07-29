@@ -622,20 +622,20 @@
 
       $("#droneStartButton").click(function () {
         document.getElementById('photostart').src = "../images/waiting.png";
+        startTimer()
         $.ajax
           ({
             type: 'GET',
             url: 'http://' + ipConnection + ':9000/api/start',
             dataType: 'json',
             success: function (data, textStatus, xhr) {
+              console.log("fdw")
               document.getElementById('photostart').src = "../images/tick.png";
               document.getElementById('photoplane').style = "visibility:visible; margin:10px 0px -10px 10px";
-              startTimer()
             },
             error: function (data, textStatus, xhr) {
               document.getElementById('photostart').src = "../images/tick.png";
               document.getElementById('photoplane').style = "visibility:visible; margin:10px 0px -10px 10px";
-              startTimer()
 
             },
           })
