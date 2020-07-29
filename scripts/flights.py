@@ -15,7 +15,7 @@ def landing(latWind, lonWind, headingWind, cmds):
     cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_LAND, 0, 0, 0, 0, 0, 0, landpoint.lat, landpoint.lon, 30))
 
 
-def takeoff(cmds, height):
+def takeoff(cmds):
 
     height = 50
 
@@ -41,7 +41,7 @@ def rectangleMission_reversed(latWind, lonWind, headingWind, distance, spaceDist
     firstLandingWaypoint = pointRadialDistance(latWind, lonWind, (headingWind + 180), 0.1)
     secondLandingWaypoint = pointRadialDistance(firstLandingWaypoint.lat, firstLandingWaypoint.lon, (headingWind + 180), 0.1)
 
-    takeoff(cmds, height)
+    takeoff(cmds)
     
     #first point
     cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, finalPoint.lat, finalPoint.lon, height))
@@ -101,7 +101,7 @@ def rectangleMission_normal(latWind, lonWind, headingWind, distance, spaceDistan
     firstLandingWaypoint = pointRadialDistance(latWind, lonWind, (headingWind + 180), 0.1)
     secondLandingWaypoint = pointRadialDistance(firstLandingWaypoint.lat, firstLandingWaypoint.lon, (headingWind + 180), 0.1)
 
-    takeoff(cmds, height)
+    takeoff(cmds)
     
     #first point
     cmds.add(Command( 0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, firstLocation.lat, firstLocation.lon, height))
@@ -150,7 +150,7 @@ def straightMission(latWind, lonWind, headingWind, distance, spaceDistance, heig
     
     finalPoint = pointRadialDistance(latFlight, lonFlight, headingFlight, distance + spaceDistance)
 
-    takeoff(cmds, height)
+    takeoff(cmds)
     
     #first point
     cmds.add(Command(0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, latWind, lonWind, height))
@@ -175,7 +175,7 @@ def periscopeMission(latWind, lonWind, headingWind, height, latFlight, lonFlight
 
     angle_between_wp = round((360 / wp_number), 1)
 
-    takeoff(cmds, height)
+    takeoff(cmds)
 
     number_turns = 2 * 360 
 
@@ -202,7 +202,7 @@ def periscopeMission(latWind, lonWind, headingWind, height, latFlight, lonFlight
 
     angle_between_wp = round((360 / wp_number), 1)
 
-    takeoff(cmds, height)
+    takeoff(cmds)
 
     number_turns = 2  
 
@@ -224,14 +224,14 @@ def ZigZagMission(latWind, lonWind, headingWind, distance, spaceDistance, spaceB
     hTakeOff = math.hypot((width/2),spaceDistance)
 
     faseDiagonal = rad2deg(math.atan(width/spaceBtwPeaks))
-    hZigZag = math.hypot(width,spaceDistance)
+    hZigZag = math.hypot(width,spaceBtwPeaks)
 
     firstlocation = pointRadialDistance(latFlight,lonFlight,(headingFlight + fase), hTakeOff)
 
     firstLandingWaypoint = pointRadialDistance(latWind, lonWind, (headingWind + 180), 0.1)
     secondLandingWaypoint = pointRadialDistance(firstLandingWaypoint.lat, firstLandingWaypoint.lon, (headingWind + 180), 0.1)
 
-    takeoff(cmds, height)
+    takeoff(cmds)
     print("Taken off, initialazing mission")
     # Volvemos a pasar por encima del punto de despegue para corregir la trayectoria de la linea recta
     cmds.add(Command(0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, 0, 0, 0, 0, 0, 0, latFlight, lonFlight, height))
@@ -270,7 +270,7 @@ def ZigZagMissionInversed(latWind, lonWind, headingWind, distance, spaceDistance
 
     firstpoint = pointRadialDistance(latFlight, lonFlight, headingFlight, distance)
 
-    takeoff(cmds, height)
+    takeoff(cmds)
     print("Taken off, initialazing mission")
 
     # straight line to first point

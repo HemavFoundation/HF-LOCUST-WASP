@@ -8,6 +8,7 @@ body {
 	background-repeat: no-repeat;
 	background-size: inherit;
 	background-size: cover;
+	height: 2000px;
 }
 
 #viewPhoto {
@@ -488,6 +489,9 @@ body {
 	margin: 0;
 	padding: 17px 0 10px 0;
 	text-align: center;
+	bottom: 0;
+
+
 }
 
 /* End Structure */

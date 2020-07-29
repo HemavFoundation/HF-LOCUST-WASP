@@ -6,7 +6,7 @@
     "language": {
       "en": {
         "#h-history-title": "History",
-        "#h-flight-title": "Flight Results",
+        "#h-flight-title": "Visual Results",
         "#h-hour": "Hour",
         "#h-typeofmission": "Type Of Mission",
         "#h-flightinfo": "Flight Info",
@@ -22,7 +22,7 @@
       },
       "ar": {
         "#h-history-title": "التاريخ",
-        "#h-flight-title": "نتائج الرحلة",
+        "#h-flight-title": "Falta",
         "#h-hour": "ساعة",
         "#h-typeofmission": "نوع المهمة",
         "#h-flightinfo": "معلومات الرحلة",
