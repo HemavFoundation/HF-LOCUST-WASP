@@ -286,6 +286,10 @@
 
     }
 
+    function calcHypot(a,b){
+      return  Math.sqrt(Math.pow(a,2) + Math.pow(b,2))
+    }
+
     function computeFlightTime() {
 
       var time = null
@@ -294,8 +298,8 @@
       var width = parseFloat(document.getElementById("rectwidthtext").value);
       var distanceBetweenLines = parseFloat(document.getElementById("Ltext").value);
       var takeOffDistance = parseFloat(document.getElementById("xtext").value);
-      var hypot = Math.hypot(takeOffDistance, width / 2)
-      var hZigZag = Math.hypot(width, distanceBetweenLines)
+      var hypot = calcHypot(takeOffDistance, width / 2)
+      var hZigZag = calcHypot(width, distanceBetweenLines)
 
       if (missiontype == 1) {
         var path = ((distance / distanceBetweenLines) * (distanceBetweenLines + width)) + hypot + takeOffDistance + distance
