@@ -97,11 +97,14 @@
         </div>
         <br>
         <div id="inversedParameter">
-          Inversed mission: <select onchange="inversedSelector();" onchange="computeMaxDistance()" id="inversed">
+          <p id="fp-inversed"></p> <select onchange="inversedSelector();" onchange="computeMaxDistance()" id="inversed">
             <option value="0" selected="selected">Select One</option>
             <option value="1">Yes</option>
             <option value="2">No</option>
           </select>
+          <p id="fp-inversed-desc"></p> 
+         
+          
         </div>
         <br>
         <div id="distanceparameter">
@@ -140,7 +143,6 @@
         <div id="periscopeImage">
           <img src="../images/periscopeImage.png" height="400" width="350" style="margin-right:20px">
         </div>
-        <br>
 
       </div>
 
@@ -687,7 +689,7 @@
         theme = 'HIGH_CONTRAST';
 
         $('body').addClass('HIGH_CONTRAST');
-        $('#header').css('background-image', 'none');
+       // $('#header').css('background-image', 'none');
         $('#theme_switcher').text('Light theme')
         return;
       }
@@ -695,7 +697,7 @@
         theme = 'DEFAULT';
 
         $('body').removeClass('HIGH_CONTRAST');
-        $('#header').css('background-image', 'url("../images/header.png")');
+        //$('#header').css('background-image', 'url("../images/header.png")');
         $('#theme_switcher').text('Dark theme')
 
         return;
