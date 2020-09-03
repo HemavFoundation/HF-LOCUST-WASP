@@ -8,7 +8,7 @@ body {
 	background-repeat: no-repeat;
 	background-size: inherit;
 	background-size: cover;
-	height: 2000px;
+	height: 2500px;
 }
 
 #viewPhoto {
@@ -910,13 +910,18 @@ body.HIGH_CONTRAST .card {
 
 .language {
 	position: fixed;
-	bottom: 0px;
-	right: 5px;
-	width: 70px;
-	border: 0px solid #d6d6d6;
-	padding: 0.5em 1em;
-	background: #8a1a2d;
-	color: #FFF;
-	border-radius: 10%;
-	font-size: 10px;
+	right: 20px;
+	bottom: 20px;
+	border: none;
+	font-size: 17px;
+	color: silver;
+	padding: 16px 22px;
+	text-align: center;
+	background-color: rgba(0, 0, 0, 0.4);
+	font-weight: 600;
+	border-radius: 6px;
+	outline: none;
+	transition: all .3s ease;
+	cursor: pointer;
 }
+

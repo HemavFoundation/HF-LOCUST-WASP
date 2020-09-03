@@ -61,17 +61,20 @@
     </div>
     <br><br><br>
     <div>
-        <button class="MajorButton" onclick="goToHistory()"><div id = "LF-GoBack"></div></button>
+        <button class="MajorButton" onclick="goToHistory()">
+            <div id="LF-GoBack"></div>
+        </button>
     </div>
     <select onchange="languageSelector();" id="languageSelector" class="language">
         <option value="en">English</option>
         <option value="ar">عرب</option>
     </select>
     <script>
+        var theme = 'DEFAULT'
+
         $(document).ready(function () {
 
             $.MultiLanguage('/locustFinder-language.json', 'en')
-            var theme = 'DEFAULT'
             var flightIndex = window.location.search.substring(1);
             var index = 0;
             var indexBefore = 0;
@@ -433,7 +436,6 @@
                 theme = 'HIGH_CONTRAST';
 
                 $('body').addClass('HIGH_CONTRAST');
-                $('#header').css('background-image', 'none');
                 $('#theme_switcher').text('Light theme')
                 return;
             }
@@ -441,7 +443,6 @@
                 theme = 'DEFAULT';
 
                 $('body').removeClass('HIGH_CONTRAST');
-                $('#header').css('background-image', 'url("../images/FundationHemavLogo.png")');
                 $('#theme_switcher').text('Dark theme')
 
                 return;

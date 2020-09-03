@@ -14,7 +14,7 @@ import sys
 
 distance = int(sys.argv[1]) / 1000
 spaceDistance = int(sys.argv[2]) / 1000
-height = int(sys.argv[3]) / 1000
+height = int(sys.argv[3])
 
 sitl = None
 

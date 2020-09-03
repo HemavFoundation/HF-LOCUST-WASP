@@ -2,22 +2,23 @@
 
 <html lang="en">
 
-  <head>
-    <meta charset="utf-8">
-    <script src="../js/jquery.js"></script>
-    <script src="../js/jquery.MultiLanguage.min.js"></script>
-    <link rel="stylesheet" href="../css/style.css">
-    <title>Flight Planner</title>
-  </head>
+<head>
+  <meta charset="utf-8">
+  <script src="../js/jquery.js"></script>
+  <script src="../js/jquery.MultiLanguage.min.js"></script>
+  <link rel="stylesheet" href="../css/style.css">
+  <title>Flight Planner</title>
+</head>
 
 
 <body id="page">
+  <button id="theme_switcher">Dark theme</button>
+
   <div id="header">
     <div id="headerimg">
     </div>
   </div>
 
-  <button id="theme_switcher">Dark theme</button>
   <h2 id="h-history-title"></h2>
   <br><br>
   <hr />
@@ -25,9 +26,9 @@
     <table id="tablacompleta" class="table table-striped">
       <thead>
         <tr>
-          <th id = "h-hour"></th>
-          <th id = "h-typeofmission"></th>
-          <th id = "h-flightinfo"></th>
+          <th id="h-hour"></th>
+          <th id="h-typeofmission"></th>
+          <th id="h-flightinfo"></th>
         </tr>
       </thead>
       <tbody id="historyTable">
@@ -43,11 +44,11 @@
     <table id="completeTableResults" class="table table-striped">
       <thead>
         <tr>
-          <th id = "h-id"></th>
-          <th id = "h-greenveg"></th>
-          <th id = "h-long"></th>
-          <th id = "h-lat"></th>
-          <th id = "h-image"></th>
+          <th id="h-id"></th>
+          <th id="h-greenveg"></th>
+          <th id="h-long"></th>
+          <th id="h-lat"></th>
+          <th id="h-image"></th>
 
         </tr>
       </thead>
@@ -58,8 +59,12 @@
   </div>
 
   <br><br>
-  <button class="square_btn" onclick="window.location='/History'" target="_new"><div id="h-clear"></div></button>
-  <button class="square_btn" onclick="window.location='/planner'" target="_new"><div id="h-goPlanner"></div></button>
+  <button class="square_btn" onclick="window.location='/History'" target="_new">
+    <div id="h-clear"></div>
+  </button>
+  <button class="square_btn" onclick="window.location='/planner'" target="_new">
+    <div id="h-goPlanner"></div>
+  </button>
 
   <select onchange="languageSelector();" id="languageSelector" class="language">
     <option value="en">English</option>
@@ -67,8 +72,9 @@
   </select>
 
   <script>
+    var theme = 'DEFAULT'
+
     $(document).ready(function () {
-      var theme = 'DEFAULT'
       $.MultiLanguage('/history-language.json', 'en')
       var ipConnection = '192.168.0.10'
       fillHistoryTable(ipConnection);
@@ -132,7 +138,7 @@
         theme = 'HIGH_CONTRAST';
 
         $('body').addClass('HIGH_CONTRAST');
-        $('#header').css('background-image', 'none');
+        //$('#header').css('background-image', 'none');
         $('#theme_switcher').text('Light theme')
         return;
       }
@@ -140,7 +146,7 @@
         theme = 'DEFAULT';
 
         $('body').removeClass('HIGH_CONTRAST');
-        $('#header').css('background-image', 'url("../images/FundationHemavLogo.png")');
+        //$('#header').css('background-image', 'url("../images/FundationHemavLogo.png")');
         $('#theme_switcher').text('Dark theme')
 
         return;
