@@ -34,12 +34,26 @@ class VisualCameraInterface():
         self.camera_settings = dict(
             frame_width = 2528, 
             frame_height = 1968,
-            exposure = 50,
-            brightness = 40,
-            contrast = 30,
-            saturation = 20,
+            exposure = -6,
+            brightness = -13,
+            contrast = 38,
+            saturation = 64,
+            white_balance = 4600,
+            gamma = 160,
+            sharpness = 3,
         )
-        
+    
+        """
+        list of adjustable features: 
+        - brightness [-64 - 64] --> -13
+        - contrast [0-64] --> 38
+        - saturation [0-128] --> 64
+        - sharpness [0-6] --> 3
+        - gamma [72-500] --> 160
+        - white balance [4600] 
+        - Exposure: -6 (AUTO)
+
+        """
         # variables we need to introduce from the main script
         self.timestamp = timestamp
         #self.path = path_visualimages
@@ -50,9 +64,11 @@ class VisualCameraInterface():
     def load_settings(self, cap):
         cap.set(cv2.CAP_PROP_FRAME_WIDTH, self.camera_settings['frame_width'])
         cap.set(cv2.CAP_PROP_FRAME_HEIGHT, self.camera_settings['frame_height'])
-        cap.set(cv2.CAP_PROP_EXPOSURE, self.camera_settings['exposure'])
+        #cap.set(cv2.CAP_PROP_EXPOSURE, self.camera_settings['exposure'])
         cap.set(cv2.CAP_PROP_BRIGHTNESS, self.camera_settings['brightness'])
         cap.set(cv2.CAP_PROP_CONTRAST, self.camera_settings['contrast'])
+        cap.set(cv2.CAP_PROP_SATURATION, self.camera_settings['saturation'])
+        #cap.set(cv2.CAP_PROP_WHITE_BALANCE, self.camera_settings['white_balance'])
         cap.set(cv2.CAP_PROP_SATURATION, self.camera_settings['saturation'])
 
     def take_image(self):    #function to take an image with the visual camera
