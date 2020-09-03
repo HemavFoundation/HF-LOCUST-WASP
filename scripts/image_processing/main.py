@@ -41,7 +41,11 @@ def create_directory():  # tested and working
     
     path_flight = path + "/" + timestamp
     
-    os.mkdir(path_flight)
+    try:
+        os.mkdir(path_flight)
+    except: 
+        path_flight = path + "/" + timestamp + "_2"
+        os.mkdir(path_flight)
     
     path_ndvi_images = path_flight + "/" + "ndvi_images"  # we create the string for the new directory
     path_display_photos = path_flight + "/" + "display_photos" 
