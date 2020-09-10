@@ -3,6 +3,7 @@ const app = express();
 const morgan = require('morgan');
 const cors = require('cors');
 const path = require('path');
+const bodyParser = require("body-parser");
 
 const ___dirname = path.resolve();
 
@@ -15,17 +16,22 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cors());
+app.use(bodyParser.json())
 
 // routes
 app.use("/api/connect", require("./routes/connect"));
 app.use("/api/load", require("./routes/load"));
 app.use("/api/start", require("./routes/start"));
 
-
+app.post("/hook", (req, res) => {
+    console.log(req.body) // Call your action on the request here
+    res.status(200).end() // Responding is important
+  });
 
 // starting the server
 app.listen(app.get('port'), () => {
     console.log(`Server on port ${app.get('port')}`);
+
 });
 
 app.use(express.static('public'));
