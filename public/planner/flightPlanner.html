@@ -97,11 +97,13 @@
         </div>
         <br>
         <div id="inversedParameter">
-          Inversed mission: <select onchange="inversedSelector();" onchange="computeMaxDistance()" id="inversed">
-            <option value="0" selected="selected">Select One</option>
-            <option value="1">Yes</option>
-            <option value="2">No</option>
+          <p id="fp-inversed"></p> <select onchange="inversedSelector();" onchange="computeMaxDistance()" id="inversed">
+             <option value="1">Yes</option>
+            <option value="2" selected="selected">No</option>
           </select>
+          <p id="fp-inversed-desc"></p> 
+         
+          
         </div>
         <br>
         <div id="distanceparameter">
@@ -124,8 +126,22 @@
         <div id="periscope">
           <p id="fp-periscope-desc">
         </div>
-
         <br>
+        <div id="rectangleImage">
+          <img src="../images/rectangleImage.png" height="500" width="350" style="margin-right:20px">
+        </div>
+        <br>
+        <div id="straightImage">
+          <img src="../images/straightImage.png" height="500" width="250" style="margin-right:20px">
+        </div>
+        <br>
+        <div id="zigzagImage">
+          <img src="../images/zigzagImage.png" height="500" width="350" style="margin-right:20px">
+        </div>
+        <br>
+        <div id="periscopeImage">
+          <img src="../images/periscopeImage.png" height="400" width="350" style="margin-right:20px">
+        </div>
 
       </div>
 
@@ -286,16 +302,21 @@
 
     }
 
+    function calcHypot(a, b) {
+      return Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2))
+    }
+
     function computeFlightTime() {
 
       var time = null
       var distance = parseFloat(document.getElementById("distancetext").value);
       var velocity = 17;
       var width = parseFloat(document.getElementById("rectwidthtext").value);
+      var zigzagWidth = parseFloat(document.getElementById("rectwidthtextZigZag").value);
       var distanceBetweenLines = parseFloat(document.getElementById("Ltext").value);
       var takeOffDistance = parseFloat(document.getElementById("xtext").value);
-      var hypot = Math.hypot(takeOffDistance, width / 2)
-      var hZigZag = Math.hypot(width, distanceBetweenLines)
+      var hypot = calcHypot(takeOffDistance, width / 2)
+      var hZigZag = calcHypot(width, distanceBetweenLines)
 
       if (missiontype == 1) {
         var path = ((distance / distanceBetweenLines) * (distanceBetweenLines + width)) + hypot + takeOffDistance + distance
@@ -395,6 +416,10 @@
       $("#periscope").hide();
       $("#heightParam").hide();
       $("#distanceStraightParameter").hide();
+      $("#rectangleImage").show();
+      $("#straightImage").hide();
+      $("#zigzagImage").hide();
+      $("#periscopeImage").hide();
 
 
       missiontype = 1;
@@ -411,6 +436,10 @@
       $("#periscope").hide();
       $("#heightParam").hide();
       $("#inversedParameter").hide();
+      $("#rectangleImage").hide();
+      $("#straightImage").show();
+      $("#zigzagImage").hide();
+      $("#periscopeImage").hide();
 
 
 
@@ -427,6 +456,10 @@
       $("#periscope").hide();
       $("#heightParam").hide();
       $("#distanceStraightParameter").hide();
+      $("#rectangleImage").hide();
+      $("#straightImage").hide();
+      $("#zigzagImage").show();
+      $("#periscopeImage").hide();
 
 
       missiontype = 3;
@@ -441,6 +474,10 @@
 
       $("#inversedParameter").hide();
       $("#distanceStraightParameter").hide();
+      $("#rectangleImage").hide();
+      $("#straightImage").hide();
+      $("#zigzagImage").hide();
+      $("#periscopeImage").show();
 
       missiontype = 4;
     });
@@ -513,6 +550,9 @@
           var spaceBetweenLines = parseFloat(document.getElementById("Ltext").value);
           var height = parseFloat(document.getElementById("htext").value);
           var width = parseFloat(document.getElementById("rectwidthtext").value);
+          var zigzagWidth = parseFloat(document.getElementById("rectwidthtextZigZag").value);
+
+
 
           console.log(inversed)
 
@@ -544,7 +584,7 @@
                 $.ajax
                   ({
                     type: 'POST',
-                    url: 'http://' + ipConnection + ':9000/api/load/ZigZagMission/' + distance + '/' + width + '/' + spaceBetweenLines + '/' + takeoffSDistance + '/' + height + '/' + inversed,
+                    url: 'http://' + ipConnection + ':9000/api/load/ZigZagMission/' + distance + '/' + zigzagWidth + '/' + spaceBetweenLines + '/' + takeoffSDistance + '/' + height + '/' + inversed,
                     dataType: 'json',
                     success: function (data, textStatus, xhr) {
                       document.getElementById('photoupload').src = "../images/tick.png";
@@ -622,31 +662,20 @@
 
       $("#droneStartButton").click(function () {
         document.getElementById('photostart').src = "../images/waiting.png";
+        startTimer()
         $.ajax
           ({
             type: 'GET',
             url: 'http://' + ipConnection + ':9000/api/start/arm',
             dataType: 'json',
             success: function (data, textStatus, xhr) {
+              console.log("fdw")
               document.getElementById('photostart').src = "../images/tick.png";
               document.getElementById('photoplane').style = "visibility:visible; margin:10px 0px -10px 10px";
-              startTimer()
-              $.ajax
-                ({
-                  type: 'GET',
-                  url: 'http://' + ipConnection + ':9000/api/start',
-                  dataType: 'json',
-                  success: function (data, textStatus, xhr) {
-                    console.log("START OK")
-                  },
-                  error: function (data, textStatus, xhr) {
-                    console.log("START KO?")
-                  },
-                })
             },
             error: function (data, textStatus, xhr) {
-              document.getElementById('photostart').src = "../images/cross.png";
-              console.log("No se ha podido armar el drone")
+              document.getElementById('photostart').src = "../images/tick.png";
+              document.getElementById('photoplane').style = "visibility:visible; margin:10px 0px -10px 10px";
 
             },
           })
@@ -659,7 +688,7 @@
         theme = 'HIGH_CONTRAST';
 
         $('body').addClass('HIGH_CONTRAST');
-        $('#header').css('background-image', 'none');
+       // $('#header').css('background-image', 'none');
         $('#theme_switcher').text('Light theme')
         return;
       }
@@ -667,7 +696,7 @@
         theme = 'DEFAULT';
 
         $('body').removeClass('HIGH_CONTRAST');
-        $('#header').css('background-image', 'url("../images/header.png")');
+        //$('#header').css('background-image', 'url("../images/header.png")');
         $('#theme_switcher').text('Dark theme')
 
         return;
