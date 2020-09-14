@@ -18,24 +18,6 @@ import pandas as pd
 import cv2
 
 
-def armDrone():
-
-    print("Basic pre-arm checks")
-    # Don't let the user try to arm until autopilot is ready
-
-    print("Arming motors")
-    # Copter should arm in GUIDED mode
-    
-    vehicle.mode = VehicleMode("AUTO")
-    vehicle.armed = True
-    #vehicle.mode = VehicleMode("AUTO")
-
-    while not vehicle.armed:      
-        print(" Waiting for arming...")
-        sleep(1)
-
-    print("Done!")
-
 if connectionString != "local":
     connection_string = "/dev/serial0"
 else:
@@ -71,7 +53,6 @@ data_interface = DataManagement()
 # we get the home coordinates to introduce them in the intelligent RTL function
 home_coordinates = (autopilot_interface.get_latitude, autopilot_interface.get_longitude)
 
-armDrone()
 global num
 global num_visual
 
