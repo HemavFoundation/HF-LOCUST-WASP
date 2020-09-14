@@ -18,17 +18,16 @@ def armDrone():
 
     print("Arming motors")
     # Copter should arm in GUIDED mode
+    # vehicle.mode = VehicleMode("AUTO")
 
-    vehicle.mode = VehicleMode("AUTO")
     vehicle.armed = True
-    #vehicle.mode = VehicleMode("AUTO")
+    vehicle.mode = VehicleMode("AUTO")
 
-    while not vehicle.armed:
+    while not vehicle.armed:      
         print(" Waiting for arming...")
         sleep(1)
 
     print("Done!")
-
 
 if connectionString != "local":
     connection_string = "/dev/serial0"
