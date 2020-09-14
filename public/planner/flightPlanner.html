@@ -183,11 +183,11 @@
       <h3>
         <div id="fp-calibration-desc"></div>
         <br>
-        <button class="square_btn" id="uploadbut" disabled="true">
+        <button class="square_btn" id="calibrationbut" disabled="true">
           <div id="fp-calibration"></div>
         </button>
 
-        <img id="photoupload" src="../images/button.png" height="30" width=30 style="margin:10px 0px -10px 10px">
+        <img id="photoCalibration" src="../images/button.png" height="30" width=30 style="margin:10px 0px -10px 10px">
       </h3>
     </div>
   </div>
@@ -580,7 +580,7 @@
                     dataType: 'json',
                     success: function (data, textStatus, xhr) {
                       document.getElementById('photoupload').src = "../images/tick.png";
-                      document.getElementById('droneStartButton').disabled = false;
+                      document.getElementById('calibrationbut').disabled = false;
 
                     },
                     error: function (data, textStatus, xhr) {
@@ -599,7 +599,7 @@
                     dataType: 'json',
                     success: function (data, textStatus, xhr) {
                       document.getElementById('photoupload').src = "../images/tick.png";
-                      document.getElementById('droneStartButton').disabled = false;
+                      document.getElementById('calibrationbut').disabled = false;
 
                     },
                     error: function (data, textStatus, xhr) {
@@ -616,7 +616,7 @@
                     dataType: 'json',
                     success: function (data, textStatus, xhr) {
                       document.getElementById('photoupload').src = "../images/tick.png";
-                      document.getElementById('droneStartButton').disabled = false;
+                      document.getElementById('calibrationbut').disabled = false;
 
                     },
                     error: function (data, textStatus, xhr) {
@@ -635,7 +635,7 @@
                 dataType: 'json',
                 success: function (data, textStatus, xhr) {
                   document.getElementById('photoupload').src = "../images/tick.png";
-                  document.getElementById('droneStartButton').disabled = false;
+                  document.getElementById('calibrationbut').disabled = false;
 
                 },
                 error: function (data, textStatus, xhr) {
@@ -654,7 +654,7 @@
                 dataType: 'json',
                 success: function (data, textStatus, xhr) {
                   document.getElementById('photoupload').src = "../images/tick.png";
-                  document.getElementById('droneStartButton').disabled = false;
+                  document.getElementById('calibrationbut').disabled = false;
 
                 },
                 error: function (data, textStatus, xhr) {
@@ -669,6 +669,26 @@
             console.log(maxDistanceStraight)
           }
         }
+      });
+
+      $("#calibrationbut").click(function () {
+        document.getElementById('photoCalibration').src = "../images/waiting.png";
+        $.ajax
+          ({
+            type: 'GET',
+            url: 'http://' + ipConnection + ':9000/api/start/calibration',
+            dataType: 'json',
+            success: function (data, textStatus, xhr) {
+              document.getElementById('photoCalibration').src = "../images/tick.png";
+              document.getElementById('droneStartButton').disabled = false;
+
+            },
+            error: function (data, textStatus, xhr) {
+              document.getElementById('photoCalibration').src = "../images/cross.png";
+              document.getElementById('droneStartButton').disabled = false;
+
+            },
+          })
       });
 
       $("#droneStartButton").click(function () {
@@ -691,6 +711,7 @@
             },
           })
       });
+
     });
 
     function themeSwitcher() {

@@ -44,4 +44,43 @@ router.get("/", (req, res) => {
 
 });
 
+router.get("/calibration", (req, res) => {
+
+  let options;
+
+  if (environment == "drone") {
+    options = {
+      mode: "text",
+      pythonPath: "/usr/bin/python3",
+      pythonOptions: ["-u"], // get print results in real-time
+      scriptPath: "./scripts"
+    };
+  } else if (environment == "win") {
+    options = {
+      mode: "text",
+      pythonOptions: ["-u"], // get print results in real-time
+      scriptPath: "./scripts"
+    };
+  } else {
+    options = {
+      mode: "text",
+      pythonPath: "/usr/local/bin/python",
+      pythonOptions: ["-u"], // get print results in real-time
+      scriptPath: "./scripts"
+    };
+  }
+
+
+  PythonShell.run("calibration.py", options, function(err, results) {
+    //if (err) throw err;
+    if (err) {
+      res.status(400).send({ message: "ERROR: Fallo el script calibration.py" });
+	console.log(err);
+    }else{
+    res.status(200).send({ message: "Drone calibrado" });
+    }
+  });
+
+});
+
 module.exports = router;
