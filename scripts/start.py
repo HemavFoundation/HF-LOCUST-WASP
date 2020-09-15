@@ -16,6 +16,9 @@ import numpy as np
 import json
 import pandas as pd
 import cv2
+import multiprocessing
+
+
 
 
 if connectionString != "local":
@@ -25,15 +28,11 @@ else:
     
 sitl = None
 
-#Start SITL if no connection string specified
 if not connection_string:
     import dronekit_sitl
     sitl = dronekit_sitl.start_default()
     connection_string = sitl.connection_string()
 
-# Connect to the Vehicle. 
-#   Set `wait_ready=True` to ensure default attributes are populated before `connect()` returns.
-#print("\nConnecting to vehicle on: %s" % connection_string)
 
 vehicle = connect(connection_string, baud=921600, wait_ready=True)
   
@@ -43,83 +42,11 @@ print('#### connected ####')
 cmds = vehicle.commands
 cmds.download()
 
-path_mono, path_visual, raw_images, timestamp = main.create_directory()
+p1 = multiprocessing.Process(target=cameras, args=self)
+p2 = multiprocessing.Process(target=test)
 
-camera_interface = CameraInterface()
-autopilot_interface = AutopilotInterface(vehicle)
-visualcamera_interface = VisualCameraInterface(timestamp)
-data_interface = DataManagement()
-
-# we get the home coordinates to introduce them in the intelligent RTL function
-home_coordinates = (autopilot_interface.get_latitude, autopilot_interface.get_longitude)
-
-global num
-global num_visual
-
-num = 1
-num_visual = 1
-
-
-# Json structures containing all the data
-flight_data = None
-
-if connectionString != "local":
-    altitudeCondition = -50
-else:
-    altitudeCondition = -50
-
-# We initialize time variables for the visual camera 
-previous = time()
-delta_time = 0
-
-print('type of mission:', typeOfMission)
-
-if typeOfMission in ["straight", "zigzag", "rectangle"]:
-    
-    print('no periscope missions')
-    while vehicle.armed is True:
-
-        altitude = autopilot_interface.get_altitude()
-        current = time()
-        delta_time += current - previous
-        previous = current
-
-        if altitude >= altitudeCondition:
-            flight_data = main.main_loop_mono(num, path_mono, raw_images, camera_interface, autopilot_interface, data_interface)
-            camera_interface.test_settings(num)
-            num += 1
-
-        if delta_time > 5:  # we want to take images every 30 seconds
-            flight_data = main.main_loop_visual(num_visual, path_visual, visualcamera_interface, autopilot_interface, data_interface)
-            num_visual += 1
-
-    if flight_data is not None:
-        try:
-            data_interface.edit_json(flight_data)
-            print('json written')
-        except:
-            print('could not write json')
-    else: 
-        print('Empty json')
-
-if typeOfMission is "periscope":
-    print('periscope mission')
-    while vehicle.armed is True:
-
-        altitude = autopilot_interface.get_altitude()
-
-        if altitude >= altitudeCondition:  # on the periscope mission we just one to make as much photos as possible with the visual camera
-            flight_data = main.main_loop_visual(num_visual, path_visual, visualcamera_interface, autopilot_interface, data_interface)
-            num_visual += 1
-
-    if flight_data is not None:
-        try:
-            data_interface.edit_json(flight_data)
-            print('json written')
-        except:
-            print('could not write json')
-    else:
-        print('flight data is empty')
+p1.join()
+p2.join()
         
 # Close vehicle object before exiting script
 vehicle.close()
@@ -127,6 +54,92 @@ vehicle.close()
 # Shut down simulator
 if sitl is not None:
     sitl.stop()
+
+
+def test():
+    while(1):
+        print("Hola!")
+
+def cameras(self):
+    path_mono, path_visual, raw_images, timestamp = main.create_directory()
+
+    camera_interface = CameraInterface()
+    autopilot_interface = AutopilotInterface(vehicle)
+    visualcamera_interface = VisualCameraInterface(timestamp)
+    data_interface = DataManagement()
+
+    # we get the home coordinates to introduce them in the intelligent RTL function
+    home_coordinates = (autopilot_interface.get_latitude, autopilot_interface.get_longitude)
+
+    global num
+    global num_visual
+
+    num = 1
+    num_visual = 1
+
+
+    # Json structures containing all the data
+    flight_data = None
+
+    if self.connectionString != "local":
+        altitudeCondition = -50
+    else:
+        altitudeCondition = -50
+
+    # We initialize time variables for the visual camera 
+    previous = time()
+    delta_time = 0
+
+    print('type of mission:', typeOfMission)
+
+    if typeOfMission in ["straight", "zigzag", "rectangle"]:
+        
+        print('no periscope missions')
+        while vehicle.armed is True:
+
+            altitude = autopilot_interface.get_altitude()
+            current = time()
+            delta_time += current - previous
+            previous = current
+
+            if altitude >= altitudeCondition:
+                flight_data = main.main_loop_mono(num, path_mono, raw_images, camera_interface, autopilot_interface, data_interface)
+                camera_interface.test_settings(num)
+                num += 1
+
+            if delta_time > 5:  # we want to take images every 30 seconds
+                flight_data = main.main_loop_visual(num_visual, path_visual, visualcamera_interface, autopilot_interface, data_interface)
+                num_visual += 1
+
+        if flight_data is not None:
+            try:
+                data_interface.edit_json(flight_data)
+                print('json written')
+            except:
+                print('could not write json')
+        else: 
+            print('Empty json')
+
+    if typeOfMission is "periscope":
+        print('periscope mission')
+        while vehicle.armed is True:
+
+            altitude = autopilot_interface.get_altitude()
+
+            if altitude >= altitudeCondition:  # on the periscope mission we just one to make as much photos as possible with the visual camera
+                flight_data = main.main_loop_visual(num_visual, path_visual, visualcamera_interface, autopilot_interface, data_interface)
+                num_visual += 1
+
+        if flight_data is not None:
+            try:
+                data_interface.edit_json(flight_data)
+                print('json written')
+            except:
+                print('could not write json')
+        else:
+            print('flight data is empty')
+
+
 
 
 
