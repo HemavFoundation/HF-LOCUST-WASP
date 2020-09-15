@@ -45,9 +45,10 @@ cmds.download()
 def test():
     while(1):
         print("Hola!")
-        time.sleep(5)
+        
 
 def cameras():
+    
     path_mono, path_visual, raw_images, timestamp = main.create_directory()
 
     camera_interface = CameraInterface()
@@ -81,9 +82,8 @@ def cameras():
 
     if typeOfMission in ["straight", "zigzag", "rectangle"]:
         
-        print('no periscope missions')
         while vehicle.armed is True:
-
+            print(vehicle.armed)
             altitude = autopilot_interface.get_altitude()
             current = time()
             delta_time += current - previous
@@ -126,16 +126,27 @@ def cameras():
         else:
             print('flight data is empty')
 
+processes = []
+
 
 p1 = multiprocessing.Process(target=cameras)
 p2 = multiprocessing.Process(target=test)
 
 p1.start()
+
 p2.start()
 
-p1.join()
-p2.join()
-        
+
+
+while vehicle.armed is True:
+    print('el drone esta armado')
+    if(vehicle.armed != True):
+        p1.kill()
+        p2.kill()
+        break
+    
+
+
 # Close vehicle object before exiting script
 vehicle.close()
 
