@@ -171,7 +171,6 @@ p2.start()
 
 
 while vehicle.armed is True:
-    print('el drone esta armado')
     if(vehicle.armed != True):
         p1.kill()
         p2.kill()
