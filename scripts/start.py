@@ -42,25 +42,12 @@ print('#### connected ####')
 cmds = vehicle.commands
 cmds.download()
 
-p1 = multiprocessing.Process(target=cameras, args=self)
-p2 = multiprocessing.Process(target=test)
-
-p1.join()
-p2.join()
-        
-# Close vehicle object before exiting script
-vehicle.close()
-
-# Shut down simulator
-if sitl is not None:
-    sitl.stop()
-
-
 def test():
     while(1):
         print("Hola!")
+        time.sleep(5)
 
-def cameras(self):
+def cameras():
     path_mono, path_visual, raw_images, timestamp = main.create_directory()
 
     camera_interface = CameraInterface()
@@ -81,7 +68,7 @@ def cameras(self):
     # Json structures containing all the data
     flight_data = None
 
-    if self.connectionString != "local":
+    if  connectionString != "local":
         altitudeCondition = -50
     else:
         altitudeCondition = -50
@@ -138,6 +125,26 @@ def cameras(self):
                 print('could not write json')
         else:
             print('flight data is empty')
+
+
+p1 = multiprocessing.Process(target=cameras)
+p2 = multiprocessing.Process(target=test)
+
+p1.start()
+p2.start()
+
+p1.join()
+p2.join()
+        
+# Close vehicle object before exiting script
+vehicle.close()
+
+# Shut down simulator
+if sitl is not None:
+    sitl.stop()
+
+
+
 
 
 

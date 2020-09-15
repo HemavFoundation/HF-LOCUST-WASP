@@ -32,15 +32,16 @@ class VisualCameraInterface():
         self.port = "/dev/video0"
         #2528, 1968
         self.camera_settings = dict(
-            frame_width = 2528, 
-            frame_height = 1968,
-            exposure = -6,
+            frame_width = 2200, 
+            frame_height = 1700,
+            auto_exposure = -6,
             brightness = -13,
             contrast = 38,
             saturation = 64,
             white_balance = 4600,
             gamma = 160,
             sharpness = 3,
+            fps = 60,
         )
     
         """
@@ -65,16 +66,17 @@ class VisualCameraInterface():
         cap.set(cv2.CAP_PROP_FRAME_WIDTH, self.camera_settings['frame_width'])
         cap.set(cv2.CAP_PROP_FRAME_HEIGHT, self.camera_settings['frame_height'])
         #cap.set(cv2.CAP_PROP_EXPOSURE, self.camera_settings['exposure'])
-        cap.set(cv2.CAP_PROP_BRIGHTNESS, self.camera_settings['brightness'])
-        cap.set(cv2.CAP_PROP_CONTRAST, self.camera_settings['contrast'])
-        cap.set(cv2.CAP_PROP_SATURATION, self.camera_settings['saturation'])
+        #cap.set(cv2.CAP_PROP_BRIGHTNESS, self.camera_settings['brightness'])
+        #cap.set(cv2.CAP_PROP_CONTRAST, self.camera_settings['contrast'])
+        #cap.set(cv2.CAP_PROP_SATURATION, self.camera_settings['saturation'])
         #cap.set(cv2.CAP_PROP_WHITE_BALANCE, self.camera_settings['white_balance'])
-        cap.set(cv2.CAP_PROP_SATURATION, self.camera_settings['saturation'])
+        cap.set(cv2.CAP_PROP_FPS, self.camera_settings['fps'])
 
     def take_image(self):    #function to take an image with the visual camera
         cap = cv2.VideoCapture(0)
         
         if not cap.isOpened():
+            print('Could not open the camera')
             time.sleep(1)
             self.take_image()
 
