@@ -17,9 +17,8 @@ import json
 import pandas as pd
 import cv2
 import multiprocessing
-
-
-
+import serial
+from adafruit_rockblock import RockBlock
 
 if connectionString != "local":
     connection_string = "/dev/serial0"
@@ -42,9 +41,42 @@ print('#### connected ####')
 cmds = vehicle.commands
 cmds.download()
 
-def test():
+uart = serial.Serial("/dev/ttyUSB0", 19200)
+
+rb = RockBlock(uart)
+
+def check_connection():
+
+    resp = rb._uart_xfer("+CSQ")
+
+    if resp[-1].strip().decode() == "OK":
+        status = int(resp[1].strip().decode().split(":")[1])
+
+    else:
+        quality = False
+
+    signal_strength = status
+
+    print("Signal strength:",signal_strength)
+
+    if signal_strength >= 1:
+        quality = True
+
+    else:
+        quality= False
+
+    return quality
+
+def csq():
     while(1):
-        print("Hola!")
+        cc = check_connection()
+
+        while cc is not True:
+            cc = check_connection()
+            print("Checking again...")
+
+        if cc is not False:
+            print("Ready to send message!")
         
 
 def cameras():
@@ -130,7 +162,7 @@ processes = []
 
 
 p1 = multiprocessing.Process(target=cameras)
-p2 = multiprocessing.Process(target=test)
+p2 = multiprocessing.Process(target=csq)
 
 p1.start()
 
