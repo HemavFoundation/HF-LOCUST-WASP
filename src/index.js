@@ -32,8 +32,9 @@ app.use(express.static('public'));
 
 app.use(express.static('images/*'));
 
-app.use(express.static('public/photos'));
+//app.use(express.static('public/photos'));
 
+app.use(express.static('E:/LOCUST/Mauritania 2020/Fotos raspi/endurance flight'));
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(___dirname + '/public/index.html'));
@@ -49,10 +50,6 @@ app.get('/history', (req, res) => {
 
 app.get('/locustFinder', (req, res) => {
     res.sendFile(path.join(___dirname + '/public/results/locustFinder.html'));
-});
-
-app.get('/1.jpeg', (req, res) => {
-    res.sendFile(path.join(___dirname + '/public/results/photos/Test Flight/raw_images/1.jpeg'));
 });
 
 app.get('/language.json', (req, res) => {

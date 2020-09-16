@@ -76,7 +76,7 @@
 
     $(document).ready(function () {
       $.MultiLanguage('/history-language.json', 'en')
-      var ipConnection = '192.168.0.10'
+      var ipConnection = 'localhost'
       fillHistoryTable(ipConnection);
       $('#theme_switcher').on('click', themeSwitcher);
 
@@ -103,7 +103,7 @@
     function fillResultsTable(passId) {
       $("#resultsTable").html(""); //primero vacio la tabla existente
 
-      var ipConnection = '192.168.0.10'
+      var ipConnection = 'localhost'
 
       $.ajax({
         type: 'GET',
