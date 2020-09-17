@@ -55,17 +55,17 @@ class RockClient():
         return datastruct
 
 
-    def send_location(self, lat, lon, alt):  # Aqui se enviarán los mensajes
+    def send_location(self, lat, lon, alt, armed):  # Aqui se enviarán los mensajes
 
         rb = self.connect_rockblock()
 
         cc = self.check_connection(rb)
 
-        while cc is not True:
+        while cc is not True and armed is True:
             cc = self.check_connection(rb)
             print("Checking again...")
 
-        if cc is not False:
+        if cc is not False and armed is True:
             data = self.write_message(alt,lat,lon)
 
             print("Ready to send message!")

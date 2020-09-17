@@ -51,8 +51,7 @@ def sendLocation():
     longitude = autopilot_interface.get_longitude()
     altitude = autopilot_interface.get_altitude()
     
-    while(vehicle.armed is True):
-        rc.send_location(latitude,longitude,altitude)
+    rc.send_location(latitude,longitude,altitude, vehicle.armed)
 
 
 def cameras():
