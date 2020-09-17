@@ -72,7 +72,8 @@ class VisualCameraInterface():
         height = self.camera_settings['frame_height']
         width = self.camera_settings['frame_width']
 
-        command = 'fswebcam ' + '-r ' + str(width) + 'x' +str(height) +' --no-banner /home/pi/Desktop/visual_camera_tests/Image_test.jpeg'
+        command = 'fswebcam -d v4l2:/dev/video0 ' + '-r ' + str(width) + 'x' +str(height) +' --no-banner /home/pi/Desktop/visual_camera_tests/Image_test.jpeg'
+        print(command)
         try:
             os.system(command)
             img = cv2.imread('/home/pi/Desktop/visual_camera_tests/Image_test.jpeg')
