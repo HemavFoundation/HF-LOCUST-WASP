@@ -1,5 +1,5 @@
 import time
-import adafruit_rockblock import RockBlock
+from adafruit_rockblock import RockBlock
 import serial
 import struct
 import json
@@ -45,7 +45,7 @@ class RockClient():
     def write_message(self, alt, lat, lon):  # Aqui se codificará el mensaje para enviar
         typ = '1'
         status = '01'
-
+        print(type(lat))
         datadict = {'lat': lat, 'lon': lon,
                     'alt:': alt, 'typ': typ, 'status': status}
         datajson = json.dumps(datadict).encode('utf-8')

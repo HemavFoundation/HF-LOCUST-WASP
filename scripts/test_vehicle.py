@@ -3,7 +3,6 @@ from __future__ import print_function
 import multiprocessing
 import threading
 from image_processing.autopilot_interface import AutopilotInterface
-import pathos
 from dronekit import *
 from commonFunctions import *
 from config import *

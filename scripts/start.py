@@ -10,7 +10,6 @@ from image_processing.visual_camera_interface import VisualCameraInterface
 from image_processing.data_management import DataManagement
 from image_processing import main
 import geopy.distance
-from time import time
 from time import sleep
 import numpy as np
 import json
@@ -47,8 +46,13 @@ rc = RockClient()
 def sendLocation():
 
     autopilot_interface = AutopilotInterface(vehicle)
+    
+    latitude = autopilot_interface.get_latitude()
+    print(latitude)
+    longitude = autopilot_interface.get_longitude()
+    altitude = autopilot_interface.get_altitude()
 
-    rc.send_location(autopilot_interface.get_latitude,autopilot_interface.get_longitude,autopilot_interface.get_altitude)
+    rc.send_location(latitude,longitude,altitude)
 
 
 def cameras():
