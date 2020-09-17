@@ -30,10 +30,10 @@ class VisualCameraInterface():
 
         # visual camera settings
         self.port = "/dev/video0"
-        #2528, 1968
+        #2592, 1944
         self.camera_settings = dict(
-            frame_width = 2200, 
-            frame_height = 1700,
+            frame_width = 1920, 
+            frame_height = 1080,
             auto_exposure = -6,
             brightness = -13,
             contrast = 38,
@@ -41,7 +41,7 @@ class VisualCameraInterface():
             white_balance = 4600,
             gamma = 160,
             sharpness = 3,
-            fps = 60,
+            fps = 10,
         )
     
         """
@@ -61,28 +61,23 @@ class VisualCameraInterface():
 
         # We initialize the array containing the data of the images
         self.visualimages = []
+        #self.cap = cv2.VideoCapture(1, cv2.CAP_V4L2)
+        
+        #self.load_settings(self.cap)
 
-    def load_settings(self, cap):
-        cap.set(cv2.CAP_PROP_FRAME_WIDTH, self.camera_settings['frame_width'])
-        cap.set(cv2.CAP_PROP_FRAME_HEIGHT, self.camera_settings['frame_height'])
-        #cap.set(cv2.CAP_PROP_EXPOSURE, self.camera_settings['exposure'])
-        #cap.set(cv2.CAP_PROP_BRIGHTNESS, self.camera_settings['brightness'])
-        #cap.set(cv2.CAP_PROP_CONTRAST, self.camera_settings['contrast'])
-        #cap.set(cv2.CAP_PROP_SATURATION, self.camera_settings['saturation'])
-        #cap.set(cv2.CAP_PROP_WHITE_BALANCE, self.camera_settings['white_balance'])
-        cap.set(cv2.CAP_PROP_FPS, self.camera_settings['fps'])
+    #def load_settings(self):
+        
 
     def take_image(self):    #function to take an image with the visual camera
-        cap = cv2.VideoCapture(0)
-        
-        if not cap.isOpened():
-            print('Could not open the camera')
-            time.sleep(1)
-            self.take_image()
+        height = self.camera_settings['frame_height']
+        width = self.camera_settings['frame_width']
 
-        self.load_settings(cap)
-        ret, img = cap.read()
-        cap.release()
+        command = 'fswebcam ' + '-r ' + str(width) + 'x' +str(height) +' --no-banner /home/pi/Desktop/visual_camera_tests/Image_test.jpeg'
+        try:
+            os.system(command)
+            img = cv2.imread('/home/pi/Desktop/visual_camera_tests/Image_test.jpeg')
+        except:
+            print('not available resources')
         
         print('visual image ok')
         return img

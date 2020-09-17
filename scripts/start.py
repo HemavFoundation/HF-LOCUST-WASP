@@ -41,9 +41,9 @@ print('#### connected ####')
 cmds = vehicle.commands
 cmds.download()
 
-uart = serial.Serial("/dev/ttyUSB0", 19200)
+#uart = serial.Serial("/dev/ttyUSB0", 19200)
 
-rb = RockBlock(uart)
+#rb = RockBlock(uart)
 
 def check_connection():
 
@@ -162,22 +162,20 @@ processes = []
 
 
 p1 = multiprocessing.Process(target=cameras)
-p2 = multiprocessing.Process(target=csq)
+#p2 = multiprocessing.Process(target=csq)
 
 p1.start()
 
-p2.start()
+#p2.start()
 
 
 
 while vehicle.armed is True:
-    if(vehicle.armed != True):
+    if(vehicle.armed is not True):
         p1.kill()
         p2.kill()
         break
     
-
-
 # Close vehicle object before exiting script
 vehicle.close()
 

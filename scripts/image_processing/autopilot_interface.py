@@ -44,7 +44,7 @@ class AutopilotInterface():
 
     def get_altitude(self):
         try:
-            print(self.vehicle.location.global_relative_frame.alt)
+            print('vehcle altitude:',self.vehicle.location.global_relative_frame.alt)
         except:
             print("not able to get latitude")
         return self.vehicle.location.global_relative_frame.alt
@@ -53,7 +53,7 @@ class AutopilotInterface():
 
     def get_latitude(self):
         try:
-            print(self.vehicle.location.global_frame.lat)
+            print('Vehicle latitude:',self.vehicle.location.global_frame.lat)
         except:
             print("not able to get latitude")
 
@@ -63,7 +63,7 @@ class AutopilotInterface():
 
     def get_longitude(self):
         try:
-            print(self.vehicle.location.global_frame.lon)
+            print('Vehicle longitude:', self.vehicle.location.global_frame.lon)
         except:
             print("not able to get longitude")
 
@@ -73,7 +73,7 @@ class AutopilotInterface():
 
     def get_heading(self):
         try:
-            print(self.vehicle.heading)
+            print('Heading:', self.vehicle.heading)
         except:
             print("not able to get azimut")
 
