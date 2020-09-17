@@ -51,7 +51,7 @@ def sendLocation():
     longitude = autopilot_interface.get_longitude()
     altitude = autopilot_interface.get_altitude()
     
-    rc.send_location(latitude,longitude,altitude, vehicle.armed)
+    rc.send_location(latitude,longitude,altitude)
 
 
 def cameras():
@@ -144,12 +144,13 @@ p2 = multiprocessing.Process(target=sendLocation)
 p1.start()
 p2.start()
 
+a = 1
 
-
-while vehicle.armed is True:
+while a is 1:
     if(vehicle.armed is False):
         p1.kill()
         p2.kill()
+        a = 0
         break
     
 
