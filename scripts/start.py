@@ -173,7 +173,7 @@ p1.start()
 while vehicle.armed is True:
     if(vehicle.armed is not True):
         p1.kill()
-        p2.kill()
+        #p2.kill()
         break
     
 # Close vehicle object before exiting script
