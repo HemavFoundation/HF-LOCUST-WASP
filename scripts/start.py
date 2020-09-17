@@ -19,6 +19,7 @@ import cv2
 import multiprocessing
 import serial
 from adafruit_rockblock import RockBlock
+from RockClient import *
 
 if connectionString != "local":
     connection_string = "/dev/serial0"
@@ -41,43 +42,14 @@ print('#### connected ####')
 cmds = vehicle.commands
 cmds.download()
 
-uart = serial.Serial("/dev/ttyUSB0", 19200)
+rc = RockClient()
 
-rb = RockBlock(uart)
+def sendLocation():
 
-def check_connection():
+    autopilot_interface = AutopilotInterface(vehicle)
 
-    resp = rb._uart_xfer("+CSQ")
+    rc.send_location(autopilot_interface.get_latitude,autopilot_interface.get_longitude,autopilot_interface.get_altitude)
 
-    if resp[-1].strip().decode() == "OK":
-        status = int(resp[1].strip().decode().split(":")[1])
-
-    else:
-        quality = False
-
-    signal_strength = status
-
-    print("Signal strength:",signal_strength)
-
-    if signal_strength >= 1:
-        quality = True
-
-    else:
-        quality= False
-
-    return quality
-
-def csq():
-    while(1):
-        cc = check_connection()
-
-        while cc is not True:
-            cc = check_connection()
-            print("Checking again...")
-
-        if cc is not False:
-            print("Ready to send message!")
-        
 
 def cameras():
     
@@ -158,14 +130,12 @@ def cameras():
         else:
             print('flight data is empty')
 
-processes = []
 
 
 p1 = multiprocessing.Process(target=cameras)
-p2 = multiprocessing.Process(target=csq)
+p2 = multiprocessing.Process(target=sendLocation)
 
 p1.start()
-
 p2.start()
 
 
