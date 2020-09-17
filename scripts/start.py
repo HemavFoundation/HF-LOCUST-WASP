@@ -46,12 +46,12 @@ def sendLocation():
 
     autopilot_interface = AutopilotInterface(vehicle)
     
-    while(autopilot_interface.get_armed == True):
-            
-        latitude = autopilot_interface.get_latitude()
-        print(latitude)
-        longitude = autopilot_interface.get_longitude()
-        altitude = autopilot_interface.get_altitude()       
+    latitude = autopilot_interface.get_latitude()
+    print(latitude)
+    longitude = autopilot_interface.get_longitude()
+    altitude = autopilot_interface.get_altitude()
+    
+    while(1):
         rc.send_location(latitude,longitude,altitude)
 
 
@@ -90,8 +90,8 @@ def cameras():
 
     if typeOfMission in ["straight", "zigzag", "rectangle"]:
         
-        while autopilot_interface.get_armed is True:
-            print(autopilot_interface.get_armed)
+        while vehicle.armed is True:
+            print(vehicle.armed)
             altitude = autopilot_interface.get_altitude()
             current = time.perf_counter()
             delta_time += current - previous
@@ -120,7 +120,7 @@ def cameras():
 
     if typeOfMission is "periscope":
         print('periscope mission')
-        while autopilot_interface.get_armed  is True:
+        while vehicle.armed is True:
 
             altitude = autopilot_interface.get_altitude()
 
@@ -145,11 +145,14 @@ p2 = multiprocessing.Process(target=sendLocation)
 p1.start()
 p2.start()
 
-p1.join()
-p2.join()
 
 
-
+while vehicle.armed is True:
+    if(vehicle.armed is False):
+        p1.kill()
+        p2.kill()
+        break
+    
 
 
 # Close vehicle object before exiting script
