@@ -10,7 +10,6 @@ from image_processing.visual_camera_interface import VisualCameraInterface
 from image_processing.data_management import DataManagement
 from image_processing import main
 import geopy.distance
-from time import sleep
 import numpy as np
 import json
 import pandas as pd
@@ -51,8 +50,9 @@ def sendLocation():
     print(latitude)
     longitude = autopilot_interface.get_longitude()
     altitude = autopilot_interface.get_altitude()
-
-    rc.send_location(latitude,longitude,altitude)
+    
+    while(1):
+        rc.send_location(latitude,longitude,altitude)
 
 
 def cameras():
@@ -83,7 +83,7 @@ def cameras():
         altitudeCondition = -50
 
     # We initialize time variables for the visual camera 
-    previous = time()
+    previous = time.perf_counter()
     delta_time = 0
 
     print('type of mission:', typeOfMission)
@@ -93,9 +93,11 @@ def cameras():
         while vehicle.armed is True:
             print(vehicle.armed)
             altitude = autopilot_interface.get_altitude()
-            current = time()
+            current = time.perf_counter()
             delta_time += current - previous
+            print(delta_time)
             previous = current
+            
 
             if altitude >= altitudeCondition:
                 flight_data = main.main_loop_mono(num, path_mono, raw_images, camera_interface, autopilot_interface, data_interface)
@@ -104,7 +106,8 @@ def cameras():
 
             if delta_time > 5:  # we want to take images every 30 seconds
                 flight_data = main.main_loop_visual(num_visual, path_visual, visualcamera_interface, autopilot_interface, data_interface)
-                num_visual += 1
+                num_visual += 1                
+                delta_time = 0
 
         if flight_data is not None:
             try:
