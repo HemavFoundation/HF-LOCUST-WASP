@@ -45,6 +45,9 @@ class AutopilotInterface():
     def get_altitude(self):
         return self.vehicle.location.global_relative_frame.alt
 
+    def get_armed(self):
+        return self.vehicle.armed
+
     # # #
 
     def get_latitude(self):
