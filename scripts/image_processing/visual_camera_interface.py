@@ -32,7 +32,7 @@ class VisualCameraInterface():
         self.port = "/dev/video1"
         
         #2592, 1944
-        self.camera_settings = dict(
+        """ self.camera_settings = dict(
             frame_width = 3264, 
             frame_height = 2448,
             auto_exposure = 3,
@@ -44,8 +44,9 @@ class VisualCameraInterface():
             gamma = 160,
             sharpness = 3,
             fps = 10,
-        )
-    
+        ) """
+        
+        self.camera_settings=visual_camera_settings
        
         # variables we need to introduce from the main script
         self.timestamp = timestamp
