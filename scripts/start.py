@@ -47,11 +47,11 @@ def sendLocation():
     autopilot_interface = AutopilotInterface(vehicle)
     
     latitude = autopilot_interface.get_latitude()
-    print(latitude)
     longitude = autopilot_interface.get_longitude()
     altitude = autopilot_interface.get_altitude()
+    heading = autopilot_interface.get_heading()
     
-    rc.send_location(latitude,longitude,altitude)
+    rc.send_location(latitude,longitude,altitude,heading)
 
 
 def cameras():

@@ -42,12 +42,11 @@ class RockClient():
 
         return rb
 
-    def write_message(self, alt, lat, lon):  # Aqui se codificará el mensaje para enviar
+    def write_message(self, alt, lat, lon, heading):  # Aqui se codificará el mensaje para enviar
         typ = '1'
         status = '01'
-        print(type(lat))
         datadict = {'lat': lat, 'lon': lon,
-                    'alt:': alt, 'typ': typ, 'status': status}
+                    'alt:': alt, 'heading': heading, 'typ': typ, 'status': status}
         datajson = json.dumps(datadict).encode('utf-8')
         format = str(len(datajson)) + "s"
         datastruct = struct.pack(format, datajson)
@@ -55,7 +54,7 @@ class RockClient():
         return datastruct
 
 
-    def send_location(self, lat, lon, alt):  # Aqui se enviarán los mensajes
+    def send_location(self, lat, lon, alt, heading):  # Aqui se enviarán los mensajes
 
         rb = self.connect_rockblock()
 
@@ -66,7 +65,7 @@ class RockClient():
             print("Checking again...")
 
         if cc is not False:
-            data = self.write_message(alt,lat,lon)
+            data = self.write_message(alt, lat, lon, heading)
 
             print("Ready to send message!")
 
