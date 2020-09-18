@@ -94,7 +94,7 @@ def cameras():
             altitude = autopilot_interface.get_altitude()
             current = time.perf_counter()
             delta_time += current - previous
-            print(delta_time)
+            print('Viual camera trigger:', delta_time)
             previous = current
             
 
