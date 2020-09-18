@@ -45,7 +45,7 @@ flight_controller = dict(
 )
 
 rockblock_settings = dict(
-    port = 'dev/ttyUSB0',
+    port = '/dev/ttyUSB0',
     baudrate = 19200,
     message_timer = 30, # Send message timer in seconds
 )

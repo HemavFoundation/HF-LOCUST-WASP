@@ -19,12 +19,15 @@ import serial
 from adafruit_rockblock import RockBlock
 from RockClient import *
 
+#global flight_data
+
 if connectionString != "local":
     connection_string = flight_controller['port']
 else:
     connection_string = None
     
 sitl = None
+
 
 if not connection_string:
     import dronekit_sitl
@@ -41,6 +44,19 @@ cmds = vehicle.commands
 cmds.download()
 
 rc = RockClient()
+
+def writeJSON():
+    data_interface = DataManagement()
+
+    if flight_data is not None:
+        try:
+            data_interface.edit_json(flight_data)
+            print('json written')
+        except:
+            print('could not write json')
+    else: 
+        print('Empty json')
+
 
 def sendLocation():
 
@@ -148,6 +164,7 @@ a = 1
 
 while a is 1:
     if(vehicle.armed is False):
+        writeJSON()
         p1.kill()
         p2.kill()
         a = 0

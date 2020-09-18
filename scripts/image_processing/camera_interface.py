@@ -15,7 +15,7 @@ class CameraInterface():
         self.camera = PiCamera()
 
         # With the maximum resolution takes about 10 seconds to process an image
-        self.camera.resolution = (monospectral_camera_settings['width'], monospectral_camera_settings['height'])
+        self.camera.resolution = (monospectral_camera_settings['frame_width'], monospectral_camera_settings['frame_height'])
         # self.camera.resolution = (3280, 2464)
         # self.camera.resolution = (1640, 922)
 
