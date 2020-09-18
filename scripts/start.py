@@ -153,8 +153,6 @@ while a is 1:
         a = 0
         break
     
-
-
 # Close vehicle object before exiting script
 vehicle.close()
 
