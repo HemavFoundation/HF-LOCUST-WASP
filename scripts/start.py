@@ -20,7 +20,7 @@ from adafruit_rockblock import RockBlock
 from RockClient import *
 
 if connectionString != "local":
-    connection_string = "/dev/serial0"
+    connection_string = flight_controller['port']
 else:
     connection_string = None
     
@@ -32,7 +32,7 @@ if not connection_string:
     connection_string = sitl.connection_string()
 
 
-vehicle = connect(connection_string, baud=921600, wait_ready=True)
+vehicle = connect(connection_string, baud=flight_controller['baudrate'], wait_ready=True)
   
 print('#### connected ####')
   

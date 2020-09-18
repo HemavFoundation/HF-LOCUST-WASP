@@ -46,17 +46,7 @@ class VisualCameraInterface():
             fps = 10,
         )
     
-        """
-        list of adjustable features: 
-        - brightness [-64 - 64] --> -13
-        - contrast [0-64] --> 38
-        - saturation [0-128] --> 64
-        - sharpness [0-6] --> 3
-        - gamma [72-500] --> 160
-        - white balance [4600] 
-        - Exposure: -6 (AUTO)
-
-        """
+       
         # variables we need to introduce from the main script
         self.timestamp = timestamp
         #self.path = path_visualimages
