@@ -3,6 +3,9 @@ global typeOfMission
 global inverse
 global visual_camera_settings, monospectral_camera_settings, flight_controller
 
+
+drone_id = 'HP2-087'
+
 connectionString = "drone" # 'local' for testing in localhost // 'drone' for testing in the raspi
 typeOfMission = "straight" # periscope, straight, rectangle, zigzag
 inverse = False

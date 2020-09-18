@@ -4,6 +4,7 @@ from picamera import PiCamera
 import picamera.array
 import numpy as np
 import json
+from config import *
 
 
 class CameraInterface():
@@ -14,21 +15,21 @@ class CameraInterface():
         self.camera = PiCamera()
 
         # With the maximum resolution takes about 10 seconds to process an image
-        self.camera.resolution = (2528, 1968)
+        self.camera.resolution = (monospectral_camera_settings['width'], monospectral_camera_settings['height'])
         # self.camera.resolution = (3280, 2464)
         # self.camera.resolution = (1640, 922)
 
-        self.redAWB = 0.9
-        self.blueAWB = 2.2
+        self.redAWB = monospectral_camera_settings['redAWB']
+        self.blueAWB = monospectral_camera_settings['blueAWB']
         
         customGains = (self.redAWB, self.blueAWB)
-        self.camera.awb_mode = 'off'
+        self.camera.awb_mode = monospectral_camera_settings['awb_mode']
         self.camera.awb_gains = customGains
 
-        self.camera.drc_strength = 'high'   #dynamic range of the camera
-        self.camera.exposure_mode = 'auto'
+        self.camera.drc_strength = monospectral_camera_settings['drc_strength']   #dynamic range of the camera
+        self.camera.exposure_mode = monospectral_camera_settings['exposure_mode']
 
-        self.camera.brightness = 30
+        self.camera.brightness = monospectral_camera_settings['brightness']
 
 
         #We initialize some other variables that has nothing related with camera settings

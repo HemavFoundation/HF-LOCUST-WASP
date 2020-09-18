@@ -29,24 +29,9 @@ class VisualCameraInterface():
     def __init__(self, timestamp):
 
         # visual camera settings
-        self.port = "/dev/video1"
+        self.port = visual_camera_settings['port']
         
-        #2592, 1944
-        """ self.camera_settings = dict(
-            frame_width = 3264, 
-            frame_height = 2448,
-            auto_exposure = 3,
-            brightness = -10,
-            contrast = 0,
-            saturation = 52,
-            light_compensation = 1,
-            white_balance = 4600,
-            gamma = 160,
-            sharpness = 3,
-            fps = 10,
-        ) """
-        
-        self.camera_settings=visual_camera_settings
+        self.camera_settings = visual_camera_settings
        
         # variables we need to introduce from the main script
         self.timestamp = timestamp

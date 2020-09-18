@@ -6,9 +6,6 @@ class AutopilotInterface():
 
     def __init__(self, vehicle):
         
-        device = '/dev/ttyS0'
-        #vehicle = connect(device, wait_ready=True, baud=57600)
-#       vehicle = connect(device, baud=921600, wait_ready=True)
         self.vehicle = vehicle
 
     

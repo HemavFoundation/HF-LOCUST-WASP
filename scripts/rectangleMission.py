@@ -26,7 +26,7 @@ else:
 
 
 if connectionString != "local":
-    connection_string = "/dev/ttyS0"
+    connection_string = flight_controller['port']
     latFlight = float(sys.argv[7])
     lonFlight = float(sys.argv[8])
     headingFlight = int(sys.argv[9])
@@ -49,7 +49,7 @@ if not connection_string:
 #   Set `wait_ready=True` to ensure default attributes are populated before `connect()` returns.
 #print("\nConnecting to vehicle on: %s" % connection_string)
 
-vehicle = connect(connection_string, baud=921600, wait_ready=True)
+vehicle = connect(connection_string, baud=flight_controller['baudrate'], wait_ready=True)
 
 
 # Get some vehicle attributes (state)
