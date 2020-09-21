@@ -56,18 +56,29 @@ class RockClient():
         return datastruct
 
 
-    def send_location(self, lat, lon, alt):  # Aqui se enviarán los mensajes
-
+    def send_location(self, lat, lon, alt, heading):  # Aqui se enviarán los mensajes
+        
+        print('Satellite heading:', heading)
         rb = self.connect_rockblock()
 
         cc = self.check_connection(rb)
 
+        previous = time.perf_counter()
+        timer = 0
+
         while cc is not True:
+            current = time.perf_counter()
+            timer += current - previous
             cc = self.check_connection(rb)
             print("Checking again...")
 
+            previous = current
+            if timer > 30:
+                break
+
+
         if cc is not False:
-            data = self.write_message(alt,lat,lon)
+            data = self.write_message(alt,lat,lon, heading)
 
             print("Ready to send message!")
 

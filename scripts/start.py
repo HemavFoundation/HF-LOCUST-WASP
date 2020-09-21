@@ -58,118 +58,118 @@ rc = RockClient()
 #         print('Empty json')
 
 
-def sendLocation():
-
-    autopilot_interface = AutopilotInterface(vehicle)
+def sendLocation(lat,lon,alt, heading):
     
-    latitude = autopilot_interface.get_latitude()
-    print(latitude)
-    longitude = autopilot_interface.get_longitude()
-    altitude = autopilot_interface.get_altitude()
+    rc.send_location(lat,lon,alt, heading)
+
     
-    rc.send_location(latitude,longitude,altitude)
+path_mono, path_visual, raw_images, timestamp = main.create_directory()
+
+camera_interface = CameraInterface()
+autopilot_interface = AutopilotInterface(vehicle)
+visualcamera_interface = VisualCameraInterface(timestamp)
+data_interface = DataManagement()
+
+# we get the home coordinates to introduce them in the intelligent RTL function
+home_coordinates = (autopilot_interface.get_latitude, autopilot_interface.get_longitude)
+
+global num
+global num_visual
+
+num = 1
+num_visual = 1
 
 
-def cameras():
+# Json structures containing all the data
+flight_data = None
+
+if  connectionString != "local":
+    altitudeCondition = -50
+else:
+    altitudeCondition = -50
+
+# We initialize time variables for the visual camera 
+previous = time.perf_counter()
+delta_time = 0
+satellite_timer = 0
+
+print('type of mission:', typeOfMission)
+
+if typeOfMission in ["straight", "zigzag", "rectangle"]:
     
-    path_mono, path_visual, raw_images, timestamp = main.create_directory()
-
-    camera_interface = CameraInterface()
-    autopilot_interface = AutopilotInterface(vehicle)
-    visualcamera_interface = VisualCameraInterface(timestamp)
-    data_interface = DataManagement()
-
-    # we get the home coordinates to introduce them in the intelligent RTL function
-    home_coordinates = (autopilot_interface.get_latitude, autopilot_interface.get_longitude)
-
-    global num
-    global num_visual
-
-    num = 1
-    num_visual = 1
-
-
-    # Json structures containing all the data
-    flight_data = None
-
-    if  connectionString != "local":
-        altitudeCondition = -50
-    else:
-        altitudeCondition = -50
-
-    # We initialize time variables for the visual camera 
-    previous = time.perf_counter()
-    delta_time = 0
-
-    print('type of mission:', typeOfMission)
-
-    if typeOfMission in ["straight", "zigzag", "rectangle"]:
+    while vehicle.armed is True:
+        print('Is vehicle armed?:', vehicle.armed)
+        print('Vehicle heading', autopilot_interface.get_heading)
+        altitude = autopilot_interface.get_altitude()
+        current = time.perf_counter()
+        delta_time += current - previous
+        satellite_timer += current - previous
+        print('Viual camera trigger:', delta_time)
+        previous = current
         
-        while vehicle.armed is True:
-            print('Is vehicle armed?:', vehicle.armed)
-            print('Vehicle heading', autopilot_interface.get_heading)
-            altitude = autopilot_interface.get_altitude()
-            current = time.perf_counter()
-            delta_time += current - previous
-            print('Viual camera trigger:', delta_time)
-            previous = current
+        
+
+        if altitude >= altitudeCondition:
+            flight_data = main.main_loop_mono(num, path_mono, raw_images, camera_interface, autopilot_interface, data_interface)
+            camera_interface.test_settings(num)
+            num += 1
+
+        if delta_time > 5:  # we want to take images every 30 seconds
+            flight_data = main.main_loop_visual(num_visual, path_visual, visualcamera_interface, autopilot_interface, data_interface)
+            num_visual += 1                
+            delta_time = 0
+        
+        if satellite_timer > 60:  # we want to send location every 60 seconds
             
+            p2 = multiprocessing.Process(target=sendLocation, args=(autopilot_interface.get_latitude(), autopilot_interface.get_longitude(), autopilot_interface.get_altitude(), autopilot_interface.get_heading()))
+            p2.start()
+            satellite_timer = 0
 
-            if altitude >= altitudeCondition:
-                flight_data = main.main_loop_mono(num, path_mono, raw_images, camera_interface, autopilot_interface, data_interface)
-                camera_interface.test_settings(num)
-                num += 1
+    if flight_data is not None:
+        try:
+            data_interface.edit_json(flight_data)
+            print('json written')
+        except:
+            print('could not write json')
+    else: 
+        print('Empty json')
 
-            if delta_time > 5:  # we want to take images every 30 seconds
-                flight_data = main.main_loop_visual(num_visual, path_visual, visualcamera_interface, autopilot_interface, data_interface)
-                num_visual += 1                
-                delta_time = 0
+if typeOfMission is "periscope":
+    print('periscope mission')
+    while vehicle.armed is True:
 
-        if flight_data is not None:
-            try:
-                data_interface.edit_json(flight_data)
-                print('json written')
-            except:
-                print('could not write json')
-        else: 
-            print('Empty json')
+        altitude = autopilot_interface.get_altitude()
 
-    if typeOfMission is "periscope":
-        print('periscope mission')
-        while vehicle.armed is True:
+        if altitude >= altitudeCondition:  # on the periscope mission we just one to make as much photos as possible with the visual camera
+            flight_data = main.main_loop_visual(num_visual, path_visual, visualcamera_interface, autopilot_interface, data_interface)
+            num_visual += 1
 
-            altitude = autopilot_interface.get_altitude()
-
-            if altitude >= altitudeCondition:  # on the periscope mission we just one to make as much photos as possible with the visual camera
-                flight_data = main.main_loop_visual(num_visual, path_visual, visualcamera_interface, autopilot_interface, data_interface)
-                num_visual += 1
-
-        if flight_data is not None:
-            try:
-                data_interface.edit_json(flight_data)
-                print('json written')
-            except:
-                print('could not write json')
-        else:
-            print('flight data is empty')
+    if flight_data is not None:
+        try:
+            data_interface.edit_json(flight_data)
+            print('json written')
+        except:
+            print('could not write json')
+    else:
+        print('flight data is empty')
 
 
 
-p1 = multiprocessing.Process(target=cameras)
-p2 = multiprocessing.Process(target=sendLocation)
+# #p1 = multiprocessing.Process(target=cameras)
+# p2 = multiprocessing.Process(target=sendLocation)
 
-p1.start()
-p2.start()
+# #p1.start()
+# p2.start()
 
-a = 1
+# a = 1
 
-while a is 1:
-    if(vehicle.armed is False):
-        #writeJSON()
-        p1.kill()
-        p2.kill()
-        a = 0
-        break
+# while a is 1:
+#     if(vehicle.armed is False):
+#         #writeJSON()
+#         #p1.kill()
+#         p2.kill()
+#         a = 0
+#         break
     
 # Close vehicle object before exiting script
 vehicle.close()
