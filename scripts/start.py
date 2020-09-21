@@ -22,7 +22,8 @@ from RockClient import *
 #global flight_data
 
 if connectionString != "local":
-    connection_string = '/dev/serial0'
+    print('connection string imported:', flight_controller['port'])
+    connection_string = flight_controller['port']
 else:
     connection_string = None
     
@@ -35,7 +36,9 @@ if not connection_string:
     connection_string = sitl.connection_string()
 
 
-vehicle = connect(connection_string, baud=921600, wait_ready=True)
+print('baudrate imported:', flight_controller['baudrate'])
+baudrate = flight_controller['baudrate']
+vehicle = connect(connection_string, baud=baudrate, wait_ready=True)
   
 print('#### connected ####')
   
