@@ -6,9 +6,6 @@ class AutopilotInterface():
 
     def __init__(self, vehicle):
         
-        device = '/dev/ttyS0'
-        #vehicle = connect(device, wait_ready=True, baud=57600)
-#       vehicle = connect(device, baud=921600, wait_ready=True)
         self.vehicle = vehicle
 
     
@@ -43,51 +40,29 @@ class AutopilotInterface():
         return coordinates
 
     def get_altitude(self):
-        try:
-            print(self.vehicle.location.global_relative_frame.alt)
-        except:
-            print("not able to get latitude")
         return self.vehicle.location.global_relative_frame.alt
+
+    def get_armed(self):
+        return self.vehicle.armed
 
     # # #
 
     def get_latitude(self):
-        try:
-            print(self.vehicle.location.global_frame.lat)
-        except:
-            print("not able to get latitude")
-
         return self.vehicle.location.global_frame.lat
 
     # # #
 
     def get_longitude(self):
-        try:
-            print(self.vehicle.location.global_frame.lon)
-        except:
-            print("not able to get longitude")
-
         return self.vehicle.location.global_frame.lon
 
     # # #
 
     def get_heading(self):
-        try:
-            print(self.vehicle.heading)
-        except:
-            print("not able to get azimut")
-
         return self.vehicle.heading
 
     # # #
 
     def get_yaw(self):  # pan
-
-        try:
-            print(self.vehicle.attitude.yaw)
-        except:
-            print("not able to get yaw")
-
         return self.vehicle.attitude.yaw
 
     def get_pitch(self):  # tilt

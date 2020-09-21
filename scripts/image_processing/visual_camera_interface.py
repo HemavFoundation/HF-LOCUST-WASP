@@ -29,58 +29,40 @@ class VisualCameraInterface():
     def __init__(self, timestamp):
 
         # visual camera settings
-        self.port = "/dev/video0"
-        #2528, 1968
-        self.camera_settings = dict(
-            frame_width = 2528, 
-            frame_height = 1968,
-            exposure = -6,
-            brightness = -13,
-            contrast = 38,
-            saturation = 64,
-            white_balance = 4600,
-            gamma = 160,
-            sharpness = 3,
-        )
-    
-        """
-        list of adjustable features: 
-        - brightness [-64 - 64] --> -13
-        - contrast [0-64] --> 38
-        - saturation [0-128] --> 64
-        - sharpness [0-6] --> 3
-        - gamma [72-500] --> 160
-        - white balance [4600] 
-        - Exposure: -6 (AUTO)
-
-        """
+        self.port = visual_camera_settings['port']
+        
+        self.camera_settings = visual_camera_settings
+       
         # variables we need to introduce from the main script
         self.timestamp = timestamp
         #self.path = path_visualimages
 
         # We initialize the array containing the data of the images
         self.visualimages = []
-
-    def load_settings(self, cap):
-        cap.set(cv2.CAP_PROP_FRAME_WIDTH, self.camera_settings['frame_width'])
-        cap.set(cv2.CAP_PROP_FRAME_HEIGHT, self.camera_settings['frame_height'])
-        #cap.set(cv2.CAP_PROP_EXPOSURE, self.camera_settings['exposure'])
-        cap.set(cv2.CAP_PROP_BRIGHTNESS, self.camera_settings['brightness'])
-        cap.set(cv2.CAP_PROP_CONTRAST, self.camera_settings['contrast'])
-        cap.set(cv2.CAP_PROP_SATURATION, self.camera_settings['saturation'])
-        #cap.set(cv2.CAP_PROP_WHITE_BALANCE, self.camera_settings['white_balance'])
-        cap.set(cv2.CAP_PROP_SATURATION, self.camera_settings['saturation'])
-
-    def take_image(self):    #function to take an image with the visual camera
-        cap = cv2.VideoCapture(0)
         
-        if not cap.isOpened():
-            time.sleep(1)
-            self.take_image()
+        self.load_settings()
 
-        self.load_settings(cap)
-        ret, img = cap.read()
-        cap.release()
+    def load_settings(self):
+        saturation = self.camera_settings['saturation']
+        brightness = self.camera_settings['brightness']
+        contrast = self.camera_settings['contrast']
+        auto_exposure = self.camera_settings['auto_exposure']
+        light = self.camera_settings['light_compensation']
+        
+        command = 'v4l2-ctl -d ' + self.port + ' --set-ctrl=brightness=' + str(brightness) + ',saturation=' + str(saturation) + ',exposure_auto=' + str(auto_exposure) +',contrast=' + str(contrast) + ',backlight_compensation=' + str(light)
+        os.system(command)
+        
+    def take_image(self):    #function to take an image with the visual camera
+        height = self.camera_settings['frame_height']
+        width = self.camera_settings['frame_width']
+
+        command = 'fswebcam -d v4l2:' + self.port + ' -r ' + str(width) + 'x' +str(height) +' --no-banner /home/pi/Desktop/visual_camera_tests/Image_test.jpeg'
+        print(command)
+        try:
+            os.system(command)
+            img = cv2.imread('/home/pi/Desktop/visual_camera_tests/Image_test.jpeg')
+        except:
+            print('not available resources')
         
         print('visual image ok')
         return img

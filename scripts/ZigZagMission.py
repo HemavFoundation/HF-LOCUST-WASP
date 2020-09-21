@@ -27,7 +27,7 @@ else:
     inverse = False
 
 if connectionString != "local":
-    connection_string = "/dev/ttyS0"
+    connection_string = flight_controller['port']
     latFlight = float(sys.argv[7])
     lonFlight = float(sys.argv[8])
     headingFlight = int(sys.argv[9])
@@ -45,7 +45,7 @@ if not connection_string:
     connection_string = sitl.connection_string()
 
 global cmds
-vehicle = connect(connection_string, baud=921600, wait_ready=True) #objeto con el cual vamos a interactuar con la controladora del dron y nos va a dar datos
+vehicle = connect(connection_string, baud=flight_controller['baudrate'], wait_ready=True) #objeto con el cual vamos a interactuar con la controladora del dron y nos va a dar datos
 cmds = vehicle.commands # vehicle commands es donde vamos a ir registrando todos los puntos de control de vuelo (waypoints) donde finalmente se los pasaremos de nuevo a la controladora y esta sabrá que pasos ha de realizar para volar
 
 latWind = vehicle.location.global_frame.lat #recogemos la latitud actual del drone

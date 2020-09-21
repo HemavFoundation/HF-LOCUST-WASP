@@ -11,7 +11,7 @@ import time
 
 
 if(connectionString != "local"):
-    connection_string = "/dev/ttyS0"
+    connection_string = flight_controller['port']
 else:
     connection_string = None
 sitl = None
@@ -31,7 +31,7 @@ if not connection_string:
 vehicle = None
 
 while vehicle is None:
-    vehicle = connect(connection_string, baud=921600, wait_ready=True)
+    vehicle = connect(connection_string, baud=flight_controller['baudrate'], wait_ready=True)
 
 
 

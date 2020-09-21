@@ -19,7 +19,7 @@ height = int(sys.argv[3])
 sitl = None
 
 if connectionString != "local":
-    connection_string = "/dev/ttyS0"
+    connection_string = flight_controller['port']
 
     latFlight = float(sys.argv[4])
     lonFlight = float(sys.argv[5])
@@ -43,7 +43,7 @@ if not connection_string:
 global cmds
 
 # objeto con el cual vamos a interactuar con la controladora del dron y nos va a dar datos
-vehicle = connect(connection_string, baud=921600, wait_ready=True)
+vehicle = connect(connection_string, baud=flight_controller['baudrate'], wait_ready=True)
 
 
 # vehicle commands es donde vamos a ir registrando todos los puntos de control de vuelo (waypoints) donde finalmente se los pasaremos de nuevo a la controladora y esta sabrá que pasos ha de realizar para volar

@@ -10,32 +10,35 @@ from image_processing.visual_camera_interface import VisualCameraInterface
 from image_processing.data_management import DataManagement
 from image_processing import main
 import geopy.distance
-from time import time
-from time import sleep
 import numpy as np
 import json
 import pandas as pd
 import cv2
+import multiprocessing
+import serial
+from adafruit_rockblock import RockBlock
+from RockClient import *
 
+#global flight_data
 
 if connectionString != "local":
-    connection_string = "/dev/serial0"
+    print('connection string imported:', flight_controller['port'])
+    connection_string = flight_controller['port']
 else:
     connection_string = None
     
 sitl = None
 
-#Start SITL if no connection string specified
+
 if not connection_string:
     import dronekit_sitl
     sitl = dronekit_sitl.start_default()
     connection_string = sitl.connection_string()
 
-# Connect to the Vehicle. 
-#   Set `wait_ready=True` to ensure default attributes are populated before `connect()` returns.
-#print("\nConnecting to vehicle on: %s" % connection_string)
 
-vehicle = connect(connection_string, baud=921600, wait_ready=True)
+print('baudrate imported:', flight_controller['baudrate'])
+baudrate = flight_controller['baudrate']
+vehicle = connect(connection_string, baud=baudrate, wait_ready=True)
   
 print('#### connected ####')
   
@@ -43,6 +46,26 @@ print('#### connected ####')
 cmds = vehicle.commands
 cmds.download()
 
+rc = RockClient()
+
+# def writeJSON():
+#     data_interface = DataManagement()
+
+#     if flight_data is not None:
+#         try:
+#             data_interface.edit_json(flight_data)
+#             print('json written')
+#         except:
+#             print('could not write json')
+#     else: 
+#         print('Empty json')
+
+
+def sendLocation(lat,lon,alt, heading):
+    
+    rc.send_location(lat,lon,alt, heading)
+
+    
 path_mono, path_visual, raw_images, timestamp = main.create_directory()
 
 camera_interface = CameraInterface()
@@ -63,25 +86,29 @@ num_visual = 1
 # Json structures containing all the data
 flight_data = None
 
-if connectionString != "local":
+if  connectionString != "local":
     altitudeCondition = -50
 else:
     altitudeCondition = -50
 
 # We initialize time variables for the visual camera 
-previous = time()
+previous = time.perf_counter()
 delta_time = 0
+satellite_timer = 0
 
 print('type of mission:', typeOfMission)
 
 if typeOfMission in ["straight", "zigzag", "rectangle"]:
     
-    print('no periscope missions')
     while vehicle.armed is True:
-
+        print('Is vehicle armed?:', vehicle.armed)
+        print('Vehicle heading', autopilot_interface.get_heading())
         altitude = autopilot_interface.get_altitude()
-        current = time()
+        current = time.perf_counter()
         delta_time += current - previous
+        satellite_timer += current - previous
+        print('Viual camera trigger:', delta_time)
+        print('Satellite timer:', satellite_timer)
         previous = current
 
         if altitude >= altitudeCondition:
@@ -91,7 +118,14 @@ if typeOfMission in ["straight", "zigzag", "rectangle"]:
 
         if delta_time > 5:  # we want to take images every 30 seconds
             flight_data = main.main_loop_visual(num_visual, path_visual, visualcamera_interface, autopilot_interface, data_interface)
-            num_visual += 1
+            num_visual += 1                
+            delta_time = 0
+        
+        if satellite_timer > 60:  # we want to send location every 60 seconds
+            
+            p2 = multiprocessing.Process(target=sendLocation, args=(autopilot_interface.get_latitude(), autopilot_interface.get_longitude(), autopilot_interface.get_altitude(), autopilot_interface.get_heading()))
+            p2.start()
+            satellite_timer = 0
 
     if flight_data is not None:
         try:
@@ -120,13 +154,36 @@ if typeOfMission is "periscope":
             print('could not write json')
     else:
         print('flight data is empty')
-        
+
+p2.kill()
+
+# #p1 = multiprocessing.Process(target=cameras)
+# p2 = multiprocessing.Process(target=sendLocation)
+
+# #p1.start()
+# p2.start()
+
+# a = 1
+
+# while a is 1:
+#     if(vehicle.armed is False):
+#         #writeJSON()
+#         #p1.kill()
+#         p2.kill()
+#         a = 0
+#         break
+    
 # Close vehicle object before exiting script
 vehicle.close()
 
 # Shut down simulator
 if sitl is not None:
     sitl.stop()
+
+
+
+
+
 
 
 
