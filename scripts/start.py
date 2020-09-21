@@ -22,7 +22,7 @@ from RockClient import *
 #global flight_data
 
 if connectionString != "local":
-    connection_string = flight_controller['port']
+    connection_string = '/dev/serial0'
 else:
     connection_string = None
     
@@ -35,7 +35,7 @@ if not connection_string:
     connection_string = sitl.connection_string()
 
 
-vehicle = connect(connection_string, baud=flight_controller['baudrate'], wait_ready=True)
+vehicle = connect(connection_string, baud=921600, wait_ready=True)
   
 print('#### connected ####')
   
@@ -45,17 +45,17 @@ cmds.download()
 
 rc = RockClient()
 
-def writeJSON():
-    data_interface = DataManagement()
+# def writeJSON():
+#     data_interface = DataManagement()
 
-    if flight_data is not None:
-        try:
-            data_interface.edit_json(flight_data)
-            print('json written')
-        except:
-            print('could not write json')
-    else: 
-        print('Empty json')
+#     if flight_data is not None:
+#         try:
+#             data_interface.edit_json(flight_data)
+#             print('json written')
+#         except:
+#             print('could not write json')
+#     else: 
+#         print('Empty json')
 
 
 def sendLocation():
@@ -106,7 +106,8 @@ def cameras():
     if typeOfMission in ["straight", "zigzag", "rectangle"]:
         
         while vehicle.armed is True:
-            print(vehicle.armed)
+            print('Is vehicle armed?:', vehicle.armed)
+            print('Vehicle heading', autopilot_interface.get_heading)
             altitude = autopilot_interface.get_altitude()
             current = time.perf_counter()
             delta_time += current - previous
@@ -164,7 +165,7 @@ a = 1
 
 while a is 1:
     if(vehicle.armed is False):
-        writeJSON()
+        #writeJSON()
         p1.kill()
         p2.kill()
         a = 0

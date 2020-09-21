@@ -41,7 +41,6 @@ monospectral_camera_settings = dict(
 flight_controller = dict(
     port = '/dev/serial0',
     baudrate = 921600,
-
 )
 
 rockblock_settings = dict(
