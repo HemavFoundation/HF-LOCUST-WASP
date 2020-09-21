@@ -121,7 +121,7 @@ if typeOfMission in ["straight", "zigzag", "rectangle"]:
             num_visual += 1                
             delta_time = 0
         
-        if satellite_timer > 60:  # we want to send location every 60 seconds
+        if satellite_timer > 40:  # we want to send location every 60 seconds
             
             p2 = multiprocessing.Process(target=sendLocation, args=(autopilot_interface.get_latitude(), autopilot_interface.get_longitude(), autopilot_interface.get_altitude(), autopilot_interface.get_heading()))
             p2.start()

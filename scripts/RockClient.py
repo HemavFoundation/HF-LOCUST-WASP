@@ -46,8 +46,8 @@ class RockClient():
     def write_message(self, alt, lat, lon, heading):  # Aqui se codificará el mensaje para enviar
         typ = '1'
         status = '01'
-        datadict = {'lat': lat, 'lon': lon,
-                    'alt:': alt, 'heading': heading, 'typ': typ, 'status': status}
+        datadict = {'drone_id': drone_id, 'lat': lat, 'lon': lon,
+                    'alt:': alt, 'heading': heading,}
         datajson = json.dumps(datadict).encode('utf-8')
         format = str(len(datajson)) + "s"
         datastruct = struct.pack(format, datajson)
@@ -72,7 +72,6 @@ class RockClient():
             cc = self.check_connection(rb)
             print("Checking again...")
 
-            
             if timer > 30:
                 print('Im tired of checking signal')
                 break
