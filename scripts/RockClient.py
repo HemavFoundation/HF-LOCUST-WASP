@@ -3,13 +3,14 @@ from adafruit_rockblock import RockBlock
 import serial
 import struct
 import json
+from config import *
 
 class RockClient():
     def __init__(self):
 
-        self.rockblock_port = "/dev/ttyUSB0"
+        self.rockblock_port = rockblock_settings['port']
         #self.rockblock_port = "COM5"
-        self.baudrate = 19200
+        self.baudrate = rockblock_settings['baudrate']
 
     def check_connection(self, rb):
 
@@ -55,17 +56,30 @@ class RockClient():
 
 
     def send_location(self, lat, lon, alt, heading):  # Aqui se enviarán los mensajes
-
+        
+        print('Satellite heading:', heading)
         rb = self.connect_rockblock()
 
         cc = self.check_connection(rb)
 
+        previous = time.perf_counter()
+        timer = 0
+
         while cc is not True:
+            current = time.perf_counter()
+            timer += current - previous
+            previous = current
             cc = self.check_connection(rb)
             print("Checking again...")
 
+            
+            if timer > 30:
+                print('Im tired of checking signal')
+                break
+
+
         if cc is not False:
-            data = self.write_message(alt, lat, lon, heading)
+            data = self.write_message(alt,lat,lon, heading)
 
             print("Ready to send message!")
 

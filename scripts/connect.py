@@ -8,7 +8,7 @@ from config import *
 import time
 
 if(connectionString != "local"):
-    connection_string = "/dev/ttyS0"
+    connection_string = flight_controller['port']
 else:
     connection_string = None
     
@@ -23,7 +23,7 @@ if not connection_string:
 vehicle = None
 
 while vehicle is None:
-    vehicle = connect(connection_string, baud=921600, wait_ready=False)
+    vehicle = connect(connection_string, baud=flight_controller['baudrate'], wait_ready=False)
 
 # Get some vehicle attributes (state)
 cmds = vehicle.commands
