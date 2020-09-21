@@ -102,7 +102,7 @@ if typeOfMission in ["straight", "zigzag", "rectangle"]:
     
     while vehicle.armed is True:
         print('Is vehicle armed?:', vehicle.armed)
-        print('Vehicle heading', autopilot_interface.get_heading)
+        print('Vehicle heading', autopilot_interface.get_heading())
         altitude = autopilot_interface.get_altitude()
         current = time.perf_counter()
         delta_time += current - previous
@@ -155,7 +155,7 @@ if typeOfMission is "periscope":
     else:
         print('flight data is empty')
 
-
+p2.kill()
 
 # #p1 = multiprocessing.Process(target=cameras)
 # p2 = multiprocessing.Process(target=sendLocation)

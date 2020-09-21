@@ -69,11 +69,13 @@ class RockClient():
         while cc is not True:
             current = time.perf_counter()
             timer += current - previous
+            previous = current
             cc = self.check_connection(rb)
             print("Checking again...")
 
-            previous = current
+            
             if timer > 30:
+                print('Im tired of checking signal')
                 break
 
 
