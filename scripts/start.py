@@ -108,9 +108,8 @@ if typeOfMission in ["straight", "zigzag", "rectangle"]:
         delta_time += current - previous
         satellite_timer += current - previous
         print('Viual camera trigger:', delta_time)
+        print('Satellite timer:', satellite_timer)
         previous = current
-        
-        
 
         if altitude >= altitudeCondition:
             flight_data = main.main_loop_mono(num, path_mono, raw_images, camera_interface, autopilot_interface, data_interface)
