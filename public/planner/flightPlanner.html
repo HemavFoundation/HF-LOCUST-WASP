@@ -98,12 +98,12 @@
         <br>
         <div id="inversedParameter">
           <p id="fp-inversed"></p> <select onchange="inversedSelector();" onchange="computeMaxDistance()" id="inversed">
-             <option value="1">Yes</option>
+            <option value="1">Yes</option>
             <option value="2" selected="selected">No</option>
           </select>
-          <p id="fp-inversed-desc"></p> 
-         
-          
+          <p id="fp-inversed-desc"></p>
+
+
         </div>
         <br>
         <div id="distanceparameter">
@@ -282,9 +282,11 @@
         started = true;
         setInterval(function () {
           counter--;
+          console.log("counter", counter)
           hours = Math.floor(counter / 3600);
-          minutes = Math.floor(counter / 60);
+          minutes = Math.floor((counter / 60) % 60);
           seconds = counter % 60;
+
           if (counter >= 0) {
 
             idlabel = document.getElementById("labeltimer");
@@ -376,7 +378,6 @@
 
 
     function computeMaxDistance() {
-      console.log("hola")
       var x = document.getElementById("xtext").value;
       var l = document.getElementById("Ltext").value;
       var d = document.getElementById("rectwidthtext").value;
@@ -387,7 +388,6 @@
       }
       else {
         document.getElementById("maxdistancetext").innerHTML = pmax;
-        console.log(nmax);
       }
 
     }
@@ -539,14 +539,6 @@
           },
         })
       });
-
-      if (missiontype != 0) {
-        console.log(missiontype + "missiontype");
-      }
-      else {
-        console.log(missiontype);
-      }
-
 
       $("#uploadbut").click(function () {
         var distanceText = document.getElementById("distancetext").value;
@@ -730,7 +722,7 @@
         theme = 'HIGH_CONTRAST';
 
         $('body').addClass('HIGH_CONTRAST');
-       // $('#header').css('background-image', 'none');
+        // $('#header').css('background-image', 'none');
         $('#theme_switcher').text('Light theme')
         return;
       }

@@ -15,7 +15,7 @@
         "#h-long": "Longitude",
         "#h-lat": "Latitude",
         "#h-image": "Image",
-        "#h-clear": "Clear",
+        "#h-clear": "Clear table",
         "#h-goPlanner": "Go to Flight Planner"
 
 
@@ -31,7 +31,7 @@
         "#h-long": "خط الطول",
         "#h-lat": "خط العرض",
         "#h-image": "صورة",
-        "#h-clear": "واضح",
+        "#h-clear": "جدول واضح",
         "#h-goPlanner": "انتقل إلى مخطط الرحلة"
 
       }
