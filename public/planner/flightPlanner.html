@@ -99,10 +99,9 @@
         <div id="inversedParameter">
           <p id="fp-inversed"></p> <select onchange="inversedSelector();" onchange="computeMaxDistance()" id="inversed">
             <option value="1">Yes</option>
-            <option value="2" selected="selected">No</option>
+            <option value="2" selected>No</option>
           </select>
           <p id="fp-inversed-desc"></p>
-
 
         </div>
         <br>
@@ -229,6 +228,8 @@
     <option value="en">English</option>
     <option value="ar">عرب</option>
   </select>
+
+
   <script>
 
     var theme = 'DEFAULT'
@@ -410,11 +411,13 @@
     }
 
 
+
     function languageSelector() {
 
       var x = document.getElementById("languageSelector").value;
       console.log(x)
       $.MultiLanguage('/language.json', x)
+
 
     }
 
@@ -432,7 +435,7 @@
       $("#zigzagImage").hide();
       $("#periscopeImage").hide();
 
-
+      inversed = 2;
       missiontype = 1;
     });
 
@@ -472,7 +475,7 @@
       $("#zigzagImage").show();
       $("#periscopeImage").hide();
 
-
+      inversed = 2;
       missiontype = 3;
     });
 
@@ -497,6 +500,7 @@
     $(document).ready(function () {
 
       $.MultiLanguage('/language.json', 'en')
+
 
       $('#theme_switcher').on('click', themeSwitcher);
       $("#droneConnectButton").click(function () {
