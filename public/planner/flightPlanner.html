@@ -23,6 +23,7 @@
 
   <div class="card">
     <h2 id="fp-title"></h2>
+    <label id="SD-status"></label>
 
     <br><br>
     <div>
@@ -238,7 +239,7 @@
     openTab({ target: '#Rectanglebutton' }, 'flypathtab');
     computeMaxDistance();
 
-    var ipConnection = '192.168.0.10';
+    var ipConnection = 'localhost';
     var missiontype = 0;
     var inversed;
 
@@ -423,6 +424,29 @@
 
     }
 
+    function round(value, decimals) {
+      return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
+    }
+
+
+    function diskSpace() {
+
+      $.ajax({
+        type: 'GET',
+        url: 'http://' + ipConnection + ':9000/api/utilities/SDdiskSpace',
+        dataType: 'json',
+        success: function (data, textStatus, xhr) {
+          $("#SD-status").empty();
+          $("#SD-status").append(round((data.sizeSpace - data.freeSpace),2) + " GB / " + data.sizeSpace + " GB")
+        },
+        error: function (data, textStatus, xhr) {
+          document.getElementById('droneConnectImg').src = "../images/cross.png";
+          document.getElementById('droneConnectionH4').hidden = true
+        },
+      })
+
+    }
+
     $("#RectangleButton").click(function () {
       $("#rectwidthparameter").show();
       $("#inversedParameter").show();
@@ -503,7 +527,7 @@
 
       $.MultiLanguage('/language.json', 'en')
 
-
+      diskSpace()
       $('#theme_switcher').on('click', themeSwitcher);
       $("#droneConnectButton").click(function () {
         document.getElementById('droneConnectImg').src = "../images/waiting.png";

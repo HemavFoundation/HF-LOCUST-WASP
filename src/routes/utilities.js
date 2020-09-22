@@ -15,14 +15,14 @@ router.get('/SDdiskSpace', (req, res) => {
         checkDiskSpace('').then((disk) => {
             res.status(200).send({
                 freeSpace: round(disk.free / 1073741824, 2),
-                SizeSpace: round(disk.size / 1073741824, 2)
+                sizeSpace: round(disk.size / 1073741824, 2)
             })
         })
     } else {
         checkDiskSpace('C:/').then((disk) => {
             res.status(200).send({
                 freeSpace: round(disk.free / 1073741824, 2),
-                SizeSpace: round(disk.size / 1073741824, 2)
+                sizeSpace: round(disk.size / 1073741824, 2)
             })
 
         })
