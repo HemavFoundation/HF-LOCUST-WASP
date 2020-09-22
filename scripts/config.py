@@ -11,7 +11,7 @@ typeOfMission = "straight" # periscope, straight, rectangle, zigzag
 inverse = False
 
 visual_camera_settings = dict(
-    port = '/dev/video0',
+    port = '/dev/video1',
     frame_width = 3264, 
     frame_height = 2448,
     auto_exposure = 3,

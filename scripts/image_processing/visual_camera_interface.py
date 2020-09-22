@@ -28,6 +28,9 @@ class VisualCameraInterface():
 
     def __init__(self, timestamp):
 
+        # we check to which port is connected the visual camera
+        visual_camera_settings['port'] = self.def_video_port()
+        
         # visual camera settings
         self.port = visual_camera_settings['port']
         
@@ -41,7 +44,16 @@ class VisualCameraInterface():
         self.visualimages = []
         
         self.load_settings()
-
+        
+    def def_video_port(self):
+        try:
+            retval = cv2.VideoCapture('/dev/video1').getBackendName()
+            port = '/dev/video1'
+        except:
+            port = '/dev/video0'
+        
+        return port
+    
     def load_settings(self):
         saturation = self.camera_settings['saturation']
         brightness = self.camera_settings['brightness']
