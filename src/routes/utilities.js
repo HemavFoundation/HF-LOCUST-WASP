@@ -12,7 +12,7 @@ function round(value, decimals) {
 router.get('/SDdiskSpace', (req, res) => {
 
     if (environment == 'drone' || environment == 'mac') {
-        checkDiskSpace('').then((disk) => {
+        checkDiskSpace('/mnt').then((disk) => {
             res.status(200).send({
                 freeSpace: round(disk.free / 1073741824, 2),
                 sizeSpace: round(disk.size / 1073741824, 2)

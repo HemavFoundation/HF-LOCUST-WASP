@@ -6,6 +6,7 @@
     "language": {
       "en": {
         "#fp-title": "Flight Planner",
+        "#fp-disk-desc": "SD Card disk space used",
         "#fp-connect": "Connect",
         "#fp-connect-desc-1": "Push for drone connection",
         "#fp-connect-desc-2": "Drone is connected now!",
@@ -54,6 +55,7 @@
       },
       "ar": {
         "#fp-title": "مخطط الرحلة",
+        "#fp-disk-desc": "مساحة قرص SD Card المستخدمة",
         "#fp-connect": "الاتصال",
         "#fp-connect-desc-1": "ادفع للاتصال بطائرة بدون طيار",
         "#fp-connect-desc-2": "الطائرة بدون طيار متصلة الآن",

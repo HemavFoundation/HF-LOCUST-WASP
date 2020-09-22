@@ -879,14 +879,27 @@ th, td {
 #SD-status {
 	display: inline-block;
 	position: relative;
-	right: -535px;
+	right: -416px;
 	padding: 0.5em 1em;
 	background: #8a1a2d;
 	color: #FFF;
 	border-radius: 10%;
+	font-size: 18px;
+}
+
+#SD-status-desc {
+	display: inline-block;
+	position: relative;
+	right: -533px;
+	color: #FFF;
 	font-size: 14px;
 }
 
+#PlannerTitle {
+	display: inline-block;
+	position: relative;
+	color: #FFF;
+}
 
 #theme_switcher:hover {
 	background-color: rgba(0, 0, 0, 0.65);
