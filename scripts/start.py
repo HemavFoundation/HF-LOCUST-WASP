@@ -22,7 +22,7 @@ from RockClient import *
 #global flight_data
 
 if connectionString != "local":
-    print('connection string imported:', flight_controller['port'])
+    #print('connection string imported:', flight_controller['port'])
     connection_string = flight_controller['port']
 else:
     connection_string = None
@@ -36,7 +36,7 @@ if not connection_string:
     connection_string = sitl.connection_string()
 
 
-print('baudrate imported:', flight_controller['baudrate'])
+#print('baudrate imported:', flight_controller['baudrate'])
 baudrate = flight_controller['baudrate']
 vehicle = connect(connection_string, baud=baudrate, wait_ready=True)
   
@@ -155,8 +155,11 @@ if typeOfMission is "periscope":
     else:
         print('flight data is empty')
 
-p2.kill()
-
+try:
+    p2.kill()
+except:
+    print('Satellite process has not even started')
+    
 # #p1 = multiprocessing.Process(target=cameras)
 # p2 = multiprocessing.Process(target=sendLocation)
 

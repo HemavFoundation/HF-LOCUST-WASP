@@ -129,13 +129,13 @@ class VisualCameraInterface():
         # org
         org = (50, 50)
         # fontScale
-        fontScale = 0.8
+        fontScale = 1.6
 
         # Blue color in BGR
         color = (0, 0, 0)
 
         # Line thickness of 2 px
-        thickness = 2
+        thickness = 3
 
         # get the width and height of the text box
         (text_width, text_height) = cv2.getTextSize(text, font, fontScale=fontScale, thickness=1)[0]
@@ -146,8 +146,8 @@ class VisualCameraInterface():
 
         # make the coords of the box with a small padding of two pixels
         box_coords = ((text_offset_x, int(text_offset_y + 4)), (int(text_offset_x + text_width + 4), int(text_offset_y - text_height - 4)))
-        print('box coords 0:', box_coords[0])
-        print('box coords 1:', box_coords[1])
+        #print('box coords 0:', box_coords[0])
+        #print('box coords 1:', box_coords[1])
         
         cv2.rectangle(img, box_coords[0], box_coords[1], rectangle_bgr, cv2.FILLED)
 
