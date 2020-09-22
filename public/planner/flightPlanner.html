@@ -231,6 +231,19 @@
     <option value="ar">عرب</option>
   </select>
 
+  <div id="popup" style="display: none;">
+    <div class="content-popup">
+      <div class="close"><a href="#" id="close"><img src="images/close.png" /></a></div>
+      <div>
+        <h2>Contenido POPUP</h2>
+        <p>Lorem Ipsum...</p>
+        <div style="float:left; width:100%;">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="popup-overlay"></div>
+
 
   <script>
 
@@ -502,6 +515,16 @@
     $(document).ready(function () {
 
       $.MultiLanguage('/language.json', 'en')
+
+      $('#popup').fadeIn('slow');
+      $('.popup-overlay').fadeIn('slow');
+      $('.popup-overlay').height($(window).height());
+
+      $('#close').on('click', function () {
+        $('#popup').fadeOut('slow');
+        $('.popup-overlay').fadeOut('slow');
+        return false;
+      });
 
 
       $('#theme_switcher').on('click', themeSwitcher);
