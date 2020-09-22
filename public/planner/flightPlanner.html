@@ -251,6 +251,7 @@
     var ipConnection = '192.168.0.10';
     var missiontype = 0;
     var inversed;
+    var diskPercentage;
 
 
     function openTab(evt, id) {
@@ -429,7 +430,7 @@
       var x = document.getElementById("languageSelector").value;
       console.log(x)
       $.MultiLanguage('/language.json', x)
-
+   
 
     }
 
@@ -439,17 +440,23 @@
 
 
     function diskSpace() {
+      $("#SD-status").empty();
+      $("#SD-status").append("--")
 
       $.ajax({
         type: 'GET',
         url: 'http://' + ipConnection + ':9000/api/utilities/SDdiskSpace',
         dataType: 'json',
         success: function (data, textStatus, xhr) {
+          value = round(((data.sizeSpace - data.freeSpace)/data.sizeSpace) * 100,2)
+          diskPercentage = value;
+
           $("#SD-status").empty();
-          $("#SD-status").append( round(((data.sizeSpace - data.freeSpace)/data.sizeSpace) * 100,2) + " % " )
+          $("#SD-status").append( value + " % " )
         },
         error: function (data, textStatus, xhr) {
-          console.log("Error Disk Space API request")
+          $("#SD-status").empty();
+          $("#SD-status").append("--")
         },
       })
 
@@ -537,6 +544,7 @@
 
       diskSpace()
       $('#theme_switcher').on('click', themeSwitcher);
+
       $("#droneConnectButton").click(function () {
         document.getElementById('droneConnectImg').src = "../images/waiting.png";
         $.ajax({

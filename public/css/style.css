@@ -876,16 +876,6 @@ th, td {
 	cursor: pointer;
 }
 
-#SD-status {
-	display: inline-block;
-	position: relative;
-	right: -416px;
-	padding: 0.5em 1em;
-	background: #8a1a2d;
-	color: #FFF;
-	border-radius: 10%;
-	font-size: 18px;
-}
 
 #SD-status-desc {
 	display: inline-block;
@@ -894,6 +884,17 @@ th, td {
 	color: #FFF;
 	font-size: 14px;
 }
+#SD-status {
+	display: inline-block;
+	position: relative;
+	right: -454px;
+	padding: 0.5em 1em;
+	background: #8a1a2d;
+	color: #FFF;
+	border-radius: 10%;
+	font-size: 18px;
+}
+
 
 #PlannerTitle {
 	display: inline-block;
