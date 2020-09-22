@@ -61,10 +61,10 @@ def create_directory():  # tested and working
 
 def contrast_stretch(im):
     """
-    Performs a simple contrast stretch of the given image, from 5-95%.
+    Performs a simple contrast stretch of the given image, from 1-100%.
     """
-    in_min = np.percentile(im, 5)
-    in_max = np.percentile(im, 95)
+    in_min = np.percentile(im, 1)
+    in_max = np.percentile(im, 100)
 
     out_min = 0.0
     out_max = 255.0
@@ -74,75 +74,6 @@ def contrast_stretch(im):
     out += in_min
 
     return out
-
-
-def get_coordinates(coordinates, heading, h, pitch, roll):
-    # CAMERA PARAMETERS
-
-    # Sensor (mm)
-    sx = 3.674
-    sy = 2.76
-    # Focal length of lens (mm)
-    fl = 3.04
-    # Pixels
-    px = 2528
-    py = 1968
-    pixels_camera = px * py
-
-    # Field of view wide (gra)
-    HFOVcal = 2 * math.atan(sx / (2 * fl))
-    VFOVcal = 2 * math.atan(sy / (2 * fl))
-
-    print('@@@HORIZONTAL', HFOVcal)
-    print('@@@@ Vertical', VFOVcal)
-    # Now we need the airplane attitude data
-    pitch = math.radians(pitch)
-    roll = math.radians(roll)
-
-    # FOOTPRINT(m) (by the moment considering no roll)
-
-    drone_bottom = h * math.tan(pitch - 0.5 * VFOVcal)
-    drone_top = h * math.tan(pitch + 0.5 * VFOVcal)
-    drone_center = h * math.tan(pitch)
-
-    d1 = drone_top - drone_center
-    d2 = drone_center - drone_bottom
-
-    fy = drone_top - drone_bottom
-    fx = h * (math.tan(roll + 0.5 * HFOVcal) - math.tan(roll - 0.5 * HFOVcal))
-    footprint = fy * fx
-
-    print('@@@ footprint y', fy)
-    print('@@@@ footprint x', fx)
-
-    # Front left vertex
-    diagonal1 = math.hypot(d1, fx / 2)
-    orientation = heading - math.degrees(math.atan((fx / 2) / d1))
-    fl_coordinates = pointRadialDistance(coordinates[0], coordinates[1], orientation, diagonal1)
-    print('@@@@ orientation 1', orientation)
-
-    # Front right vertex
-    diagonal = math.hypot(d1, fx / 2)
-    orientation = heading + math.degrees(math.atan((fx / 2) / d1))
-    fr_coordinates = pointRadialDistance(coordinates[0], coordinates[1], orientation, diagonal)
-    print('@@@@ orientation 2', orientation)
-
-    # Back left vertex
-    diagonal2 = math.hypot(d2, fx / 2)
-    orientation = -heading + math.degrees(math.atan(d2 / (fx / 2)))
-    bl_coordinates = pointRadialDistance(coordinates[0], coordinates[1], orientation, diagonal2)
-    print('@@@@ orientation 3', orientation)
-
-    # Back right vertex
-    diagonal = math.hypot(d2, fx / 2)
-    orientation = -heading - math.degrees(math.atan(d2 / (fx / 2)))
-    br_coordinates = pointRadialDistance(coordinates[0], coordinates[1], orientation, diagonal)
-    print('@@@@ orientation 4', orientation)
-
-    vertex_coordinates = [fl_coordinates, fr_coordinates, bl_coordinates, br_coordinates]
-
-    return vertex_coordinates
-
 
 def main_loop_mono(num, newpath, raw_images_path, camera_interface, autopilot_interface, data_interface):
     img = camera_interface.capture_frame()
@@ -176,7 +107,7 @@ def main_loop_mono(num, newpath, raw_images_path, camera_interface, autopilot_in
     # we delete the shadows from the ndvi re-scaled image
     ndvi_new = cv2.bitwise_or(ndvi_contrasted, ndvi_contrasted, mask=shadows)
 
-    median = cv2.bilateralFilter(ndvi_new, 10, 75, 75)
+    median = cv2.bilateralFilter(ndvi_new, 3, 75, 75)
     ndvi_new = median
 
     # we apply some morphological operations to enhance vegetation
@@ -206,8 +137,7 @@ def main_loop_mono(num, newpath, raw_images_path, camera_interface, autopilot_in
         # we save the raw image
         cv2.imwrite(name, img)
 
-        # median = cv2.bilateralFilter(ndvi_final, 10, 75, 75)
-        # ndvi_final = median
+       
         # to create the final output, we want to add what is vegetation to the raw image
 
         mask_vegetation = cv2.inRange(ndvi_new, 163, 255)
@@ -222,7 +152,7 @@ def main_loop_mono(num, newpath, raw_images_path, camera_interface, autopilot_in
         # we want to tag each corner of the image with its real geographical coordinates
 
         tag_images = autopilot_interface.image_coordinates()
-        #vertex_coordinates = get_coordinates(tag_images[0], tag_images[1], tag_images[2], tag_images[3], tag_images[4])
+        
         coordinates = autopilot_interface.get_coordinates()
         heading = autopilot_interface.get_heading()
 
@@ -260,7 +190,7 @@ def main_loop_visual(num, path, visualcamera_interface, autopilot_interface, dat
     
     coordinates = (latitude, longitude)
     
-    #img = visualcamera_interface.tag_image(img, coordinates, heading)
+    img = visualcamera_interface.tag_image(img, coordinates, heading)
     
     flight_info = data_interface.write_json_visual(timestamp, num, path_visual_json)
     visualcamera_interface.save_image(path, img, num)
