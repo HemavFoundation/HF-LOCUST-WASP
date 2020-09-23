@@ -958,6 +958,14 @@ body.HIGH_CONTRAST .card {
     width: 100%;
     z-index: 1001;
 }
+
+#popup_connection {
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1001;
+}
  
 .content-popup {
     margin:0px auto;
@@ -968,7 +976,8 @@ body.HIGH_CONTRAST .card {
     min-height:250px;
     border-radius:4px;
     background-color:#FFFFFF;
-    box-shadow: 0 2px 5px #666666;
+	box-shadow: 0 2px 5px #666666;
+	color: #961919;
 }
  
 .content-popup h2 {

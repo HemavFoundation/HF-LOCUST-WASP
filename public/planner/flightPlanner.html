@@ -241,12 +241,12 @@
     <option value="ar">عرب</option>
   </select>
 
-  <div id="popup" style="display: none;">
+  <div id="popup_connection" style="display: none;">
     <div class="content-popup">
-      <div class="close"><a href="#" id="close"><img src="images/close.png" /></a></div>
+      <div class="close"><a href="#" id="close"><img src="../images/cross.png" height="20" width="20" /></a></div>
       <div>
-        <h2>Contenido POPUP</h2>
-        <p>Lorem Ipsum...</p>
+        <h2>Unable to connect with the drone </h2>
+        <p>First you need to do a backup for the SD card data</p>
         <div style="float:left; width:100%;">
         </div>
       </div>
@@ -261,7 +261,7 @@
     openTab({ target: '#Rectanglebutton' }, 'flypathtab');
     computeMaxDistance();
 
-    var ipConnection = '192.168.0.10';
+    var ipConnection = 'localhost';
     var missiontype = 0;
     var inversed;
     var diskPercentage;
@@ -443,7 +443,7 @@
       var x = document.getElementById("languageSelector").value;
       console.log(x)
       $.MultiLanguage('/language.json', x)
-   
+
 
     }
 
@@ -461,11 +461,11 @@
         url: 'http://' + ipConnection + ':9000/api/utilities/SDdiskSpace',
         dataType: 'json',
         success: function (data, textStatus, xhr) {
-          value = round(((data.sizeSpace - data.freeSpace)/data.sizeSpace) * 100,2)
+          value = round(((data.sizeSpace - data.freeSpace) / data.sizeSpace) * 100, 2)
           diskPercentage = value;
 
           $("#SD-status").empty();
-          $("#SD-status").append( value + " % " )
+          $("#SD-status").append(value + " % ")
         },
         error: function (data, textStatus, xhr) {
           $("#SD-status").empty();
@@ -556,13 +556,10 @@
       $.MultiLanguage('/language.json', 'en')
 
       diskSpace()
-      $('#popup').fadeIn('slow');
-      $('.popup-overlay').fadeIn('slow');
-      //$('.popup-overlay').height($(window).height());
 
       $('#close').on('click', function () {
-        $('#popup').fadeOut('slow');
-        //$('.popup-overlay').fadeOut('slow');
+        $('#popup_connection').fadeOut('slow');
+        $('.popup-overlay').fadeOut('slow');
         return false;
       });
 
@@ -570,25 +567,32 @@
       $('#theme_switcher').on('click', themeSwitcher);
 
       $("#droneConnectButton").click(function () {
-        document.getElementById('droneConnectImg').src = "../images/waiting.png";
-        $.ajax({
-          type: 'GET',
-          url: 'http://' + ipConnection + ':9000/api/connect',
-          dataType: 'json',
-          success: function (data, textStatus, xhr) {
-            document.getElementById('droneConnectionH4').hidden = true
-            document.getElementById('droneCoonnectedH4').hidden = false
-            document.getElementById('droneConnectImg').src = "../images/tick.png";
-            document.getElementById('directionDroneButton').disabled = false
-          },
-          error: function (data, textStatus, xhr) {
-            document.getElementById('droneConnectImg').src = "../images/cross.png";
-            document.getElementById('droneConnectionH4').hidden = true
-          },
-        })
+        if (diskPercentage <= 5) {
+          document.getElementById('droneConnectImg').src = "../images/waiting.png";
+          $.ajax({
+            type: 'GET',
+            url: 'http://' + ipConnection + ':9000/api/connect',
+            dataType: 'json',
+            success: function (data, textStatus, xhr) {
+              document.getElementById('droneConnectionH4').hidden = true
+              document.getElementById('droneCoonnectedH4').hidden = false
+              document.getElementById('droneConnectImg').src = "../images/tick.png";
+              document.getElementById('directionDroneButton').disabled = false
+            },
+            error: function (data, textStatus, xhr) {
+              document.getElementById('droneConnectImg').src = "../images/cross.png";
+              document.getElementById('droneConnectionH4').hidden = true
+            }
+          })
+
+
+        }else{
+          $('#popup_connection').fadeIn('slow');
+          $('.popup-overlay').fadeIn('slow');
+
+        }
       });
 
-      // $("#languageSelector").on('click', languageSelector);
 
       $("#directionDroneButton").click(function () {
         document.getElementById('directionDroneImg').src = "../images/waiting.png"
