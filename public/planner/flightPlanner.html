@@ -245,8 +245,12 @@
     <div class="content-popup">
       <div class="close"><a href="#" id="close"><img src="../images/cross.png" height="20" width="20" /></a></div>
       <div>
-        <h2><div id="fp-popupConnection-title"></div></h2>
-        <p><div id="fp-popupConnection-desc"></div></p>
+        <h2>
+          <div id="fp-popupConnection-title"></div>
+        </h2>
+        <p>
+        <div id="fp-popupConnection-desc"></div>
+        </p>
         <div style="float:left; width:100%;">
         </div>
       </div>
@@ -464,8 +468,31 @@
           value = round(((data.sizeSpace - data.freeSpace) / data.sizeSpace) * 100, 2)
           diskPercentage = value;
 
-          $("#SD-status").empty();
-          $("#SD-status").append(value + " % ")
+          if (diskPercentage <= 20) {
+            $("#SD-status").empty();
+            $("#SD-status").append(value + " % ")
+
+          } else {
+            $("#SD-status").empty();
+            $("#SD-status").append(value + " % ")
+            $("#SD-status").css({
+
+              "display": "inline - block",
+              "position": "relative",
+              "right": "-454px",
+              "padding": "0.5em 1em",
+              "background": "#e3cc0e",
+              "color": "#FD0A0A",
+              "border- radius": "10 %",
+              "font - size": "18px"
+
+
+             });
+
+
+
+          }
+
         },
         error: function (data, textStatus, xhr) {
           $("#SD-status").empty();
@@ -586,7 +613,7 @@
           })
 
 
-        }else{
+        } else {
           $('#popup_connection').fadeIn('slow');
           $('.popup-overlay').fadeIn('slow');
 

@@ -36,7 +36,8 @@
         "#fp-maxdistanceparameter": "Maximum distance (m):",
         "#fp-periscope-desc": "Short reconnaissance flight around the drone's point of origin with a circular pattern of a radius of 100 m",
         "#fp-popupConnection-title": "Unable to connect with the drone ",
-        "#fp-popupConnection-desc": "First you need to do a backup for the SD card data",
+        "#fp-popupConnection-desc": "The memory of the SD card is about to run out of space, to be able to make a new flight please back up the data of the SD card from the history to the USB memory.",
+
 
 
         "#h-history-title": "History",
@@ -89,7 +90,7 @@
         "#fp-maxdistanceparameter": "المسافة القصوى(m):",
         "#fp-periscope-desc": "رحلة استطلاعية قصيرة حول نقطة بدون طيار من أصل مع نمط دائري من دائرة نصف قطرها 100 متر",
         "#fp-popupConnection-title": "غير قادر على الاتصال بالطائرة بدون طيار ",
-        "#fp-popupConnection-desc": "تحتاج أولاً إلى عمل نسخة احتياطية لبيانات بطاقة SD",
+        "#fp-popupConnection-desc": "ذاكرة بطاقة SD على وشك النفاد ، لتتمكن من القيام برحلة جديدة ، يرجى عمل نسخة احتياطية من بيانات بطاقة SD من السجل إلى ذاكرة USB.",
         "#h-history-title": "wefw",
         "#h-hour": "Hour",
         "#h-typeofmission": "Type Of Mission",
