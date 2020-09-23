@@ -245,8 +245,8 @@
     <div class="content-popup">
       <div class="close"><a href="#" id="close"><img src="../images/cross.png" height="20" width="20" /></a></div>
       <div>
-        <h2>Unable to connect with the drone </h2>
-        <p>First you need to do a backup for the SD card data</p>
+        <h2><div id="fp-popupConnection-title"></div></h2>
+        <p><div id="fp-popupConnection-desc"></div></p>
         <div style="float:left; width:100%;">
         </div>
       </div>
@@ -261,7 +261,7 @@
     openTab({ target: '#Rectanglebutton' }, 'flypathtab');
     computeMaxDistance();
 
-    var ipConnection = 'localhost';
+    var ipConnection = '192.168.0.10';
     var missiontype = 0;
     var inversed;
     var diskPercentage;
@@ -796,7 +796,6 @@
         theme = 'HIGH_CONTRAST';
 
         $('body').addClass('HIGH_CONTRAST');
-        // $('#header').css('background-image', 'none');
         $('#theme_switcher').text('Light theme')
         return;
       }
@@ -804,7 +803,6 @@
         theme = 'DEFAULT';
 
         $('body').removeClass('HIGH_CONTRAST');
-        //$('#header').css('background-image', 'url("../images/header.png")');
         $('#theme_switcher').text('Dark theme')
 
         return;

@@ -912,7 +912,6 @@ body.HIGH_CONTRAST {
 }
 
 body.HIGH_CONTRAST * {
-	color: #ffffff;
 }
 
 body.HIGH_CONTRAST input {
