@@ -52,9 +52,10 @@ if __name__ == "__main__":
             previous = current
 
             if satellite_timer > 30:  # we want to send location every 60 seconds
-                
                 sendLocation(autopilot_interface.get_latitude(), autopilot_interface.get_longitude(), autopilot_interface.get_altitude(), autopilot_interface.get_heading())
                 satellite_timer = 0
+                previous = time.perf_counter()
+                
         
         if( vehicle.armed == False):
             time.sleep(1)
