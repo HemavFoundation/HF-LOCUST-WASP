@@ -468,7 +468,7 @@
           value = round(((data.sizeSpace - data.freeSpace) / data.sizeSpace) * 100, 2)
           diskPercentage = value;
 
-          if (diskPercentage <= 20) {
+          if (diskPercentage <= 70) {
             $("#SD-status").empty();
             $("#SD-status").append(value + " % ")
 
@@ -594,7 +594,7 @@
       $('#theme_switcher').on('click', themeSwitcher);
 
       $("#droneConnectButton").click(function () {
-        if (diskPercentage <= 5) {
+        if (diskPercentage <= 70) {
           document.getElementById('droneConnectImg').src = "../images/waiting.png";
           $.ajax({
             type: 'GET',
