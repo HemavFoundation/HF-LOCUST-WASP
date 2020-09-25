@@ -59,6 +59,7 @@ class RockClient():
         
         print('Satellite heading:', heading)
         rb = self.connect_rockblock()
+        send = False
 
         cc = self.check_connection(rb)
 
@@ -99,4 +100,6 @@ class RockClient():
                 print("Satellite status:", status)
                 retry += 1
 
+            send = True
             print("\nDONE.")
+
