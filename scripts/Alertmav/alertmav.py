@@ -1,3 +1,5 @@
+import sys
+sys.path.append('/home/pi/.local/lib/python3.7/site-packages')
 from adafruit_rockblock import RockBlock
 from autopilot_interface import AutopilotInterface
 from RockClient import *
@@ -80,7 +82,7 @@ if __name__ == "__main__":
         
         if( altitude < 25):
             time.sleep(1)
-            print('No se cumple la condición de altitud. Altitud actual: ', altitude)
+            print('No se cumple la condicion de altitud. Altitud actual: ', altitude)
 
 
 
