@@ -20,6 +20,7 @@ app.use(cors());
 app.use("/api/connect", require("./routes/connect"));
 app.use("/api/load", require("./routes/load"));
 app.use("/api/start", require("./routes/start"));
+app.use("/api/utilities", require("./routes/utilities"));
 
 
 

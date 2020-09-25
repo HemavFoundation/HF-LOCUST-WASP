@@ -876,6 +876,32 @@ th, td {
 	cursor: pointer;
 }
 
+
+#SD-status-desc {
+	display: inline-block;
+	position: relative;
+	right: -533px;
+	color: #FFF;
+	font-size: 14px;
+}
+#SD-status {
+	display: inline-block;
+	position: relative;
+	right: -454px;
+	padding: 0.5em 1em;
+	background: #8a1a2d;
+	color: #FFF;
+	border-radius: 10%;
+	font-size: 18px;
+}
+
+
+#PlannerTitle {
+	display: inline-block;
+	position: relative;
+	color: #FFF;
+}
+
 #theme_switcher:hover {
 	background-color: rgba(0, 0, 0, 0.65);
 }
@@ -886,7 +912,6 @@ body.HIGH_CONTRAST {
 }
 
 body.HIGH_CONTRAST * {
-	color: #ffffff;
 }
 
 body.HIGH_CONTRAST input {
@@ -923,5 +948,58 @@ body.HIGH_CONTRAST .card {
 	outline: none;
 	transition: all .3s ease;
 	cursor: pointer;
+}
+
+#popup {
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1001;
+}
+
+#popup_connection {
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1001;
+}
+ 
+.content-popup {
+    margin:0px auto;
+    margin-top:120px;
+    position:relative;
+    padding:10px;
+    width:500px;
+    min-height:250px;
+    border-radius:4px;
+    background-color:#FFFFFF;
+	box-shadow: 0 2px 5px #666666;
+	color: #961919;
+}
+ 
+.content-popup h2 {
+    color:#48484B;
+    border-bottom: 1px solid #48484B;
+    margin-top: 0;
+    padding-bottom: 4px;
+}
+ 
+.popup-overlay {
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+    display:none;
+    background-color: #777777;
+    cursor: pointer;
+    opacity: 0.7;
+}
+ 
+.close {
+    position: absolute;
+    right: 15px;
 }
 
