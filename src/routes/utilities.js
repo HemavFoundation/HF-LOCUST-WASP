@@ -30,4 +30,26 @@ router.get('/SDdiskSpace', (req, res) => {
 
 })
 
+router.get('/USBdiskSpace', (req, res) => {
+
+    if (environment == 'drone' || environment == 'mac') {
+        checkDiskSpace('/media/pi/PHILIPS UFD').then((disk) => {
+            res.status(200).send({
+                freeSpace: round(disk.free / 1073741824, 2),
+                sizeSpace: round(disk.size / 1073741824, 2)
+            })
+        })
+    } else {
+        checkDiskSpace('C:/').then((disk) => {
+            res.status(200).send({
+                freeSpace: round(disk.free / 1073741824, 2),
+                sizeSpace: round(disk.size / 1073741824, 2)
+            })
+
+        })
+    }
+
+})
+
+
 module.exports = router;

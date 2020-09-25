@@ -895,6 +895,21 @@ th, td {
 	font-size: 18px;
 }
 
+#USB-status-desc {
+	display: inline-block;
+	position: relative;
+	color: #FFF;
+	font-size: 14px;
+}
+#USB-status {
+	display: inline-block;
+	position: relative;
+	padding: 0.5em 1em;
+	background: #8a1a2d;
+	color: #FFF;
+	border-radius: 10%;
+	font-size: 18px;
+}
 
 #PlannerTitle {
 	display: inline-block;
