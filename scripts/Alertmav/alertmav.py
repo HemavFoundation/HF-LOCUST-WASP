@@ -34,16 +34,37 @@ def sendLocation(lat,lon,alt, heading):
     
     rc.send_location(lat,lon,alt, heading)
 
+def armDrone():
+
+    print("Basic pre-arm checks")
+    # Don't let the user try to arm until autopilot is ready
+
+    print("Arming motors")
+    # Copter should arm in GUIDED mode
+    # vehicle.mode = VehicleMode("AUTO")
+
+    vehicle.armed = True
+    vehicle.mode = VehicleMode("AUTO")
+
+    while not vehicle.armed:      
+        print(" Waiting for arming...")
+        time.sleep(1)
+
+    print("Done!")
 
 if __name__ == "__main__":
+    
+    armDrone()
 
-    while (1):
-            
+    while (1):           
+        
+        
         previous = time.perf_counter()
         satellite_timer = 0
+        altitude = autopilot_interface.get_altitude()
 
 
-        while vehicle.armed is True:        
+        while altitude > 25:        
 
             current = time.perf_counter()
             satellite_timer += current - previous
@@ -57,9 +78,9 @@ if __name__ == "__main__":
                 previous = time.perf_counter()
                 
         
-        if( vehicle.armed == False):
+        if( altitude < 25):
             time.sleep(1)
-            print('El drone no está armado')
+            print('No se cumple la condición de altitud. Altitud actual: ', altitude)
 
 
 

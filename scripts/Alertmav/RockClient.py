@@ -94,7 +94,7 @@ class RockClient():
             # loop as needed
             retry = 0
             while status[0] > 8:
-                time.sleep(10)
+                time.sleep(1)
                 status = rb.satellite_transfer()
                 print("Try num:", retry)
                 print("Satellite status:", status)
