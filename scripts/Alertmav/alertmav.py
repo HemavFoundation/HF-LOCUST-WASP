@@ -38,13 +38,16 @@ def sendLocation(lat,lon,alt, heading):
 if __name__ == "__main__":
 
     while (1):
+            
+        previous = time.perf_counter()
+        satellite_timer = 0
+
 
         while vehicle.armed is True:        
 
-            previous = time.perf_counter()
-            satellite_timer = 0
             current = time.perf_counter()
             satellite_timer += current - previous
+            time.sleep(1)
             print('Satellite timer:', satellite_timer)
             previous = current
 
