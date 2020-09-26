@@ -15,7 +15,7 @@ class DataManagement():
         self.flight_time = None
         self.flight_start = time.perf_counter()
 
-        self.home_coordinates = [35454646, 4355445]
+        self.home_coordinates = home_coordinates
         self.region, self.country = self.location_decoder(home_coordinates)
 
         self.flights.append(

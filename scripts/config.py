@@ -35,7 +35,7 @@ monospectral_camera_settings = dict(
     brightness = 30,
     exposure_mode = 'auto',
     drc_strength = 'high',
-
+    timer = 6, 
 )
 
 flight_controller = dict(
@@ -46,7 +46,7 @@ flight_controller = dict(
 rockblock_settings = dict(
     port = '/dev/ttyUSB0',
     baudrate = 19200,
-    message_timer = 30, # Send message timer in seconds
+    message_timer = 120, # Send message timer in seconds
 )
 
 mission_settings = dict(

@@ -118,12 +118,12 @@ if typeOfMission in ["straight", "zigzag", "rectangle"]:
             camera_interface.test_settings(num)
             num += 1
 
-        if delta_time > 5:  # we want to take images every 30 seconds
+        if delta_time > visual_camera_settings['timer']:  # we want to take images every 30 seconds
             flight_data = main.main_loop_visual(num_visual, path_visual, visualcamera_interface, autopilot_interface, data_interface)
             num_visual += 1                
             delta_time = 0
         
-        if satellite_timer > 300:  # we want to send location every 60 seconds
+        if satellite_timer > rockblock_settings['message_timer']:  # we want to send location every 60 seconds
             
             p2 = multiprocessing.Process(target=sendLocation, args=(autopilot_interface.get_latitude(), autopilot_interface.get_longitude(), autopilot_interface.get_altitude(), autopilot_interface.get_heading()))
             p2.start()
