@@ -27,6 +27,7 @@ class DataManagement():
             "region": self.region,
             "date": ,
             "flightTime": self.flight_time,
+            "saved": False,
             "GreenResults": self.results,
             "VisualImages": self.visualimages,
         )
