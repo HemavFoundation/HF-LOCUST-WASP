@@ -8,8 +8,8 @@ from config import *
 class RockClient():
     def __init__(self):
 
-        self.rockblock_port = rockblock_settings['port']
-        #self.rockblock_port = "COM5"
+        #self.rockblock_port = rockblock_settings['port']
+        self.rockblock_port = "COM11"
         self.baudrate = rockblock_settings['baudrate']
 
     def check_connection(self, rb):
@@ -64,10 +64,9 @@ class RockClient():
             return timestamp
 
     def write_message(self, alt, lat, lon, heading):  # Aqui se codificará el mensaje para enviar
-        typ = '1'
-        status = '01'
-        datadict = {'drone_id': drone_id, 'lat': lat, 'lon': lon,
-                    'alt:': alt, 'heading': heading,}
+
+        datadict = {'id': drone_id, 'lat': lat, 'lon': lon,
+                    'alt': alt, 'hdg': heading,}
         datajson = json.dumps(datadict).encode('utf-8')
         format = str(len(datajson)) + "s"
         datastruct = struct.pack(format, datajson)

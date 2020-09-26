@@ -49,7 +49,7 @@ seconds = pd.datetime.now().second
 
 num = 1
 i = 0
-timestamp = str(hour) + '/' + str(minute)
+#timestamp = str(hour) + '/' + str(minute)
 flight_info = None
 results = []
 while i < 100:

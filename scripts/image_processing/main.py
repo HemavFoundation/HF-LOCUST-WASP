@@ -17,6 +17,7 @@ from image_processing.camera_interface import *
 from image_processing.visual_camera_interface import *
 from image_processing.data_management import *
 from commonFunctions import *
+from Rock_Client import *
 import numpy as np
 import os
 import json
@@ -28,16 +29,17 @@ import math
 def create_directory():  # tested and working
 
     path = '/home/pi/Desktop/HF-LOCUST-WASP/public/results/photos'
-
+    rc = RockClient()
     
     # we need to convert numbers to string to be able to create the new path
-    year = str(pd.datetime.now().year)
-    month = str(pd.datetime.now().month)
-    day = str(pd.datetime.now().day)
-    hour = str(pd.datetime.now().hour)
-    minute = str(pd.datetime.now().minute)
-    global timestamp
-    timestamp = year + "_" + month + "_" + day + "-" + hour + "_" + minute
+    # year = str(pd.datetime.now().year)
+    # month = str(pd.datetime.now().month)
+    # day = str(pd.datetime.now().day)
+    # hour = str(pd.datetime.now().hour)
+    # minute = str(pd.datetime.now().minute)
+    # global timestamp
+    # timestamp = year + "_" + month + "_" + day + "-" + hour + "_" + minute
+    timestamp = rc.get_time()
     
     path_flight = path + "/" + timestamp
     
