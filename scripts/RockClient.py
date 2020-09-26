@@ -47,7 +47,7 @@ class RockClient():
         typ = '1'
         status = '01'
         datadict = {'drone_id': drone_id, 'lat': lat, 'lon': lon,
-                    'alt:': alt, 'heading': heading,}
+                    'alt': alt, 'heading': heading,}
         datajson = json.dumps(datadict).encode('utf-8')
         format = str(len(datajson)) + "s"
         datastruct = struct.pack(format, datajson)
