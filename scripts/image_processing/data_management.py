@@ -1,17 +1,45 @@
 from config import *
 import numpy as np
 import json
-
-
+import reverse_geocoder as rg
+import time
 
 class DataManagement():
     def __init__(self):
         self.mission_type = typeOfMission
-       
+        
         self.results = []
         self.visualimages = []
+        self.flights = []
+        
+        self.flight_time = None
+        self.flight_start = time.perf_counter()
 
+        self.home_coordinates = [35454646, 4355445]
+        self.region, self.country = self.location_decoder(home_coordinates)
+
+        self.flights.append(
+            "id_plate": drone_id,
+            "id_flight": timestamp,
+            "typeOfFlight": typeOfMission,
+            "homeCoordinates": home_coordinates, 
+            "country": self.country,
+            "region": self.region,
+            "date": ,
+            "flightTime": ,
+            "GreenResults": self.results,
+            "VisualImages": self.visualimages,
+        )
+
+        flights_information = {
+            "dataOfFlights": self.flights,
+        }
+
+    
     def edit_json(self, new_flight):
+        
+        self.flight_time = time.perf_counter() - self.flight_start
+
         # we try to write an existing json. If not existing, we create a new one
         try:
             with open('/home/pi/Desktop/HF-LOCUST-WASP/results.json', 'r+') as f:
@@ -57,10 +85,7 @@ class DataManagement():
         )
 
         flight = {
-            "id": timestamp,
-            "typeOfFlight": self.mission_type,
-            "GreenResults": self.results,
-            "VisualImages": self.visualimages,
+            "dataOfFlights": self.flights,
         }
 
         return flight
@@ -75,13 +100,21 @@ class DataManagement():
         )
 
         flight = {
-            "id": timestamp,
-            "typeOfFlight": self.mission_type,
-            "GreenResults": self.results,
-            "VisualImages": self.visualimages,
+            "dataOfFlights": self.flights,
         }
 
         return flight
+    
+    def location_decoder(self, coordinates):  # function to know the region and the country where the flight takes place
+        location = rg.search(coordinates)
+
+        df = pd.DataFrame.from_dict(location)
+        region = df['name'][0]
+        state = df['admin1'][0]
+        country = df['cc'][0]
+
+        return region, country
+
 
 
 
