@@ -43,6 +43,26 @@ class RockClient():
 
         return rb
 
+    def get_time(self):
+        rb = self.connect_rockblock()
+        resp = rb._uart_xfer("+CCLK?")  # 20/09/26,12:07:13
+
+        if resp[-1].strip().decode() == "OK":
+            status = tuple(resp[1].decode().split(","))
+            date = (status[0].split(":"))[1]
+
+            year = str(int(date.split("/")[0]) + 2000)
+            month = date.split("/")[1]
+            day = date.split("/")[2]
+
+            time = status[1]
+            hour = int(time.split(":")[0]) + 2 # UTC +2 for Spain
+            min = time.split(":")[1]
+            #sec = time.split(":")[2]
+
+            timestamp = str(year) + "_" + str(month) + "_" + str(day) + "-" + str(hour) + "_" + str(min)
+            return timestamp
+
     def write_message(self, alt, lat, lon, heading):  # Aqui se codificará el mensaje para enviar
         typ = '1'
         status = '01'
