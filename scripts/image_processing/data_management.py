@@ -26,7 +26,7 @@ class DataManagement():
             "country": self.country,
             "region": self.region,
             "date": ,
-            "flightTime": ,
+            "flightTime": self.flight_time,
             "GreenResults": self.results,
             "VisualImages": self.visualimages,
         )
@@ -35,9 +35,9 @@ class DataManagement():
             "dataOfFlights": self.flights,
         }
 
-    
+
     def edit_json(self, new_flight):
-        
+
         self.flight_time = time.perf_counter() - self.flight_start
 
         # we try to write an existing json. If not existing, we create a new one

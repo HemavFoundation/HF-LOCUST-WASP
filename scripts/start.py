@@ -74,10 +74,12 @@ visualcamera_interface = VisualCameraInterface(timestamp)
 data_interface = DataManagement()
 
 # we get the home coordinates to introduce them in the intelligent RTL function
+global home_coordinates
 home_coordinates = (autopilot_interface.get_latitude, autopilot_interface.get_longitude)
 
 global num
 global num_visual
+
 
 num = 1
 num_visual = 1
