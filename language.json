@@ -6,7 +6,6 @@
     "language": {
       "en": {
         "#fp-title": "Flight Planner",
-        "#fp-disk-desc": "SD Card disk space used",
         "#fp-connect": "Connect",
         "#fp-connect-desc-1": "Push for drone connection",
         "#fp-connect-desc-2": "Drone is connected now!",

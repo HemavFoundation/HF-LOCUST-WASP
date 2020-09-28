@@ -7,7 +7,7 @@
   <script src="../js/jquery.js"></script>
   <script src="../js/jquery.MultiLanguage.min.js"></script>
   <link rel="stylesheet" href="../css/style.css">
-  <title>Flight Planner</title>
+  <title>dLocust APP</title>
 </head>
 
 
@@ -19,7 +19,18 @@
     </div>
   </div>
 
-  <h2 id="h-history-title"></h2>
+  <div id="titlePlanner">
+    <h2 id="PlannerTitle">
+      <div id="h-history-title"></div>
+    </h2>
+    <label id="USB-status"></label>
+
+  </div>
+  <h4 id="USB-status-desc">
+    <div id="h-disk-desc"></div>
+  </h4>
+
+
   <br><br>
   <hr />
   <div id="dvTable">
@@ -35,7 +46,10 @@
       </tbody>
     </table>
   </div>
-
+  <br><br>
+  <button class="square_btn">
+    <div id="h-backup"></div>
+  </button>
   <br><br><br>
   <h2 id="h-flight-title"></h2>
 
@@ -78,6 +92,8 @@
       $.MultiLanguage('/history-language.json', 'en')
       var ipConnection = '192.168.0.10'
       fillHistoryTable(ipConnection);
+      diskSpace(ipConnection)
+
       $('#theme_switcher').on('click', themeSwitcher);
 
     })
@@ -99,6 +115,8 @@
       })
 
     }
+
+
 
     function fillResultsTable(passId) {
       $("#resultsTable").html(""); //primero vacio la tabla existente
@@ -152,6 +170,52 @@
         return;
       }
     }
+
+    function round(value, decimals) {
+      return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
+    }
+
+    function diskSpace(ipConnection) {
+      $("#USB-status").empty();
+      $("#USB-status").append("--")
+
+      $.ajax({
+        type: 'GET',
+        url: 'http://' + ipConnection + ':9000/api/utilities/USBdiskSpace',
+        dataType: 'json',
+        success: function (data, textStatus, xhr) {
+          value = round(((data.sizeSpace - data.freeSpace) / data.sizeSpace) * 100, 2)
+          diskPercentage = value;
+
+          if (diskPercentage <= 1) {
+            $("#USB-status").empty();
+            $("#USB-status").append(value + " % ")
+
+          } else {
+            $("#USB-status").empty();
+            $("#USB-status").append(value + " % ")
+            $("#USB-status").css({
+
+              "display": "inline - block",
+              "position": "relative",
+              "right": "-540px",
+              "padding": "0.5em 1em",
+              "background": "#e3cc0e",
+              "color": "#FD0A0A",
+              "border- radius": "10 %",
+              "font - size": "18px"
+            });
+          }
+
+        },
+        error: function (data, textStatus, xhr) {
+          $("#USB-status").empty();
+          $("#USB-status").append("--")
+        },
+      })
+
+    }
+
 
   </script>
 

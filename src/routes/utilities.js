@@ -1,3 +1,4 @@
+
 const { Router } = require("express");
 const checkDiskSpace = require('check-disk-space');
 const router = Router();
@@ -29,5 +30,27 @@ router.get('/SDdiskSpace', (req, res) => {
     }
 
 })
+
+router.get('/USBdiskSpace', (req, res) => {
+
+    if (environment == 'drone' || environment == 'mac') {
+        checkDiskSpace('/dev/sda1').then((disk) => {
+            res.status(200).send({
+                freeSpace: round(disk.free / 1073741824, 2),
+                sizeSpace: round(disk.size / 1073741824, 2)
+            })
+        })
+    } else {
+        checkDiskSpace('C:/').then((disk) => {
+            res.status(200).send({
+                freeSpace: round(disk.free / 1073741824, 2),
+                sizeSpace: round(disk.size / 1073741824, 2)
+            })
+
+        })
+    }
+
+})
+
 
 module.exports = router;

@@ -684,7 +684,7 @@ td, th {
 	cursor: pointer;
 	padding: 15px 50px 10px 30px;
 	transition: 0.3s;
-	font-size: 20px;
+	font-size: 14px;
 	color: white;
 	width: fit-content;
 }
@@ -760,7 +760,7 @@ th, td {
 	border: 2px solid #8a1a2d;
 	padding: 15px;
 	text-align: left;
-	font-size: 20px;
+	font-size: 18px;
 	color: white;
 }
 
@@ -806,7 +806,7 @@ th, td {
 	background: #8a1a2d;
 	color: #FFF;
 	border-radius: 10%;
-	font-size: 20px;
+	font-size: 14px;
 }
 
 .square_btn:active {
@@ -864,7 +864,7 @@ th, td {
 	right: 20px;
 	top: 20px;
 	border: none;
-	font-size: 20px;
+	font-size: 18px;
 	color: silver;
 	padding: 16px 22px;
 	text-align: center;
@@ -877,17 +877,17 @@ th, td {
 }
 
 
-#SD-status-desc {
+#USB-status-desc {
 	display: inline-block;
 	position: relative;
 	right: -533px;
 	color: #FFF;
 	font-size: 14px;
 }
-#SD-status {
+#USB-status {
 	display: inline-block;
 	position: relative;
-	right: -454px;
+	right: -540px;
 	padding: 0.5em 1em;
 	background: #8a1a2d;
 	color: #FFF;
@@ -938,7 +938,7 @@ body.HIGH_CONTRAST .card {
 	right: 20px;
 	bottom: 20px;
 	border: none;
-	font-size: 17px;
+	font-size: 18px;
 	color: silver;
 	padding: 16px 22px;
 	text-align: center;

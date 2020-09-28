@@ -6,7 +6,9 @@
     "language": {
       "en": {
         "#h-history-title": "History",
-        "#h-flight-title": "Visual Results",
+        "#h-disk-desc": "USB memory space used",
+        "#h-backup": "Backup data into the USB Memory",
+        "#h-flight-title": "Vegetation Results",
         "#h-hour": "Hour",
         "#h-typeofmission": "Type Of Mission",
         "#h-flightinfo": "Flight Info",
@@ -22,7 +24,9 @@
       },
       "ar": {
         "#h-history-title": "التاريخ",
-        "#h-flight-title": "النتائج المرئية",
+        "#h-disk-desc": "مساحة ذاكرة USB المستخدمة",
+        "#h-backup": "بيانات النسخ الاحتياطي في ذاكرة USB",
+        "#h-flight-title": "نتائج الغطاء النباتي",
         "#h-hour": "ساعة",
         "#h-typeofmission": "نوع المهمة",
         "#h-flightinfo": "معلومات الرحلة",
