@@ -483,7 +483,7 @@
               "font - size": "18px"
 
 
-             });
+            });
 
 
 
@@ -590,30 +590,23 @@
       $('#theme_switcher').on('click', themeSwitcher);
 
       $("#droneConnectButton").click(function () {
-        if (diskPercentage <= 70) {
-          document.getElementById('droneConnectImg').src = "../images/waiting.png";
-          $.ajax({
-            type: 'GET',
-            url: 'http://' + ipConnection + ':9000/api/connect',
-            dataType: 'json',
-            success: function (data, textStatus, xhr) {
-              document.getElementById('droneConnectionH4').hidden = true
-              document.getElementById('droneCoonnectedH4').hidden = false
-              document.getElementById('droneConnectImg').src = "../images/tick.png";
-              document.getElementById('directionDroneButton').disabled = false
-            },
-            error: function (data, textStatus, xhr) {
-              document.getElementById('droneConnectImg').src = "../images/cross.png";
-              document.getElementById('droneConnectionH4').hidden = true
-            }
-          })
+        document.getElementById('droneConnectImg').src = "../images/waiting.png";
+        $.ajax({
+          type: 'GET',
+          url: 'http://' + ipConnection + ':9000/api/connect',
+          dataType: 'json',
+          success: function (data, textStatus, xhr) {
+            document.getElementById('droneConnectionH4').hidden = true
+            document.getElementById('droneCoonnectedH4').hidden = false
+            document.getElementById('droneConnectImg').src = "../images/tick.png";
+            document.getElementById('directionDroneButton').disabled = false
+          },
+          error: function (data, textStatus, xhr) {
+            document.getElementById('droneConnectImg').src = "../images/cross.png";
+            document.getElementById('droneConnectionH4').hidden = true
+          }
+        })
 
-
-        } else {
-          $('#popup_connection').fadeIn('slow');
-          $('.popup-overlay').fadeIn('slow');
-
-        }
       });
 
 

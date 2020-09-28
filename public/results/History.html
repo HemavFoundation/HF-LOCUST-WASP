@@ -29,7 +29,39 @@
   <h4 id="USB-status-desc">
     <div id="h-disk-desc"></div>
   </h4>
+  <div id="popupUSBSpace" style="display: none;">
+    <div class="content-popup">
+      <div class="close"><a href="#" id="close"><img src="../images/cross.png" height="20" width="20" /></a></div>
+      <div>
+        <h2>
+          <div id="h-popupUSBSpace-title"></div>
+        </h2>
+        <p>
+        <div id="h-popupUSBSpace-desc"></div>
+        </p>
+        <div style="float:left; width:100%;">
+        </div>
+      </div>
+    </div>
+  </div>
 
+
+  <div id="popupLoad" style="display: none;">
+    <div class="content-popup">
+      <div class="close"><a href="#" id="close"><img src="../images/cross.png" height="20" width="20" /></a></div>
+      <div>
+        <h2>
+          <div id="h-popupLoad-title"></div>
+        </h2>
+        <p>
+        <div id="h-popupLoad-desc"></div>
+        </p>
+        <div style="float:left; width:100%;">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="popup-overlay"></div>
 
   <br><br>
   <hr />
@@ -47,11 +79,12 @@
     </table>
   </div>
   <br><br>
-  <button class="square_btn">
+  <button class="square_btn" id = "backupButton">
     <div id="h-backup"></div>
   </button>
   <br><br><br>
   <h2 id="h-flight-title"></h2>
+  
 
   <br><br>
   <div id="rsTable">
@@ -80,19 +113,94 @@
     <div id="h-goPlanner"></div>
   </button>
 
+
   <select onchange="languageSelector();" id="languageSelector" class="language">
     <option value="en">English</option>
     <option value="ar">عرب</option>
   </select>
 
+
+  
+
+
   <script>
     var theme = 'DEFAULT'
+    let diskPercentage;
 
-    $(document).ready(function () {
+
+    $(document).ready(function () {       
+      
+
       $.MultiLanguage('/history-language.json', 'en')
       var ipConnection = '192.168.0.10'
       fillHistoryTable(ipConnection);
-      diskSpace(ipConnection)
+
+
+      var promise = new Promise(function (resolve, reject) {
+        $("#USB-status").empty();
+        $("#USB-status").append("--")
+
+        $.ajax({
+          type: 'GET',
+          url: 'http://' + ipConnection + ':9000/api/utilities/USBdiskSpace',
+          dataType: 'json',
+          success: function (data, textStatus, xhr) {
+            value = round(((data.sizeSpace - data.freeSpace) / data.sizeSpace) * 100, 2)
+
+            if (diskPercentage <= 1) {
+              $("#USB-status").empty();
+              $("#USB-status").append(value + " % ")
+
+            } else {
+              $("#USB-status").empty();
+              $("#USB-status").append(value + " % ")
+              $("#USB-status").css({
+
+                "display": "inline - block",
+                "position": "relative",
+                "right": "-540px",
+                "padding": "0.5em 1em",
+                "background": "#e3cc0e",
+                "color": "#FD0A0A",
+                "border- radius": "10 %",
+                "font - size": "18px"
+              });
+            }
+            resolve(value)
+
+          },
+          error: function (data, textStatus, xhr) {
+            $("#USB-status").empty();
+            $("#USB-status").append("--")
+            reject("error")
+          },
+        })
+
+      })
+
+      promise.then(function (data) {
+        if (data >= 1) {
+          console.log("wfhewoir")
+        }
+      }, function (err) {
+        console.log(err)
+      });
+
+
+      $('#close').on('click', function () {
+        $('#popupUSBSpace').fadeOut('slow');
+        $('#popupLoad').fadeOut('slow');
+        $('.popup-overlay').fadeOut('slow');
+
+        return false;
+      });
+
+      $('#backupButton').on('click', function () {
+        $('#popupUSBSpace').fadeIn('slow');
+        $('.popup-overlay').fadeIn('slow');
+
+      })
+
 
       $('#theme_switcher').on('click', themeSwitcher);
 
@@ -175,46 +283,6 @@
       return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
     }
 
-    function diskSpace(ipConnection) {
-      $("#USB-status").empty();
-      $("#USB-status").append("--")
-
-      $.ajax({
-        type: 'GET',
-        url: 'http://' + ipConnection + ':9000/api/utilities/USBdiskSpace',
-        dataType: 'json',
-        success: function (data, textStatus, xhr) {
-          value = round(((data.sizeSpace - data.freeSpace) / data.sizeSpace) * 100, 2)
-          diskPercentage = value;
-
-          if (diskPercentage <= 1) {
-            $("#USB-status").empty();
-            $("#USB-status").append(value + " % ")
-
-          } else {
-            $("#USB-status").empty();
-            $("#USB-status").append(value + " % ")
-            $("#USB-status").css({
-
-              "display": "inline - block",
-              "position": "relative",
-              "right": "-540px",
-              "padding": "0.5em 1em",
-              "background": "#e3cc0e",
-              "color": "#FD0A0A",
-              "border- radius": "10 %",
-              "font - size": "18px"
-            });
-          }
-
-        },
-        error: function (data, textStatus, xhr) {
-          $("#USB-status").empty();
-          $("#USB-status").append("--")
-        },
-      })
-
-    }
 
 
   </script>

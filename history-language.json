@@ -18,8 +18,11 @@
         "#h-lat": "Latitude",
         "#h-image": "Image",
         "#h-clear": "Clear table",
-        "#h-goPlanner": "Go to Flight Planner"
-
+        "#h-goPlanner": "Go to Flight Planner",
+        "#h-popupUSBSpace-title": "Unable to connect with the drone ",
+        "#h-popupUSBSpace-desc": "The memory of the SD card is about to run out of space, to be able to make a new flight please back up the data of the SD card from the history to the USB memory.",
+        "#h-popupLoad-title": "Unable to connect with the drone ",
+        "#h-popupLoad-desc": "The memory of the SD card is about to run out of space, to be able to make a new flight please back up the data of the SD card from the history to the USB memory."
 
       },
       "ar": {
@@ -36,7 +39,12 @@
         "#h-lat": "خط العرض",
         "#h-image": "صورة",
         "#h-clear": "جدول واضح",
-        "#h-goPlanner": "انتقل إلى مخطط الرحلة"
+        "#h-goPlanner": "انتقل إلى مخطط الرحلة",
+        "#h-popupUSBSpace-title": "Unable to connect with the drone ",
+        "#h-popupUSBSpace-desc": "The memory of the SD card is about to run out of space, to be able to make a new flight please back up the data of the SD card from the history to the USB memory.",
+        "#h-popupLoad-title": "Unable to connect with the drone ",
+        "#h-popupLoad-desc": "The memory of the SD card is about to run out of space, to be able to make a new flight please back up the data of the SD card from the history to the USB memory."
+
 
       }
     }
