@@ -63,20 +63,25 @@ class RockClient():
             timestamp = str(year) + "_" + str(month) + "_" + str(day) + "-" + str(hour) + "_" + str(min)
             return timestamp
 
-    def write_message(self, alt, lat, lon, heading):  # Aqui se codificará el mensaje para enviar
+    def write_message(self, altitude, latitude, longitude, heading, status):  
+        data = ""
+        #Short data:
+        alt = round(altitude,1)
+        lat = round(latitude,5)
+        lon = round(longitude,5)
+        id = drone_id.replace("-", "")
 
-        datadict = {'id': drone_id, 'lat': lat, 'lon': lon,
-                    'alt': alt, 'hdg': heading,}
-        datajson = json.dumps(datadict).encode('utf-8')
-        format = str(len(datajson)) + "s"
-        datastruct = struct.pack(format, datajson)
+        #Select message construction type:
+        if status == 0: #LANDING
+            data = str(drone_id) + ',' + str(status) + ',' + str(latitude) + ',' + str(longitude) + ',' + str(alt)
+       
+        else status == 1: #FLIGHT
+            data = str(drone_id) + ',' + str(status) + ',' + str(latitude) + ',' + str(longitude) + ',' + str(alt) + ','+ str(heading) + ','+ str(typeOfMission)
 
-        return datastruct
+        return data
 
-
-    def send_location(self, lat, lon, alt, heading):  # Aqui se enviarán los mensajes
-        
-        print('Satellite heading:', heading)
+    def send_location(self, lat, lon, alt, hdg, status): 
+ 
         rb = self.connect_rockblock()
 
         cc = self.check_connection(rb)
@@ -95,14 +100,14 @@ class RockClient():
                 print('Im tired of checking signal')
                 break
 
-
         if cc is not False:
-            data = self.write_message(alt,lat,lon, heading)
+            
+            data = self.write_message(alt, lat, lon, hdg, status)
 
             print("Ready to send message!")
 
             # put data in outbound buffer
-            rb.data_out = data
+            rb.out_text = data
 
             # try a satellite Short Burst Data transfer
             print("Talking to satellite...")

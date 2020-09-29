@@ -61,9 +61,9 @@ rc = RockClient()
 #         print('Empty json')
 
 
-def sendLocation(lat,lon,alt, heading):
+def sendLocation(lat, lon, alt, hdg, status):
     
-    rc.send_location(lat,lon,alt, heading)
+    rc.send_location(lat,lon,alt,hdg,status)
 
     
 path_mono, path_visual, raw_images, timestamp = main.create_directory()
@@ -124,9 +124,9 @@ if typeOfMission in ["straight", "zigzag", "rectangle"]:
             delta_time = 0
         
         if satellite_timer > rockblock_settings['message_timer']:  # we want to send location every 60 seconds
-            
-            p2 = multiprocessing.Process(target=sendLocation, args=(autopilot_interface.get_latitude(), autopilot_interface.get_longitude(), autopilot_interface.get_altitude(), autopilot_interface.get_heading()))
-            p2.start()
+            status = 1 #Flight status
+            p1 = multiprocessing.Process(target=sendLocation, args=(autopilot_interface.get_latitude(), autopilot_interface.get_longitude(), autopilot_interface.get_altitude(), autopilot_interface.get_heading(),status))
+            p1.start()
             satellite_timer = 0
 
     if flight_data is not None:
@@ -158,7 +158,21 @@ if typeOfMission is "periscope":
         print('flight data is empty')
 
 try:
-    p2.kill()
+    p1.kill() #Send flight messages finished
+
+    status = 0 #Landing status
+    heading = 0 #Not necessary at landing
+
+    previous = time.perf_counter()
+    timer = 0
+
+    while timer < (60*5):
+        current = time.perf_counter()
+        timer += current - previous
+        previous = current
+
+        sendLocation(autopilot_interface.get_latitude(), autopilot_interface.get_longitude(), autopilot_interface.get_altitude(), heading , status) #Send landing messages started
+        
 except:
     print('Satellite process has not even started')
     
