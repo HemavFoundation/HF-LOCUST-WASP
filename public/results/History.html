@@ -150,7 +150,7 @@
         success: function (data, textStatus, xhr) {
           value = round(((data.sizeSpace - data.freeSpace) / data.sizeSpace) * 100, 2)
 
-          if (diskPercentage <= 1) {
+          if (diskPercentage <= 70) {
             $("#USB-status").empty();
             $("#USB-status").append(value + " % ")
 

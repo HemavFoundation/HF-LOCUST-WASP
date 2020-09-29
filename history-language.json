@@ -6,8 +6,8 @@
     "language": {
       "en": {
         "#h-history-title": "History",
-        "#h-disk-desc": "USB memory space used",
-        "#h-backup": "Backup data into the USB Memory",
+        "#h-disk-desc": "USB flash drive space used",
+        "#h-backup": "Backup data into the USB flash drive",
         "#h-flight-title": "Vegetation Results",
         "#h-hour": "Hour",
         "#h-typeofmission": "Type Of Mission",
@@ -19,16 +19,16 @@
         "#h-image": "Image",
         "#h-clear": "Clear table",
         "#h-goPlanner": "Go to Flight Planner",
-        "#h-popupUSBSpace-title": "Unable to connect with the drone ",
-        "#h-popupUSBSpace-desc": "The memory of the SD card is about to run out of space, to be able to make a new flight please back up the data of the SD card from the history to the USB memory.",
-        "#h-popupLoad-title": "Unable to connect with the drone ",
-        "#h-popupLoad-desc": "The memory of the SD card is about to run out of space, to be able to make a new flight please back up the data of the SD card from the history to the USB memory."
+        "#h-popupUSBSpace-title": "WARNING: The USB flash drive is about to be filled",
+        "#h-popupUSBSpace-desc": "The memory of the USB flash drive is about to run out of space, please change it for another one.",
+        "#h-popupLoad-title": "Loading the data to the USB flash drive... ",
+        "#h-popupLoad-desc": "Remember to wait unitl the LED light turns off to continue working with the drone"
 
       },
       "ar": {
         "#h-history-title": "التاريخ",
-        "#h-disk-desc": "مساحة ذاكرة USB المستخدمة",
-        "#h-backup": "بيانات النسخ الاحتياطي في ذاكرة USB",
+        "#h-disk-desc": "مساحة محرك أقراص فلاش USB المستخدمة",
+        "#h-backup": "بيانات النسخ الاحتياطي في محرك فلاش USB",
         "#h-flight-title": "نتائج الغطاء النباتي",
         "#h-hour": "ساعة",
         "#h-typeofmission": "نوع المهمة",
@@ -40,10 +40,10 @@
         "#h-image": "صورة",
         "#h-clear": "جدول واضح",
         "#h-goPlanner": "انتقل إلى مخطط الرحلة",
-        "#h-popupUSBSpace-title": "Unable to connect with the drone ",
-        "#h-popupUSBSpace-desc": "The memory of the SD card is about to run out of space, to be able to make a new flight please back up the data of the SD card from the history to the USB memory.",
-        "#h-popupLoad-title": "Unable to connect with the drone ",
-        "#h-popupLoad-desc": "The memory of the SD card is about to run out of space, to be able to make a new flight please back up the data of the SD card from the history to the USB memory."
+        "#h-popupUSBSpace-title": "تحذير: محرك أقراص USB المحمول على وشك الامتلاء ",
+        "#h-popupUSBSpace-desc": "ذاكرة محرك أقراص فلاش USB على وشك النفاد ، يرجى تغييرها إلى أخرى",
+        "#h-popupLoad-title": "تحميل البيانات إلى محرك أقراص فلاش USB ...",
+        "#h-popupLoad-desc": "تذكر الانتظار حتى ينطفئ ضوء LED لمواصلة العمل مع الطائرة بدون طيار"
 
 
       }
