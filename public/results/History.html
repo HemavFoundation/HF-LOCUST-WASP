@@ -46,21 +46,6 @@
   </div>
 
 
-  <div id="popupLoad" style="display: none;">
-    <div class="content-popup">
-      <div class="close"><a href="#" id="close"><img src="../images/cross.png" height="20" width="20" /></a></div>
-      <div>
-        <h2>
-          <div id="h-popupLoad-title"></div>
-        </h2>
-        <p>
-        <div id="h-popupLoad-desc"></div>
-        </p>
-        <div style="float:left; width:100%;">
-        </div>
-      </div>
-    </div>
-  </div>
   <div class="popup-overlay"></div>
 
   <br><br>
@@ -82,7 +67,28 @@
   <button class="square_btn" id="backupButton">
     <div id="h-backup"></div>
   </button>
-  <br><br><br>
+  <br>
+  
+      <div id="popupLoad" style="display: none;">
+    <div class="content-popup">
+      <div class="close"><a href="#" id="closeLoad"><img src="../images/cross.png" height="20" width="20" /></a></div>
+      <div>
+        <h2>
+          <div id="h-popupLoad-title"></div>
+        </h2>
+        <p>
+        <div id="h-popupLoad-desc"></div>
+        </p>
+        <div style="float:left; width:100%;">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  
+  <br><br>
+
   <h2 id="h-flight-title"></h2>
 
 
@@ -178,14 +184,21 @@
 
     $('#close').on('click', function () {
       $('#popupUSBSpace').fadeOut('slow');
+      $('.popup-overlay').fadeOut('slow');
+
+      return false;
+    });
+
+    $('#closeLoad').on('click', function () {
       $('#popupLoad').fadeOut('slow');
       $('.popup-overlay').fadeOut('slow');
 
       return false;
     });
 
+
     $('#backupButton').on('click', function () {
-      $('#popupUSBSpace').fadeIn('slow');
+      $('#popupLoad').fadeIn('slow');
       $('.popup-overlay').fadeIn('slow');
 
     })
