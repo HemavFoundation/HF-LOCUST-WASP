@@ -15,7 +15,6 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cors());
-
 // routes
 app.use("/api/connect", require("./routes/connect"));
 app.use("/api/load", require("./routes/load"));
@@ -50,10 +49,6 @@ app.get('/history', (req, res) => {
 
 app.get('/locustFinder', (req, res) => {
     res.sendFile(path.join(___dirname + '/public/results/locustFinder.html'));
-});
-
-app.get('/1.jpeg', (req, res) => {
-    res.sendFile(path.join(___dirname + '/public/results/photos/Test Flight/raw_images/1.jpeg'));
 });
 
 app.get('/language.json', (req, res) => {
